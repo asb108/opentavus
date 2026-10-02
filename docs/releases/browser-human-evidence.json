@@ -1,0 +1,53 @@
+{
+  "task": "T21",
+  "date": "2026-10-03",
+  "hardware": "Apple M3 Pro, 18 GB; Chrome; Metal through ANGLE",
+  "command": "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --avatar --live",
+  "status": "bounded_preview_checks_passed",
+  "results": {
+    "graphics": {
+      "width": 384,
+      "height": 384,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)"
+    },
+    "idle": {
+      "frames": 150,
+      "durationMs": 4966.899999999441,
+      "fps": 29.998590670240343,
+      "p95GapMs": 34.10000000055879,
+      "firstFrameAfterNavigationMs": 165.09999999962747,
+      "gapsOver100Ms": 0
+    },
+    "live": {
+      "stopClickToWorkletAckMs": 50,
+      "stalePositiveEnergy": 0,
+      "positiveEnergyEvents": 41
+    },
+    "staticCleanup": true,
+    "contextLossFallback": true
+  },
+  "failure_cases": {
+    "static_stops_renderer": true,
+    "lost_context_fallback": true,
+    "invalid_glb_fallback_and_call": true,
+    "cancelled_load_does_not_replace_cartoon": true,
+    "webgl_unavailable_fallback": true
+  },
+  "capture": {
+    "kind": "native-speed browser canvas plus real Worklet audio from a synthetic question",
+    "local_ignored_path": "output/playwright/human-call.webm",
+    "bytes": 742045,
+    "sha256": "d2c7e6aef347dd642f05bcdacc8775488c247c4243b3385ccd740bfa139ab95e"
+  },
+  "visual_review": "Stock CC0 3D face is visibly stylized. User rejected this as the realistic-human goal; retain only as an accurately labeled optional lightweight mode.",
+  "unverified": [
+    "phoneme lip-sync",
+    "20-minute resources",
+    "low-spec Windows/Linux performance",
+    "full T05 import and T13 quality",
+    "photographic appearance and general natural emotion"
+  ],
+  "publication": {
+    "status": "pending source commit/CI"
+  }
+}

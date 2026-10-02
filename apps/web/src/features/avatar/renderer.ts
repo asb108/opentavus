@@ -1,8 +1,34 @@
+import type { AvatarVariant } from "./catalog";
+import type { AvatarFailure } from "./failure";
+import type { Delivery } from "./behavior";
+
 /** A trusted renderer boundary. Optional plugins are never imported by metadata URL. */
 export interface AvatarRenderer {
   setLevel(level: number): void;
   setListening(listening: boolean): void;
+  setDelivery?(delivery: Delivery): void;
   dispose(): void;
+}
+
+export async function createAvatar(
+  canvas: HTMLCanvasElement,
+  variant: AvatarVariant,
+  signal: AbortSignal,
+  unavailable: (failure: AvatarFailure) => void,
+): Promise<AvatarRenderer> {
+  signal.throwIfAborted();
+  if (variant === "mira-photo") {
+    const { createPhotographic } = await import("./photographic");
+    signal.throwIfAborted();
+    return createPhotographic(canvas, signal);
+  }
+  if (variant === "mira") {
+    const { createHuman } = await import("./human");
+    signal.throwIfAborted();
+    return createHuman(canvas, signal, unavailable);
+  }
+  if (variant === "portrait") return { setLevel() {}, setListening() {}, dispose() {} };
+  return createCompanion(canvas, variant);
 }
 
 export function createCompanion(

@@ -11,7 +11,32 @@ Both producer and browser reject unmatched or duplicated choices. Applied lesson
 is acknowledged before it enters spoken-reply context. This is the initial published
 teaching schema; future incompatible changes require a coordinated version update.
 
-The base browser contains a small trusted `AvatarRenderer` interface and two original companion variants. A later LAM renderer has its own package/lazy import and is not registered by arbitrary metadata-provided JavaScript. LAM is currently absent, so the shipped alpha starts without it. Its install/disable/remove/restart matrix still requires T06 live integration and is not proved merely by this absence.
+The base browser contains a small trusted `AvatarRenderer` interface, two original
+companion variants, prepared photographic playback and a lazy curated stock-human
+renderer. Static mode imports neither animated implementation. T21 accepts only the pinned bundled asset,
+not arbitrary uploaded GLB files. A later LAM renderer has its own package/lazy
+import and is not registered by arbitrary metadata-provided JavaScript. LAM is
+currently absent, so the shipped alpha starts without it. Its install/disable/
+remove/restart matrix still requires T06 live integration and is not proved merely
+by this absence.
+
+The stock renderer accepts a canvas, an AbortSignal and a structured failure
+callback. Preparation is abortable, and disposal is idempotent after partial
+initialization. It consumes the common played-audio energy with no independent
+AudioContext or speech queue. Lost graphics, invalid assets and late preparation
+cannot end or replace the selected conversation. Photographic playback uses the
+same boundary, with optional typed `setDelivery` presentation cues; offline
+animation dependencies do not belong to the base. Its curated manifest fixes four
+expression sheets, 36 tiles per sheet and 384-pixel tiles. Build and browser checks
+reject wrong hashes/sizes. Abort/dispose closes even partially decoded images.
+There is no URL-driven custom face/model import in this preview.
+
+The photographic asset review distinguishes an owner-authorized OpenAI source
+creation from the reviewed open animation core and the retained open-model source
+alternative. Provenance must identify each separately. A source image generated
+by a proprietary service cannot be relabeled as an open-model output. Asset
+creation, prepared browser rendering and live neural video are distinct
+capabilities with distinct evidence; one does not establish the other.
 
 ## Descriptor and discovery
 

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "stock.mira.v1",
+  "display_name": "Mira (fictional MPFB stock human)",
+  "eligibility": "reviewed_permissive",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+  "author": "Mika Suominen / met4citizen",
+  "source": {
+    "repository": "https://github.com/met4citizen/TalkingHead",
+    "revision": "b3e277b3b46f88e557bf28a2c5612a5b04e075c3",
+    "path": "avatars/mpfb.glb",
+    "bytes": 36815920,
+    "sha256": "63c645a2a863b9972e9a9c2ed576a1de4c390b8475508e1473e69c87a3ee299c",
+    "license_evidence": "https://github.com/met4citizen/TalkingHead/blob/b3e277b3b46f88e557bf28a2c5612a5b04e075c3/README.md#credits"
+  },
+  "prepared": {
+    "path": "mira.glb",
+    "bytes": 4692576,
+    "sha256": "8bea3b080a5b56e9fff702b23bc7f208a6f33b2d7329a0baf0a21768f1f24799",
+    "changes": "Keep jawOpen and left/right blink shapes, prune unused morph buffers, deduplicate, resize textures to at most 1024 px and encode WebP. Geometry, rig, clothing and identity are retained.",
+    "tools": {
+      "@gltf-transform/core": "4.2.1",
+      "@gltf-transform/functions": "4.2.1",
+      "@gltf-transform/extensions": "4.2.1",
+      "sharp": "0.34.3"
+    }
+  },
+  "poster": {
+    "path": "mira.png",
+    "bytes": 103795,
+    "sha256": "0b0f4644824944d0863301b0f530f042f59d7987cb601b4ea67768aa38723c73",
+    "method": "Native 384 x 384 PNG captured from the prepared CC0 mesh using the browser-avatar check; no real-person photograph."
+  }
+}

@@ -9,7 +9,7 @@ from pydantic import Field
 class CallSettings(Boundary):
     model: Literal["qwen2.5:0.5b", "qwen2.5:1.5b", "qwen2.5:7b"] = "qwen2.5:1.5b"
     voice: Literal["af_heart", "af_bella", "am_michael", "bf_emma"] = "af_heart"
-    avatar: Literal["orbit", "lumen"] = "orbit"
+    avatar: Literal["mira-photo", "mira", "portrait", "orbit", "lumen"] = "mira-photo"
 
 
 class CallCreated(Boundary):

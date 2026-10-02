@@ -5,6 +5,14 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+if (process.argv.includes("--photo")) {
+  await import("./browser-photo.mjs");
+  process.exit(0);
+}
+if (process.argv.includes("--avatar")) {
+  await import("./browser-avatar.mjs");
+  process.exit(0);
+}
 const cli = path.join(root, "node_modules/.bin/playwright-cli");
 const live = process.argv.includes("--live");
 const microphone = process.argv.includes("--microphone");
@@ -40,7 +48,12 @@ function run(code) {
   return command("run-code", `async (page) => { ${code} }`);
 }
 try {
-  command("open", "http://127.0.0.1:8765", `--config=${config}`, ...(headed ? ["--headed"] : []));
+  command(
+    "open",
+    process.env.OPENTAVUS_TEST_URL ?? "http://127.0.0.1:8765",
+    `--config=${config}`,
+    ...(headed ? ["--headed"] : []),
+  );
   // Snapshot establishes the currently rendered UI before scripted interactions.
   command("snapshot");
   run(`
@@ -256,7 +269,7 @@ try {
           !(await page.getByRole('heading', {name:'Lumen',exact:true}).isVisible()))
         throw new Error('The second call did not use the selected profile.');
       const speakers = await page.locator('.message.assistant strong').allTextContents();
-      if (speakers.length < 3 || speakers.at(-1) !== 'Lumen' || speakers[0] !== 'Orbit')
+      if (speakers.length < 3 || speakers.at(-1) !== 'Lumen' || speakers[0] !== 'Mira')
         throw new Error('Transcript generations or speaker names crossed call boundaries.');
       await page.getByRole('button', {name:'Stop reply'}).click();
       await page.getByRole('button', {name:'End conversation'}).click();

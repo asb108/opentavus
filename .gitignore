@@ -22,5 +22,6 @@ build/
 .DS_Store
 apps/web/public/fonts/
 apps/web/public/licenses/
+apps/web/public/avatars/
 output/playwright/
 .playwright-cli/

@@ -1,0 +1,17 @@
+CC0 1.0 Universal (CC0-1.0)
+
+Original asset: avatars/mpfb.glb from met4citizen/TalkingHead
+Author: Mika Suominen (met4citizen)
+Source revision: b3e277b3b46f88e557bf28a2c5612a5b04e075c3
+
+The author identifies this MPFB example avatar as licensed under CC0 in:
+https://github.com/met4citizen/TalkingHead/blob/b3e277b3b46f88e557bf28a2c5612a5b04e075c3/README.md#credits
+
+Full CC0 terms:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode.en
+
+The prepared mira.glb and its browser-rendered mira.png derivative are also
+made available under CC0-1.0. Preparation removes unused facial shapes,
+deduplicates data, resizes textures, and encodes them as WebP. These terms
+apply to the asset and its portrait, separately from the OpenTavus source
+code (Apache-2.0) and the Three.js renderer (MIT).

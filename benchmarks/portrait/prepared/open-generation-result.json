@@ -1,0 +1,24 @@
+{
+  "model": "mlx-community/flux2-klein-4b-4bit",
+  "revision": "860e87183ceb29e39627c0612ebd66d8ea66e68c",
+  "model_license": "Apache-2.0",
+  "seed": 7206,
+  "steps": 4,
+  "guidance": 1.0,
+  "width": 768,
+  "height": 768,
+  "prompt": "A natural photographic head-and-shoulders portrait of a fictional South Asian adult woman in her early thirties, a friendly science tutor. She has shoulder-length dark brown hair, brown eyes, warm medium brown skin with real subtle skin texture, and wears a plain navy blue crew-neck shirt. Her face looks directly at the camera, exactly front-facing, centered and upright. Calm attentive expression, relaxed closed lips, a very slight friendly smile without showing teeth. Her complete hair, forehead, chin and shoulders are inside the square frame. Her face occupies the central two thirds of the image, with her eyes near the upper third. Soft even daylight from a window, gently blurred pale blue-gray studio background, realistic photography from a 50 mm lens, authentic skin detail and natural proportions. A fictional person created for an openly labeled AI companion, no resemblance to a named person. Single portrait, no text, no collage.",
+  "source_sha256": "02c735ea316950b3caae4485426b32ffa3accaa2bec042de5724573309bc4f9d",
+  "source_bytes": 902738,
+  "load_seconds": 0.8931249159995787,
+  "total_seconds": 27.502722874999563,
+  "mlx_peak_bytes": 9708239568,
+  "platform": "macOS-14.5-arm64-arm-64bit",
+  "dependencies": {
+    "mflux": "0.19.1",
+    "mlx": "0.32.3",
+    "transformers": "5.18.0",
+    "numpy": "2.5.3"
+  },
+  "identity": "fictional adult; no photograph or driving video of a real person"
+}

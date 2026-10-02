@@ -83,8 +83,11 @@
       "additionalProperties": false,
       "properties": {
         "avatar": {
-          "default": "orbit",
+          "default": "mira-photo",
           "enum": [
+            "mira-photo",
+            "mira",
+            "portrait",
             "orbit",
             "lumen"
           ],

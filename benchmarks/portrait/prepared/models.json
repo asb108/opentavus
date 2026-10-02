@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "mlx-community/flux2-klein-4b-4bit",
+      "revision": "860e87183ceb29e39627c0612ebd66d8ea66e68c",
+      "license": "apache-2.0",
+      "files": [
+        {
+          "path": "text_encoder/0.safetensors",
+          "bytes": 2135435122,
+          "sha256": "c2d90b9bcb81b6f4205033e592af5117b13bda0e2ef1e4c5d910920d20102234"
+        },
+        {
+          "path": "text_encoder/1.safetensors",
+          "bytes": 127582140,
+          "sha256": "6f9fd41251913a84119daf7ddb3620f37f7ab65d1bcfdffcd33e858cb36774f7"
+        },
+        {
+          "path": "text_encoder/model.safetensors.index.json",
+          "bytes": 51369,
+          "git_blob_sha1": "a6695de5146c5ccb4f3ffcb103693f015220a2e4"
+        },
+        {
+          "path": "tokenizer/chat_template.jinja",
+          "bytes": 4168,
+          "git_blob_sha1": "01be9b307daa2d425f7c168c9fb145a286e0afb4"
+        },
+        {
+          "path": "tokenizer/tokenizer.json",
+          "bytes": 11422650,
+          "sha256": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506"
+        },
+        {
+          "path": "tokenizer/tokenizer_config.json",
+          "bytes": 703,
+          "git_blob_sha1": "3ee05b3fdc8db76babb37dbc3730682c4b080b87"
+        },
+        {
+          "path": "transformer/0.safetensors",
+          "bytes": 2145323732,
+          "sha256": "3a75fc123a9ceb583b0d0202cc37166da3e1fc0ac8cd4a430987ceaf8e845b27"
+        },
+        {
+          "path": "transformer/1.safetensors",
+          "bytes": 34727761,
+          "sha256": "06998c075c1d9543f17f1cc7ae7170c365cdb3c09a1f78056804a252bb168fd5"
+        },
+        {
+          "path": "transformer/model.safetensors.index.json",
+          "bytes": 26945,
+          "git_blob_sha1": "ab03c374ccf768ba3f5950d370a1e2c29e53b13c"
+        },
+        {
+          "path": "vae/0.safetensors",
+          "bytes": 165107943,
+          "sha256": "efd1802b013d6b17f30946574b1d23c89b8c8e8181876220c00089efac6a0a2c"
+        },
+        {
+          "path": "vae/model.safetensors.index.json",
+          "bytes": 17584,
+          "git_blob_sha1": "034182fb9bdf2c7da9c7fe8798d1a99bb4eb3884"
+        }
+      ]
+    },
+    {
+      "id": "KwaiVGI/LivePortrait",
+      "revision": "82a4fa6735ca58432b6ce39301b4b9ee066dea47",
+      "license": "mit",
+      "files": [
+        {
+          "path": "liveportrait/base_models/appearance_feature_extractor.pth",
+          "bytes": 3387959,
+          "sha256": "5279bb8654293dbdf327030b397f107237dd9212fb11dd75b83dfb635211ceb5"
+        },
+        {
+          "path": "liveportrait/base_models/motion_extractor.pth",
+          "bytes": 112545506,
+          "sha256": "251e6a94ad667a1d0c69526d292677165110ef7f0cf0f6d199f0e414e8aa0ca5"
+        },
+        {
+          "path": "liveportrait/base_models/spade_generator.pth",
+          "bytes": 221813590,
+          "sha256": "4780afc7909a9f84e24c01d73b31a555ef651521a1fe3b2429bd04534d992aee"
+        },
+        {
+          "path": "liveportrait/base_models/warping_module.pth",
+          "bytes": 182180086,
+          "sha256": "2f61a6f265fe344f14132364859a78bdbbc2068577170693da57fb96d636e282"
+        },
+        {
+          "path": "liveportrait/retargeting_models/stitching_retargeting_module.pth",
+          "bytes": 2393098,
+          "sha256": "3652d5a3f95099141a56986aaddec92fadf0a73c87a20fac9a2c07c32b28b611"
+        }
+      ]
+    }
+  ]
+}

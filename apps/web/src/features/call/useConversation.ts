@@ -5,6 +5,8 @@ import { Playout, type PlayoutUpdate } from "../../media/playout";
 import { Microphone } from "../../media/microphone";
 import type { BoardHandle } from "../canvas/Board";
 import type { AvatarRenderer } from "../avatar/renderer";
+import { deliveryFor } from "../avatar/behavior";
+import { avatarInfo } from "../avatar/catalog";
 
 export type CallState = "idle" | "preparing" | "listening" | "thinking" | "speaking";
 export interface Transcript {
@@ -50,6 +52,7 @@ export function useConversation(
     (update: PlayoutUpdate) => {
       if (!call.current) return;
       if (update.type === "stopped") {
+        avatar.current?.setLevel(0);
         send({
           ...eventBase(),
           type: "playback_stopped",
@@ -62,8 +65,10 @@ export function useConversation(
       if (update.type === "caption" && update.text) {
         setState("speaking");
         const text = update.text;
+        avatar.current?.setListening(false);
+        avatar.current?.setDelivery?.(deliveryFor(text));
         const id = `${call.current.conversation_id}:assistant-${update.generation}`;
-        const name = call.current.settings.avatar === "orbit" ? "Orbit" : "Lumen";
+        const name = avatarInfo[call.current.settings.avatar ?? "mira-photo"].name;
         setMessages((previous) => {
           const existing = previous.find((m) => m.id === id);
           return existing
@@ -124,6 +129,10 @@ export function useConversation(
       } else if (event.type === "audio") {
         playout.current?.receive(event);
       } else if (event.type === "status") {
+        if (event.status === "thinking") {
+          avatar.current?.setListening(false);
+          avatar.current?.setDelivery?.("thoughtful");
+        }
         if (
           event.status === "thinking" ||
           event.status === "speaking" ||
@@ -152,7 +161,7 @@ export function useConversation(
         setError(event.message);
       }
     },
-    [board, eventBase, send],
+    [avatar, board, eventBase, send],
   );
 
   const start = useCallback(
@@ -209,6 +218,9 @@ export function useConversation(
           microphone.current.close();
           setMicEnabled(false);
           setState("idle");
+          avatar.current?.setLevel(0);
+          avatar.current?.setListening(false);
+          avatar.current?.setDelivery?.("neutral");
           void playout.current?.close();
           playout.current = null;
           call.current = null;
@@ -257,12 +269,14 @@ export function useConversation(
       if (call.current) {
         setError("");
         setState("thinking");
+        avatar.current?.setListening(false);
+        avatar.current?.setDelivery?.("thoughtful");
         working.current = true;
         send({ type: "teach_mode", enabled: teach });
         send({ type: "ask", text: text.trim(), teach });
       }
     },
-    [send, start],
+    [avatar, send, start],
   );
 
   const stop = useCallback(() => {
@@ -279,6 +293,8 @@ export function useConversation(
     generation.current += 1;
     playout.current?.reset(generation.current);
     avatar.current?.setLevel(0);
+    avatar.current?.setListening(true);
+    avatar.current?.setDelivery?.("neutral");
     working.current = false;
     setState("listening");
     send({ type: "stop" });
@@ -292,6 +308,7 @@ export function useConversation(
     const current = call.current;
     avatar.current?.setLevel(0);
     avatar.current?.setListening(false);
+    avatar.current?.setDelivery?.("neutral");
     setState("idle");
     if (current)
       await request(`/api/conversations/${current.conversation_id}`, {

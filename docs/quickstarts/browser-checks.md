@@ -15,7 +15,7 @@ make models
 npm run test:browser -- --live
 ```
 
-The server must already be running, and no other call should be open because this alpha admits one browser call. Add `--headed` to observe the check. It draws a rectangle through the UI, asks public synthetic questions, waits for actual AudioWorklet captions, stops a reply, requests a formula/equation quiz, checks the feedback and rendered browser acknowledgements, and exports PNG/Markdown. It selects 0.5B/Michael/Lumen while 1.5B/Heart/Orbit remains active, ends and starts the next call, checks distinct transcript names, then verifies that Clear AI notes retains the drawing. The isolated socket/browser is closed even after a failed assertion. First-call warm-up and inference can take time; an unresponsive model is a failure rather than a silently skipped live result.
+The server must already be running, and no other call should be open because this alpha admits one browser call. Add `--headed` to observe the check. It draws a rectangle through the UI, asks public synthetic questions, waits for actual AudioWorklet captions, stops a reply, requests a formula/equation quiz, checks the feedback and rendered browser acknowledgements, and exports PNG/Markdown. It selects 0.5B/Michael/Lumen while 1.5B/Heart/Mira remains active, ends and starts the next call, checks distinct transcript names, then verifies that Clear AI notes retains the drawing. The isolated socket/browser is closed even after a failed assertion. First-call warm-up and inference can take time; an unresponsive model is a failure rather than a silently skipped live result.
 
 `scripts/browser-instrument.js` retains event kinds, generations, sample offsets, browser-clock times, stop acknowledgements, and audio energy. It excludes transcripts, tokens, model output, authorization, and PCM. `smoke-live-events.json` and `smoke-microphone-events.json` are local evidence, not an uploaded telemetry stream. Screenshots intentionally contain the synthetic lesson; do not use private conversations when collecting shareable captures.
 
@@ -44,3 +44,51 @@ Evidence files use `smoke-board-*` and `smoke-board-microphone-*` under ignored
 files exclude content/credentials/audio. [Published evidence](../releases/board-repair-evidence.json)
 records failed model/render iterations as well as the successful bounded cases.
 General branching graphs, physical acoustics and percentile latency remain open.
+
+## Optional stock-human check
+
+```sh
+npm run test:browser -- --avatar
+npm run test:browser -- --avatar --live
+```
+
+The first checks a five-second render cadence, switching to a static poster,
+missing WebGL 2, invalid GLB data, context loss and late cancelled preparation.
+The second also captures a synthetic generated reply and verifies shared-Worklet
+Stop, then a successful call after graphics failure. Local screenshots, metrics
+and the native-speed capture go to ignored `output/playwright/`. No microphone
+recording is made. This checks the optional 3D human, not photographic realism or
+phoneme lip-sync. `OPENTAVUS_TEST_URL` can select an independently configured local
+check server, leaving another browser's active call intact.
+
+
+## Prepared photographic check
+
+```sh
+npm run test:browser -- --photo
+npm run test:browser -- --photo --live
+npm run test:browser -- --photo --software
+```
+
+The first measures seven seconds of native 384-pixel prepared playback, verifies
+that static switching stops drawing and closes all four decoded images, and
+checks damaged sheets, cancelled loading and unavailable Canvas 2D recovery.
+The live check also records actual local Qwen/Kokoro speech and photographic
+motion at normal speed, observes all four presentation cues, verifies Stop and
+closed-mouth behavior, and confirms that a call works after an avatar failure.
+Its capture contains only the public synthetic question, never a real microphone.
+
+`--software` starts this check's own Chrome with `--disable-gpu` and
+`--disable-accelerated-2d-canvas`. It is a controlled software-rendering check on
+the named machine, not weak-PC or CPU-only language-model evidence. Each run
+writes `photo-metrics.json`, screenshots and, with `--live`, `photo-call.webm` to
+ignored `output/playwright/`; preserve a named copy before another run overwrites
+those filenames. Metrics exclude private content and audio. The capture is an
+explicit test artifact and contains synthetic speech.
+
+These checks require the updated server and its built frontend. An independently
+configured server can use `OPENTAVUS_TEST_URL`; its own allowed origins must match
+that address. Do not weaken production admission checks to run the test. Avoid
+other calls on the selected server. The CLI closes only its own browser session.
+See [photographic evidence](../releases/photographic-human-evidence.json) for
+measured results and the finite-motion/approximate-lip-sync boundary.

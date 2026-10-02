@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "stock.mira.photographic.v1",
+  "display_name": "Mira \u00b7 Photographic preview",
+  "eligibility": "reviewed_permissive",
+  "license": "CC0-1.0",
+  "license_scope": "generated fictional output assets to the extent of rights held; model/code terms remain independent",
+  "tile": 384,
+  "grid": 6,
+  "poses": 8,
+  "mouth_levels": [
+    0,
+    0.07,
+    0.12,
+    0.18
+  ],
+  "blink_indices": [
+    32,
+    33,
+    34,
+    35
+  ],
+  "source": {
+    "path": "source-openai.png",
+    "bytes": 2003819,
+    "sha256": "ede67fb6bc7fb3b5effffac52d2b930254db93a0c85e76ad6d2eaf92050b1f13",
+    "generator": "built-in OpenAI image generator; selected model version not exposed",
+    "prompt": "openai-prompt.txt",
+    "authorization": "User explicitly suggested ChatGPT image generation after authorizing realistic assets. This is a one-time optional source creation, not a live runtime dependency."
+  },
+  "open_alternative": {
+    "path": "source-open.png",
+    "sha256": "02c735ea316950b3caae4485426b32ffa3accaa2bec042de5724573309bc4f9d",
+    "model": "mlx-community/flux2-klein-4b-4bit",
+    "revision": "860e87183ceb29e39627c0612ebd66d8ea66e68c",
+    "license": "Apache-2.0",
+    "generation_record": "../../../benchmarks/portrait/prepared/open-generation-result.json"
+  },
+  "animation": {
+    "repository": "https://github.com/KlingAIResearch/LivePortrait",
+    "revision": "9b294b3d0536135442ea73cb01e6cb3ca7029dd3",
+    "model_repository": "KwaiVGI/LivePortrait",
+    "model_revision": "82a4fa6735ca58432b6ce39301b4b9ee066dea47",
+    "license": "MIT",
+    "excluded": [
+      "InsightFace",
+      "landmark.onnx",
+      "actor/driving media"
+    ],
+    "preparation_record": "../../../benchmarks/portrait/prepared/preparation-result.json"
+  },
+  "files": [
+    {
+      "id": "neutral",
+      "bytes": 750264,
+      "sha256": "d9e8ef8442751c26fd14848133123e8630e2189003d5a863a09a2eb844cda946"
+    },
+    {
+      "id": "warm",
+      "bytes": 749020,
+      "sha256": "c20b6481ef85cc2f4aa2c7f64b50f9f0ce92d05ddfdea653cef07d71660573bf"
+    },
+    {
+      "id": "attentive",
+      "bytes": 746716,
+      "sha256": "a08d9b486689f5014339dfa1a2c92c5ded5af2195d1db02860db724c4eb95a8e"
+    },
+    {
+      "id": "thoughtful",
+      "bytes": 749062,
+      "sha256": "c1a0f913a12e1c39dfaa36d4105778108d8676cbc220eb9f0e63ebf3de7a44d8"
+    },
+    {
+      "id": "poster",
+      "bytes": 28866,
+      "sha256": "aa5ff5acebc8fb28863d2a8e9c99af4736c34b519db3cd5806419a1654b00c35"
+    }
+  ],
+  "limits": [
+    "finite controlled motion/expression bank",
+    "audio energy, not phoneme-accurate speech",
+    "single manually aligned fictional adult",
+    "PC/long-call proof pending"
+  ]
+}

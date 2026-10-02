@@ -10,6 +10,43 @@ Opt-in Playwright CLI checks drive Chrome with installed local models. Record ge
 
 The companion uses the energy of played audio for mouth movement. This is an audio-driven animation preview; it does not satisfy a phoneme lip-sync quality claim. Serial board planning/render acknowledgement adds delay before the spoken lesson. Small-model factual errors and rejected tool output must be included in evidence. The 100-turn latency percentiles, 20-minute/cycle reliability, natural-turn detection, physical speaker echo, media-route comparison, and additional platform profiles remain open.
 
+T21's [stock-human preview check](releases/browser-human-evidence.json) measured
+approximately 30 FPS over five seconds at 384 × 384 on M3 Pro, with a 34.1 ms
+P95 frame gap and no gap above 100 ms. A real local Qwen/Kokoro reply reached the
+shared Worklet; Stop acknowledgement took 50 ms in that single case and no later
+positive audio energy appeared for the cancelled generation. Static switching,
+lost WebGL context, invalid assets, late cancelled preparation and unavailable
+WebGL each passed their bounded browser scenarios. This is neither a 20-minute
+run nor a latency/lip-sync percentile study. Its 3D appearance did not satisfy
+the user's realism requirement.
+
+T22's [photographic preview evidence](releases/photographic-human-evidence.json)
+measured 30 FPS over seven seconds, a 34 ms P95 frame gap and no gap above 100 ms
+at 384 × 384 on this Mac. Real local Qwen/Kokoro speech drove the same Worklet;
+all four presentation cues were observed. The two successful live checks recorded
+Stop acknowledgement at 50.4 and 54.3 ms, with no later positive old-generation
+energy and a closed mouth in either case. A
+normal-speed canvas/audio capture and actual board screenshot are published.
+Static switching stopped drawing and closed all four decoded ImageBitmaps;
+damaged assets, cancelled loading and unavailable Canvas 2D recovered to a poster
+or the selected alternate character. A damaged avatar did not prevent a reply.
+
+An additional `--photo --software` run used Chrome's `--disable-gpu` and
+`--disable-accelerated-2d-canvas` flags. The final run measured 29.9994 FPS over seven seconds,
+a 34.2 ms P95 gap and no gap above 100 ms; cleanup and failure recovery also
+passed. Chrome diagnostics confirmed software rendering and unavailable WebGL/WebGPU.
+This controls browser graphics on the M3 Pro, not Ollama acceleration
+or the speed of a weaker processor. Keep PC claims separate.
+
+This establishes bounded prepared photographic playback, not full human behavior.
+The source identity is consistent in inspected expression frames and sampled
+capture frames, but teeth/eye texture and crossfade artifacts can occur. The
+mouth follows amplitude rather than consonant/vowel timing. A single synthetic
+utterance/Stop and a seven-second cadence sample do not satisfy the multiple-face,
+100-turn, 20-minute, physical-acoustic, weak-PC or precise lip-sync gates. MPS
+preparation had CPU fallback enabled; no profiler proof establishes which
+individual operations executed on which processor.
+
 ## Reference profiles and timing
 
 Measure one named native Apple Silicon configuration first. Add a CPU fallback and GPU profile only after complete-stack measurements. Capture OS, CPU/GPU model, RAM/VRAM, runtime/package versions, exact model revisions/quantization, language, prompt/context length, transport path, network conditions, and warm-up state.

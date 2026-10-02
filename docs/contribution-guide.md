@@ -10,11 +10,21 @@ You can improve this product without owning a GPU or replacing the whole pipelin
 | Improve small-screen or keyboard use | `apps/web/src/styles.css`, `apps/web/src/features/settings/Settings.tsx` | Screenshot and keyboard walkthrough on a named viewport; preserve semantic controls and focus. |
 | Save teaching cards across refresh | `apps/web/src/features/canvas/Board.tsx` | A versioned, bounded, validated format restores cards; malformed data recovers; user drawings remain independent. |
 | Improve turn-taking policy | `packages/runtime/src/opentavus_runtime/policies.py` | Synthetic backchannel/correction cases explain the trade-off; real speech timing is reported separately. |
+| Improve Mira's delivery cues | `apps/web/src/features/avatar/behavior.ts`, `apps/web/tests/avatar.test.ts` | A small `deliveryFor()` rule chooses the companion's own neutral/warm/thoughtful presentation from played text. Show an ambiguous example and preserve the neutral fallback; never infer the user's emotions. |
+| Improve a prepared expression | [photographic asset recipe](../assets/stock/photographic/README.md), [offline preparation](../benchmarks/portrait/prepared/README.md) | Reviewed source rights, exact model/asset hashes and a native-speed before/after capture. Preparation remains optional; the live renderer keeps its bounded sheets and shared audio clock. |
+| Measure a computer without NVIDIA | [graphics guide](quickstarts/low-spec.md), [browser checks](quickstarts/browser-checks.md) | Named CPU/integrated graphics, memory, browser and complete speech profile; report dropped frames, slow turns and failure recovery rather than assuming this Mac's results transfer. |
 | Add a safe teaching example | `packages/runtime/tests/test_tools.py`, `apps/web/tests/board.test.ts` | A real valid or invalid model-output case checks the producer and browser boundary without copying implementation. |
 | Report Linux live behavior | [local quickstart](quickstarts/local.md), [quality guide](quality.md) | Exact hardware, versions, model digests, warm/cold state, failures, and public synthetic questions; a build alone is not performance proof. |
 | Add a reviewed local model | `downloads.json`, `scripts/plugin_manifests.py`, API enum, generated schemas | Exact component terms and digest, eligibility behavior, truthful memory guidance, and live quality/timing evidence. Coordinate this contract change first. |
 
 These are contribution ideas, not assigned issues. Check current issues and task ownership before starting. A fix inside a roadmap task can cite that task without marking every acceptance criterion complete.
+
+For a focused 5–10 line contribution, start with `deliveryFor(text): Delivery`.
+The surrounding renderer, four expression assets, neutral fallback and observable
+examples are already present. A greeting currently chooses warm; comparison or
+uncertainty can choose thoughtful. Decide how mixed phrases should behave, then
+add a representative example. Work on caption text actually reaching playout;
+do not create a new audio queue or claim general emotional understanding.
 
 ## Find the relevant layer
 

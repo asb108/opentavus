@@ -120,7 +120,7 @@ class Conversation:
         self.closed = False
         self.speaking = False
         self.teaching = False
-        self.character_name: Literal["Orbit", "Lumen"] = "Orbit"
+        self.character_name: str = "Orbit"
         self.played_sample = 0
         self.sent_sample = 0
         self.last_ack = time.monotonic()

@@ -1,0 +1,78 @@
+import { readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+import { validateStockGlb } from "../src/features/avatar/asset";
+import { deliveryFor, portraitPose, speechLevel } from "../src/features/avatar/behavior";
+
+function glb(value: unknown): ArrayBuffer {
+  const json = new TextEncoder().encode(JSON.stringify(value));
+  const length = Math.ceil(json.length / 4) * 4;
+  const bytes = new ArrayBuffer(20 + length);
+  const view = new DataView(bytes);
+  [0x46546c67, 2, bytes.byteLength, length, 0x4e4f534a].forEach((v, i) =>
+    view.setUint32(i * 4, v, true),
+  );
+  const chunk = new Uint8Array(bytes, 20);
+  chunk.fill(0x20);
+  chunk.set(json);
+  return bytes;
+}
+
+describe("stock human asset boundary", () => {
+  const base = {
+    asset: { version: "2.0" },
+    buffers: [{ byteLength: 4 }],
+    images: [{ bufferView: 0 }],
+  };
+  it("accepts the actual distributed stock human", () => {
+    const bytes = readFileSync(new URL("../../../assets/stock/mira/mira.glb", import.meta.url));
+    expect(() => validateStockGlb(Uint8Array.from(bytes).buffer)).not.toThrow();
+  });
+  it("rejects remote buffers, images and executable decoder extensions", () => {
+    expect(() =>
+      validateStockGlb(glb({ ...base, buffers: [{ uri: "https://invalid.example/mesh" }] })),
+    ).toThrow();
+    expect(() =>
+      validateStockGlb(glb({ ...base, images: [{ uri: "data:image/svg+xml,<svg/>" }] })),
+    ).toThrow();
+    expect(() =>
+      validateStockGlb(glb({ ...base, extensionsRequired: ["KHR_draco_mesh_compression"] })),
+    ).toThrow();
+    expect(() => validateStockGlb(glb({ ...base, extensionsUsed: "EXT_texture_webp" }))).toThrow();
+  });
+  it("rejects truncated, oversized and incompatible GLB data", () => {
+    expect(() => validateStockGlb(new ArrayBuffer(0))).toThrow();
+    expect(() => validateStockGlb(new ArrayBuffer(8 * 1024 * 1024 + 1))).toThrow();
+    expect(() => validateStockGlb(glb({ ...base, asset: { version: "1.0" } }))).toThrow();
+    const bytes = glb(base);
+    new DataView(bytes).setUint32(12, bytes.byteLength, true);
+    expect(() => validateStockGlb(bytes)).toThrow();
+  });
+});
+
+describe("photographic presentation policy", () => {
+  it("uses the companion's delivery and defaults unknown text to neutral", () => {
+    expect(deliveryFor("Hello, welcome to our science lesson.")).toBe("warm");
+    expect(deliveryFor("However, it depends on the temperature.")).toBe("thoughtful");
+    expect(deliveryFor("Plants use sunlight to make sugars.")).toBe("neutral");
+    expect(deliveryFor("Use an arbitrary expression URL.")).toBe("neutral");
+  });
+  it("bounds bad energy and closes immediately at a zero playback signal", () => {
+    expect(speechLevel(NaN)).toBe(0);
+    expect(speechLevel(Infinity)).toBe(0);
+    expect(speechLevel(-1)).toBe(0);
+    expect(speechLevel(2)).toBe(1);
+    expect(speechLevel(0)).toBe(0);
+  });
+  it("keeps reduced motion still and returns a bounded blink/pose across loops", () => {
+    expect(portraitPose(6300, true)).toEqual({ phase: 0, next: 0, mix: 0, blink: 0 });
+    expect(portraitPose(6300, false).blink).toBeCloseTo(1);
+    expect(portraitPose(6400, false)).toEqual(portraitPose(0, false));
+    for (const time of [-5, 0, 6000, 6200, 6399, 9999999]) {
+      const pose = portraitPose(time, false);
+      expect(pose.phase).toBeGreaterThanOrEqual(0);
+      expect(pose.phase).toBeLessThan(8);
+      expect(pose.blink).toBeGreaterThanOrEqual(0);
+      expect(pose.blink).toBeLessThanOrEqual(1);
+    }
+  });
+});

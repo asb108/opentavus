@@ -98,7 +98,13 @@ class Installation:
                 {"id": "am_michael", "name": "Michael", "description": "Calm American English"},
                 {"id": "bf_emma", "name": "Emma", "description": "British English"},
             ],
-            "avatars": [{"id": "orbit", "name": "Orbit"}, {"id": "lumen", "name": "Lumen"}],
+            "avatars": [
+                {"id": "mira-photo", "name": "Mira · Photographic preview"},
+                {"id": "mira", "name": "Mira · 3D human"},
+                {"id": "portrait", "name": "Mira · Static portrait"},
+                {"id": "orbit", "name": "Orbit"},
+                {"id": "lumen", "name": "Lumen"},
+            ],
             "stt": "Whisper tiny / English",
             "tts": "Kokoro 82M / ONNX",
             "privacy": "No recordings or server transcript storage. "

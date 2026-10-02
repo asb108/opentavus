@@ -219,6 +219,35 @@ h1 {
   left: calc(50% - 150px);
   top: -13px;
 }
+.avatar[hidden] {
+  display: none;
+}
+.avatar.avatar-human {
+  height: 100%;
+  width: auto;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+.avatar-poster {
+  object-fit: contain;
+}
+.avatar.avatar-photographic {
+  border-radius: 28px;
+  box-shadow: 0 16px 36px #0b205441;
+}
+.avatar-notice {
+  position: absolute;
+  bottom: 3px;
+  left: 10px;
+  right: 10px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #d1dfff;
+  background: #214be4e6;
+  border-radius: 7px;
+  padding: 3px 7px;
+}
 .character-caption {
   position: relative;
 }

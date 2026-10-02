@@ -1,0 +1,47 @@
+{
+  "mflux": {
+    "version": "0.19.1",
+    "code_license": "MIT",
+    "pypi_artifacts": [
+      {
+        "name": "mflux-0.19.1-py3-none-any.whl",
+        "sha256": "e56f1e28e2cbad1153272ad87d3077f82442015f60214cdbc9b322c6003db513"
+      },
+      {
+        "name": "mflux-0.19.1.tar.gz",
+        "sha256": "f44577d4be2ec385c28f2107c41662eefc100f1c74df34e53f87fcd3dc217281"
+      }
+    ]
+  },
+  "portrait_generation": {
+    "original": "black-forest-labs/FLUX.2-klein-4B",
+    "original_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+    "license": "Apache-2.0",
+    "text_encoder": "Qwen3 4B in the bundled pipeline; Qwen/Qwen3-4B also declares Apache-2.0",
+    "vae": "FLUX.2 VAE in the bundled Apache-2.0 pipeline",
+    "conversion": "mlx-community/flux2-klein-4b-4bit declares Apache-2.0 and its exact converted component hashes are pinned in models.json",
+    "restriction": "9B noncommercial models are excluded"
+  },
+  "animation": {
+    "repository": "https://github.com/KlingAIResearch/LivePortrait",
+    "revision": "9b294b3d0536135442ea73cb01e6cb3ca7029dd3",
+    "code_license": "MIT",
+    "weights": "KwaiVGI/LivePortrait at 82a4fa6735ca58432b6ce39301b4b9ee066dea47 declares MIT",
+    "included": "human appearance, motion, warping, generator and stitching/retargeting only",
+    "excluded": [
+      "InsightFace code/weights",
+      "landmark.onnx",
+      "animal models",
+      "driving actor media",
+      "upstream sample portraits"
+    ]
+  },
+  "links": [
+    "https://huggingface.co/mlx-community/flux2-klein-4b-4bit/blob/860e87183ceb29e39627c0612ebd66d8ea66e68c/README.md",
+    "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/blob/e7b7dc27f91deacad38e78976d1f2b499d76a294/README.md",
+    "https://huggingface.co/Qwen/Qwen3-4B",
+    "https://huggingface.co/KwaiVGI/LivePortrait/blob/82a4fa6735ca58432b6ce39301b4b9ee066dea47/README.md",
+    "https://github.com/KlingAIResearch/LivePortrait/blob/9b294b3d0536135442ea73cb01e6cb3ca7029dd3/LICENSE"
+  ],
+  "boundary": "review of selected published terms/component identities; training data and conversion provenance are upstream assertions, not independently reconstructed"
+}

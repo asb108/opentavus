@@ -22,3 +22,43 @@ The application uses React/React DOM (MIT), Vite (MIT), Excalidraw (MIT), KaTeX 
 Figtree is self-hosted through `@fontsource-variable/figtree` and uses the SIL Open Font License 1.1. Excalidraw's bundled font collection and KaTeX fonts retain their supplied licenses. Excalidraw font notices are copied alongside local font assets during the build. [Fontsource Figtree](https://fontsource.org/fonts/figtree), [Excalidraw font sources](https://github.com/excalidraw/excalidraw/tree/master/packages/excalidraw/fonts), [KaTeX license](https://github.com/KaTeX/KaTeX/blob/main/LICENSE).
 
 This list records key directly used components and a relevant transitive runtime boundary. It is not a replacement for the full dependency license inventory. If adding a model, voice, face, font, runtime, or redistributed artifact, update the component review and retain its actual license/attribution. Unresolved components remain unavailable in the default profile.
+
+## Stock browser human
+
+Mira derives only from Mika Suominen's CC0 `mpfb.glb` example in TalkingHead at
+`b3e277b3b46f88e557bf28a2c5612a5b04e075c3`. Its [asset-specific upstream terms](https://github.com/met4citizen/TalkingHead/blob/b3e277b3b46f88e557bf28a2c5612a5b04e075c3/README.md#credits),
+[manifest/preparation](assets/stock/mira/README.md), and [CC0 notice](assets/stock/mira/LICENSE.txt)
+cover the prepared mesh and its static portrait separately from application code.
+Other demo avatars and animations from that project are not included.
+
+The app's lazy renderer uses Three.js 0.180.0 (MIT, Three.js authors).
+[Pinned source license](https://github.com/mrdoob/three.js/blob/r180/LICENSE).
+The full installed notice is copied to `/fonts/licenses/Three.txt` during builds.
+TalkingHead's speech implementation and its example cloud TTS are not bundled.
+Offline asset preparation uses MIT glTF Transform and Sharp tooling in an isolated
+directory; it is not part of the base application installation or live pipeline.
+
+## Prepared photographic human
+
+The selected fictional Mira source is a one-time built-in OpenAI image generation,
+explicitly requested by the project owner. OpenAI's generator is proprietary and
+its model version was not exposed by the tool. The source bytes, exact prompt,
+open-model sibling and prepared output digests are recorded in the [asset manifest and provenance](assets/stock/photographic/README.md).
+The prepared fictional outputs are offered under [CC0 to the extent of held rights](assets/stock/photographic/LICENSE.txt).
+This dedication does not change model, code or service terms. The installed app
+does not use an OpenAI API/key or download an OpenAI image model.
+
+LivePortrait code and the selected human appearance/motion/warping/generator/
+stitching/retargeting models carry the published MIT terms. Expression-offset
+math in the offline preparation is adapted from its pinned `gradio_pipeline.py`;
+retain the [upstream copyright/license](benchmarks/portrait/prepared/LivePortrait-LICENSE.txt).
+Exact source/model revisions and component review are in [provenance.json](benchmarks/portrait/prepared/provenance.json).
+InsightFace, landmark and animal models and upstream actor/driving media are
+excluded. A repository-level license is not assumed to license excluded weights.
+
+The retained open-model source uses the Apache-2.0 FLUX.2 Klein **4B** pipeline,
+including its selected Qwen3 text encoder and VAE, through a pinned MLX 4-bit
+conversion. The noncommercial 9B models are excluded. Source links, exact hashes
+and the conversion-provenance boundary are in the [preparation manifest](benchmarks/portrait/prepared/models.json)
+and review. Neither generation nor animation weights are redistributed here or
+installed by the base app; all heavy preparation runs separately from live media.

@@ -139,7 +139,13 @@ def create_app(
                 conversation = await prepare(
                     installation, conversation_id, settings.model, settings.voice
                 )
-            conversation.character_name = "Orbit" if settings.avatar == "orbit" else "Lumen"
+            conversation.character_name = {
+                "mira-photo": "Mira",
+                "mira": "Mira",
+                "portrait": "Mira",
+                "orbit": "Orbit",
+                "lumen": "Lumen",
+            }[settings.avatar]
             if await request.is_disconnected():
                 await conversation.close()
                 raise CoreError(

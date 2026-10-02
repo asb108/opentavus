@@ -1,0 +1,258 @@
+{
+  "task": "T22",
+  "run_id": "m3pro-photographic-mira-2026-10-03",
+  "date": "2026-10-03",
+  "status": "bounded_prepared_photographic_preview_checks_passed",
+  "hardware": {
+    "cpu_gpu": "Apple M3 Pro",
+    "ram_gb": 18,
+    "os": "macOS 14.5 arm64",
+    "browser": "Google Chrome 154.0.8037.97",
+    "live_profile": "Whisper tiny / Qwen2.5 1.5B Ollama / Kokoro Heart",
+    "avatar": "stock.mira.photographic.v1",
+    "runtime_packages": {
+      "pipecat-ai": "1.12.0",
+      "faster-whisper": "1.2.1",
+      "kokoro-onnx": "0.6.1",
+      "onnxruntime": "1.24.4"
+    },
+    "artifact_reference": "docs/models.md and plugins/local/opentavus-plugin.json pin Whisper, Kokoro/voices and the Ollama manifest; dependencies use uv.lock."
+  },
+  "commands": [
+    "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo --live",
+    "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo",
+    "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --avatar",
+    "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --board",
+    "npm run test:browser"
+  ],
+  "measurement_boundary": "Seven-second cadence after asset load in an isolated Chrome; cached reload first frame is not cold installation/readiness. Stop is one click-to-Worklet-ack case, not DAC output or a percentile. Real typed public synthetic speech, no physical microphone.",
+  "results": {
+    "idle": {
+      "frames": 210,
+      "durationMs": 6966.299999998882,
+      "fps": 30.0015790304801,
+      "p95GapMs": 34.09999999962747,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 275.40000000037253
+    },
+    "width": 384,
+    "height": 384,
+    "decodedRGBABytes": 84934656,
+    "graphicsMode": "default-browser",
+    "live": {
+      "stopClickToWorkletAckMs": 54.30000000074506,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 149,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ]
+    },
+    "closedImageBitmaps": 4,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "resource_check": {
+    "idle": {
+      "frames": 210,
+      "durationMs": 6966.800000000745,
+      "fps": 29.999425848305915,
+      "p95GapMs": 34.09999999962747,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 275.5
+    },
+    "width": 384,
+    "height": 384,
+    "decodedRGBABytes": 84934656,
+    "graphicsMode": "gpu-disabled-software-canvas",
+    "closedImageBitmaps": 4,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "failure_cases": {
+    "static_stops_drawing_and_closes_four_bitmaps": true,
+    "corrupt_sheet_fallback_and_live_reply": true,
+    "cancelled_preparation_does_not_replace_selected_cartoon": true,
+    "canvas_2d_unavailable_poster": true,
+    "teaching_board_with_photographic_avatar": true
+  },
+  "capture": {
+    "kind": "Native-speed browser canvas plus actual local Worklet audio",
+    "path": "docs/releases/photographic-human-preview.webm",
+    "bytes": 1810861,
+    "sha256": "07c4483dc93603dc0b3675f3bb8a9f451784c37651ae27c0b5386093b7e510e6",
+    "streams": [
+      {
+        "codec_name": "vp8",
+        "codec_type": "video",
+        "width": 384,
+        "height": 384,
+        "start_time": "0.000000",
+        "nb_read_frames": "324"
+      },
+      {
+        "codec_name": "opus",
+        "codec_type": "audio",
+        "start_time": "0.083000",
+        "nb_read_frames": "179"
+      }
+    ],
+    "visual_review": "Inspected source, all four expression probes and sampled actual speaking/closed-mouth frames. Fictional photographic identity is consistent in these samples. Finite repeated poses, approximate mouth opening and eye/teeth/crossfade artifacts remain possible; no unrestricted human-emotion or phoneme claim."
+  },
+  "source_creation": {
+    "selected": "Owner-authorized built-in OpenAI image generation; proprietary model/version not exposed",
+    "prompt": "assets/stock/photographic/openai-prompt.txt",
+    "source_sha256": "ede67fb6bc7fb3b5effffac52d2b930254db93a0c85e76ad6d2eaf92050b1f13",
+    "open_alternative": "assets/stock/photographic/source-open.png",
+    "open_generation_record": "benchmarks/portrait/prepared/open-generation-result.json",
+    "open_generation_seconds": 27.502722874999563,
+    "open_generation_mlx_peak_bytes": 9708239568
+  },
+  "preparation": {
+    "record": "benchmarks/portrait/prepared/preparation-result.json",
+    "frames": 145,
+    "seconds": 196.3057977919998,
+    "device": "mps",
+    "cpu_fallback_enabled": true,
+    "insightface_loaded": false,
+    "prepared_assets_bytes": 3023928,
+    "decoded_sheet_bytes": 84934656,
+    "output_pixels_before_downsampling": 512,
+    "native_tile_pixels": 384
+  },
+  "failed_iterations": [
+    "Initial neutral/warm expression probe had too little distinction; reviewed stronger bounded warm/brow cues before final preparation.",
+    "First live browser harness reached motion/Stop/static checks but failed when a result variable was read outside browser context; fixed harness and reran the complete check. Metrics were retained across reload before final successful run."
+  ],
+  "unverified": [
+    "precise consonant/vowel lip-sync and audio offset percentiles",
+    "general natural emotional behavior/prosody",
+    "multiple-face and long-utterance visual quality",
+    "100-turn response latency",
+    "20-minute resources and 20 start/end cycles",
+    "physical microphone/speaker echo",
+    "weak Windows/Linux PC and minimum RAM",
+    "full T05 custom imports, T10 live portrait and T13 quality"
+  ],
+  "publication": {
+    "status": "pending source commit/CI"
+  },
+  "software_rendering_check": {
+    "command": "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo --software",
+    "chrome_flags": [
+      "--disable-gpu",
+      "--disable-accelerated-2d-canvas"
+    ],
+    "results": {
+      "idle": {
+        "frames": 210,
+        "durationMs": 6966.800000000745,
+        "fps": 29.999425848305915,
+        "p95GapMs": 34.19999999925494,
+        "gapsOver100Ms": 0,
+        "firstFrameAfterNavigationMs": 273.19999999925494
+      },
+      "width": 384,
+      "height": 384,
+      "decodedRGBABytes": 84934656,
+      "graphicsMode": "gpu-disabled-software-canvas",
+      "graphicsFeatures": {
+        "2d_canvas": "disabled_software",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "disabled_software",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "disabled_off",
+        "rasterization": "disabled_software",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "disabled_off",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "disabled_software",
+        "video_encode": "disabled_software",
+        "webgl": "unavailable_software",
+        "webgpu": "unavailable_software",
+        "webnn": "unavailable_software"
+      },
+      "closedImageBitmaps": 4,
+      "staticCleanup": true,
+      "invalidAssetFallback": true,
+      "cancelledPreparation": true
+    },
+    "boundary": "Chrome SystemInfo confirmed disabled_software for Canvas 2D, GPU compositing, rasterization and video encode/decode, and unavailable_software for WebGL/WebGPU. Same M3 Pro; Ollama backend and weak-PC speed remain independent.",
+    "initial_result": {
+      "idle": {
+        "frames": 210,
+        "durationMs": 6966.800000000745,
+        "fps": 29.999425848305915,
+        "p95GapMs": 34.09999999962747,
+        "gapsOver100Ms": 0,
+        "firstFrameAfterNavigationMs": 275.5
+      },
+      "width": 384,
+      "height": 384,
+      "decodedRGBABytes": 84934656,
+      "graphicsMode": "gpu-disabled-software-canvas",
+      "closedImageBitmaps": 4,
+      "staticCleanup": true,
+      "invalidAssetFallback": true,
+      "cancelledPreparation": true
+    }
+  },
+  "contributor_checks": {
+    "status": "passed",
+    "commands": [
+      "make plan-render",
+      "make format",
+      "make check",
+      "make demo",
+      "make base-check",
+      "uv run --no-sync ruff check benchmarks/portrait/prepared",
+      "uv run --no-sync ruff format --check benchmarks/portrait/prepared",
+      "node_modules/.bin/prettier --check assets/stock/tools/prepare.mjs",
+      "git diff --check"
+    ],
+    "python_tests": 85,
+    "contracts_tests": 3,
+    "browser_logic_tests": 12,
+    "plugin_absent_core_tests": 29,
+    "boundary": "Fixture/build/style tests require no models or GPU; live browser and software-rendering results are separately recorded."
+  },
+  "initial_live_result": {
+    "idle": {
+      "frames": 210,
+      "durationMs": 6966.5999999996275,
+      "fps": 30.000287084088534,
+      "p95GapMs": 34,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 284.09999999962747
+    },
+    "width": 384,
+    "height": 384,
+    "decodedRGBABytes": 84934656,
+    "live": {
+      "stopClickToWorkletAckMs": 50.40000000037253,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 151,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ]
+    },
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "main_server_check": {
+    "status": "passed",
+    "url": "http://127.0.0.1:8765",
+    "catalog_avatar": "mira-photo",
+    "page_settings_and_mobile": "passed"
+  }
+}

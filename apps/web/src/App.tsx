@@ -16,6 +16,7 @@ import {
 import { request, type Catalog, type Settings as CallSettings } from "./api";
 import { Avatar } from "./features/avatar/Avatar";
 import type { AvatarRenderer } from "./features/avatar/renderer";
+import { avatarInfo } from "./features/avatar/catalog";
 import type { BoardHandle } from "./features/canvas/Board";
 import { Settings } from "./features/settings/Settings";
 import { useConversation } from "./features/call/useConversation";
@@ -23,7 +24,7 @@ import { useConversation } from "./features/call/useConversation";
 const Board = lazy(() =>
   import("./features/canvas/Board").then((module) => ({ default: module.Board })),
 );
-const defaults: CallSettings = { model: "qwen2.5:1.5b", voice: "af_heart", avatar: "orbit" };
+const defaults: CallSettings = { model: "qwen2.5:1.5b", voice: "af_heart", avatar: "mira-photo" };
 function savedSettings(): CallSettings {
   try {
     const value = JSON.parse(
@@ -33,7 +34,7 @@ function savedSettings(): CallSettings {
       value &&
       ["qwen2.5:0.5b", "qwen2.5:1.5b", "qwen2.5:7b"].includes(value.model) &&
       ["af_heart", "af_bella", "am_michael", "bf_emma"].includes(value.voice) &&
-      ["orbit", "lumen"].includes(value.avatar)
+      ["mira-photo", "mira", "portrait", "orbit", "lumen"].includes(value.avatar)
     )
       return value;
   } catch {
@@ -169,14 +170,14 @@ export default function App() {
                   <span />
                   {active ? "Local conversation" : "Meet your companion"}
                 </span>
-                <span className="ai-label">Cartoon preview</span>
+                <span className="ai-label">{avatarInfo[displayedSettings.avatar].label}</span>
               </div>
               <div className="character-frame">
                 <div className="orbit-circle" />
                 <Avatar variant={active ? callAvatar : settings.avatar} rendererRef={renderer} />
               </div>
               <div className="character-caption">
-                <h2>{(active ? callAvatar : settings.avatar) === "orbit" ? "Orbit" : "Lumen"}</h2>
+                <h2>{avatarInfo[displayedSettings.avatar].name}</h2>
                 <p className="status-line" role="status">
                   {stateLabels[conversation.state]}
                 </p>

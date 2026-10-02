@@ -1,0 +1,15 @@
+CC0 1.0 Universal
+
+To the extent of rights held in these generated fictional portraits and prepared
+motion assets, the OpenTavus contributors dedicate them to the public domain
+under CC0 1.0. This includes source-open.png, source-openai.png, poster.webp and
+the neutral/warm/attentive/thoughtful frame sheets.
+
+https://creativecommons.org/publicdomain/zero/1.0/legalcode.en
+
+The OpenAI-assisted source was created at the user's explicit direction; it is
+not an open-source model. The alternative source-open.png was generated with
+the Apache-2.0 FLUX.2 Klein 4B pipeline. LivePortrait code and model terms remain
+MIT independently. No private portrait or actor driving video was used.
+OpenTavus application code remains Apache-2.0. See manifest.json and the source
+generation/preparation records for exact provenance and limitations.

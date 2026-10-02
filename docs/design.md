@@ -8,7 +8,7 @@ The current application combines a local call, independent model/voice/character
 
 Output PCM, captions, and companion mouth energy use one browser AudioWorklet clock. Generations cancel server production and reject late browser output; browser stop/progress acknowledgements constrain buffering. At most roughly two seconds of server audio and 64 browser packets can be queued. Complete acknowledged phrases enter the next-turn context; incomplete phrases are omitted because this model path has no word timing. The visible transcript shows a phrase when its playback starts and marks interrupted replies.
 
-Orbit and Lumen are original stylized canvas characters, with audio-driven mouth movement. GLB/VRM imports, photorealistic portrait animation, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting remain roadmap work. The full stock GLB requirement below remains in T05; the alpha character is an earlier usable preview with a separate renderer boundary. It is not phoneme-accurate lip-sync proof.
+Mira's photographic mode uses prepared facial/head frames, controlled expressions and blinking through browser Canvas 2D. Static Mira, a curated CC0 stock 3D human, and the original stylized Orbit/Lumen remain independent choices. All animated modes use played-audio energy. GLB/VRM imports, live neural portrait video, natural emotional behavior, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting have separate acceptance work. Full T05 still requires compatible custom import and its contract evidence. Audio-driven mouth energy is not phoneme-accurate lip-sync proof.
 
 The teaching planner obtains schema-constrained JSON, then validates a fixed note/formula/diagram/quiz/clear allowlist again. Notes are Excalidraw text. Safe formula/diagram cards and quiz panels appear above the drawings. A browser operation acknowledgement gates the subsequent spoken board explanation. Explicit formula, diagram and quiz requests each use a single-tool provider schema: a real small-model trial returned a formula in place of a quiz with the union schema. Requested results are all validated before applying them. Their browser acknowledgements gate speech, which adds visible delay; the full timing strategy remains to be optimized and measured. Quiz answers match the exact text of a distinct choice. Unheard reply text stays out of history; temporary interruption notes provide model turn boundaries when no complete phrase was heard.
 
@@ -35,10 +35,44 @@ sanitizer. Deprecated flowchart-only settings failed in the installed Mermaid
 
 The user chose realistic portrait/video and asked to try the Mac graphics hardware
 first. T20's isolated native MLX MuseTalk trial generated actual frames on M3 Pro,
-but its 5.3 FPS failed the fixed 25 FPS target. The app's character remains explicitly
+but its 5.3 FPS failed the fixed 25 FPS target. The original characters remain explicitly
 labeled Cartoon preview. [The experiment](../benchmarks/portrait/mac/README.md)
 records pinned artifacts, component gaps and unverified live timing/visual gates.
 It installs no default plugin, and it does not replace full T10 acceptance.
+
+T21's trusted stock renderer lazily imports Three.js, verifies a locally bundled
+4.7 MB GLB, rejects external buffers/images/decoder extensions, and renders at
+384 × 384 with a 30 FPS cap. Stop immediately closes its jaw from the shared
+playout signal. Abort, context loss and character changes release its resources;
+an asset or WebGL 2 failure shows a static poster while the call continues. Its
+five-second M3 Pro cadence and real speech/Stop checks are bounded preview proof,
+not a low-spec PC or 20-minute quality run. The user rejected this 3D appearance
+as the realism goal. T22 instead prepares actual photographic face motion with
+the pinned MIT LivePortrait core, excluding InsightFace/landmark weights and
+actor/driving media. The selected fictional source is a one-time OpenAI image
+creation explicitly requested by the owner; a pinned Apache-2.0 FLUX.2 Klein 4B
+source and recipe remain available. This exception is disclosed rather than
+calling OpenAI's model open source. Generation/preparation stays outside live
+audio and the default installation.
+
+The trusted photographic renderer loads four hash-checked local WebP sheets,
+about 3 MB in total with the poster, and releases all four ImageBitmaps on
+disposal. Its working resolution is 384 × 384, capped at 30 FPS, with roughly
+81 MiB of decoded sheet data. Eight head phases, four mouth levels and blink
+keys per expression form a finite motion bank. Neutral, warm, attentive and
+thoughtful cues describe the companion's own presentation; they do not infer
+the user's emotions. Typed `deliveryFor()` policy selects delivery from an
+acknowledged played caption; runtime status supplies thinking/listening cues.
+It owns no additional speech queue. Zero played energy closes the mouth
+immediately, including Stop and call end. Reduced motion disables idle head
+movement/blinking. Failure or cancellation releases partial preparation and
+uses the static photographic poster without replacing the chosen call.
+
+The [photographic check](releases/photographic-human-evidence.json) measured
+approximately 30 FPS over seven seconds on this Mac, captured real voice/motion
+at normal speed, checked expressions/Stop and verified the shared teaching
+board. Precise phonemes, full natural behavior, long-call reliability and weak-PC
+measurements are still open. The prepared motion is not unrestricted live video.
 
 ## Outcome and product promise
 

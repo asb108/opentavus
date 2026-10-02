@@ -1,2 +1,3 @@
 # Preserve the upstream license text, including its original whitespace.
 assets/font-notices/** -whitespace
+benchmarks/portrait/prepared/LivePortrait-LICENSE.txt -whitespace

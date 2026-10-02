@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Check, Cpu, Heart, Smile, X } from "lucide-react";
 import type { Catalog, Settings as CallSettings } from "../../api";
+import { avatarInfo } from "../avatar/catalog";
 
 export function Settings({
   open,
@@ -108,15 +109,17 @@ export function Settings({
               />
               <span>
                 <strong>{avatar.name}</strong>
-                <small>
-                  {avatar.id === "orbit" ? "Blue cartoon preview" : "Green cartoon preview"}
-                </small>
+                <small>{avatarInfo[avatar.id].description}</small>
               </span>
             </label>
           ))}
         </div>
       </fieldset>
-      <p>These are cartoon previews. Realistic human video is a separate avatar capability.</p>
+      <p>
+        The photographic preview has prepared head, eye and facial expressions, with approximate
+        speech movement. It needs no NVIDIA avatar server. Static portrait mode uses the least
+        graphics work. Precise lip-sync and broader natural behavior are still being improved.
+      </p>
       <div className="settings-footnote">
         <strong>Speech recognition</strong>
         <span>{catalog?.stt || "Whisper tiny / English"}</span>
