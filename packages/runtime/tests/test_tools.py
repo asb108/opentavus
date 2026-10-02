@@ -95,6 +95,7 @@ def test_quiz_answer_matches_a_distinct_choice_without_index_ambiguity():
         "Show the equations on the canvas.",
         "Draw the photosynthesis process.",
         "Make a flow chart.",
+        "Make a quiz.",
     ],
 )
 def test_explicit_board_requests_do_not_require_teaching_mode(question):
@@ -125,6 +126,9 @@ def test_plural_and_spoken_tool_names_select_the_expected_output():
     assert requested_kinds("diagrams on the board") == ["diagram"]
     assert requested_kinds("draw a flow chart") == ["diagram"]
     assert requested_kinds("show formulas and quizzes") == ["formula", "quiz"]
+    assert requested_kinds("Make a quiz.") == ["quiz"]
+    assert requested_kinds("Draw an equation.") == ["formula"]
+    assert requested_kinds("Draw a note about the concept.") == ["note"]
 
 
 def test_process_diagram_preserves_labels_and_keeps_outputs_on_separate_branches():

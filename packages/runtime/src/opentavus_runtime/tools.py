@@ -146,10 +146,15 @@ def requested_kinds(question: str) -> list[ToolKind]:
     """Select explicit requests; each provider call gets one unambiguous tool schema."""
     patterns: list[tuple[ToolKind, str]] = [
         ("formula", r"\b(formulas?|equations?|latex)\b|\bF\s*="),
-        ("diagram", r"\b(diagrams?|flow\s*charts?|mind\s*maps?|sketch|draw)\b"),
-        ("quiz", r"\b(quizzes?|practice)\b|\btest me\b"),
+        ("diagram", r"\b(diagrams?|flow\s*charts?|mind\s*maps?)\b"),
+        ("quiz", r"\b(quiz(?:zes)?|practice)\b|\btest me\b"),
     ]
-    return [kind for kind, pattern in patterns if re.search(pattern, question, re.I)] or ["note"]
+    explicit = [kind for kind, pattern in patterns if re.search(pattern, question, re.I)]
+    if explicit:
+        return explicit
+    drawing = re.search(r"\b(draw|sketch)\b", question, re.I)
+    note = re.search(r"\bnotes?\b", question, re.I)
+    return ["diagram"] if drawing and not note else ["note"]
 
 
 def board_requested(question: str, *, teaching: bool = False) -> bool:
@@ -167,7 +172,7 @@ def board_requested(question: str, *, teaching: bool = False) -> bool:
         return False
     visual = bool(
         re.search(
-            r"\b(diagrams?|flow\s*charts?|mind\s*maps?|formulas?|equations?|quizzes?|notes?)\b",
+            r"\b(diagrams?|flow\s*charts?|mind\s*maps?|formulas?|equations?|quiz(?:zes)?|notes?)\b",
             question,
             re.I,
         )

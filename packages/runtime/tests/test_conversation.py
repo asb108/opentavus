@@ -297,7 +297,7 @@ async def test_fragmented_spoken_diagram_uses_prior_topic_without_teaching_toggl
     assert call.board_history == []
 
 
-async def test_failed_diagram_application_is_not_remembered_as_visible():
+async def test_failed_board_application_is_not_remembered_as_visible():
     call = conversation(FakeEngines())
 
     async def emit(event):
