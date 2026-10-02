@@ -19,15 +19,15 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | Task | Milestone | Status | Dependencies | Assigned owner |
 | --- | --- | --- | --- | --- |
 | [T00](#t00) | G0 | done | None | Codex in this chat |
-| [T01](#t01) | G0 | todo | T00 | Unassigned |
+| [T01](#t01) | G0 | in_progress | T00 | Codex / Atul |
 | [T02](#t02) | G0 | done | T00 | Codex in this chat |
-| [T03](#t03) | G1 | todo | T01, T02 | Unassigned |
-| [T04](#t04) | G1 | todo | T03, T09 | Unassigned |
-| [T05](#t05) | G1 | todo | T02, T03 | Unassigned |
+| [T03](#t03) | G1 | in_progress | T01, T02 | Codex / Atul |
+| [T04](#t04) | G1 | in_progress | T03, T09 | Codex / Atul |
+| [T05](#t05) | G1 | in_progress | T02, T03 | Codex / Atul |
 | [T06](#t06) | G2 | todo | T02, T05 | Unassigned |
-| [T07](#t07) | G2 | todo | T01, T02, T03 | Unassigned |
-| [T08](#t08) | G2 | todo | T02, T03 | Unassigned |
-| [T09](#t09) | G1 | todo | T02 | Unassigned |
+| [T07](#t07) | G2 | in_progress | T01, T02, T03 | Codex / Atul |
+| [T08](#t08) | G2 | in_progress | T02, T03 | Codex / Atul |
+| [T09](#t09) | G1 | in_progress | T02 | Codex / Atul |
 | [T10](#t10) | G2 | todo | T01, T02, T04 | Unassigned |
 | [T11](#t11) | G2 | todo | T02, T04, T09 | Unassigned |
 | [T12](#t12) | G3 | todo | T01, T04, T05, T06, T07, T08, T09 | Unassigned |
@@ -36,8 +36,9 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T15](#t15) | G4 | todo | T13 | Unassigned |
 | [T16](#t16) | G4 | todo | T13, T14 | Unassigned |
 | [T17](#t17) | G4 | todo | T11, T13 | Unassigned |
+| [T18](#t18) | G2 | in_progress | T00, T02 | Codex / Atul |
 
-**Ready to claim now:** T01, T09. Run `make plan-status` after changing task status.
+**Ready to claim now:** None. Run `make plan-status` after changing task status.
 
 ## Task details
 
@@ -83,7 +84,7 @@ Evidence:
 
 #### T01: Select reviewed models and measure the native feasibility spike
 
-Status: **todo**. Owner: Unassigned. Dependencies: T00.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T00.
 
 Choose a reproducible base stack from measured hardware and exact artifact terms, rather than upstream speed claims.
 
@@ -103,7 +104,8 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: docs/models.md, pinned downloads.json, local manifests, uv.lock and package-lock.json record actual artifact digests, sizes, terms and runtime versions. Qwen 0.5B/1.5B, Whisper tiny CPU int8 and Kokoro float ONNX ran on M3 Pro/18 GB. Provider-schema lesson failures and factual errors are retained in alpha evidence.
+- Open acceptance: Smart Turn spike, separate complete-stack CPU fallback, 100-turn statistics, and other hardware/language profiles. Initial slow measurements are not whole-call performance claims.
 
 <a id="t02"></a>
 
@@ -153,7 +155,7 @@ Evidence:
 
 #### T03: Build the first complete local voice conversation
 
-Status: **todo**. Owner: Unassigned. Dependencies: T01, T02.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T01, T02.
 
 A browser microphone reaches the selected local models and produces an actual streamed spoken response with visible state and transcript.
 
@@ -166,6 +168,8 @@ Owned paths (proposed responsibilities, not an existence check):
 - `plugins/turn/`
 - `apps/api/src/opentavus_api/bootstrap/`
 - `apps/web/src/features/call/`
+- `plugins/local/`
+- `packages/runtime/src/opentavus_runtime/bootstrap.py`
 
 Acceptance:
 
@@ -177,13 +181,14 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: local alpha API/runtime/browser implement preparation, local scoped call admission, streamed PCM, on-page transcript, typed input, Pipecat SmallWebRTC/Silero/segmented Whisper microphone input and end cleanup. Opt-in Chrome synthetic MediaStream check reached real Whisper/Qwen/Kokoro playout and released its input track.
+- Open acceptance: physical microphone/speaker echo, partial STT, natural-turn behavior, broader preparation/lifecycle cases, and full sustained quality targets. See alpha evidence for exact boundary.
 
 <a id="t04"></a>
 
 #### T04: Choose playout timing and make interruption reliable
 
-Status: **todo**. Owner: Unassigned. Dependencies: T03, T09.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T03, T09.
 
 One media clock governs audible speech, avatar timing, and canvas cues; an interruption stops every obsolete output path.
 
@@ -205,13 +210,14 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: generation cancellation covers server streaming, browser Worklet queues, captions and pending board acknowledgements. Tests cover late output, backpressure, acknowledged phrase history and independent listening cancellation. Actual browser stop/reset events are in alpha evidence.
+- Open acceptance: track/WebRTC-output comparison, physical speaker waveform and echo, interruption recognition percentiles, jitter/reconnect replay, and 100-turn useful-latency targets. AudioWorklet is a provisional alpha route.
 
 <a id="t05"></a>
 
 #### T05: Ship a synchronized stock avatar and compatible GLB import
 
-Status: **todo**. Owner: Unassigned. Dependencies: T02, T03.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T03.
 
 The base call has a lively, synchronized character and works without LAM or a server GPU avatar model.
 
@@ -231,13 +237,14 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: original Orbit/Lumen browser canvas characters animate from actual played-audio energy through a small renderer interface. Alpha builds with no LAM, portrait weights or GPU avatar packages.
+- Open acceptance: reviewed stock GLB/TalkingHead implementation, supported import/rig validation, real phoneme sync and sustained frame-cadence evidence. Original alpha characters do not satisfy those GLB requirements.
 
 <a id="t09"></a>
 
 #### T09: Establish shared contract and conversation replay checks early
 
-Status: **todo**. Owner: Unassigned. Dependencies: T02.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02.
 
 Contributors can catch ordering, cleanup, and optional-plugin failures without paid APIs or large model downloads.
 
@@ -258,7 +265,8 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: make check covers strict Python/browser types, generated API/media schemas, safe tools, fake API/runtime cases, actual Worklet reset/source-sample behavior, user edit ownership and production build without models. make base-check independently passed with zero installed plugins. Public synthetic speech fixture and opt-in real Chrome smoke driver are committed.
+- Open acceptance: full controlled-clock shared adapter replay corpus, natural-pause and spoken interruption cases, long lifecycle/reconnect checks, and all v0.1 consumer integration scenarios. Local mock proof and live model proof remain distinct.
 
 ### G2 - Three launch experiences and optional portraits
 
@@ -291,7 +299,7 @@ Evidence:
 
 #### T07: Build independent model, voice, and character settings
 
-Status: **todo**. Owner: Unassigned. Dependencies: T01, T02, T03.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T01, T02, T03.
 
 Users switch configured models and voices without editing unrelated components, and understand whether a selected profile can run.
 
@@ -312,13 +320,14 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: closed settings/profile validation, installed/digest-reviewed catalog, four English voices, two characters and independent next-call settings are implemented. Real browser selection checks use 1.5B/Heart/Orbit and 0.5B/Michael/Lumen. Per-conversation transcript IDs/names prevent merging earlier calls.
+- Open acceptance: persona/asset metadata database, retention/deletion controls beyond local browser site data, more engine-family options and full missing-plugin UI matrix.
 
 <a id="t08"></a>
 
 #### T08: Build the shared tutor canvas as a launch feature
 
-Status: **todo**. Owner: Unassigned. Dependencies: T02, T03.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T03.
 
 An agent teaches with notes, formulas, diagrams, and practice questions while the user can keep drawing and editing.
 
@@ -327,6 +336,7 @@ Owned paths (proposed responsibilities, not an existence check):
 - `apps/web/src/features/canvas/`
 - `packages/runtime/src/opentavus_runtime/tools/tutor/`
 - `tests/integration/tutor/`
+- `packages/runtime/src/opentavus_runtime/tools.py`
 
 Acceptance:
 
@@ -338,7 +348,8 @@ Acceptance:
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-02: safe note/formula/diagram/quiz/clear rendering, operation IDs, browser acknowledgements, edited-note promotion, user drawing retention, PNG and Markdown exports are implemented. Real small-model trials exposed ambiguous quiz indexing, omitted quiz tools and stale question context; schemas/context and regression checks were revised rather than accepting those outputs as success.
+- Open acceptance: complete real duplicate-operation/reconnect/persistent-card matrix and canvas timing percentiles. Safe schema validation does not establish scientific correctness. Final bounded alpha browser evidence is recorded separately.
 
 <a id="t10"></a>
 
@@ -392,6 +403,60 @@ Acceptance:
 Evidence:
 
 - Not recorded; acceptance is unverified.
+
+<a id="t18"></a>
+
+#### T18: Publish the first local product alpha for community trials
+
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T00, T02.
+
+Users can try local animated conversation, independent model/voice settings, and a shared teaching board, and contribute through reproducible lightweight checks. Full v0.1 quality and optional portrait requirements remain open.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `apps/api/`
+- `apps/web/`
+- `packages/runtime/`
+- `plugins/local/`
+- `docs/quickstarts/`
+- `docs/releases/`
+- `CONTRIBUTING.md`
+- `AGENTS.md`
+- `.github/ISSUE_TEMPLATE/`
+- `docs/style-guide.md`
+- `assets/font-notices/`
+- `packages/core/README.md`
+- `scripts/browser-smoke.mjs`
+- `scripts/browser-instrument.js`
+- `scripts/plugin_manifests.py`
+- `Makefile`
+- `package.json`
+- `package-lock.json`
+- `docs/contribution-guide.md`
+- `GOVERNANCE.md`
+- `CODE_OF_CONDUCT.md`
+- `SECURITY.md`
+- `THIRD_PARTY_NOTICES.md`
+- `.editorconfig`
+- `.prettierrc.json`
+- `eslint.config.mjs`
+
+Acceptance:
+
+- Provide explicit pinned model setup, readiness/recovery, loopback serving, typed and microphone input, original animated characters, and no required hosted inference key.
+- Validate settings/model output and safe lesson rendering; scope/cancel audio and board output by generation, acknowledge playback, and preserve user drawings and edits.
+- Demonstrate real local model speech reaching browser playout, a rendered teaching lesson, Stop cleanup, at least two model/voice configurations, and a synthetic microphone route; report physical acoustics and full percentile/lifecycle targets as unverified.
+- Pass make check, make demo, and isolated make base-check with optional avatars absent; provide an opt-in repeatable browser smoke command and record real evidence separately from fixtures.
+- Publish accurate quickstart/model/privacy/support notes, human/agent contribution rules, style configs, issue/PR templates, conduct/governance/security reporting, and an honest alpha release record.
+- Commit and push the reviewed source to the authorized public repository; record GitHub CI/publication evidence separately. Do not tag a stable v0.1 or claim full T13 acceptance.
+
+Evidence:
+
+- 2026-10-02: make check passed 60 Python behavior tests, strict mypy on 25 source files, Ruff, manifest digests, generated API/media schemas and TypeScript, ESLint/Prettier, production build, 3 contract tests and 6 web tests. make demo passed. Isolated make base-check passed 29 core tests (5 fixture tests deselected) and empty installed-plugin discovery.
+- 2026-10-02: npm run test:browser -- --live passed on M3 Pro/18 GB/macOS 14.5/Chrome 154: actual local speech, applied formula/equation quiz with feedback, exports, Stop resets, next-call 1.5B/Heart/Orbit to 0.5B/Michael/Lumen, separate transcript IDs/names and user rectangle retention. --microphone passed synthetic WebRTC/Silero/Whisper/Qwen/Kokoro input/output and track release. These are bounded trials; physical acoustics and sustained lifecycle targets remain unverified.
+- 2026-10-02: exact digests, runtime versions, screenshots, synthetic example, per-trial timings and slow/incorrect/rejected results are recorded in docs/releases/0.1.0-alpha.1-evidence.json and linked artifacts. Final warm arithmetic request-to-Worklet-caption 2543.8 ms; equation lesson 8456.4 ms. Local stop/reset samples 15.2-15.8 ms. No percentile/speaker-waveform claim.
+- 2026-10-02: quickstarts, license/model notices, human/agent instructions, style configs, contribution ideas, conduct/governance/security, issue/PR templates and GitHub private vulnerability reporting are prepared. LAM and all optional avatar packages are absent from base checks. Full T01/T03-T09/T13 acceptance remains visible and incomplete.
+- Publication acceptance pending: reviewed commit/push and exact GitHub CI result. This task remains in_progress until publication evidence is recorded.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 

@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible problem in the local product or developer checks.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Use synthetic examples. Never paste credentials, private conversations, or personal media. Security vulnerabilities use the Security tab.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Smallest reproduction
+      description: Include the question or actions, selected model/voice, and whether the problem survives reconnecting.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and evidence
+      description: Commit, OS, RAM, browser version, setup command, sanitized doctor output, and relevant checks. Distinguish real model behavior from fixtures.
+    validations:
+      required: true

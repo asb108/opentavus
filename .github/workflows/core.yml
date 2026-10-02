@@ -1,4 +1,4 @@
-name: Core and contracts
+name: Application and contribution checks
 
 on:
   push:
@@ -21,9 +21,9 @@ jobs:
           cache: npm
       - name: Install the tested uv version
         run: python -m pip install uv==0.7.1
-      - name: Install locked development and fixture dependencies
+      - name: Install locked application development dependencies without models
         run: make setup
-      - name: Verify core, contracts, fixture, and plan
+      - name: Verify API, runtime, browser, contracts, and plan
         run: make check
       - name: Exercise installed fixture discovery
         run: make demo

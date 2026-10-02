@@ -1,8 +1,17 @@
 # Engine and avatar plugin contract
 
-This document specifies the launch plugin boundary. T02 supplies the initial core prototype and synthetic fixture; T06 implements removable LAM support. The current [core interfaces](../packages/core/README.md) are pre-alpha: real adapters and the browser renderer lifecycle are subsequent work.
+This document specifies the launch plugin boundary. T02 supplies the typed core and synthetic fixture. T18 adds working local speech/language adapters and an original browser character; the broader renderer/GPU contracts remain launch work. T06 will implement removable LAM support. See the [core interfaces](../packages/core/README.md) and current [alpha notes](releases/0.1.0-alpha.1.md).
 
 Installed Python plugins register metadata through `opentavus.manifests` and a factory through `opentavus.engines`, using the same stable plugin ID. The metadata entry names a top-level package containing `opentavus-plugin.json`; discovery locates that file without importing the package. The factory entry must match the manifest. Browser renderer discovery will be implemented independently. A LAM family can contain separate avatar and image-creation packages under its isolated boundary; each descriptor/factory has one engine kind.
+
+The alpha's working examples are `plugins/local`: separate Whisper, Kokoro, and Ollama factories distributed in one optional workspace package. Base/core and API fixture tests work with this package absent. `scripts/plugin_manifests.py` records exact adapter source and artifact digests; run it after changing a local adapter. The model group adds only explicit inference dependencies. A code/weight manifest's permissive label does not override a transitive runtime dependency's own license; see [third-party notices](../THIRD_PARTY_NOTICES.md).
+
+The alpha teaching quiz carries `answer` as the exact text of one distinct choice.
+Both producer and browser reject unmatched or duplicated choices. Applied lesson data
+is acknowledged before it enters spoken-reply context. This is the initial published
+teaching schema; future incompatible changes require a coordinated version update.
+
+The base browser contains a small trusted `AvatarRenderer` interface and two original companion variants. A later LAM renderer has its own package/lazy import and is not registered by arbitrary metadata-provided JavaScript. LAM is currently absent, so the shipped alpha starts without it. Its install/disable/remove/restart matrix still requires T06 live integration and is not proved merely by this absence.
 
 ## Descriptor and discovery
 

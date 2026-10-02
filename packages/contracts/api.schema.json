@@ -1,0 +1,414 @@
+{
+  "$defs": {
+    "BoardReply": {
+      "additionalProperties": false,
+      "properties": {
+        "tools": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "clear": "#/$defs/Clear",
+                "diagram": "#/$defs/Diagram",
+                "formula": "#/$defs/Formula",
+                "note": "#/$defs/Note",
+                "quiz": "#/$defs/Quiz"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Note"
+              },
+              {
+                "$ref": "#/$defs/Formula"
+              },
+              {
+                "$ref": "#/$defs/Diagram"
+              },
+              {
+                "$ref": "#/$defs/Quiz"
+              },
+              {
+                "$ref": "#/$defs/Clear"
+              }
+            ]
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Tools",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tools"
+      ],
+      "title": "BoardReply",
+      "type": "object"
+    },
+    "CallCreated": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "settings": {
+          "$ref": "#/$defs/CallSettings"
+        },
+        "token": {
+          "maxLength": 128,
+          "minLength": 32,
+          "title": "Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "conversation_id",
+        "token",
+        "settings"
+      ],
+      "title": "CallCreated",
+      "type": "object"
+    },
+    "CallSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "avatar": {
+          "default": "orbit",
+          "enum": [
+            "orbit",
+            "lumen"
+          ],
+          "title": "Avatar",
+          "type": "string"
+        },
+        "model": {
+          "default": "qwen2.5:1.5b",
+          "enum": [
+            "qwen2.5:0.5b",
+            "qwen2.5:1.5b",
+            "qwen2.5:7b"
+          ],
+          "title": "Model",
+          "type": "string"
+        },
+        "voice": {
+          "default": "af_heart",
+          "enum": [
+            "af_heart",
+            "af_bella",
+            "am_michael",
+            "bf_emma"
+          ],
+          "title": "Voice",
+          "type": "string"
+        }
+      },
+      "title": "CallSettings",
+      "type": "object"
+    },
+    "Clear": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "clear",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "Clear",
+      "type": "object"
+    },
+    "Diagram": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "diagram",
+          "title": "Kind",
+          "type": "string"
+        },
+        "mermaid": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Mermaid",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "mermaid"
+      ],
+      "title": "Diagram",
+      "type": "object"
+    },
+    "Formula": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "maxLength": 1000,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "kind": {
+          "const": "formula",
+          "title": "Kind",
+          "type": "string"
+        },
+        "latex": {
+          "description": "Standard LaTeX; prefer plain F=ma for simple formulas.",
+          "maxLength": 600,
+          "minLength": 1,
+          "title": "Latex",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "latex",
+        "explanation"
+      ],
+      "title": "Formula",
+      "type": "object"
+    },
+    "Hello": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "token": {
+          "maxLength": 128,
+          "minLength": 32,
+          "title": "Token",
+          "type": "string"
+        },
+        "type": {
+          "const": "hello",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "conversation_id",
+        "token"
+      ],
+      "title": "Hello",
+      "type": "object"
+    },
+    "Note": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "note",
+          "title": "Kind",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 1500,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "text"
+      ],
+      "title": "Note",
+      "type": "object"
+    },
+    "Offer": {
+      "additionalProperties": false,
+      "properties": {
+        "sdp": {
+          "maxLength": 65536,
+          "minLength": 1,
+          "title": "Sdp",
+          "type": "string"
+        },
+        "type": {
+          "const": "offer",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sdp",
+        "type"
+      ],
+      "title": "Offer",
+      "type": "object"
+    },
+    "Question": {
+      "additionalProperties": false,
+      "properties": {
+        "teach": {
+          "default": false,
+          "title": "Teach",
+          "type": "boolean"
+        },
+        "text": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "const": "ask",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "title": "Question",
+      "type": "object"
+    },
+    "Quiz": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "description": "Copy the exact correct choice text, never a letter or index.",
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Answer",
+          "type": "string"
+        },
+        "choices": {
+          "description": "Plain choices without A/B labels. Exactly one correct; others must be false, not equivalent rearrangements.",
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Choices",
+          "type": "array"
+        },
+        "explanation": {
+          "maxLength": 800,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "kind": {
+          "const": "quiz",
+          "title": "Kind",
+          "type": "string"
+        },
+        "question": {
+          "description": "A short learner-facing question, never a copied request.",
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "question",
+        "choices",
+        "answer",
+        "explanation"
+      ],
+      "title": "Quiz",
+      "type": "object"
+    },
+    "TeachMode": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "type": {
+          "const": "teach_mode",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "enabled"
+      ],
+      "title": "TeachMode",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "board": {
+      "$ref": "#/$defs/BoardReply"
+    },
+    "created": {
+      "$ref": "#/$defs/CallCreated"
+    },
+    "hello": {
+      "$ref": "#/$defs/Hello"
+    },
+    "offer": {
+      "$ref": "#/$defs/Offer"
+    },
+    "question": {
+      "$ref": "#/$defs/Question"
+    },
+    "settings": {
+      "$ref": "#/$defs/CallSettings"
+    },
+    "teach_mode": {
+      "$ref": "#/$defs/TeachMode"
+    }
+  },
+  "required": [
+    "settings",
+    "created",
+    "hello",
+    "offer",
+    "question",
+    "teach_mode",
+    "board"
+  ],
+  "title": "ControlContract",
+  "type": "object"
+}

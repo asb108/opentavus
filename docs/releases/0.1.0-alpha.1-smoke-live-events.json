@@ -1,0 +1,1029 @@
+{
+  "schema_version": 1,
+  "measurement": "browser clock; not speaker waveform",
+  "events": [
+    {
+      "t": 5756.70000000298,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 0,
+      "played": 0
+    },
+    {
+      "t": 5762.300000011921,
+      "direction": "out",
+      "type": "ask",
+      "teach": false
+    },
+    {
+      "t": 5764,
+      "direction": "in",
+      "type": "session",
+      "generation": 0
+    },
+    {
+      "t": 5765.5,
+      "direction": "in",
+      "type": "status",
+      "generation": 0,
+      "status": "listening"
+    },
+    {
+      "t": 5765.70000000298,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 1
+    },
+    {
+      "t": 5765.70000000298,
+      "direction": "in",
+      "type": "transcript",
+      "generation": 1
+    },
+    {
+      "t": 5765.70000000298,
+      "direction": "in",
+      "type": "status",
+      "generation": 1,
+      "status": "thinking"
+    },
+    {
+      "t": 5767.800000011921,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 0,
+      "played": 0
+    },
+    {
+      "t": 5767.9000000059605,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 1
+    },
+    {
+      "t": 8301.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 0
+    },
+    {
+      "t": 8303.800000011921,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 1920
+    },
+    {
+      "t": 8303.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 3840
+    },
+    {
+      "t": 8304.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 5760
+    },
+    {
+      "t": 8304.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 7680
+    },
+    {
+      "t": 8304.300000011921,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 9600
+    },
+    {
+      "t": 8304.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 11520
+    },
+    {
+      "t": 8304.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 13440
+    },
+    {
+      "t": 8304.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 15360
+    },
+    {
+      "t": 8304.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 17280
+    },
+    {
+      "t": 8304.800000011921,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 19200
+    },
+    {
+      "t": 8304.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 21120
+    },
+    {
+      "t": 8305,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 23040
+    },
+    {
+      "t": 8305.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 24960
+    },
+    {
+      "t": 8305.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 26880
+    },
+    {
+      "t": 8305.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 28800
+    },
+    {
+      "t": 8305.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 30720
+    },
+    {
+      "t": 8305.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 32640
+    },
+    {
+      "t": 8305.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 34560
+    },
+    {
+      "t": 8305.800000011921,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 36480
+    },
+    {
+      "t": 8306,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 38400
+    },
+    {
+      "t": 8306.10000000894,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 1
+    },
+    {
+      "t": 8307.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 40320
+    },
+    {
+      "t": 8308,
+      "direction": "in",
+      "type": "reply_done",
+      "generation": 1
+    },
+    {
+      "t": 8338,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 1,
+      "level": 0.0006465433603789201,
+      "played": 832,
+      "idle": false,
+      "done": true
+    },
+    {
+      "t": 8356.10000000894,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 8371.300000011921,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 1,
+      "played": 1280
+    },
+    {
+      "t": 8371.300000011921,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 2
+    },
+    {
+      "t": 8371.300000011921,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 2
+    },
+    {
+      "t": 8372.60000000894,
+      "direction": "in",
+      "type": "status",
+      "generation": 2,
+      "status": "listening"
+    },
+    {
+      "t": 8623,
+      "direction": "out",
+      "type": "ask",
+      "teach": true
+    },
+    {
+      "t": 8638.300000011921,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 3
+    },
+    {
+      "t": 8639.300000011921,
+      "direction": "in",
+      "type": "transcript",
+      "generation": 3
+    },
+    {
+      "t": 8639.40000000596,
+      "direction": "in",
+      "type": "status",
+      "generation": 3,
+      "status": "thinking"
+    },
+    {
+      "t": 8639.5,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 2,
+      "played": 0
+    },
+    {
+      "t": 8639.5,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 3
+    },
+    {
+      "t": 15283.40000000596,
+      "direction": "in",
+      "type": "canvas",
+      "generation": 3,
+      "sample": 0,
+      "tool": "canvas_formula"
+    },
+    {
+      "t": 15310.800000011921,
+      "direction": "out",
+      "type": "canvas_result",
+      "generation": 3,
+      "applied": true
+    },
+    {
+      "t": 15314.5,
+      "direction": "in",
+      "type": "canvas",
+      "generation": 3,
+      "sample": 0,
+      "tool": "canvas_quiz"
+    },
+    {
+      "t": 15337.70000000298,
+      "direction": "out",
+      "type": "canvas_result",
+      "generation": 3,
+      "applied": true
+    },
+    {
+      "t": 17075.30000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 0
+    },
+    {
+      "t": 17075.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 1920
+    },
+    {
+      "t": 17075.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 3840
+    },
+    {
+      "t": 17076,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 5760
+    },
+    {
+      "t": 17076.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 7680
+    },
+    {
+      "t": 17076.40000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 9600
+    },
+    {
+      "t": 17076.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 11520
+    },
+    {
+      "t": 17076.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 13440
+    },
+    {
+      "t": 17077,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 15360
+    },
+    {
+      "t": 17077.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 17280
+    },
+    {
+      "t": 17077.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 19200
+    },
+    {
+      "t": 17077.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 21120
+    },
+    {
+      "t": 17077.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 23040
+    },
+    {
+      "t": 17078,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 24960
+    },
+    {
+      "t": 17078.30000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 26880
+    },
+    {
+      "t": 17078.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 28800
+    },
+    {
+      "t": 17078.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 30720
+    },
+    {
+      "t": 17078.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 32640
+    },
+    {
+      "t": 17079.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 34560
+    },
+    {
+      "t": 17079.30000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 36480
+    },
+    {
+      "t": 17079.40000000596,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 3
+    },
+    {
+      "t": 17080.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 38400
+    },
+    {
+      "t": 17080.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 40320
+    },
+    {
+      "t": 17081,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 42240
+    },
+    {
+      "t": 17081,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 44160
+    },
+    {
+      "t": 17081.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 46080
+    },
+    {
+      "t": 17081.30000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 48000
+    },
+    {
+      "t": 17089.70000000298,
+      "direction": "check",
+      "type": "lesson_useful_caption"
+    },
+    {
+      "t": 17106.10000000894,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0009082354791707969,
+      "played": 768,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17143.40000000596,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0859253538168655,
+      "played": 1600,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17175.40000000596,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.1379084752093713,
+      "played": 2432,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17212.70000000298,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.19940589803480843,
+      "played": 3264,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17213.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 49920
+    },
+    {
+      "t": 17244.70000000298,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.14328613177482669,
+      "played": 4096,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17282,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.042366511321370245,
+      "played": 4928,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17314.10000000894,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.003800784249941018,
+      "played": 5760,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 17314.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 51840
+    },
+    {
+      "t": 17315.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 53760
+    },
+    {
+      "t": 17321.90000000596,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 17337.5,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 3,
+      "played": 5888
+    },
+    {
+      "t": 17337.5,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 4
+    },
+    {
+      "t": 17337.5,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 4
+    },
+    {
+      "t": 17338.60000000894,
+      "direction": "in",
+      "type": "status",
+      "generation": 4,
+      "status": "listening"
+    },
+    {
+      "t": 17356.10000000894,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 17371.5,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 4,
+      "played": 0
+    },
+    {
+      "t": 17371.5,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 5
+    },
+    {
+      "t": 17371.60000000894,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 5
+    },
+    {
+      "t": 17372.90000000596,
+      "direction": "in",
+      "type": "status",
+      "generation": 5,
+      "status": "listening"
+    },
+    {
+      "t": 17373,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 6
+    },
+    {
+      "t": 17374.80000001192,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 5,
+      "played": 0
+    },
+    {
+      "t": 20392.5,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 0,
+      "played": 0
+    },
+    {
+      "t": 20394,
+      "direction": "out",
+      "type": "ask",
+      "teach": false
+    },
+    {
+      "t": 20394.90000000596,
+      "direction": "in",
+      "type": "session",
+      "generation": 0
+    },
+    {
+      "t": 20395,
+      "direction": "in",
+      "type": "status",
+      "generation": 0,
+      "status": "listening"
+    },
+    {
+      "t": 20395.10000000894,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 1
+    },
+    {
+      "t": 20395.10000000894,
+      "direction": "in",
+      "type": "transcript",
+      "generation": 1
+    },
+    {
+      "t": 20395.20000000298,
+      "direction": "in",
+      "type": "status",
+      "generation": 1,
+      "status": "thinking"
+    },
+    {
+      "t": 20396.10000000894,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 0,
+      "played": 0
+    },
+    {
+      "t": 20396.20000000298,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 1
+    },
+    {
+      "t": 22572.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 0
+    },
+    {
+      "t": 22572.30000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 1920
+    },
+    {
+      "t": 22572.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 3840
+    },
+    {
+      "t": 22572.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 5760
+    },
+    {
+      "t": 22572.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 7680
+    },
+    {
+      "t": 22573.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 9600
+    },
+    {
+      "t": 22573.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 11520
+    },
+    {
+      "t": 22573.40000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 13440
+    },
+    {
+      "t": 22573.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 15360
+    },
+    {
+      "t": 22573.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 17280
+    },
+    {
+      "t": 22574.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 19200
+    },
+    {
+      "t": 22574.40000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 21120
+    },
+    {
+      "t": 22574.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 23040
+    },
+    {
+      "t": 22574.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 24960
+    },
+    {
+      "t": 22574.90000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 26880
+    },
+    {
+      "t": 22575.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 28800
+    },
+    {
+      "t": 22575.30000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 30720
+    },
+    {
+      "t": 22575.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 32640
+    },
+    {
+      "t": 22575.70000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 34560
+    },
+    {
+      "t": 22575.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 36480
+    },
+    {
+      "t": 22576,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 38400
+    },
+    {
+      "t": 22576.20000000298,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 40320
+    },
+    {
+      "t": 22576.40000000596,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 42240
+    },
+    {
+      "t": 22576.60000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 44160
+    },
+    {
+      "t": 22576.80000001192,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 46080
+    },
+    {
+      "t": 22577.10000000894,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 48000
+    },
+    {
+      "t": 22577.30000001192,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 1
+    },
+    {
+      "t": 22588,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 1,
+      "level": 0.0004013416869237392,
+      "played": 384,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 22621.90000000596,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 22637.40000000596,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 1,
+      "played": 1152
+    },
+    {
+      "t": 22637.40000000596,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 2
+    },
+    {
+      "t": 22637.5,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 2
+    },
+    {
+      "t": 22638.70000000298,
+      "direction": "in",
+      "type": "status",
+      "generation": 2,
+      "status": "listening"
+    },
+    {
+      "t": 22655.60000000894,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 22671.40000000596,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 2,
+      "played": 0
+    },
+    {
+      "t": 22671.40000000596,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 3
+    },
+    {
+      "t": 22671.40000000596,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 3
+    },
+    {
+      "t": 22672.5,
+      "direction": "in",
+      "type": "status",
+      "generation": 3,
+      "status": "listening"
+    },
+    {
+      "t": 22672.5,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 4
+    },
+    {
+      "t": 22674,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 3,
+      "played": 0
+    }
+  ]
+}

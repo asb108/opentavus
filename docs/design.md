@@ -1,6 +1,20 @@
 # OpenTavus design
 
-Updated 2 October 2026. This is the implementation baseline for a feature-rich first release. The typed core/contracts and synthetic fixture are implemented; the live application is not. [Tasks](tasks.json) record work and evidence. The user's requirements are recorded in [decisions](decisions.md).
+Updated 2 October 2026. This is the implementation baseline for the full first release, with an earlier local alpha now implemented. [Tasks](tasks.json) record work and evidence. The user's requirements and preview choices are recorded in [decisions](decisions.md). The alpha does not complete the full v0.1 quality gates.
+
+## Implemented local alpha
+
+The current application combines a local call, independent model/voice/character settings, and a shared teaching board. It uses FastAPI, a framework-free core, a session runtime, React/Vite, Pipecat SmallWebRTC/Silero/segmented STT for microphone input, local Ollama Qwen2.5, CPU Whisper tiny, and Kokoro ONNX. Model artifacts and selected voice terms are pinned in [the model matrix](models.md). Setup is explicit; the default development install does not include model packages or weights.
+
+Output PCM, captions, and companion mouth energy use one browser AudioWorklet clock. Generations cancel server production and reject late browser output; browser stop/progress acknowledgements constrain buffering. At most roughly two seconds of server audio and 64 browser packets can be queued. Complete acknowledged phrases enter the next-turn context; incomplete phrases are omitted because this model path has no word timing. The visible transcript shows a phrase when its playback starts and marks interrupted replies.
+
+Orbit and Lumen are original stylized canvas characters, with audio-driven mouth movement. GLB/VRM imports, photorealistic portrait animation, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting remain roadmap work. The full stock GLB requirement below remains in T05; the alpha character is an earlier usable preview with a separate renderer boundary. It is not phoneme-accurate lip-sync proof.
+
+The teaching planner obtains schema-constrained JSON, then validates a fixed note/formula/diagram/quiz/clear allowlist again. Notes are Excalidraw text. Safe formula/diagram cards and quiz panels appear above the drawings. A browser operation acknowledgement gates the subsequent spoken board explanation. Explicit formula, diagram and quiz requests each use a single-tool provider schema: a real small-model trial returned a formula in place of a quiz with the union schema. Requested results are all validated before applying them. Their browser acknowledgements gate speech, which adds visible delay; the full timing strategy remains to be optimized and measured. Quiz answers match the exact text of a distinct choice. Unheard reply text stays out of history; temporary interruption notes provide model turn boundaries when no complete phrase was heard.
+
+The API is loopback-only, admits one browser call, validates origins/hosts/settings, and requires a scoped call token in a socket hello or HTTP Authorization header. Tokens are not placed in URLs. Prepared calls with no socket expire. Call context lives in memory and is discarded on close; transcripts/recordings are not written by default. Versioned browser storage retains settings and drawings; lesson cards remain page-session state. There is no SQLite persona/asset database in this preview.
+
+The current commands, limitations, and hardware evidence are in [the quickstart](quickstarts/local.md) and [alpha release notes](releases/0.1.0-alpha.1.md). The following sections retain the full v0.1 direction; they must not be read as a claim that every listed feature is shipped.
 
 ## Outcome and product promise
 
@@ -14,7 +28,7 @@ The user explicitly requested removable LAM support, several compelling launch f
 
 ### 1. Responsive avatar conversation
 
-One call page provides a character, streamed speech, live transcript, microphone controls, connection/readiness state, and clear AI disclosure. The agent responds to pauses and interruptions without talking over a correction or replaying an abandoned answer. Mic access is required; camera access is requested only when a future vision feature is enabled.
+One call page provides a character, streamed speech, live transcript, microphone controls, connection/readiness state, and clear AI disclosure. The agent responds to pauses and interruptions without talking over a correction or replaying an abandoned answer. Mic access is required for spoken input; typed input works without it. Camera access is requested only when a future vision feature is enabled.
 
 The base uses a redistributable, compatible stock GLB. A prepared-avatar importer accepts the supported GLB contract and reports missing rig/shapes; arbitrary VRM conversion follows its own validation work. A GPU portrait plugin adds higher-fidelity lip-sync on measured hardware. LAM adds separately eligible animation and photo-creation capabilities.
 
@@ -24,7 +38,7 @@ The conversation works when an optional avatar fails. Show the failed capability
 
 A small settings panel lists **installed/configured** STT, LLM, TTS, voice, and avatar choices. Each choice shows its language/capabilities, license eligibility, hardware requirement, and ready/unavailable reason. The user can select a local profile or a reviewed GPU/split profile without editing the other components.
 
-v0.1 implements a curated working set, not every model in the research catalog. Candidate base: Whisper adapter, quantized Gemma 4 E4B through Ollama, Kokoro, Silero VAD, and Smart Turn. The LLM adapter accepts other configured permissive models through the same endpoint interface. Extra adapters enter the catalog only with manifests and contract evidence. The initial English profile and additional languages have separate quality results. Exact revisions and runtime versions are selected in T01.
+v0.1 implements a curated working set, not every model in the research catalog. The alpha uses Whisper tiny, reviewed Qwen2.5 0.5B/1.5B configurations through Ollama, Kokoro, and Silero VAD. Qwen 7B is a catalog option without live reference-machine evidence. Smart Turn and stronger/alternative models require their own measured integration. Extra adapters enter the catalog only with manifests and contract evidence. The initial English profile and additional languages have separate quality results. Exact revisions and runtime versions are selected in T01 and the model matrix.
 
 Settings take effect on the next call. Resolve the entire profile, licenses, capabilities, and available memory before starting; return actionable errors instead of starting a half-configured session. Keep server secrets outside browser payloads. Source findings: [research review](plan-review.md).
 
@@ -62,7 +76,7 @@ flowchart LR
     Avatar -. optional .-> GPU[GPU worker]
 ```
 
-Planned code responsibility:
+Code responsibility (implemented core/runtime/API/web/local adapters; workers and portrait plugins follow their tasks):
 
 | Path | Owns | Dependency rule |
 | --- | --- | --- |
@@ -75,7 +89,7 @@ Planned code responsibility:
 | `tests/` | Contract suites, deterministic replay, browser integration | Base tests use fixtures and need no paid service/GPU |
 | `benchmarks/` | Real-model/browser timing harness and redistributable cases | Records complete run configuration and raw results |
 
-Create these modules when their tasks start. Use Python protocols/dataclasses and typed TypeScript discriminated events at boundaries; use Pydantic at configuration/API boundaries. Keep separate STT, LLM, TTS, avatar, and image-job interfaces with one small common descriptor. Avoid a universal engine class containing every optional operation. Core controls lifecycle/cancellation, while plugins implement model behavior.
+Create later modules when their tasks start. Use Python protocols/dataclasses and typed TypeScript discriminated events at boundaries; use Pydantic at configuration/API boundaries. Keep separate STT, LLM, TTS, avatar, and image-job interfaces with one small common descriptor. Avoid a universal engine class containing every optional operation. Core controls lifecycle/cancellation, while plugins implement model behavior.
 
 Python packaging uses a `uv` workspace; the browser uses an npm workspace and committed lockfile. Base installation includes only its selected lightweight dependencies. Plugin dependency groups/packages are explicit. Use Python entry points for installed adapter factories, but inspect manifests and eligibility before importing factories or heavyweight ML modules. Browser renderers use a trusted build-time registry with lazy imports; runtime metadata cannot cause downloads/execution of arbitrary JavaScript.
 

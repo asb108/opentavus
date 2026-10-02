@@ -1,0 +1,14 @@
+[project]
+name = "opentavus-runtime"
+version = "0.1.0a1"
+description = "Local conversation generations, validated teaching tools, and media integration"
+license = "Apache-2.0"
+requires-python = ">=3.11,<3.14"
+dependencies = ["opentavus-core", "httpx>=0.28,<1"]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+opentavus-core = { workspace = true }

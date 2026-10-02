@@ -20,3 +20,6 @@ dist/
 build/
 *.egg-info/
 .DS_Store
+apps/web/public/fonts/
+output/playwright/
+.playwright-cli/

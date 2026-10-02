@@ -1,0 +1,13 @@
+Extracted from node_modules/@excalidraw/excalidraw/dist/prod/fonts/Assistant/Assistant-Bold.woff2
+
+Copyright: Copyright 2020 The Assistant Project Authors (https://github.com/hafontia/Assistant). Copyright 2010 The Source Sans Pro Authors (https://github.com/adobe-fonts/source-sans-pro), with Reserved Font Name 'Source'. Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries.
+
+Family: Assistant
+
+Trademark: Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries.
+
+Designer: Hebrew By Ben Nathan, Latin by Paul Hunt
+
+License: This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL
+
+License URL: http://scripts.sil.org/OFL

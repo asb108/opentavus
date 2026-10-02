@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contribution guide
+    url: https://github.com/asb108/opentavus/blob/main/CONTRIBUTING.md
+    about: Setup, style, task selection, and contribution evidence.
+  - name: Private security report
+    url: https://github.com/asb108/opentavus/security/advisories/new
+    about: Do not publish sensitive vulnerability details in an issue.

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "api_version": 1,
+  "id": "local.kokoro",
+  "kind": "tts",
+  "display_name": "Kokoro 82M (ONNX)",
+  "entry_point": "opentavus_kokoro.adapter:create",
+  "capabilities": {
+    "default": {
+      "required_artifacts": [
+        "code",
+        "artifact0",
+        "artifact1"
+      ],
+      "input_formats": [
+        "text.delta.v1"
+      ],
+      "output_formats": [
+        "pcm_s16le"
+      ]
+    }
+  },
+  "execution": [
+    "in_process"
+  ],
+  "languages": [
+    "en"
+  ],
+  "streaming": "chunk_adapter",
+  "cancellation": "discard_late_output",
+  "hardware": {
+    "in_process": {
+      "min_ram_mb": 512,
+      "accelerator": "cpu"
+    }
+  },
+  "artifacts": [
+    {
+      "id": "code",
+      "purpose": "code",
+      "source_url": "repo://plugins/local/src/opentavus_kokoro/adapter.py",
+      "revision": "0.1.0a1",
+      "sha256": "d167728b2e991381f1bdcb29c20b3322da868beb3f80dd766e5ce7073eb6cc2d",
+      "license_id": "Apache-2.0",
+      "license_url": "repo://LICENSE",
+      "attribution": "OpenTavus contributors",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "artifact0",
+      "purpose": "weights",
+      "source_url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/kokoro-v1.0.onnx",
+      "revision": "model-files-v1.1",
+      "sha256": "beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a",
+      "license_id": "Apache-2.0",
+      "license_url": "https://huggingface.co/hexgrad/Kokoro-82M",
+      "attribution": "hexgrad and thewh1teagle",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "artifact1",
+      "purpose": "voice",
+      "source_url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/voices-v1.0.bin",
+      "revision": "model-files-v1.1",
+      "sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d",
+      "license_id": "Apache-2.0",
+      "license_url": "https://huggingface.co/hexgrad/Kokoro-82M",
+      "attribution": "hexgrad and thewh1teagle",
+      "eligibility": "reviewed_permissive"
+    }
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "model_path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "voices_path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "voice": {
+        "enum": [
+          "af_heart",
+          "af_bella",
+          "am_michael",
+          "bf_emma"
+        ]
+      }
+    },
+    "required": [
+      "model_path",
+      "voices_path",
+      "voice"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,19 +1,39 @@
 {
   "name": "opentavus",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "license": "Apache-2.0",
-  "engines": {"node": ">=22"},
-  "workspaces": ["packages/contracts"],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "workspaces": [
+    "packages/contracts",
+    "apps/web"
+  ],
   "scripts": {
-    "contracts:generate": "uv run --no-sync python scripts/contracts.py && node scripts/generate-types.mjs",
-    "contracts:check": "uv run --no-sync python scripts/contracts.py --check && node scripts/generate-types.mjs --check",
+    "contracts:generate": "uv run --no-sync python scripts/contracts.py && uv run --no-sync python scripts/api_contracts.py && node scripts/generate-types.mjs",
+    "contracts:check": "uv run --no-sync python scripts/contracts.py --check && uv run --no-sync python scripts/api_contracts.py --check && node scripts/generate-types.mjs --check",
     "typecheck": "npm run typecheck --workspaces",
     "build": "npm run build --workspaces",
-    "test": "npm run test --workspaces"
+    "test": "npm run test --workspaces",
+    "lint": "eslint apps/web/src",
+    "format": "prettier --write apps/web/src apps/web/tests apps/web/public/*.js apps/web/*.html apps/web/*.json apps/web/*.ts scripts/*.mjs scripts/*.js eslint.config.mjs package.json",
+    "format:check": "prettier --check apps/web/src apps/web/tests apps/web/public/*.js apps/web/*.html apps/web/*.json apps/web/*.ts scripts/*.mjs scripts/*.js eslint.config.mjs package.json",
+    "test:browser": "node scripts/browser-smoke.mjs"
   },
   "devDependencies": {
     "json-schema-to-typescript": "^15.0.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "typescript-eslint": "^8.48.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "prettier": "^3.7.1",
+    "@playwright/cli": "0.1.22"
+  },
+  "overrides": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }

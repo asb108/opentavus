@@ -190,6 +190,7 @@ class AudioEvent(EventBase):
     sample_rate: Annotated[int, Field(ge=8000, le=192000)]
     channels: Annotated[int, Field(ge=1, le=2)]
     data_b64: Annotated[str, Field(min_length=4, max_length=1048576)]
+    caption: Annotated[str, Field(max_length=2000)] = ""
 
     @model_validator(mode="after")
     def pcm_is_aligned(self) -> Self:
@@ -241,6 +242,34 @@ class PlaybackStoppedEvent(EventBase):
     last_played_sample: Nonnegative
 
 
+class TranscriptEvent(EventBase):
+    type: Literal["transcript"]
+    role: Literal["user", "assistant"]
+    text: Annotated[str, Field(max_length=8192)]
+    final: bool = True
+    partial: bool = False
+
+
+class StatusEvent(EventBase):
+    type: Literal["status"]
+    status: Literal["listening", "thinking", "speaking", "finished"]
+
+
+class ReplyDoneEvent(EventBase):
+    type: Literal["reply_done"]
+
+
+class CanvasResultEvent(EventBase):
+    type: Literal["canvas_result"]
+    operation_id: Identifier
+    applied: bool
+
+
+class PlaybackProgressEvent(EventBase):
+    type: Literal["playback_progress"]
+    played_sample: Nonnegative
+
+
 class ErrorEvent(EventBase):
     type: Literal["error"]
     code: ErrorCode
@@ -256,6 +285,11 @@ WireEvent = Annotated[
     | CanvasEvent
     | InterruptEvent
     | PlaybackStoppedEvent
+    | PlaybackProgressEvent
+    | TranscriptEvent
+    | StatusEvent
+    | ReplyDoneEvent
+    | CanvasResultEvent
     | ErrorEvent,
     Field(discriminator="type"),
 ]

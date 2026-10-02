@@ -1,0 +1,26 @@
+# Browser smoke checks
+
+These opt-in checks use the committed Playwright CLI dependency to drive Chrome. Install Chrome, build the application, and start the backend with `make run`. They do not download a second browser or require a hosted model.
+
+```sh
+npm run test:browser
+```
+
+The lightweight check opens an isolated browser session, verifies the real call/board UI and settings dialog, and checks a small-screen viewport for horizontal overflow. It writes screenshots under ignored `output/playwright/`, then closes only its own browser. It does not create a model call.
+
+For real models:
+
+```sh
+make models
+npm run test:browser -- --live
+```
+
+The server must already be running, and no other call should be open because this alpha admits one browser call. Add `--headed` to observe the check. It draws a rectangle through the UI, asks public synthetic questions, waits for actual AudioWorklet captions, stops a reply, requests a formula/equation quiz, checks the feedback and rendered browser acknowledgements, and exports PNG/Markdown. It selects 0.5B/Michael/Lumen while 1.5B/Heart/Orbit remains active, ends and starts the next call, checks distinct transcript names, then verifies that Clear AI notes retains the drawing. The isolated socket/browser is closed even after a failed assertion. First-call warm-up and inference can take time; an unresponsive model is a failure rather than a silently skipped live result.
+
+`scripts/browser-instrument.js` retains event kinds, generations, sample offsets, browser-clock times, stop acknowledgements, and audio energy. It excludes transcripts, tokens, model output, authorization, and PCM. `smoke-live-events.json` and `smoke-microphone-events.json` are local evidence, not an uploaded telemetry stream. Screenshots intentionally contain the synthetic lesson; do not use private conversations when collecting shareable captures.
+
+The current smoke checks are bounded integration proof. They do not establish 100-turn latency percentiles, physical speaker echo cancellation, exact DAC output timing, phoneme lip-sync, or 20-minute reliability. Compare with [the quality guide](../quality.md) before making those claims. Synthetic microphone verification is recorded separately in [alpha evidence](../releases/0.1.0-alpha.1.md); the basic smoke avoids requesting a real microphone.
+
+Run `npm run test:browser -- --microphone` for the synthetic microphone route. It supplies the committed public speech fixture as an AudioContext MediaStream, waits for the browser's real WebRTC connection, observes real Whisper transcription and model speech reaching playout, and confirms the input track is released on end. It does not capture a physical microphone. The native Chrome fake-file device produced silence in the reference trial, so this explicit source makes the input and its limits reproducible.
+
+For manual diagnosis, use the installed CLI's named sessions, snapshots, visible controls, screenshots, and console checks. Keep hardware/version/model-digest context with a performance report. Browser build/logic tests in `make check` require no browser process; actual Chrome results are separate.

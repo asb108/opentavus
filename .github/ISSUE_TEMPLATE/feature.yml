@@ -1,0 +1,23 @@
+name: Feature or improvement
+description: Propose a useful, bounded contribution.
+title: "feature: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Who needs this, and what problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed behavior and smallest useful scope
+      description: Include an example, relevant task ID, and paths you expect to own.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Trade-offs and verification
+      description: Include dependency/license changes, compatibility, and how another contributor can verify the result.

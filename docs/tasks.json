@@ -61,8 +61,8 @@
       "id": "T01",
       "title": "Select reviewed models and measure the native feasibility spike",
       "milestone": "G0",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T00"
       ],
@@ -79,7 +79,10 @@
         "Test an explicitly named CPU fallback. State unmet targets and unsupported languages without inferring whole-call latency from isolated model timings.",
         "Keep the comparison bounded to the candidate base; investigate another model only when a measured failure requires it."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: docs/models.md, pinned downloads.json, local manifests, uv.lock and package-lock.json record actual artifact digests, sizes, terms and runtime versions. Qwen 0.5B/1.5B, Whisper tiny CPU int8 and Kokoro float ONNX ran on M3 Pro/18 GB. Provider-schema lesson failures and factual errors are retained in alpha evidence.",
+        "Open acceptance: Smart Turn spike, separate complete-stack CPU fallback, 100-turn statistics, and other hardware/language profiles. Initial slow measurements are not whole-call performance claims."
+      ],
       "blocker": null
     },
     {
@@ -129,8 +132,8 @@
       "id": "T03",
       "title": "Build the first complete local voice conversation",
       "milestone": "G1",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T01",
         "T02"
@@ -142,7 +145,9 @@
         "plugins/tts/",
         "plugins/turn/",
         "apps/api/src/opentavus_api/bootstrap/",
-        "apps/web/src/features/call/"
+        "apps/web/src/features/call/",
+        "plugins/local/",
+        "packages/runtime/src/opentavus_runtime/bootstrap.py"
       ],
       "outcome": "A browser microphone reaches the selected local models and produces an actual streamed spoken response with visible state and transcript.",
       "acceptance": [
@@ -152,15 +157,18 @@
         "A real browser/model call completes after local downloads without a required external inference service; record versions and the first full-call timing baseline.",
         "Preparation failure and call end release microphone, transport, and inference tasks. This voice slice remains an intermediate result toward the avatar launch."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: local alpha API/runtime/browser implement preparation, local scoped call admission, streamed PCM, on-page transcript, typed input, Pipecat SmallWebRTC/Silero/segmented Whisper microphone input and end cleanup. Opt-in Chrome synthetic MediaStream check reached real Whisper/Qwen/Kokoro playout and released its input track.",
+        "Open acceptance: physical microphone/speaker echo, partial STT, natural-turn behavior, broader preparation/lifecycle cases, and full sustained quality targets. See alpha evidence for exact boundary."
+      ],
       "blocker": null
     },
     {
       "id": "T04",
       "title": "Choose playout timing and make interruption reliable",
       "milestone": "G1",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T03",
         "T09"
@@ -180,15 +188,18 @@
         "Measure useful reply latency, interruption recognition, playback stop, underruns, and timing uncertainty on a real browser/model profile using the quality definitions.",
         "Tune warm-up, STT finalization, non-thinking generation, and phrase aggregation without counting filler as useful output. Record any unmet launch target as open work."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: generation cancellation covers server streaming, browser Worklet queues, captions and pending board acknowledgements. Tests cover late output, backpressure, acknowledged phrase history and independent listening cancellation. Actual browser stop/reset events are in alpha evidence.",
+        "Open acceptance: track/WebRTC-output comparison, physical speaker waveform and echo, interruption recognition percentiles, jitter/reconnect replay, and 100-turn useful-latency targets. AudioWorklet is a provisional alpha route."
+      ],
       "blocker": null
     },
     {
       "id": "T05",
       "title": "Ship a synchronized stock avatar and compatible GLB import",
       "milestone": "G1",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T02",
         "T03"
@@ -206,7 +217,10 @@
         "Capture a real speaking/idle/interrupted character at normal speed and record browser frame cadence and lip-sync observations.",
         "The base browser bundle and Python dependency set contain no mandatory LAM implementation or reconstruction weights."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: original Orbit/Lumen browser canvas characters animate from actual played-audio energy through a small renderer interface. Alpha builds with no LAM, portrait weights or GPU avatar packages.",
+        "Open acceptance: reviewed stock GLB/TalkingHead implementation, supported import/rig validation, real phoneme sync and sustained frame-cadence evidence. Original alpha characters do not satisfy those GLB requirements."
+      ],
       "blocker": null
     },
     {
@@ -238,8 +252,8 @@
       "id": "T07",
       "title": "Build independent model, voice, and character settings",
       "milestone": "G2",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T01",
         "T02",
@@ -259,15 +273,18 @@
         "Keep endpoint secrets on the server and generate the browser API client from the stable schema; invalid settings produce no half-started session.",
         "Test next-call application, missing optional plugin references, and schema validation with fixtures, then demonstrate real selection changes in browser calls."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: closed settings/profile validation, installed/digest-reviewed catalog, four English voices, two characters and independent next-call settings are implemented. Real browser selection checks use 1.5B/Heart/Orbit and 0.5B/Michael/Lumen. Per-conversation transcript IDs/names prevent merging earlier calls.",
+        "Open acceptance: persona/asset metadata database, retention/deletion controls beyond local browser site data, more engine-family options and full missing-plugin UI matrix."
+      ],
       "blocker": null
     },
     {
       "id": "T08",
       "title": "Build the shared tutor canvas as a launch feature",
       "milestone": "G2",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T02",
         "T03"
@@ -275,7 +292,8 @@
       "owns": [
         "apps/web/src/features/canvas/",
         "packages/runtime/src/opentavus_runtime/tools/tutor/",
-        "tests/integration/tutor/"
+        "tests/integration/tutor/",
+        "packages/runtime/src/opentavus_runtime/tools.py"
       ],
       "outcome": "An agent teaches with notes, formulas, diagrams, and practice questions while the user can keep drawing and editing.",
       "acceptance": [
@@ -285,15 +303,18 @@
         "Integrate the selected media cues so corresponding visuals appear before claims that they are shown; tool success reaches model context only after the result is applied.",
         "Demonstrate spoken teaching, user edits, export, a duplicate call, and interruption in a real browser. Measure canvas timing and preserve state through reconnect."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: safe note/formula/diagram/quiz/clear rendering, operation IDs, browser acknowledgements, edited-note promotion, user drawing retention, PNG and Markdown exports are implemented. Real small-model trials exposed ambiguous quiz indexing, omitted quiz tools and stale question context; schemas/context and regression checks were revised rather than accepting those outputs as success.",
+        "Open acceptance: complete real duplicate-operation/reconnect/persistent-card matrix and canvas timing percentiles. Safe schema validation does not establish scientific correctness. Final bounded alpha browser evidence is recorded separately."
+      ],
       "blocker": null
     },
     {
       "id": "T09",
       "title": "Establish shared contract and conversation replay checks early",
       "milestone": "G1",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T02"
       ],
@@ -311,7 +332,10 @@
         "CI runs installed base formatting, typing, fixture tests, contract consistency, and frontend build with optional avatar packages absent and no model/service downloads.",
         "Give adapter authors one reproducible command and actionable failures; do not impose a coverage percentage or duplicate implementation logic as tests."
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-10-02: make check covers strict Python/browser types, generated API/media schemas, safe tools, fake API/runtime cases, actual Worklet reset/source-sample behavior, user edit ownership and production build without models. make base-check independently passed with zero installed plugins. Public synthetic speech fixture and opt-in real Chrome smoke driver are committed.",
+        "Open acceptance: full controlled-clock shared adapter replay corpus, natural-pause and spoken interruption cases, long lifecycle/reconnect checks, and all v0.1 consumer integration scenarios. Local mock proof and live model proof remain distinct."
+      ],
       "blocker": null
     },
     {
@@ -539,6 +563,62 @@
         "Document deployment/security ownership and evidence before advertising production or multi-user support."
       ],
       "evidence": [],
+      "blocker": null
+    },
+    {
+      "id": "T18",
+      "title": "Publish the first local product alpha for community trials",
+      "milestone": "G2",
+      "status": "in_progress",
+      "owner": "Codex / Atul",
+      "depends_on": [
+        "T00",
+        "T02"
+      ],
+      "owns": [
+        "apps/api/",
+        "apps/web/",
+        "packages/runtime/",
+        "plugins/local/",
+        "docs/quickstarts/",
+        "docs/releases/",
+        "CONTRIBUTING.md",
+        "AGENTS.md",
+        ".github/ISSUE_TEMPLATE/",
+        "docs/style-guide.md",
+        "assets/font-notices/",
+        "packages/core/README.md",
+        "scripts/browser-smoke.mjs",
+        "scripts/browser-instrument.js",
+        "scripts/plugin_manifests.py",
+        "Makefile",
+        "package.json",
+        "package-lock.json",
+        "docs/contribution-guide.md",
+        "GOVERNANCE.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        "THIRD_PARTY_NOTICES.md",
+        ".editorconfig",
+        ".prettierrc.json",
+        "eslint.config.mjs"
+      ],
+      "outcome": "Users can try local animated conversation, independent model/voice settings, and a shared teaching board, and contribute through reproducible lightweight checks. Full v0.1 quality and optional portrait requirements remain open.",
+      "acceptance": [
+        "Provide explicit pinned model setup, readiness/recovery, loopback serving, typed and microphone input, original animated characters, and no required hosted inference key.",
+        "Validate settings/model output and safe lesson rendering; scope/cancel audio and board output by generation, acknowledge playback, and preserve user drawings and edits.",
+        "Demonstrate real local model speech reaching browser playout, a rendered teaching lesson, Stop cleanup, at least two model/voice configurations, and a synthetic microphone route; report physical acoustics and full percentile/lifecycle targets as unverified.",
+        "Pass make check, make demo, and isolated make base-check with optional avatars absent; provide an opt-in repeatable browser smoke command and record real evidence separately from fixtures.",
+        "Publish accurate quickstart/model/privacy/support notes, human/agent contribution rules, style configs, issue/PR templates, conduct/governance/security reporting, and an honest alpha release record.",
+        "Commit and push the reviewed source to the authorized public repository; record GitHub CI/publication evidence separately. Do not tag a stable v0.1 or claim full T13 acceptance."
+      ],
+      "evidence": [
+        "2026-10-02: make check passed 60 Python behavior tests, strict mypy on 25 source files, Ruff, manifest digests, generated API/media schemas and TypeScript, ESLint/Prettier, production build, 3 contract tests and 6 web tests. make demo passed. Isolated make base-check passed 29 core tests (5 fixture tests deselected) and empty installed-plugin discovery.",
+        "2026-10-02: npm run test:browser -- --live passed on M3 Pro/18 GB/macOS 14.5/Chrome 154: actual local speech, applied formula/equation quiz with feedback, exports, Stop resets, next-call 1.5B/Heart/Orbit to 0.5B/Michael/Lumen, separate transcript IDs/names and user rectangle retention. --microphone passed synthetic WebRTC/Silero/Whisper/Qwen/Kokoro input/output and track release. These are bounded trials; physical acoustics and sustained lifecycle targets remain unverified.",
+        "2026-10-02: exact digests, runtime versions, screenshots, synthetic example, per-trial timings and slow/incorrect/rejected results are recorded in docs/releases/0.1.0-alpha.1-evidence.json and linked artifacts. Final warm arithmetic request-to-Worklet-caption 2543.8 ms; equation lesson 8456.4 ms. Local stop/reset samples 15.2-15.8 ms. No percentile/speaker-waveform claim.",
+        "2026-10-02: quickstarts, license/model notices, human/agent instructions, style configs, contribution ideas, conduct/governance/security, issue/PR templates and GitHub private vulnerability reporting are prepared. LAM and all optional avatar packages are absent from base checks. Full T01/T03-T09/T13 acceptance remains visible and incomplete.",
+        "Publication acceptance pending: reviewed commit/push and exact GitHub CI result. This task remains in_progress until publication evidence is recorded."
+      ],
       "blocker": null
     }
   ]

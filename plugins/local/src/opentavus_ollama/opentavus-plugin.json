@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "api_version": 1,
+  "id": "local.ollama",
+  "kind": "llm",
+  "display_name": "Ollama / Qwen2.5",
+  "entry_point": "opentavus_ollama.adapter:create",
+  "capabilities": {
+    "qwen0": {
+      "required_artifacts": [
+        "code",
+        "model0"
+      ],
+      "input_formats": [
+        "text.delta.v1"
+      ],
+      "output_formats": [
+        "text.delta.v1"
+      ]
+    },
+    "qwen1": {
+      "required_artifacts": [
+        "code",
+        "model1"
+      ],
+      "input_formats": [
+        "text.delta.v1"
+      ],
+      "output_formats": [
+        "text.delta.v1"
+      ]
+    },
+    "qwen2": {
+      "required_artifacts": [
+        "code",
+        "model2"
+      ],
+      "input_formats": [
+        "text.delta.v1"
+      ],
+      "output_formats": [
+        "text.delta.v1"
+      ]
+    }
+  },
+  "execution": [
+    "endpoint"
+  ],
+  "languages": [
+    "en"
+  ],
+  "streaming": "native",
+  "cancellation": "discard_late_output",
+  "hardware": {
+    "endpoint": {
+      "min_ram_mb": 0,
+      "accelerator": "none"
+    }
+  },
+  "artifacts": [
+    {
+      "id": "code",
+      "purpose": "code",
+      "source_url": "repo://plugins/local/src/opentavus_ollama/adapter.py",
+      "revision": "0.1.0a1",
+      "sha256": "6ba64b17c5841c79e3981b6fb4a95dba141ec500e0ec88a3f91575070742916d",
+      "license_id": "Apache-2.0",
+      "license_url": "repo://LICENSE",
+      "attribution": "OpenTavus contributors",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "model0",
+      "purpose": "weights",
+      "source_url": "https://ollama.com/library/qwen2.5:0.5b",
+      "revision": "sha256:a8b0c51577010a279d933d14c2a8ab4b268079d44c5c8830c0a93900f1827c67",
+      "sha256": "a8b0c51577010a279d933d14c2a8ab4b268079d44c5c8830c0a93900f1827c67",
+      "license_id": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/main/LICENSE",
+      "attribution": "Qwen team; GGUF distributed by Ollama",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "model1",
+      "purpose": "weights",
+      "source_url": "https://ollama.com/library/qwen2.5:1.5b",
+      "revision": "sha256:65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+      "sha256": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+      "license_id": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/main/LICENSE",
+      "attribution": "Qwen team; GGUF distributed by Ollama",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "model2",
+      "purpose": "weights",
+      "source_url": "https://ollama.com/library/qwen2.5:7b",
+      "revision": "sha256:845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "sha256": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "license_id": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/main/LICENSE",
+      "attribution": "Qwen team; GGUF distributed by Ollama",
+      "eligibility": "reviewed_permissive"
+    }
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "model": {
+        "enum": [
+          "qwen2.5:0.5b",
+          "qwen2.5:1.5b",
+          "qwen2.5:7b"
+        ]
+      },
+      "endpoint": {
+        "enum": [
+          "http://127.0.0.1:11434",
+          "http://localhost:11434"
+        ]
+      }
+    },
+    "required": [
+      "model",
+      "endpoint"
+    ],
+    "additionalProperties": false
+  }
+}

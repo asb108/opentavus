@@ -78,6 +78,12 @@
     "AudioEvent": {
       "additionalProperties": false,
       "properties": {
+        "caption": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Caption",
+          "type": "string"
+        },
         "channels": {
           "maximum": 2,
           "minimum": 1,
@@ -323,6 +329,60 @@
       "title": "CanvasEvent",
       "type": "object"
     },
+    "CanvasResultEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "applied": {
+          "title": "Applied",
+          "type": "boolean"
+        },
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "operation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "type": {
+          "const": "canvas_result",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "operation_id",
+        "applied"
+      ],
+      "title": "CanvasResultEvent",
+      "type": "object"
+    },
     "Capability": {
       "additionalProperties": false,
       "properties": {
@@ -446,7 +506,14 @@
             "kind_mismatch",
             "format_mismatch",
             "invalid_transition",
-            "plugin_load_failed"
+            "plugin_load_failed",
+            "model_unavailable",
+            "model_failed",
+            "playback_timeout",
+            "tool_rejected",
+            "session_closed",
+            "invalid_message",
+            "capacity"
           ],
           "title": "Code",
           "type": "string"
@@ -777,6 +844,53 @@
       "title": "Manifest",
       "type": "object"
     },
+    "PlaybackProgressEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "played_sample": {
+          "minimum": 0,
+          "title": "Played Sample",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "type": {
+          "const": "playback_progress",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "played_sample"
+      ],
+      "title": "PlaybackProgressEvent",
+      "type": "object"
+    },
     "PlaybackStoppedEvent": {
       "additionalProperties": false,
       "properties": {
@@ -887,6 +1001,47 @@
       "title": "Profile",
       "type": "object"
     },
+    "ReplyDoneEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "type": {
+          "const": "reply_done",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type"
+      ],
+      "title": "ReplyDoneEvent",
+      "type": "object"
+    },
     "SessionEvent": {
       "additionalProperties": false,
       "properties": {
@@ -942,6 +1097,58 @@
       "title": "SessionEvent",
       "type": "object"
     },
+    "StatusEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "listening",
+            "thinking",
+            "speaking",
+            "finished"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "type": {
+          "const": "status",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "status"
+      ],
+      "title": "StatusEvent",
+      "type": "object"
+    },
     "TextEvent": {
       "additionalProperties": false,
       "properties": {
@@ -988,6 +1195,72 @@
       ],
       "title": "TextEvent",
       "type": "object"
+    },
+    "TranscriptEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "final": {
+          "default": true,
+          "title": "Final",
+          "type": "boolean"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "partial": {
+          "default": false,
+          "title": "Partial",
+          "type": "boolean"
+        },
+        "role": {
+          "enum": [
+            "user",
+            "assistant"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "text": {
+          "maxLength": 8192,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "const": "transcript",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "role",
+        "text"
+      ],
+      "title": "TranscriptEvent",
+      "type": "object"
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -999,11 +1272,16 @@
           "audio": "#/$defs/AudioEvent",
           "avatar": "#/$defs/AvatarEvent",
           "canvas": "#/$defs/CanvasEvent",
+          "canvas_result": "#/$defs/CanvasResultEvent",
           "error": "#/$defs/ErrorEvent",
           "interrupt": "#/$defs/InterruptEvent",
+          "playback_progress": "#/$defs/PlaybackProgressEvent",
           "playback_stopped": "#/$defs/PlaybackStoppedEvent",
+          "reply_done": "#/$defs/ReplyDoneEvent",
           "session": "#/$defs/SessionEvent",
-          "text": "#/$defs/TextEvent"
+          "status": "#/$defs/StatusEvent",
+          "text": "#/$defs/TextEvent",
+          "transcript": "#/$defs/TranscriptEvent"
         },
         "propertyName": "type"
       },
@@ -1028,6 +1306,21 @@
         },
         {
           "$ref": "#/$defs/PlaybackStoppedEvent"
+        },
+        {
+          "$ref": "#/$defs/PlaybackProgressEvent"
+        },
+        {
+          "$ref": "#/$defs/TranscriptEvent"
+        },
+        {
+          "$ref": "#/$defs/StatusEvent"
+        },
+        {
+          "$ref": "#/$defs/ReplyDoneEvent"
+        },
+        {
+          "$ref": "#/$defs/CanvasResultEvent"
         },
         {
           "$ref": "#/$defs/ErrorEvent"

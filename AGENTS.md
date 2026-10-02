@@ -4,7 +4,7 @@
 
 Read `README.md`, `docs/design.md`, and your assigned task in `docs/tasks.json`. Read `docs/plugin-contract.md` for engine/asset work and `docs/quality.md` for runtime/media work. `docs/plan-review.md` is historical research; the current design governs implementation scope.
 
-This repository contains planning documents, a typed Python core, generated TypeScript contracts, and a synthetic fixture plugin. The live application, real model adapters, and optional avatar implementations do not exist yet. Inspect the checkout before choosing commands or claiming an implementation is present.
+This repository contains a local alpha: typed core, runtime, FastAPI control server, React/Vite call/settings/teaching UI, optional Whisper/Kokoro/Ollama adapters, and a synthetic fixture. LAM, portrait/GLB renderers, remote workers, and full v0.1 quality proof remain unimplemented. Inspect the checkout and task evidence before claiming support.
 
 ## Work within the task
 
@@ -32,8 +32,10 @@ make demo
 make base-check
 ```
 
-`make setup` synchronizes locked Python dependencies with the fixture group and installs locked npm dependencies. `make check` verifies core/fixture behavior, Python types/formatting, generated contracts, TypeScript types/build/generation policy, and the plan. `make base-check` removes the fixture group and verifies the base with no installed plugins; run `make setup` to restore full fixture checks. Use `uv run --no-sync` for independent checks after setup so parallel checks do not change the environment.
+`make setup` installs locked development, API/runtime, and fixture dependencies plus npm packages, without inference libraries or models. `make check` verifies core/runtime/API fixtures, types/styles, generated contracts, the frontend build, board and AudioWorklet behavior, and the plan. `make base-check` uses `.cache/base-env` to verify the core with no plugins; it preserves the app environment. Use `uv run --no-sync` for independent checks after setup so checks do not change the environment.
 
-The live frontend build, microphone/browser integration, actual model latency, and GPU benchmarks will be added by their tasks. The current TypeScript build compiles the contract package. The current plan check verifies documents and the task graph only.
+`make models` installs optional inference packages and explicitly downloads the pinned default models. `make doctor` reports local readiness; `make run` builds and serves the app on loopback. Opt-in browser checks use `npm run test:browser` with a running server; `-- --live` invokes real models. Read `docs/quickstarts/local.md` and `docs/quickstarts/browser-checks.md`. The plan check verifies documents/task dependencies only. Fixture tests and compilation do not establish audible latency, speaker echo, phoneme lip-sync, or GPU support.
+
+Ruff/Prettier/ESLint and strict type settings are the formatting source of truth. Follow `docs/style-guide.md`, `CONTRIBUTING.md`, and the PR template. New contributor issues can own a small portion of a roadmap task; report that scope explicitly. Never include private media or transcripts in default diagnostics or test artifacts.
 
 For meaningful runtime policy choices, a user contribution can shape 5–10 lines after the surrounding function, types, examples, and fallback behavior are prepared. Do not turn boilerplate into a user exercise or leave a required contribution slot unresolved without clearly recording its effect.

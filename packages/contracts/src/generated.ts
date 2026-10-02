@@ -8,6 +8,11 @@ export type Event =
   | CanvasEvent
   | InterruptEvent
   | PlaybackStoppedEvent
+  | PlaybackProgressEvent
+  | TranscriptEvent
+  | StatusEvent
+  | ReplyDoneEvent
+  | CanvasResultEvent
   | ErrorEvent;
 export type ConversationId = string;
 export type GenerationId = number;
@@ -21,6 +26,7 @@ export type SchemaVersion1 = 1;
 export type Sequence1 = number;
 export type Text = string;
 export type Type1 = "text";
+export type Caption = string;
 export type Channels = number;
 export type ConversationId2 = string;
 export type DataB64 = string;
@@ -123,6 +129,39 @@ export type SchemaVersion6 = 1;
 export type Sequence6 = number;
 export type StoppedGenerationId1 = number;
 export type Type6 = "playback_stopped";
+export type ConversationId7 = string;
+export type GenerationId7 = number;
+export type PlayedSample = number;
+export type SchemaVersion7 = 1;
+export type Sequence7 = number;
+export type Type7 = "playback_progress";
+export type ConversationId8 = string;
+export type Final = boolean;
+export type GenerationId8 = number;
+export type Partial = boolean;
+export type Role = "user" | "assistant";
+export type SchemaVersion8 = 1;
+export type Sequence8 = number;
+export type Text1 = string;
+export type Type8 = "transcript";
+export type ConversationId9 = string;
+export type GenerationId9 = number;
+export type SchemaVersion9 = 1;
+export type Sequence9 = number;
+export type Status = "listening" | "thinking" | "speaking" | "finished";
+export type Type9 = "status";
+export type ConversationId10 = string;
+export type GenerationId10 = number;
+export type SchemaVersion10 = 1;
+export type Sequence10 = number;
+export type Type10 = "reply_done";
+export type Applied = boolean;
+export type ConversationId11 = string;
+export type GenerationId11 = number;
+export type OperationId1 = string;
+export type SchemaVersion11 = 1;
+export type Sequence11 = number;
+export type Type11 = "canvas_result";
 export type Code =
   | "invalid_manifest"
   | "invalid_config"
@@ -137,14 +176,21 @@ export type Code =
   | "kind_mismatch"
   | "format_mismatch"
   | "invalid_transition"
-  | "plugin_load_failed";
-export type ConversationId7 = string;
-export type GenerationId7 = number;
+  | "plugin_load_failed"
+  | "model_unavailable"
+  | "model_failed"
+  | "playback_timeout"
+  | "tool_rejected"
+  | "session_closed"
+  | "invalid_message"
+  | "capacity";
+export type ConversationId12 = string;
+export type GenerationId12 = number;
 export type Message = string;
 export type PluginId = string | null;
-export type SchemaVersion7 = 1;
-export type Sequence7 = number;
-export type Type7 = "error";
+export type SchemaVersion12 = 1;
+export type Sequence12 = number;
+export type Type12 = "error";
 export type ApiVersion = 1;
 /**
  * @minItems 1
@@ -241,14 +287,14 @@ export type Kind = "stt" | "llm" | "tts" | "turn" | "avatar" | "image";
  */
 export type Languages = [string, ...string[]];
 export type Renderer1 = string | null;
-export type SchemaVersion8 = 1;
+export type SchemaVersion13 = 1;
 export type Streaming = "native" | "chunk_adapter" | "none";
 export type Capability1 = string;
 export type Execution1 = "in_process" | "local_worker" | "remote_worker" | "endpoint" | "browser";
 export type PluginId1 = string;
 export type Id2 = string;
 export type Language = string;
-export type SchemaVersion9 = 1;
+export type SchemaVersion14 = 1;
 
 export interface ContractBundle {
   event: Event;
@@ -272,6 +318,7 @@ export interface TextEvent {
   type: Type1;
 }
 export interface AudioEvent {
+  caption?: Caption;
   channels: Channels;
   conversation_id: ConversationId2;
   data_b64: DataB64;
@@ -329,15 +376,58 @@ export interface PlaybackStoppedEvent {
   stopped_generation_id: StoppedGenerationId1;
   type: Type6;
 }
-export interface ErrorEvent {
-  code: Code;
+export interface PlaybackProgressEvent {
   conversation_id: ConversationId7;
   generation_id: GenerationId7;
-  message: Message;
-  plugin_id?: PluginId;
+  played_sample: PlayedSample;
   schema_version: SchemaVersion7;
   sequence: Sequence7;
   type: Type7;
+}
+export interface TranscriptEvent {
+  conversation_id: ConversationId8;
+  final?: Final;
+  generation_id: GenerationId8;
+  partial?: Partial;
+  role: Role;
+  schema_version: SchemaVersion8;
+  sequence: Sequence8;
+  text: Text1;
+  type: Type8;
+}
+export interface StatusEvent {
+  conversation_id: ConversationId9;
+  generation_id: GenerationId9;
+  schema_version: SchemaVersion9;
+  sequence: Sequence9;
+  status: Status;
+  type: Type9;
+}
+export interface ReplyDoneEvent {
+  conversation_id: ConversationId10;
+  generation_id: GenerationId10;
+  schema_version: SchemaVersion10;
+  sequence: Sequence10;
+  type: Type10;
+}
+export interface CanvasResultEvent {
+  applied: Applied;
+  conversation_id: ConversationId11;
+  generation_id: GenerationId11;
+  operation_id: OperationId1;
+  schema_version: SchemaVersion11;
+  sequence: Sequence11;
+  type: Type11;
+}
+export interface ErrorEvent {
+  code: Code;
+  conversation_id: ConversationId12;
+  generation_id: GenerationId12;
+  message: Message;
+  plugin_id?: PluginId;
+  schema_version: SchemaVersion12;
+  sequence: Sequence12;
+  type: Type12;
 }
 export interface Manifest {
   api_version: ApiVersion;
@@ -354,7 +444,7 @@ export interface Manifest {
   kind: Kind;
   languages: Languages;
   renderer?: Renderer1;
-  schema_version: SchemaVersion8;
+  schema_version: SchemaVersion13;
   streaming: Streaming;
 }
 export interface Artifact {
@@ -397,7 +487,7 @@ export interface Profile {
   id: Id2;
   language: Language;
   llm: EngineSelection;
-  schema_version: SchemaVersion9;
+  schema_version: SchemaVersion14;
   stt: EngineSelection;
   tts: EngineSelection;
   turn: EngineSelection;

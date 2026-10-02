@@ -1,0 +1,26 @@
+name: Model or avatar adapter
+description: Propose an optional engine with clear licenses and measured support.
+title: "adapter: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: capability
+    attributes:
+      label: Engine and required behavior
+      description: STT, LLM, TTS, turn, avatar, or image. State streaming, cancellation, languages, and supported execution.
+    validations:
+      required: true
+  - type: textarea
+    id: licenses
+    attributes:
+      label: Exact code, weight, voice and asset terms
+      description: Link primary sources, immutable revisions and digests. State any unresolved or restricted component.
+    validations:
+      required: true
+  - type: textarea
+    id: proof
+    attributes:
+      label: Hardware, contract/removal checks and live evidence
+      description: Explain lazy loading, missing-plugin behavior, base installation independence and reproducible real performance.
+    validations:
+      required: true

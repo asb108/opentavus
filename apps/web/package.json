@@ -1,0 +1,33 @@
+{
+  "name": "@opentavus/web",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "node ../../scripts/frontend-assets.mjs && tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@excalidraw/excalidraw": "^0.18.0",
+    "@fontsource-variable/figtree": "^5.2.8",
+    "@opentavus/contracts": "*",
+    "ajv": "^8.17.1",
+    "dompurify": "^3.3.0",
+    "katex": "^0.16.25",
+    "lucide-react": "^0.562.0",
+    "mermaid": "^11.12.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/katex": "^0.16.7",
+    "@vitejs/plugin-react": "^5.1.1",
+    "vite": "^7.2.2",
+    "vitest": "^3.2.4"
+  }
+}

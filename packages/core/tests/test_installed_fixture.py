@@ -14,7 +14,7 @@ pytestmark = pytest.mark.installed_fixture
 
 
 def test_fixture_source_matches_declared_digest():
-    plugin = discover_installed()[0]
+    plugin = next(p for p in discover_installed() if p.manifest.id == "fixture.demo")
     source = (
         Path(__file__).resolve().parents[3]
         / "plugins/fixtures/demo/src/opentavus_fixture_demo/adapter.py"
@@ -26,7 +26,7 @@ def test_discovery_in_a_fresh_process_never_imports_the_fixture():
     code = (
         "import sys; from opentavus_core.registry import discover_installed; "
         "items = discover_installed(); "
-        "assert [i.manifest.id for i in items] == ['fixture.demo']; "
+        "assert 'fixture.demo' in [i.manifest.id for i in items]; "
         "assert 'opentavus_fixture_demo' not in sys.modules; "
         "assert 'opentavus_fixture_demo.adapter' not in sys.modules; "
         "assert not any(m.startswith(('torch', 'pipecat', 'fastapi', 'lam')) for m in sys.modules)"

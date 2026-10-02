@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "api_version": 1,
+  "id": "local.whisper",
+  "kind": "stt",
+  "display_name": "Whisper tiny (CPU)",
+  "entry_point": "opentavus_whisper.adapter:create",
+  "capabilities": {
+    "default": {
+      "required_artifacts": [
+        "code",
+        "artifact0",
+        "artifact1",
+        "artifact2",
+        "artifact3"
+      ],
+      "input_formats": [
+        "pcm_s16le"
+      ],
+      "output_formats": [
+        "transcript.v1"
+      ]
+    }
+  },
+  "execution": [
+    "in_process"
+  ],
+  "languages": [
+    "en"
+  ],
+  "streaming": "chunk_adapter",
+  "cancellation": "discard_late_output",
+  "hardware": {
+    "in_process": {
+      "min_ram_mb": 512,
+      "accelerator": "cpu"
+    }
+  },
+  "artifacts": [
+    {
+      "id": "code",
+      "purpose": "code",
+      "source_url": "repo://plugins/local/src/opentavus_whisper/adapter.py",
+      "revision": "0.1.0a1",
+      "sha256": "085b06a016dedbf621388827658ec89422fb519a4aeeb91fcfd40c2dc01fc119",
+      "license_id": "Apache-2.0",
+      "license_url": "repo://LICENSE",
+      "attribution": "OpenTavus contributors",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "artifact0",
+      "purpose": "weights",
+      "source_url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/config.json",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356",
+      "sha256": "a73a28cdfe1c43ccc7202fa333d1f89c202477271407ae9a7f19afa52039cac8",
+      "license_id": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": "OpenAI and SYSTRAN",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "artifact1",
+      "purpose": "weights",
+      "source_url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/model.bin",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356",
+      "sha256": "dcb76c6586fc06cbdac6dd21f14cfd129cc4cdd9dce19bf4ffa62e59cbe6e6d1",
+      "license_id": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": "OpenAI and SYSTRAN",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "artifact2",
+      "purpose": "weights",
+      "source_url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/tokenizer.json",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356",
+      "sha256": "fb7b63191e9bb045082c79fd742a3106a12c99513ab30df4a0d47fa6cb6fd0ab",
+      "license_id": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": "OpenAI and SYSTRAN",
+      "eligibility": "reviewed_permissive"
+    },
+    {
+      "id": "artifact3",
+      "purpose": "weights",
+      "source_url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/vocabulary.txt",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356",
+      "sha256": "34ce3fe1c5041027b3f8d42912270993f986dbc4bb34cf27f951e34a1e453913",
+      "license_id": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": "OpenAI and SYSTRAN",
+      "eligibility": "reviewed_permissive"
+    }
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "model_path": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "model_path"
+    ],
+    "additionalProperties": false
+  }
+}

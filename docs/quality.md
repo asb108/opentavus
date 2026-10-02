@@ -1,6 +1,14 @@
 # Experience and release quality
 
-These are proposed launch targets, not measured results. T01/T04 establish baselines; T13 can pass only with evidence. If targets are missed, identify the stage and adjust implementation/profile before advertising it. Do not silently replace a quality gate with a weaker number.
+These are full v0.1 launch targets, not a claim that the local alpha passes. T01/T04 establish baselines; T13 can pass only with evidence. The earlier community trial has its own bounded T18 acceptance and [release evidence](releases/0.1.0-alpha.1.md). If targets are missed, identify the stage and adjust implementation/profile before advertising it. Do not silently replace a quality gate with a weaker number.
+
+## Local alpha evidence boundary
+
+The alpha's lightweight checks cover generation cancellation, contiguous PCM samples, bounded server buffering, browser Worklet resets/clock progress, acknowledged history, tool validation, safe formula/diagram arguments, user-edit preservation, profile validation, and local-origin admission using synthetic engines/data. `make check` runs these without inference packages or weights. `make base-check` separately verifies the installed core with every plugin absent.
+
+Opt-in Playwright CLI checks drive Chrome with installed local models. Record generated speech reaching the Worklet, actual canvas acknowledgements, stop/reset behavior, and selection changes separately from server-send timing. Synthetic microphone capture verifies the WebRTC/VAD/STT route without recording a person's environment; it does not prove physical microphone acoustics, speaker echo cancellation, or accessibility across every browser.
+
+The companion uses the energy of played audio for mouth movement. This is an audio-driven animation preview; it does not satisfy a phoneme lip-sync quality claim. Serial board planning/render acknowledgement adds delay before the spoken lesson. Small-model factual errors and rejected tool output must be included in evidence. The 100-turn latency percentiles, 20-minute/cycle reliability, natural-turn detection, physical speaker echo, media-route comparison, and additional platform profiles remain open.
 
 ## Reference profiles and timing
 

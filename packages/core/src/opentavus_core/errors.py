@@ -17,6 +17,13 @@ ErrorCode = Literal[
     "format_mismatch",
     "invalid_transition",
     "plugin_load_failed",
+    "model_unavailable",
+    "model_failed",
+    "playback_timeout",
+    "tool_rejected",
+    "session_closed",
+    "invalid_message",
+    "capacity",
 ]
 
 

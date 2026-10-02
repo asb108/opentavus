@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-02T15:56:40.884068+00:00",
+  "release": "0.1.0-alpha.1",
+  "hardware": {
+    "system": "Apple M3 Pro",
+    "physical_ram_gib": 18,
+    "os": "macOS 14.5 (23F79)",
+    "memory_pressure": "Substantial concurrent apps and about 13 GiB of swap in use during trials. No unrelated processes were closed.",
+    "disk": "Limited available space during development; not a clean-machine benchmark."
+  },
+  "versions": {
+    "python": "3.12.11",
+    "uv": "0.7.1",
+    "node": "26.8.2",
+    "npm": "11.19.1",
+    "chrome": "154",
+    "pipecat": "1.12.0",
+    "ollama": "0.24.0",
+    "onnxruntime": "1.24.4",
+    "faster-whisper": "1.2.1",
+    "kokoro-onnx": "0.6.1",
+    "httpx": "0.28.1",
+    "pydantic": "2.13.5",
+    "fastapi": "0.142.2",
+    "uvicorn": "0.54.0"
+  },
+  "artifacts": {
+    "schema_version": 1,
+    "artifacts": [
+      {
+        "path": "kokoro-v1.0.onnx",
+        "url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/kokoro-v1.0.onnx",
+        "size": 325505369,
+        "sha256": "beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a",
+        "license": "Apache-2.0",
+        "revision": "model-files-v1.1"
+      },
+      {
+        "path": "voices-v1.0.bin",
+        "url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/voices-v1.0.bin",
+        "size": 28214398,
+        "sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d",
+        "license": "Apache-2.0",
+        "revision": "model-files-v1.1"
+      },
+      {
+        "path": "whisper-tiny/config.json",
+        "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/config.json",
+        "size": 2249,
+        "sha256": "a73a28cdfe1c43ccc7202fa333d1f89c202477271407ae9a7f19afa52039cac8",
+        "license": "MIT",
+        "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+      },
+      {
+        "path": "whisper-tiny/model.bin",
+        "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/model.bin",
+        "size": 75538270,
+        "sha256": "dcb76c6586fc06cbdac6dd21f14cfd129cc4cdd9dce19bf4ffa62e59cbe6e6d1",
+        "license": "MIT",
+        "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+      },
+      {
+        "path": "whisper-tiny/tokenizer.json",
+        "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/tokenizer.json",
+        "size": 2203239,
+        "sha256": "fb7b63191e9bb045082c79fd742a3106a12c99513ab30df4a0d47fa6cb6fd0ab",
+        "license": "MIT",
+        "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+      },
+      {
+        "path": "whisper-tiny/vocabulary.txt",
+        "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/vocabulary.txt",
+        "size": 459861,
+        "sha256": "34ce3fe1c5041027b3f8d42912270993f986dbc4bb34cf27f951e34a1e453913",
+        "license": "MIT",
+        "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+      }
+    ],
+    "llms": [
+      {
+        "name": "qwen2.5:0.5b",
+        "digest": "sha256:a8b0c51577010a279d933d14c2a8ab4b268079d44c5c8830c0a93900f1827c67",
+        "size": 397820829,
+        "license": "Apache-2.0",
+        "source": "https://ollama.com/library/qwen2.5:0.5b"
+      },
+      {
+        "name": "qwen2.5:1.5b",
+        "digest": "sha256:65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+        "size": 986061405,
+        "license": "Apache-2.0",
+        "source": "https://ollama.com/library/qwen2.5:1.5b"
+      },
+      {
+        "name": "qwen2.5:7b",
+        "digest": "sha256:845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+        "size": 4683086845,
+        "license": "Apache-2.0",
+        "source": "https://ollama.com/library/qwen2.5:7b"
+      }
+    ]
+  },
+  "lightweight_checks": {
+    "make check": "passed: 60 Python behavior tests; strict mypy on 25 source files; Ruff; both generated schemas/types; TypeScript; ESLint/Prettier; production build; 3 contract tests and 6 web behavior tests.",
+    "make demo": "passed installed synthetic fixture; not model proof.",
+    "make base-check": "passed isolated environment: 29 base tests, 5 installed-fixture tests deselected, zero installed plugins."
+  },
+  "observed_failures": [
+    {
+      "trial": "Untuned typed inertia reply",
+      "first_worklet_caption_ms": 20789,
+      "quality": "Conceptual error: described inertia as a force."
+    },
+    {
+      "trial": "Untuned teaching request",
+      "first_worklet_caption_ms": 51738,
+      "scope": "A slow individual serial board/speech trial; not a percentile."
+    },
+    {
+      "trial": "First bounded live teaching check",
+      "first_worklet_caption_ms": 6455,
+      "quality": "Rejected as useful latency evidence: speech repeated previous arithmetic question. Quiz answer was treated as one-based and marked 10 N incorrect. Fixed context placement and exact-choice quiz representation; final live proof follows separately."
+    },
+    {
+      "trial": "Native Chrome fake-file input",
+      "quality": "WebRTC connected but input audio energy was zero. Replaced the test source with an explicit synthetic AudioContext MediaStream."
+    },
+    {
+      "trial": "Unplayed prior turn followed by teaching",
+      "quality": "Model repeated the previous question without an interrupted turn boundary. Disposable model-context notes now separate consecutive user turns; heard history still contains only acknowledged phrases."
+    },
+    {
+      "trial": "Quiz with union schema",
+      "quality": "Model omitted quiz or substituted another formula. Requested kinds now get separate compact schemas, supplied in the prompt too; all results are validated before applying."
+    },
+    {
+      "trial": "Numerical quiz request",
+      "quality": "1.5B returned a definition quiz despite a requested 5 kg / 2 m/s\u00b2 example; speech answered the example correctly. This request-following limit remains open. Final bounded smoke requests an equation-identification quiz, not reliable numerical quizzes."
+    },
+    {
+      "trial": "Earlier equation quiz",
+      "quality": "Generated equivalent rearrangements as distractors and copied an instruction into the question. Prompt/schema descriptions were refined. Final example uses a learner-facing question with different equations; general factual review remains necessary."
+    },
+    {
+      "trial": "One browser reply",
+      "quality": "One run reported model_failed before speech, while a direct native language/speech probe passed. Safe stage-specific failures and fast-fail waits were added. Later smoke success does not establish sustained reliability or 20-cycle proof."
+    }
+  ],
+  "unverified": [
+    "100-turn latency percentiles and full v0.1 targets",
+    "physical microphone/speaker echo and interruption recognition timing",
+    "DAC/speaker waveform timing and phoneme lip-sync",
+    "20-minute calls and 20 lifecycle/reconnect cycles",
+    "other hardware, OS, browser and language profiles",
+    "LAM installation/removal, photo models, custom GLB/VRM and GPU paths"
+  ],
+  "publication": {
+    "state": "pending",
+    "repository": "https://github.com/asb108/opentavus"
+  },
+  "live_checks": {
+    "npm run test:browser": "passed rendered app/settings and 390\u00d7844 overflow check before real calls.",
+    "npm run test:browser -- --live": "passed real playout, current-topic speech, F=ma quiz feedback, 2 browser-applied canvas acknowledgements before speech, PNG/Markdown exports, Stop resets, next-call selection and independent transcript identities, and retention of a rectangle drawn through the UI when clearing AI content.",
+    "npm run test:browser -- --microphone": "passed real WebRTC/VAD/Whisper/Qwen/Kokoro route with the committed synthetic AudioContext MediaStream; confirmed track ended on call end. Physical microphone not captured.",
+    "live_source": "0.1.0-alpha.1-smoke-live-events.json",
+    "microphone_source": "0.1.0-alpha.1-smoke-microphone-events.json",
+    "measurement_limits": "Browser clock and Worklet callbacks, not DAC/speaker waveform. Individual warm/reused trials under concurrent machine load, not percentiles. Setup/preparation is separate. Latest teaching prompt/card presentation changed after the microphone trial; microphone/runtime/voice path is unchanged. Repeated synthetic prompts can benefit from provider prefix caching.",
+    "first_caption_trials": [
+      {
+        "case": "1.5B/Heart/Orbit arithmetic",
+        "measurement": "warm typed request sent",
+        "first_worklet_caption_ms": 2543.8
+      },
+      {
+        "case": "1.5B/Heart/Orbit equation lesson",
+        "measurement": "warm typed teaching request sent",
+        "first_worklet_caption_ms": 8456.4
+      },
+      {
+        "case": "0.5B/Michael/Lumen greeting",
+        "measurement": "greeting for configuration proof; not useful-reply benchmark",
+        "first_worklet_caption_ms": 2183.3
+      }
+    ],
+    "local_stop_to_worklet_reset_ms": [
+      15.2,
+      15.6,
+      15.4,
+      15.5,
+      15.8
+    ],
+    "microphone_final_transcript_to_first_worklet_caption_ms": 5110.6,
+    "content_diagnostics": "Committed events contain kinds/generations/sample offsets/clock/energy only; the public synthetic lesson and screenshot are identified separately."
+  }
+}

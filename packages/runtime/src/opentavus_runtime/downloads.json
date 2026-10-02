@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "path": "kokoro-v1.0.onnx",
+      "url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/kokoro-v1.0.onnx",
+      "size": 325505369,
+      "sha256": "beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a",
+      "license": "Apache-2.0",
+      "revision": "model-files-v1.1"
+    },
+    {
+      "path": "voices-v1.0.bin",
+      "url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/voices-v1.0.bin",
+      "size": 28214398,
+      "sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d",
+      "license": "Apache-2.0",
+      "revision": "model-files-v1.1"
+    },
+    {
+      "path": "whisper-tiny/config.json",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/config.json",
+      "size": 2249,
+      "sha256": "a73a28cdfe1c43ccc7202fa333d1f89c202477271407ae9a7f19afa52039cac8",
+      "license": "MIT",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+    },
+    {
+      "path": "whisper-tiny/model.bin",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/model.bin",
+      "size": 75538270,
+      "sha256": "dcb76c6586fc06cbdac6dd21f14cfd129cc4cdd9dce19bf4ffa62e59cbe6e6d1",
+      "license": "MIT",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+    },
+    {
+      "path": "whisper-tiny/tokenizer.json",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/tokenizer.json",
+      "size": 2203239,
+      "sha256": "fb7b63191e9bb045082c79fd742a3106a12c99513ab30df4a0d47fa6cb6fd0ab",
+      "license": "MIT",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+    },
+    {
+      "path": "whisper-tiny/vocabulary.txt",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/d90ca5fe260221311c53c58e660288d3deb8d356/vocabulary.txt",
+      "size": 459861,
+      "sha256": "34ce3fe1c5041027b3f8d42912270993f986dbc4bb34cf27f951e34a1e453913",
+      "license": "MIT",
+      "revision": "d90ca5fe260221311c53c58e660288d3deb8d356"
+    }
+  ],
+  "llms": [
+    {
+      "name": "qwen2.5:0.5b",
+      "digest": "sha256:a8b0c51577010a279d933d14c2a8ab4b268079d44c5c8830c0a93900f1827c67",
+      "size": 397820829,
+      "license": "Apache-2.0",
+      "source": "https://ollama.com/library/qwen2.5:0.5b"
+    },
+    {
+      "name": "qwen2.5:1.5b",
+      "digest": "sha256:65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+      "size": 986061405,
+      "license": "Apache-2.0",
+      "source": "https://ollama.com/library/qwen2.5:1.5b"
+    },
+    {
+      "name": "qwen2.5:7b",
+      "digest": "sha256:845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "size": 4683086845,
+      "license": "Apache-2.0",
+      "source": "https://ollama.com/library/qwen2.5:7b"
+    }
+  ]
+}

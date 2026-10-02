@@ -1,0 +1,5 @@
+Extracted from node_modules/@excalidraw/excalidraw/dist/prod/fonts/Excalifont/Excalifont-Regular-be310b9bcd4f1a43f571c46df7809174.woff2
+
+Copyright: Copyright (c) 2024 by Excalidraw. All rights reserved.
+
+Family: Excalifont

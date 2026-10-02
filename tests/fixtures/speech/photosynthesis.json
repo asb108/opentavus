@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "source": "Synthetic Kokoro 82M speech; af_heart; pinned model-files-v1.1 artifacts",
+  "text": "Explain photosynthesis in one sentence.",
+  "sample_rate": 24000,
+  "channels": 1,
+  "sha256": "03e9eb866dfb4d22125ed11c2966c8a7afb304520c4063e54d5e44f1a73b5604",
+  "recorded_person": false,
+  "license": "Apache-2.0: synthetic fixture contributed under the repository license; upstream model retains its Apache-2.0 terms."
+}

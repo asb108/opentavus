@@ -1,48 +1,65 @@
 # Contributing to OpenTavus
 
-Humans and coding agents use the same task descriptions, interfaces, tests, and evidence. The goal is to make a contribution understandable without requiring the full chat history.
+Welcome. Useful contributions include a focused fix, an accessible interaction, a clearer setup instruction, a reproducible benchmark, or a tested adapter. Humans and coding agents use the same interfaces and review process. Read our [code of conduct](CODE_OF_CONDUCT.md).
 
-## Choose a bounded task
+## Get a working checkout
 
-Run `make plan-status` and read [the roadmap](docs/roadmap.md). Each task declares its dependencies, ownership paths, acceptance checks, and evidence. Claim one task through an issue or coordinated assignment once the repository is published. Before publication, record an assigned owner in `docs/tasks.json`. Check that another contributor is not editing the same responsibility.
+Use Python 3.12, Node.js 22.12+, npm, and uv. No model downloads are needed for development checks.
 
-The task's `owner` is a person or agent assignment; `owns` is its proposed code responsibility. These are distinct. Split a task when two independently verifiable outcomes need different owners. Coordinate changes to shared contracts before downstream work depends on them.
+```sh
+git clone https://github.com/asb108/opentavus.git
+cd opentavus
+make setup
+make check
+```
 
-Read the smallest sufficient context: [design](docs/design.md), the assigned task, and the linked [plugin](docs/plugin-contract.md) or [quality](docs/quality.md) requirements. Proposed application paths become real during implementation; this planning foundation does not claim an existing SDK.
+`make setup` installs locked development, API/runtime, and synthetic-fixture dependencies. It excludes inference packages. `make check` verifies the plan, Ruff formatting/lint, strict Python types, Python behavior tests, generated contracts, strict browser types, ESLint/Prettier, the frontend build, and browser logic/AudioWorklet tests. `make demo` emits synthetic silent PCM through installed plugin discovery. `make base-check` verifies the core in a separate environment with no plugins installed; it leaves your app environment intact.
 
-## Implement and verify
+To run real models, follow [the local quickstart](docs/quickstarts/local.md). `make models` installs the explicit model group and downloads the default artifacts. Model/browser/GPU results are separate evidence from fixture tests and compilation.
 
-1. State the intended user-visible behavior and owned paths. Inspect callers and current tests.
-2. Add the smallest implementation through existing interfaces. Keep model dependencies inside their adapters, import optional engines lazily, and inject constructed dependencies rather than using global service locators.
-3. Verify meaningful behaviors at the changed boundary. Cancellation, removal, playback order, and resource cleanup are more valuable than tests of a getter or copied implementation logic.
-4. Run the affected package's actual formatting/type/build/test commands. Run a real model or browser check when the acceptance criterion requires it.
-5. Update the contract, configuration example, and task evidence when behavior changes. Run `make plan-render` and `make plan-check`.
+## Choose a small responsibility
 
-Run `make setup`, then `make check` for the implemented core/contracts/fixture packages. `make demo` exercises the synthetic fixture. `make base-check` removes that optional plugin and verifies the base; `make setup` restores the full suite. `npm run contracts:generate` updates shared schemas/types after a Python boundary-model change. Committed lockfiles pin dependency resolution.
+Check [issues](https://github.com/asb108/opentavus/issues), [contribution ideas](docs/contribution-guide.md), and `make plan-status`. The [task source](docs/tasks.json) records outcomes, dependencies, paths, owners, and acceptance checks. Roadmap tasks can be large: propose a bounded issue or subtask rather than claiming an entire milestone. Ask in the issue whether another contributor is touching the same boundary.
 
-Ruff, strict Python typing, TypeScript strict checking/build, and behavior tests exist now. The current TypeScript build is the contract package. Application tasks add the live frontend build, real model checks, and browser media cases; report those separately from this prototype.
+Read [the design](docs/design.md), the relevant task, and [the style guide](docs/style-guide.md). Engine or asset work also reads [the plugin contract](docs/plugin-contract.md); runtime/media work reads [quality requirements](docs/quality.md). Agents start with [AGENTS.md](AGENTS.md). Historical research is context, not an instruction to implement everything it mentions.
 
-Keep functions cohesive and names descriptive. Prefer pure policy/data functions with I/O at the edges. Validate external input once at the appropriate boundary. Raise typed failures with useful context; show actionable messages in the UI. Explain a non-obvious constraint in a comment, and record broader decisions in [the decision record](docs/decisions.md).
+Before editing, state the task/issue, owned paths, intended user behavior, and verification. Preserve others' changes. Coordinate public contract changes before downstream implementation depends on them.
 
-## Add a model or avatar
+## Implement, verify, and explain
 
-Follow [the plugin contract](docs/plugin-contract.md). A submission includes a manifest, exact artifact revisions and licenses, a typed adapter, configuration example, deterministic contract fixtures, and hardware-specific measurements. It must load only when selected and pass missing-plugin/removal checks.
+1. Create a branch in your fork with a descriptive name. Keep one reviewable outcome per pull request.
+2. Add the smallest working change. Keep domain contracts framework-free; put inference dependencies in lazily loaded adapters. Reuse Pipecat transport/VAD/segmentation facilities.
+3. Verify meaningful observable behavior. Late audio after cancellation, invalid model output, lost user drawings, and incomplete cleanup deserve tests. A low-impact wording/style correction generally needs its relevant build/lint check.
+4. Run `make format`, then `make check`. If a Python boundary changes, run `npm run contracts:generate` and commit both schemas and generated types. Use `uv run --no-sync` after setup so independent checks do not mutate the environment.
+5. Update the relevant design/contract/quality document and task evidence. Regenerate with `make plan-render`, then `make plan-check`. Leave unexecuted acceptance checks visible.
+6. Commit with a short imperative subject, for example `Preserve user-edited notes when clearing the board`. Optional prefixes such as `fix:` are welcome; a particular commit format or sign-off is not required.
+7. Open a pull request using [the template](.github/PULL_REQUEST_TEMPLATE.md). Explain the concrete problem, resulting behavior, why the boundary fits, checks and outcomes, and any remaining limitation. Add a screenshot for a visible UI change and a reproducible artifact for a performance claim.
 
-Small adapters can be reviewed without a GPU using fixtures. Live performance claims require raw timings and a reproducible hardware description. A permissive code license does not establish permission to ship the weights, voice recordings, test videos, or face assets. Keep unresolved licenses visible in the manifest.
+CI runs the same core application checks on Linux without downloading models. A maintainer reviews correctness, scope, documentation, license provenance, privacy, and evidence. See [governance](GOVERNANCE.md). There is no CLA; contributions are submitted under the repository's Apache-2.0 license. Disclose substantial AI assistance when it helps review and take responsibility for the result.
 
-## Describe the result
+## Useful commands
 
-Use [the pull request template](.github/PULL_REQUEST_TEMPLATE.md). Explain the problem, resulting behavior, why the chosen boundary fits, and the evidence. Separate these statuses:
+| Command | Purpose |
+| --- | --- |
+| `make format` | Apply Python/TypeScript styles and refresh local adapter manifests. |
+| `make check` | Complete lightweight contributor checks. |
+| `uv run --no-sync pytest -q packages/runtime/tests` | Runtime behavior checks without real models. |
+| `npm test --workspace @opentavus/web` | Board ownership, boundary validation, and actual Worklet logic checks. |
+| `npm run contracts:generate` | Refresh JSON Schema and browser types from Python boundaries. |
+| `npm run test:browser` | Open the local app in Chrome and check the page; requires a running built server. |
+| `npm run test:browser -- --live` | A real model/browser smoke conversation and teaching check; requires installed models. |
+| `make plan-status` | See task ownership and incomplete acceptance work. |
 
-- Prepared design/configuration.
-- Implemented and verified with deterministic fixtures.
-- Verified with a real model and browser on named hardware.
-- Published or deployed.
+Browser checks use Playwright CLI and an isolated named session. They are opt-in and need Chrome; see [the browser check guide](docs/quickstarts/browser-checks.md). Do not submit private recordings, transcripts, credentials, or unlicensed face assets as bug evidence. Use synthetic questions and media instead.
 
-A test run may support one status without supporting the next. Do not claim a benchmark passed from a mocked adapter, a type check, a Docker build, or the plan verifier.
+## Add an engine
+
+A model submission includes exact revisions/digests, source license links for code/weights/voices, a validated manifest, a typed adapter, a configuration example, contract behavior tests, and named-hardware measurements before performance is advertised. The core must work with the plugin absent. Dependencies and weights are optional; no import or download happens merely because metadata is discovered.
+
+The local adapters in `plugins/local/` are working examples, not a universal base class. Streaming token output and phrase-synthesized audio have different capabilities; describe them accurately. Keep blocking inference off the event loop. Honor cancellation even if a native inference call can only finish and have its output discarded.
 
 ## Completion and compatibility
 
-Mark a task `done` only after all acceptance checks have evidence and its required dependency tasks are done. Use `blocked` with the exact missing artifact or decision when progress depends on it. Record commands and result paths rather than a bare “works.” Keep private audio/transcripts out of committed fixtures; use synthetic or explicitly redistributable examples.
+Mark a roadmap task done only when its acceptance checks and required dependencies have positive evidence. A preview can ship before full v0.1 gates pass; it must be labeled with its actual support and limitations. Do not replace a failed latency gate with a weaker number.
 
-For changes to public API payloads, plugin manifests, media event fields, or saved asset formats, document the version/compatibility strategy before changing consumers. A single task can introduce its producer and consumer together before the interface has external users; avoid pretending an unshipped internal contract needs a long migration program.
+Version public event/API, plugin manifest, and saved-data boundaries. A coordinated producer/consumer update is reasonable for an unshipped internal boundary; explain it. User-authored drawings and edits must survive agent updates. Keep generated files, lockfiles, and meaningful fixtures in source control; keep models, caches, exports, and build output out.
