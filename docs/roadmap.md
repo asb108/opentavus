@@ -39,8 +39,8 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T18](#t18) | G2 | done | T00, T02 | Codex / Atul |
 | [T19](#t19) | G2 | done | T02, T18 | Codex / Atul |
 | [T20](#t20) | G2 | done | T02, T18 | Codex / Atul |
-| [T21](#t21) | G2 | in_progress | T02, T18 | Codex / Atul |
-| [T22](#t22) | G2 | in_progress | T02, T18, T20 | Codex / Atul |
+| [T21](#t21) | G2 | done | T02, T18 | Codex / Atul |
+| [T22](#t22) | G2 | done | T02, T18, T20 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -542,7 +542,7 @@ Evidence:
 
 #### T21: Offer a lightweight stock human avatar without NVIDIA
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18.
+Status: **done**. Owner: Codex / Atul. Dependencies: T02, T18.
 
 A reviewed stock 3D human reuses played-audio movement in the browser, with a static portrait fallback. No NVIDIA/CUDA avatar inference is required; photorealistic video and arbitrary model imports remain separate work.
 
@@ -594,14 +594,15 @@ Evidence:
 - 2026-10-03: user inspected the 3D preview and rejected it as the realistic-human goal. Keep this as a separately labeled low-graphics option; T22 pursues photographic appearance/motion. Do not treat T21 as completion of the requested realism.
 - Prepared only the explicitly CC0 MPFB asset at TalkingHead b3e277b3b46f88e557bf28a2c5612a5b04e075c3, from SHA-256 63c645a2a863b9972e9a9c2ed576a1de4c390b8475508e1473e69c87a3ee299c to 4,692,576-byte SHA-256 8bea3b080a5b56e9fff702b23bc7f208a6f33b2d7329a0baf0a21768f1f24799. Pin the native poster hash and require both assets at build. Other upstream demo faces are excluded.
 - OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --avatar --live passed on M3 Pro/Chrome: 29.9986 FPS over five seconds, P95 gap 34.1 ms, no gap above 100 ms, 50 ms single Stop acknowledgement and no stale positive energy. Static cleanup, context loss, invalid asset with a continuing call, cancelled load and missing WebGL passed. The isolated server preserved the user preview call.
-- Bounded preview checks and contributor/base checks passed; source publication and CI are pending. Full T05/T13, PC hardware and precise phonemes remain unexecuted, and this 3D appearance does not fulfill the requested realism.
+- Bounded preview checks and contributor/base checks passed; source publication and CI passed. Full T05/T13, PC hardware and precise phonemes remain unexecuted, and this 3D appearance does not fulfill the requested realism.
 - make plan-render, make format, make check, make demo and make base-check passed: 85 Python tests, strict mypy/types/styles/generated contracts/build, 3 contract tests, 12 web behavior tests and 29 plugin-absent core tests. Offline recipe Ruff/format checks, asset-preparation Prettier, dependency-free CLI help and git diff --check passed. No heavy portrait dependency was added to the base install.
+- Implementation committed and pushed as d275d3e685df5a8430049d6b34bb7951bbe54624. Exact source Linux CI https://github.com/asb108/opentavus/actions/runs/37063925858 passed make setup/check/demo/base-check. Completion covers this bounded stock/prepared preview only; T05 custom imports, T10 live neural portrait, T13 full quality, precise phonemes, general emotional behavior and weak-PC proof remain open.
 
 <a id="t22"></a>
 
 #### T22: Build a photographic human preview with prepared natural motion and expressions
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18, T20.
+Status: **done**. Owner: Codex / Atul. Dependencies: T02, T18, T20.
 
 Offer a fictional photographic human with finite prepared head/facial motion, controlled presentation cues and shared-audio mouth movement, without live avatar inference. Keep precise lip-sync, general emotional behavior and weak-PC proof explicitly open.
 
@@ -657,12 +658,13 @@ Evidence:
 - Open FLUX portrait generated on M3 Pro in 27.50 seconds with 9,708,239,568-byte MLX peak allocation. Selected OpenAI source SHA-256 ede67fb6bc7fb3b5effffac52d2b930254db93a0c85e76ad6d2eaf92050b1f13 was animated into 145 actual neural frames in 196.31 seconds with MPS/CPU fallback enabled. Four reviewed 2304px WebP sheets plus poster total 3,023,928 bytes; native playback tiles are 384px.
 - OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo --live passed: 30.0003 FPS over seven seconds, P95 gap 34 ms, no gap over 100 ms, all four expression cues observed, 50.4 ms single Stop acknowledgement, closed mouth and zero later positive old-generation energy. Captured native-speed canvas and actual Worklet audio from a public synthetic question; expression/source/capture frames were visually inspected.
 - Non-live --photo additionally proved renderer drawing stopped and all four ImageBitmaps closed on static switching. Damaged sheets, late cancelled loading and unavailable Canvas 2D recovered; the live damaged-asset case still returned a model reply. --avatar regression and --board automatic fragmented photosynthesis checks also passed with the photographic default.
-- Contributor checks passed; source publication/CI are pending. The prepared finite motion does not establish exact phonemes, general emotional intelligence/prosody, long-call cleanup, weak-PC performance, multiple-face validation or full T10/T13 acceptance.
+- Contributor checks passed; source publication/CI passed. The prepared finite motion does not establish exact phonemes, general emotional intelligence/prosody, long-call cleanup, weak-PC performance, multiple-face validation or full T10/T13 acceptance.
 - OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo --software passed with Chrome --disable-gpu and --disable-accelerated-2d-canvas: 29.9994 FPS over seven seconds, P95 gap 34.1 ms and no gap over 100 ms. Static cleanup closed all four bitmaps and failure recovery passed. This is a controlled Mac browser check, not weak-PC or CPU-only Ollama proof.
 - make plan-render, make format, make check, make demo and make base-check passed: 85 Python tests, strict mypy/types/styles/generated contracts/build, 3 contract tests, 12 web behavior tests and 29 plugin-absent core tests. Offline recipe Ruff/format checks, asset-preparation Prettier, dependency-free CLI help and git diff --check passed. No heavy portrait dependency was added to the base install.
 - Final --photo --live rerun with one-count-per-render instrumentation passed: 30.0016 FPS, 34.1 ms P95 gap, no gap over 100 ms, four expression cues, 54.3 ms single Stop acknowledgement, mouth zero, no stale positive energy, four ImageBitmaps released and all failure cases passed. Both successful live samples are retained in the published evidence; the latest native-speed clip is published. The restarted main server passed the actual page/settings/mobile check.
 - Final --photo --software after preserving named live results passed at 29.9994 FPS, 34.2 ms P95 gap, zero >100 ms gaps, disabled_software graphics diagnostics and four closed images. Named latest live/software metric copies are retained locally; published evidence contains both initial and final successful samples. Private media/credentials were not collected.
 - Retained the exact pinned LivePortrait license, including its InsightFace model restriction notice. Added a file-specific whitespace exemption like the existing font notices; excluded face-analysis models remain absent. Staged whitespace checking passes with notices intact.
+- Implementation committed and pushed as d275d3e685df5a8430049d6b34bb7951bbe54624. Exact source Linux CI https://github.com/asb108/opentavus/actions/runs/37063925858 passed make setup/check/demo/base-check. Completion covers this bounded stock/prepared preview only; T05 custom imports, T10 live neural portrait, T13 full quality, precise phonemes, general emotional behavior and weak-PC proof remain open.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 

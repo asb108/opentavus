@@ -16,7 +16,12 @@
       "kokoro-onnx": "0.6.1",
       "onnxruntime": "1.24.4"
     },
-    "artifact_reference": "docs/models.md and plugins/local/opentavus-plugin.json pin Whisper, Kokoro/voices and the Ollama manifest; dependencies use uv.lock."
+    "artifact_reference": "docs/models.md; pinned optional adapter manifests under plugins/local/src/opentavus_{whisper,kokoro,ollama}/opentavus-plugin.json; uv.lock for runtime dependencies.",
+    "artifact_manifests": [
+      "plugins/local/src/opentavus_whisper/opentavus-plugin.json",
+      "plugins/local/src/opentavus_kokoro/opentavus-plugin.json",
+      "plugins/local/src/opentavus_ollama/opentavus-plugin.json"
+    ]
   },
   "commands": [
     "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo --live",
@@ -140,7 +145,12 @@
     "full T05 custom imports, T10 live portrait and T13 quality"
   ],
   "publication": {
-    "status": "pending source commit/CI"
+    "status": "published_source_ci_passed",
+    "source_sha": "d275d3e685df5a8430049d6b34bb7951bbe54624",
+    "source_commit_url": "https://github.com/asb108/opentavus/commit/d275d3e685df5a8430049d6b34bb7951bbe54624",
+    "source_ci_url": "https://github.com/asb108/opentavus/actions/runs/37063925858",
+    "source_ci_conclusion": "success",
+    "boundary": "Linux CI passes contribution/base fixture checks. Real Mac/browser/model proof is separately recorded; full human-quality and weak-PC claims remain open."
   },
   "software_rendering_check": {
     "command": "OPENTAVUS_TEST_URL=http://127.0.0.1:8766 npm run test:browser -- --photo --software",

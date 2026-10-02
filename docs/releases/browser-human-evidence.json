@@ -48,6 +48,11 @@
     "photographic appearance and general natural emotion"
   ],
   "publication": {
-    "status": "pending source commit/CI"
+    "status": "published_source_ci_passed",
+    "source_sha": "d275d3e685df5a8430049d6b34bb7951bbe54624",
+    "source_commit_url": "https://github.com/asb108/opentavus/commit/d275d3e685df5a8430049d6b34bb7951bbe54624",
+    "source_ci_url": "https://github.com/asb108/opentavus/actions/runs/37063925858",
+    "source_ci_conclusion": "success",
+    "boundary": "Linux CI passes contribution/base fixture checks. Real Mac/browser/model proof is separately recorded; full human-quality and weak-PC claims remain open."
   }
 }
