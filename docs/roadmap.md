@@ -41,7 +41,7 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T20](#t20) | G2 | done | T02, T18 | Codex / Atul |
 | [T21](#t21) | G2 | done | T02, T18 | Codex / Atul |
 | [T22](#t22) | G2 | done | T02, T18, T20 | Codex / Atul |
-| [T23](#t23) | G2 | in_progress | T02, T18, T22 | Codex / Atul |
+| [T23](#t23) | G2 | done | T02, T18, T22 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -671,7 +671,7 @@ Evidence:
 
 #### T23: Improve photographic speech with phoneme timing and distinct mouth shapes
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18, T22.
+Status: **done**. Owner: Codex / Atul. Dependencies: T02, T18, T22.
 
 Use model-reported phoneme spans on the actual PCM clock and visibly distinct prepared speech shapes. Reduce facial ghosting and preserve interruption, cleanup and CPU-friendly playback; retain honest video-realism limits.
 
@@ -716,14 +716,15 @@ Acceptance:
 
 Evidence:
 
-- 2026-10-03: user rejected T22 visual quality and absent apparent lip-sync. Existing model SHA-256 beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a reports waveform/duration outputs; installed kokoro-onnx 0.6.1 create_timed supports sample-derived phoneme spans. Current adapter uses create and drops marks; current asset has only four weak mouth-open levels. Targets remain 30 FPS browser cadence and <=80 ms cue-to-render scheduling, with separate acoustic/visual caveats.
+- 2026-10-03: user rejected T22 visual quality and absent apparent lip-sync. Existing model SHA-256 beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a reports waveform/duration outputs; installed kokoro-onnx 0.6.1 create_timed supports sample-derived phoneme spans. At task start the adapter used create and dropped marks; its asset had only four weak mouth-open levels. Targets remain 30 FPS browser cadence and <=80 ms cue-to-render scheduling, with separate acoustic/visual caveats.
 - 2026-10-03: Kokoro pinned duration-enabled export SHA beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a / kokoro-onnx 0.6.1 create_timed produced bounded packet-relative spans with CPUExecutionProvider for af_heart (42 packets, 3.29 seconds PCM) and bf_emma (40 packets, 3.15 seconds). Both used existing models; no alignment downloads. See benchmarks/portrait/prepared/kokoro-timing-result.json.
 - 2026-10-03: Pinned MIT LivePortrait core prepared 145 actual neural frames in 199.3 seconds on MPS with CPU fallback enabled, with no InsightFace imports. Native 512-pixel tiles / 4 poses x 8 speech states plus blink keys; 5,511,326 shipped asset bytes, 150,994,944 decoded sheet bytes. Source rights/revisions/weight hashes retained. Closed/open/wide/rounded probes and real capture frames reviewed; tongue/teeth geometry and full realism remain approximate.
 - 2026-10-03: make check passed 103 Python, 3 contract and 14 frontend behavior tests, strict Python/TypeScript, style, generated-schema/build and plan checks. Failure cases reject bad timing ranges/ordering/shapes/limits; stress and vowel length preserve articulation; sample-rate changes, packet splitting and reset/late-generation rejection are covered. Separate fresh contributor env without optional plugins or inference libraries passed all 103 Python tests; make demo passed and make base-check passed 37 with no installed plugins (5 fixture tests deselected).
 - 2026-10-03: Independent local check server and Playwright CLI --photo --live reached real Qwen/Kokoro speech and all eight timed speech states. Final seven-second native Canvas measurement: 30.001 FPS, 34.2 ms P95 gap, no gap above 100 ms. Worklet cue receipt to completed draw: 54 observed cues / 56 received transitions, P95 32.7 ms, max 33.7 ms (two coalesced/frame-window transitions). Stop ACK 51.3 ms; zero stale audio/cues and closed mouth. Earlier head crossfade artifacts were removed and capture repeated. This is scheduling proof, not independent acoustic/perceptual alignment.
 - 2026-10-03: Repeated final --photo --software measured 29.999 FPS, 34.2 ms P95 gap and no gap above 100 ms, with Chrome confirming GPU compositing/2D acceleration disabled and WebGL/WebGPU unavailable. Static cleanup closed four ImageBitmaps; damaged sheets, cancelled loading, unavailable Canvas and a real reply after avatar failure passed. This Mac browser test does not establish weak-PC or CPU-only Ollama performance.
-- Open boundary: publication/remote CI pending. Natural emotional behavior, anatomical/perceptual phoneme precision, full T10/T13 quality gates, 20-minute reliability, Windows/weak-PC and custom faces remain unverified.
+- Remaining larger-release boundary: natural emotional behavior, anatomical/perceptual phoneme precision, full T10/T13 quality gates, 20-minute reliability, Windows/weak-PC and custom faces remain unverified.
 - 2026-10-03: Repeated final --photo --live explicitly measured live speech drawing: 30.007 FPS, 34.3 ms P95 gap, zero gaps above 100 ms. Cue scheduling P95 30.5 ms / max 32.9 ms; 64 rendered versus 69 received transitions (five coalesced/frame-window transitions). Stop ACK 48.3 ms; all eight states, zero stale cues/audio and failure recovery passed. Native encoded-frame timestamps are recorded independently in phoneme-portrait-evidence.json; earlier 24.28 encoded FPS is retained rather than hidden.
+- 2026-10-03: Implementation committed/pushed as a8b1fda397f883a4c139a987d7726ea08c755fff. Exact source CI https://github.com/asb108/opentavus/actions/runs/37069529456 succeeded on Linux/Python 3.12/Node 22 for make setup/check/demo/base-check without inference models. Updated main loopback app served stock.mira.photographic.v2 / native 512 tiles and passed its own real-model --photo --live run: 29.999 live drawing FPS, 34.2 ms P95 gap, zero gaps above 100 ms; cue scheduling P95 31.5 ms / max 33.1 ms; Stop ACK 46.1 ms, zero stale audio/cues, static cleanup/failure recovery. Completion covers validated model-timed prepared articulation only; independent acoustic/visual precision, full T05/T10/T13, natural behavior, weak-PC/Windows and long-call gates remain open. See docs/releases/phoneme-portrait-evidence.json and native public capture.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 
