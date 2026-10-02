@@ -1,0 +1,13 @@
+{
+  "name": "@opentavus/contracts",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": {".": {"types": "./dist/index.d.ts", "import": "./dist/index.js"}},
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "test": "npm run build && node --test tests/*.test.mjs"
+  }
+}

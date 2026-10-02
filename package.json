@@ -1,0 +1,19 @@
+{
+  "name": "opentavus",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "engines": {"node": ">=22"},
+  "workspaces": ["packages/contracts"],
+  "scripts": {
+    "contracts:generate": "uv run --no-sync python scripts/contracts.py && node scripts/generate-types.mjs",
+    "contracts:check": "uv run --no-sync python scripts/contracts.py --check && node scripts/generate-types.mjs --check",
+    "typecheck": "npm run typecheck --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "^15.0.4",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "opentavus-fixture-demo"
+version = "0.0.1"
+description = "Synthetic contract fixture; does not implement a speech model"
+requires-python = ">=3.11,<3.15"
+license = "Apache-2.0"
+dependencies = ["opentavus-core"]
+
+[project.entry-points."opentavus.manifests"]
+"fixture.demo" = "opentavus_fixture_demo"
+
+[project.entry-points."opentavus.engines"]
+"fixture.demo" = "opentavus_fixture_demo.adapter:create_adapter"
+
+[tool.uv.sources]
+opentavus-core = { workspace = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/opentavus_fixture_demo"]

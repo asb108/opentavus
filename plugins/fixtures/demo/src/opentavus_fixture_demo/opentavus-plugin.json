@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "api_version": 1,
+  "id": "fixture.demo",
+  "kind": "tts",
+  "display_name": "Synthetic silence fixture (no speech model)",
+  "entry_point": "opentavus_fixture_demo.adapter:create_adapter",
+  "capabilities": {
+    "stream": {
+      "required_artifacts": [
+        "code"
+      ],
+      "input_formats": [
+        "text.delta.v1"
+      ],
+      "output_formats": [
+        "pcm_s16le"
+      ]
+    }
+  },
+  "execution": [
+    "in_process"
+  ],
+  "languages": [
+    "en"
+  ],
+  "streaming": "native",
+  "cancellation": "cooperative",
+  "hardware": {
+    "in_process": {
+      "min_ram_mb": 1,
+      "accelerator": "cpu"
+    }
+  },
+  "artifacts": [
+    {
+      "id": "code",
+      "purpose": "code",
+      "source_url": "repo://plugins/fixtures/demo/src/opentavus_fixture_demo/adapter.py",
+      "revision": "0.0.1",
+      "sha256": "3b0eb3c8bc9ebd92cba736e2c4879cf5094f2b15dac5a4923f5bfd4ff7d964c5",
+      "license_id": "Apache-2.0",
+      "license_url": "repo://LICENSE",
+      "attribution": "OpenTavus contributors",
+      "eligibility": "reviewed_permissive"
+    }
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  }
+}

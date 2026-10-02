@@ -1,0 +1,22 @@
+# Local environments, dependencies, and caches
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# Downloaded model artifacts and private/local outputs
+models/
+artifacts/
+.env
+.env.*
+!.env.example
+
+# Build outputs and local metadata
+dist/
+build/
+*.egg-info/
+.DS_Store

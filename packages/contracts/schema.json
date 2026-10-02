@@ -1,0 +1,1052 @@
+{
+  "$defs": {
+    "Artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "attribution": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Attribution",
+          "type": "string"
+        },
+        "eligibility": {
+          "enum": [
+            "reviewed_permissive",
+            "restricted",
+            "unresolved"
+          ],
+          "title": "Eligibility",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "license_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "License Id",
+          "type": "string"
+        },
+        "license_url": {
+          "title": "License Url",
+          "type": "string"
+        },
+        "purpose": {
+          "enum": [
+            "code",
+            "weights",
+            "voice",
+            "asset"
+          ],
+          "title": "Purpose",
+          "type": "string"
+        },
+        "revision": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Revision",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_url": {
+          "title": "Source Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "source_url",
+        "revision",
+        "sha256",
+        "license_id",
+        "license_url",
+        "attribution",
+        "eligibility"
+      ],
+      "title": "Artifact",
+      "type": "object"
+    },
+    "AudioEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "maximum": 2,
+          "minimum": 1,
+          "title": "Channels",
+          "type": "integer"
+        },
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "data_b64": {
+          "maxLength": 1048576,
+          "minLength": 4,
+          "title": "Data B64",
+          "type": "string"
+        },
+        "format": {
+          "const": "pcm_s16le",
+          "title": "Format",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "presentation_sample": {
+          "minimum": 0,
+          "title": "Presentation Sample",
+          "type": "integer"
+        },
+        "sample_rate": {
+          "maximum": 192000,
+          "minimum": 8000,
+          "title": "Sample Rate",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "type": {
+          "const": "audio",
+          "title": "Type",
+          "type": "string"
+        },
+        "utterance_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Utterance Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "utterance_id",
+        "presentation_sample",
+        "format",
+        "sample_rate",
+        "channels",
+        "data_b64"
+      ],
+      "title": "AudioEvent",
+      "type": "object"
+    },
+    "AvatarEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "coefficients": {
+          "items": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "maxItems": 52,
+          "minItems": 52,
+          "title": "Coefficients",
+          "type": "array"
+        },
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "format": {
+          "const": "arkit52.v1",
+          "title": "Format",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "presentation_sample": {
+          "minimum": 0,
+          "title": "Presentation Sample",
+          "type": "integer"
+        },
+        "renderer": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Renderer",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "type": {
+          "const": "avatar",
+          "title": "Type",
+          "type": "string"
+        },
+        "utterance_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Utterance Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "utterance_id",
+        "presentation_sample",
+        "renderer",
+        "format",
+        "coefficients"
+      ],
+      "title": "AvatarEvent",
+      "type": "object"
+    },
+    "CanvasEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "operation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Payload",
+          "type": "object"
+        },
+        "payload_version": {
+          "const": 1,
+          "title": "Payload Version",
+          "type": "integer"
+        },
+        "presentation_sample": {
+          "minimum": 0,
+          "title": "Presentation Sample",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "tool_name": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "type": {
+          "const": "canvas",
+          "title": "Type",
+          "type": "string"
+        },
+        "utterance_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Utterance Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "utterance_id",
+        "presentation_sample",
+        "operation_id",
+        "payload_version",
+        "tool_name",
+        "payload"
+      ],
+      "title": "CanvasEvent",
+      "type": "object"
+    },
+    "Capability": {
+      "additionalProperties": false,
+      "properties": {
+        "input_formats": {
+          "items": {
+            "enum": [
+              "pcm_s16le",
+              "transcript.v1",
+              "text.delta.v1",
+              "tool.call.v1",
+              "turn.decision.v1",
+              "arkit52.v1",
+              "video.rgb24",
+              "canvas.operation.v1",
+              "image.png"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Input Formats",
+          "type": "array"
+        },
+        "output_formats": {
+          "items": {
+            "enum": [
+              "pcm_s16le",
+              "transcript.v1",
+              "text.delta.v1",
+              "tool.call.v1",
+              "turn.decision.v1",
+              "arkit52.v1",
+              "video.rgb24",
+              "canvas.operation.v1",
+              "image.png"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Output Formats",
+          "type": "array"
+        },
+        "required_artifacts": {
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_.-]+$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Required Artifacts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "required_artifacts",
+        "input_formats",
+        "output_formats"
+      ],
+      "title": "Capability",
+      "type": "object"
+    },
+    "EngineSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Capability",
+          "type": "string"
+        },
+        "config": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Config",
+          "type": "object"
+        },
+        "execution": {
+          "enum": [
+            "in_process",
+            "local_worker",
+            "remote_worker",
+            "endpoint",
+            "browser"
+          ],
+          "title": "Execution",
+          "type": "string"
+        },
+        "plugin_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Plugin Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "plugin_id",
+        "capability",
+        "execution"
+      ],
+      "title": "EngineSelection",
+      "type": "object"
+    },
+    "ErrorEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "invalid_manifest",
+            "invalid_config",
+            "incompatible_protocol",
+            "plugin_missing",
+            "duplicate_plugin",
+            "capability_missing",
+            "license_ineligible",
+            "artifact_missing",
+            "unsupported_language",
+            "unsupported_hardware",
+            "kind_mismatch",
+            "format_mismatch",
+            "invalid_transition",
+            "plugin_load_failed"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "message": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "plugin_id": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9_.-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plugin Id"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "type": {
+          "const": "error",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "code",
+        "message"
+      ],
+      "title": "ErrorEvent",
+      "type": "object"
+    },
+    "HardwareRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "accelerator": {
+          "default": "none",
+          "enum": [
+            "none",
+            "cpu",
+            "metal",
+            "cuda"
+          ],
+          "title": "Accelerator",
+          "type": "string"
+        },
+        "measurement_run_ids": {
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_.-]+$",
+            "type": "string"
+          },
+          "title": "Measurement Run Ids",
+          "type": "array"
+        },
+        "min_ram_mb": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Min Ram Mb",
+          "type": "integer"
+        },
+        "min_vram_mb": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Min Vram Mb",
+          "type": "integer"
+        }
+      },
+      "title": "HardwareRequirement",
+      "type": "object"
+    },
+    "InterruptEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "stopped_generation_id": {
+          "minimum": 0,
+          "title": "Stopped Generation Id",
+          "type": "integer"
+        },
+        "type": {
+          "const": "interrupt",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "stopped_generation_id"
+      ],
+      "title": "InterruptEvent",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "Manifest": {
+      "additionalProperties": false,
+      "properties": {
+        "api_version": {
+          "const": 1,
+          "title": "Api Version",
+          "type": "integer"
+        },
+        "artifacts": {
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          },
+          "minItems": 1,
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "asset_schema": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Schema"
+        },
+        "cancellation": {
+          "enum": [
+            "cooperative",
+            "discard_late_output"
+          ],
+          "title": "Cancellation",
+          "type": "string"
+        },
+        "capabilities": {
+          "patternProperties": {
+            "^[a-zA-Z0-9_.-]+$": {
+              "$ref": "#/$defs/Capability"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 96,
+            "minLength": 1
+          },
+          "title": "Capabilities",
+          "type": "object"
+        },
+        "config_schema": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Config Schema",
+          "type": "object"
+        },
+        "display_name": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "entry_point": {
+          "pattern": "^[a-zA-Z_][\\w.]*:[a-zA-Z_]\\w*$",
+          "title": "Entry Point",
+          "type": "string"
+        },
+        "execution": {
+          "items": {
+            "enum": [
+              "in_process",
+              "local_worker",
+              "remote_worker",
+              "endpoint",
+              "browser"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Execution",
+          "type": "array"
+        },
+        "hardware": {
+          "additionalProperties": {
+            "$ref": "#/$defs/HardwareRequirement"
+          },
+          "propertyNames": {
+            "enum": [
+              "in_process",
+              "local_worker",
+              "remote_worker",
+              "endpoint",
+              "browser"
+            ]
+          },
+          "title": "Hardware",
+          "type": "object"
+        },
+        "id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "stt",
+            "llm",
+            "tts",
+            "turn",
+            "avatar",
+            "image"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "languages": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Languages",
+          "type": "array"
+        },
+        "renderer": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9_.-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Renderer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "streaming": {
+          "enum": [
+            "native",
+            "chunk_adapter",
+            "none"
+          ],
+          "title": "Streaming",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "api_version",
+        "id",
+        "kind",
+        "display_name",
+        "entry_point",
+        "capabilities",
+        "execution",
+        "languages",
+        "streaming",
+        "cancellation",
+        "hardware",
+        "artifacts",
+        "config_schema"
+      ],
+      "title": "Manifest",
+      "type": "object"
+    },
+    "PlaybackStoppedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "last_played_sample": {
+          "minimum": 0,
+          "title": "Last Played Sample",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "stopped_generation_id": {
+          "minimum": 0,
+          "title": "Stopped Generation Id",
+          "type": "integer"
+        },
+        "type": {
+          "const": "playback_stopped",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "stopped_generation_id",
+        "last_played_sample"
+      ],
+      "title": "PlaybackStoppedEvent",
+      "type": "object"
+    },
+    "Profile": {
+      "additionalProperties": false,
+      "properties": {
+        "avatar": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EngineSelection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "language": {
+          "maxLength": 32,
+          "minLength": 2,
+          "title": "Language",
+          "type": "string"
+        },
+        "llm": {
+          "$ref": "#/$defs/EngineSelection"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "stt": {
+          "$ref": "#/$defs/EngineSelection"
+        },
+        "tts": {
+          "$ref": "#/$defs/EngineSelection"
+        },
+        "turn": {
+          "$ref": "#/$defs/EngineSelection"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "language",
+        "stt",
+        "llm",
+        "tts",
+        "turn"
+      ],
+      "title": "Profile",
+      "type": "object"
+    },
+    "SessionEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "state": {
+          "enum": [
+            "created",
+            "preparing",
+            "ready",
+            "active",
+            "ending",
+            "ended",
+            "failed"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "type": {
+          "const": "session",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "state"
+      ],
+      "title": "SessionEvent",
+      "type": "object"
+    },
+    "TextEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "generation_id": {
+          "minimum": 0,
+          "title": "Generation Id",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "text": {
+          "maxLength": 8192,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "const": "text",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "conversation_id",
+        "generation_id",
+        "sequence",
+        "type",
+        "text"
+      ],
+      "title": "TextEvent",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "event": {
+      "discriminator": {
+        "mapping": {
+          "audio": "#/$defs/AudioEvent",
+          "avatar": "#/$defs/AvatarEvent",
+          "canvas": "#/$defs/CanvasEvent",
+          "error": "#/$defs/ErrorEvent",
+          "interrupt": "#/$defs/InterruptEvent",
+          "playback_stopped": "#/$defs/PlaybackStoppedEvent",
+          "session": "#/$defs/SessionEvent",
+          "text": "#/$defs/TextEvent"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SessionEvent"
+        },
+        {
+          "$ref": "#/$defs/TextEvent"
+        },
+        {
+          "$ref": "#/$defs/AudioEvent"
+        },
+        {
+          "$ref": "#/$defs/AvatarEvent"
+        },
+        {
+          "$ref": "#/$defs/CanvasEvent"
+        },
+        {
+          "$ref": "#/$defs/InterruptEvent"
+        },
+        {
+          "$ref": "#/$defs/PlaybackStoppedEvent"
+        },
+        {
+          "$ref": "#/$defs/ErrorEvent"
+        }
+      ],
+      "title": "Event"
+    },
+    "manifest": {
+      "$ref": "#/$defs/Manifest"
+    },
+    "profile": {
+      "$ref": "#/$defs/Profile"
+    }
+  },
+  "required": [
+    "manifest",
+    "profile",
+    "event"
+  ],
+  "title": "ContractBundle",
+  "type": "object"
+}

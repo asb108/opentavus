@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "opentavus-core"
+version = "0.0.1"
+description = "Typed contracts, validated plugin discovery, and pure session/profile policies"
+requires-python = ">=3.11,<3.15"
+license = "Apache-2.0"
+dependencies = ["pydantic>=2.11,<3", "jsonschema>=4.23,<5"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/opentavus_core"]

@@ -1,0 +1,561 @@
+# Implementation roadmap
+
+Generated from [tasks.json](tasks.json) by `make plan-render`. Edit the task source, not this file.
+
+A free self-hosted release with an interruptible avatar call, independent model/voice selection, and a shared tutor canvas; optional portrait plugins have separate eligibility and quality evidence.
+
+Only T00 is the planning foundation. Application paths below are proposed until their tasks create them. Task status and recorded evidence do not automatically establish real-model performance or publication.
+
+## Execution order
+
+Complete T00, then start T01 (measured feasibility) and T02 (typed scaffold). T09 supplies the early fixture harness after T02. T03 establishes the complete voice slice; T04 makes its timing and cancellation reliable. T05 adds the stock avatar. T07 and T08 implement the picker and canvas through the shared contracts. T06 isolates LAM; T10 separately evaluates the GPU portrait candidate.
+
+After dependencies are met, distinct owners can work on separate responsibilities. Coordinate shared contracts rather than editing the same paths concurrently. T12 packages the working profiles, and T13 proves all three launch experiences. T10/T11 are optional portrait/network work, not prerequisites to the local base release; advertising those paths requires their own evidence. T14-T17 retain the studio, broader tools/vision, video exports, and scale work for later.
+
+Keep spikes bounded: choose the named candidate, measure a complete slice, and compare an alternative only when a concrete failure justifies it. Do not grow the framework or model catalog before the launch behavior works.
+
+## Task summary
+
+| Task | Milestone | Status | Dependencies | Assigned owner |
+| --- | --- | --- | --- | --- |
+| [T00](#t00) | G0 | done | None | Codex in this chat |
+| [T01](#t01) | G0 | todo | T00 | Unassigned |
+| [T02](#t02) | G0 | done | T00 | Codex in this chat |
+| [T03](#t03) | G1 | todo | T01, T02 | Unassigned |
+| [T04](#t04) | G1 | todo | T03, T09 | Unassigned |
+| [T05](#t05) | G1 | todo | T02, T03 | Unassigned |
+| [T06](#t06) | G2 | todo | T02, T05 | Unassigned |
+| [T07](#t07) | G2 | todo | T01, T02, T03 | Unassigned |
+| [T08](#t08) | G2 | todo | T02, T03 | Unassigned |
+| [T09](#t09) | G1 | todo | T02 | Unassigned |
+| [T10](#t10) | G2 | todo | T01, T02, T04 | Unassigned |
+| [T11](#t11) | G2 | todo | T02, T04, T09 | Unassigned |
+| [T12](#t12) | G3 | todo | T01, T04, T05, T06, T07, T08, T09 | Unassigned |
+| [T13](#t13) | G3 | todo | T04, T05, T06, T07, T08, T09, T12 | Unassigned |
+| [T14](#t14) | G4 | todo | T13 | Unassigned |
+| [T15](#t15) | G4 | todo | T13 | Unassigned |
+| [T16](#t16) | G4 | todo | T13, T14 | Unassigned |
+| [T17](#t17) | G4 | todo | T11, T13 | Unassigned |
+
+**Ready to claim now:** T01, T09. Run `make plan-status` after changing task status.
+
+## Task details
+
+Read [the design](design.md), [plugin contract](plugin-contract.md), and [quality gates](quality.md) for the corresponding boundary. Acceptance criteria require human review of their evidence; the plan verifier checks structure and consistency.
+
+### G0 - Contribution foundation and bounded feasibility
+
+<a id="t00"></a>
+
+#### T00: Publish the local design and contribution foundation
+
+Status: **done**. Owner: Codex in this chat. Dependencies: None.
+
+Humans and agents can understand the intended product, claim a bounded task, and validate the planning documents without installing models.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `README.md`
+- `AGENTS.md`
+- `CONTRIBUTING.md`
+- `LICENSE`
+- `Makefile`
+- `docs/`
+- `scripts/plan.py`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.gitignore`
+
+Acceptance:
+
+- Design retains removable LAM, three compelling free launch experiences, measurable responsiveness, and future features from the original vision.
+- Tasks declare dependencies, owned paths, behavior, and acceptance evidence; historical recommendations are distinguished from the current design.
+- The standard-library plan commands validate the dependency graph, local links, and generated roadmap; invalid dependencies and cycles fail clearly.
+- Contribution and PR instructions distinguish document checks, fixture proof, live model/browser proof, and publication.
+
+Evidence:
+
+- 2026-10-02: make plan-render generated docs/roadmap.md from the task source; make plan-check passed for 18 tasks, acyclic dependencies, completion consistency, generated content, and 31 local links.
+- 2026-10-02: ten isolated Python/temporary-file exercises rejected unknown dependencies, cycles, completion without evidence, completion before dependencies, unassigned active tasks, missing blocker reasons, ownership outside the repo, duplicate IDs, broken links, and a stale-roadmap CLI result.
+- 2026-10-02: make plan-status confirmed all 17 application tasks are todo. Design, plugin-removal cases, quality targets, contribution instructions, and PR template were reviewed against the user's requirements.
+- LICENSE contains the official 11,358-character Apache-2.0 text retrieved from https://www.apache.org/licenses/LICENSE-2.0.txt. No application/model/browser/GPU performance or public repository/deployment is claimed.
+
+<a id="t01"></a>
+
+#### T01: Select reviewed models and measure the native feasibility spike
+
+Status: **todo**. Owner: Unassigned. Dependencies: T00.
+
+Choose a reproducible base stack from measured hardware and exact artifact terms, rather than upstream speed claims.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `benchmarks/spikes/native/`
+- `docs/models.md`
+- `profiles/candidates/`
+
+Acceptance:
+
+- Record exact code/weight/voice/asset revisions, licenses, digests, download sizes, runtime versions, and review states for the candidate stack.
+- Measure Whisper, two compatible permissive local LLM choices, Kokoro, Silero, and Smart Turn on the named native Apple Silicon machine; record complete-stack memory pressure and cold/warm costs.
+- Verify the chosen LLM can produce validated canvas tool calls through its actual provider; document any structured-output adapter needed.
+- Test an explicitly named CPU fallback. State unmet targets and unsupported languages without inferring whole-call latency from isolated model timings.
+- Keep the comparison bounded to the candidate base; investigate another model only when a measured failure requires it.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t02"></a>
+
+#### T02: Scaffold typed core contracts and lazy plugin discovery
+
+Status: **done**. Owner: Codex in this chat. Dependencies: T00.
+
+Provide the smallest shared contracts needed by the real launch adapters and browser, with a base that works without optional plugins.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/core/`
+- `packages/contracts/`
+- `pyproject.toml`
+- `uv.lock`
+- `package.json`
+- `package-lock.json`
+- `plugins/fixtures/demo/`
+- `scripts/contracts.py`
+- `scripts/generate-types.mjs`
+- `.python-version`
+- `scripts/demo.py`
+- `Makefile`
+- `.github/workflows/core.yml`
+
+Acceptance:
+
+- Create the uv/npm workspace and committed lockfiles with working formatting, Python typing, TypeScript strict, and fixture-test commands.
+- Define descriptors, per-kind protocols, session/generation events, structured errors, profile resolution, and capability-specific artifact eligibility from the plugin contract.
+- Core imports no FastAPI, Pipecat, model, or optional avatar implementation; discover metadata before importing a selected eligible factory.
+- Manifest/configuration/event validation rejects incompatible formats, missing capabilities, unresolved default artifacts, and malformed settings with actionable errors.
+- Generate or share browser contracts from a single schema and demonstrate a fixture adapter plus missing-plugin behavior without model downloads.
+
+Evidence:
+
+- 2026-10-02: make check passed: Ruff lint/format, strict mypy on 8 source files, 34 Python behavior tests, canonical JSON Schema/TypeScript consistency, TypeScript strict check/build, and 3 browser generation-policy tests.
+- 2026-10-02: make demo discovered the installed fixture without eager adapter imports and emitted ordered synthetic PCM at samples 0 and 240; cancellation, partial cleanup, and repeated close are covered by fixture tests.
+- 2026-10-02: make base-check removed the optional fixture package, passed 29 base tests (5 fixture tests deselected), and confirmed empty installed-plugin discovery. make setup restored the locked development/fixture environment.
+- 2026-10-02: uv build --package opentavus-fixture-demo --out-dir artifacts/wheels built a source distribution and wheel; archive inspection confirmed the packaged manifest, adapter, and entry-point metadata.
+- Reference tooling: Python 3.12.11, uv 0.7.1, Node.js 26.8.2, npm 11.19.1. Dependency versions are committed in uv.lock and package-lock.json. GitHub CI uses Python 3.12 and Node 22; its actual remote result is recorded separately.
+- No real STT/LLM/TTS model, microphone/WebRTC, LAM/browser avatar, teaching canvas, or latency target has been implemented or measured by this task.
+
+### G1 - A responsive working conversation
+
+<a id="t03"></a>
+
+#### T03: Build the first complete local voice conversation
+
+Status: **todo**. Owner: Unassigned. Dependencies: T01, T02.
+
+A browser microphone reaches the selected local models and produces an actual streamed spoken response with visible state and transcript.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/runtime/src/opentavus_runtime/pipeline/`
+- `plugins/stt/`
+- `plugins/llm/`
+- `plugins/tts/`
+- `plugins/turn/`
+- `apps/api/src/opentavus_api/bootstrap/`
+- `apps/web/src/features/call/`
+
+Acceptance:
+
+- Integrate Pipecat and SmallWebRTC with the reviewed base adapters, using prepare/ready/error/close states and bounded off-event-loop inference.
+- Create/end/status/signaling routes and a minimal call page work; server endpoint credentials never appear in browser payloads.
+- Stream partial/final transcription and useful spoken phrases; preserve partial/interrupted transcript semantics and disclose the AI character.
+- A real browser/model call completes after local downloads without a required external inference service; record versions and the first full-call timing baseline.
+- Preparation failure and call end release microphone, transport, and inference tasks. This voice slice remains an intermediate result toward the avatar launch.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t04"></a>
+
+#### T04: Choose playout timing and make interruption reliable
+
+Status: **todo**. Owner: Unassigned. Dependencies: T03, T09.
+
+One media clock governs audible speech, avatar timing, and canvas cues; an interruption stops every obsolete output path.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/runtime/src/opentavus_runtime/session/`
+- `packages/runtime/src/opentavus_runtime/media/`
+- `apps/web/src/media/`
+- `benchmarks/playout/`
+- `docs/decisions.md`
+
+Acceptance:
+
+- Run a bounded comparison of track-based WebRTC playout and scheduled PCM/AudioWorklet against echo, jitter, sync, interruption, and browser-observed latency; choose one and record D08 evidence.
+- Generation IDs cancel LLM/TTS/avatar/tool production, purge queues, reject late output, and receive browser stop acknowledgement under deadlines.
+- Handle pauses, backchannels, corrections, bounded queue overflow, sample-rate conversion, and reconnect with the replay corpus.
+- Measure useful reply latency, interruption recognition, playback stop, underruns, and timing uncertainty on a real browser/model profile using the quality definitions.
+- Tune warm-up, STT finalization, non-thinking generation, and phrase aggregation without counting filler as useful output. Record any unmet launch target as open work.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t05"></a>
+
+#### T05: Ship a synchronized stock avatar and compatible GLB import
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T03.
+
+The base call has a lively, synchronized character and works without LAM or a server GPU avatar model.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `plugins/avatar/talkinghead/`
+- `apps/web/src/features/avatar/`
+- `assets/stock/`
+
+Acceptance:
+
+- Use a reviewed redistributable stock rig and TalkingHead through the common renderer interface; document code and asset attribution separately.
+- Animate mouth/idle behavior through the common playout contract, flush a generation, and dispose resources; the renderer never creates a competing speech queue.
+- Validate the supported GLB rig/shapes on import and show actionable incompatibility errors; do not advertise arbitrary VRM support.
+- Capture a real speaking/idle/interrupted character at normal speed and record browser frame cadence and lip-sync observations.
+- The base browser bundle and Python dependency set contain no mandatory LAM implementation or reconstruction weights.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t09"></a>
+
+#### T09: Establish shared contract and conversation replay checks early
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02.
+
+Contributors can catch ordering, cleanup, and optional-plugin failures without paid APIs or large model downloads.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `tests/contract/`
+- `tests/replay/`
+- `tests/fixtures/`
+- `.github/workflows/base.yml`
+
+Acceptance:
+
+- Provide fake typed engines, a controllable clock, redistributable speech/event fixtures, and a common prepare/stream/cancel/late-output/close/error suite.
+- Test core profile eligibility, lifecycle, generations, partial initialization cleanup, ordering, bounded queues, and missing optional plugins through observable behavior.
+- Include natural pause/backchannel/interruption cases and extend consumers' integration checks when T03-T08 implement them; keep mocked timing distinct from real latency.
+- CI runs installed base formatting, typing, fixture tests, contract consistency, and frontend build with optional avatar packages absent and no model/service downloads.
+- Give adapter authors one reproducible command and actionable failures; do not impose a coverage percentage or duplicate implementation logic as tests.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+### G2 - Three launch experiences and optional portraits
+
+<a id="t06"></a>
+
+#### T06: Add LAM through a reversible plugin boundary
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T05.
+
+LAM can be installed, disabled, and removed while the call, picker, canvas, and saved user data remain usable.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `plugins/avatar/lam/`
+- `tests/integration/plugin_removal/`
+
+Acceptance:
+
+- Separate animate_existing, render_prepared, and create_from_photo with independent manifests, required artifacts, optional dependencies, and renderer registration.
+- Implement the prepared-asset animation integration with fixtures; report live model/asset evidence separately and enable only reviewed eligible capabilities.
+- Keep unresolved reconstruction terms visible and blocked in the permissive default; no base install/download pulls Blender, LAM weights, or its renderer.
+- Run absent/install/disable/remove/restart cases from the plugin contract; saved LAM references become a recoverable state without deleting assets, consent, persona, voice, or history.
+- Use the common cancellation/media contract and simulate worker/renderer failure. T13 repeats removal with the final picker and canvas; this task does not claim unmeasured LAM performance.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t07"></a>
+
+#### T07: Build independent model, voice, and character settings
+
+Status: **todo**. Owner: Unassigned. Dependencies: T01, T02, T03.
+
+Users switch configured models and voices without editing unrelated components, and understand whether a selected profile can run.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `apps/web/src/features/settings/`
+- `apps/api/src/opentavus_api/catalog/`
+- `apps/api/src/opentavus_api/personas/`
+- `apps/api/src/opentavus_api/storage/`
+
+Acceptance:
+
+- Show installed/configured choices, capability/language information, artifact eligibility, memory requirement, and specific unavailable reasons with recovery actions.
+- Demonstrate at least two reviewed local LLM configurations and multiple reviewed preset voices; STT, LLM, voice, and avatar settings remain independent.
+- Validate the complete next-call profile before preparing; persist personas/assets/board metadata with schema versions, provenance, scoped authorization, and retention/deletion settings.
+- Keep endpoint secrets on the server and generate the browser API client from the stable schema; invalid settings produce no half-started session.
+- Test next-call application, missing optional plugin references, and schema validation with fixtures, then demonstrate real selection changes in browser calls.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t08"></a>
+
+#### T08: Build the shared tutor canvas as a launch feature
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T03.
+
+An agent teaches with notes, formulas, diagrams, and practice questions while the user can keep drawing and editing.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `apps/web/src/features/canvas/`
+- `packages/runtime/src/opentavus_runtime/tools/tutor/`
+- `tests/integration/tutor/`
+
+Acceptance:
+
+- Implement Excalidraw user/agent ownership plus the fixed note/formula/diagram/quiz/remove-agent-elements tool schemas and structured results.
+- Render bounded KaTeX/Mermaid output with safe settings, sanitizer checks, accessible source/text, and a structured question panel; reject malicious inputs.
+- Make operations session/generation scoped and idempotent; cancellation rejects pending operations while preserving already displayed partial explanations and all user strokes.
+- Integrate the selected media cues so corresponding visuals appear before claims that they are shown; tool success reaches model context only after the result is applied.
+- Demonstrate spoken teaching, user edits, export, a duplicate call, and interruption in a real browser. Measure canvas timing and preserve state through reconnect.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t10"></a>
+
+#### T10: Evaluate and integrate an optional GPU portrait avatar
+
+Status: **todo**. Owner: Unassigned. Dependencies: T01, T02, T04.
+
+Offer a higher-fidelity portrait preview only on hardware and component terms supported by real evidence.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `plugins/avatar/portrait/`
+- `workers/portrait/`
+- `benchmarks/portrait/`
+
+Acceptance:
+
+- Bound the experiment to MuseTalk first and FlashHead Lite if its complete component review clears; audit bundled VAE/weights/assets rather than trusting the top-level license.
+- Isolate conflicting CUDA dependencies; document asset preparation separately from live generation and record exact container/model revisions and full-stack VRAM.
+- Before evaluating a candidate, record numerical first-playable/cadence targets for the reference profile plus the common lip-sync/interruption gates; keep those fixed for its run.
+- Capture actual synchronized output at normal speed across faces/utterances, including interruption, jitter/identity quality, first playable delay, sustained cadence, and queue pressure.
+- A failing/unresolved candidate remains experimental or unavailable with evidence. An optional portrait experiment cannot block or replace the three mandatory launch experiences.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t11"></a>
+
+#### T11: Verify worker hosting and any advertised cross-network profile
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T04, T09.
+
+Selected engines can run in an isolated worker, and any published network path has measured authentication, traversal, and cancellation behavior.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `workers/protocol/`
+- `workers/sdk/`
+- `deploy/`
+- `tests/integration/network/`
+
+Acceptance:
+
+- Use real adapter message shapes to finalize the minimal versioned worker transport; compare WebSocket/protobuf complexity with actual needs before adding another protocol.
+- Implement authenticated capability/ready/control/media messages, bounded queues, deadlines, reconnect, remote clock/sample rules, and generation cancellation.
+- Demonstrate local-worker and remote-worker behavior with fixtures; run real selected hardware before advertising a GPU remote profile.
+- Verify HTTPS/signaling, scoped expiring session authorization, and STUN/TURN traversal on the cross-network browser profile, including jitter/slow-client cases.
+- Document local-only and cross-network support separately. A network limitation stays visible; do not claim Internet support from a LAN call.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+### G3 - Reproducible setup and demonstrated v0.1
+
+<a id="t12"></a>
+
+#### T12: Package the working profiles and write reproducible quickstarts
+
+Status: **todo**. Owner: Unassigned. Dependencies: T01, T04, T05, T06, T07, T08, T09.
+
+A new user can install a measured profile, diagnose missing dependencies, and reach all three launch experiences from a clean checkout.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/cli/`
+- `profiles/validated/`
+- `docs/quickstarts/`
+- `docs/hardware.md`
+- `scripts/setup/`
+- `.github/ISSUE_TEMPLATE/`
+
+Acceptance:
+
+- Provide setup/start/doctor commands and safe configuration generation based on actual hardware/artifact checks; recommendation and validation remain separate.
+- Verify clean native Apple Silicon installation plus the named CPU fallback; GPU and split guides are clearly conditional on T10/T11 live evidence.
+- Pin and test selected dependencies/checkpoints, publish required RAM/VRAM/storage/context limits, and retain attribution for downloaded artifacts.
+- Run the demo after downloads with external inference disabled; install/remove LAM separately; document recovery, supported GLB assets, and current browser/language support.
+- Provide bug/adapter contribution templates and commands matching the actual packages; check project/repository naming and independent branding before public launch.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t13"></a>
+
+#### T13: Prove the complete v0.1 experience and prepare public release
+
+Status: **todo**. Owner: Unassigned. Dependencies: T04, T05, T06, T07, T08, T09, T12.
+
+Release claims are backed by reproducible calls, visual evidence, installation proof, and an honest support matrix.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `benchmarks/release/`
+- `tests/browser/`
+- `docs/releases/`
+- `.github/workflows/release.yml`
+
+Acceptance:
+
+- Demonstrate avatar conversation, independent model/voice selection, and shared teaching canvas as one complete free product; none can be replaced by a voice-only spike.
+- Meet the named reference profile's quality gates over at least 100 representative warm turns; publish raw event summaries, failures, versions, uncertainty, and real normal-speed captures.
+- Pass the 20-minute conversation and 20 lifecycle/reconnect cycles, speaker echo/permission cases, stale-output checks, and final LAM removal scenario with picker/canvas present.
+- Verify clean local/offline-after-download setup, final T04/T05/T08 media integration, asset/model license matrix, AI disclosure, data deletion/retention, scoped access, and package/build checks. Any advertised GPU or cross-network path also requires T10/T11 evidence; otherwise label it unavailable or experimental.
+- Prepare the demo, release notes, supported/experimental/unavailable feature matrix, and tagged source artifact. Record publication separately; publish only with explicit user authorization.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+### G4 - Extensions after the first release
+
+<a id="t14"></a>
+
+#### T14: Extend the avatar studio with consented voice and appearance creation
+
+Status: **todo**. Owner: Unassigned. Dependencies: T13.
+
+Users combine a prepared face/character with an independent preset or consented cloned voice and optional appearance editing.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `apps/web/src/features/studio/`
+- `plugins/asset_creator/`
+- `plugins/voice_clone/`
+- `tests/integration/consent/`
+
+Acceptance:
+
+- Keep face, voice, persona, and optional appearance editing independent; support only reviewed artifact/model capabilities with complete source terms. The image-job interface can also supply approved illustrations to the tutor canvas.
+- Implement bounded offline creation jobs, progress, cancellation, provenance, storage limits, consent capture, withdrawal/deletion, and a visible AI label.
+- Test prepared stock/compatible VRM/portrait paths; photo creation through LAM remains unavailable while its exact weight terms are unresolved.
+- Evaluate streaming/cancellation and advertised languages for any new voice model on actual hardware; a consent phrase is an attestation, not identity proof or comprehensive compliance.
+- Demonstrate editing/creation outside the live conversation path so preparation never causes call lag.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t15"></a>
+
+#### T15: Add document-grounded tutoring, scoped tools, and opt-in vision
+
+Status: **todo**. Owner: Unassigned. Dependencies: T13.
+
+The agent can use approved documents and tools, and optional visual context, while preserving user control and responsive speech.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/runtime/src/opentavus_runtime/tools/general/`
+- `plugins/retrieval/`
+- `plugins/perception/`
+- `apps/web/src/features/context/`
+
+Acceptance:
+
+- Implement bounded local document ingestion/retrieval with citations, file ownership, deletion, and reproducible answer checks.
+- Add general MCP/network/file actions only through scoped authorization, allowlists, argument validation, deadlines, and generation-linked results.
+- Vision requests explicit camera/screen consent, has a visible indicator, validates model licenses, and keeps perception inference off the media event loop.
+- Do not infer sensitive emotions or enable prohibited workplace/education emotion use through a generic perception switch; document the use-case boundary and evidence.
+- Measure long-tool/vision behavior, prompt-injection resistance at tool boundaries, interrupted actions, and grounded spoken/canvas responses separately from the base benchmark.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t16"></a>
+
+#### T16: Add recording, offline video generation, and portable exports
+
+Status: **todo**. Owner: Unassigned. Dependencies: T13, T14.
+
+Users create consented recorded or asynchronous avatar videos without coupling long render jobs to live calls.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/runtime/src/opentavus_runtime/jobs/`
+- `plugins/watermark/`
+- `apps/web/src/features/exports/`
+- `workers/video_jobs/`
+
+Acceptance:
+
+- Use a separate queued job lifecycle for script-to-video/render/export with cancellation, resource budgets, progress, and retained provenance.
+- Recording is opt-in with visible state, scoped access, retention/deletion, consent, and export behavior tested across reconnect/end.
+- Evaluate AudioSeal and relevant video/provenance tooling on streamed/encoded output; measure overhead and detection after compression without promising comprehensive compliance.
+- Verify audio/video sync, final encoding, timestamps, and playable artifacts; distinguish live-call capabilities from offline model claims.
+- Export the transcript/board/media only under the configured data policy and test cleanup without deleting unrelated artifacts.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
+
+<a id="t17"></a>
+
+#### T17: Scale to rooms and measured worker pools
+
+Status: **todo**. Owner: Unassigned. Dependencies: T11, T13.
+
+Support larger self-hosted deployments only after per-session capacity and failure behavior are understood.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `workers/pool/`
+- `plugins/transport/livekit/`
+- `deploy/rooms/`
+- `benchmarks/capacity/`
+
+Acceptance:
+
+- Add rooms/LiveKit only when the deployment needs them; separately audit code, infrastructure, and turn-detector model terms.
+- Measure concurrent full-pipeline sessions, resource quotas, admission/backpressure, queue delay, and recovery; do not derive call capacity from avatar-only FPS.
+- Keep session authorization, tenant/resource isolation, generation cancellation, and transcript/media retention correct during worker loss and reconnect.
+- Run reproducible capacity and cross-network tests on named hardware, publish realistic costs/limits, and preserve the simpler local profile.
+- Document deployment/security ownership and evidence before advertising production or multi-user support.
+
+Evidence:
+
+- Not recorded; acceptance is unverified.
