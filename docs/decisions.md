@@ -17,7 +17,7 @@ This record distinguishes the user's requirements from engineering choices. All 
 | D11 | Engineering baseline | The three local launch experiences form the critical path; portrait and remote/network infrastructure require separate evidence only when advertised | T13 cannot advertise T10/T11 paths without their live checks; their absence does not block the local release |
 | D12 | Implemented core prototype | Metadata and factory entry points are separate; metadata names a top-level package so discovery reads its manifest without importing model code | Fresh-process fixture discovery and base-absent checks in T02 |
 | D13 | Implemented core prototype | Pydantic boundary schemas generate JSON Schema and TypeScript contracts; Python protocols/dataclasses remain separate domain interfaces | Generated-contract consistency, strict typing, and PCM/event behavior checks in T02 |
-| D14 | Development baseline | Python 3.12 and Node.js 22+ with committed uv/npm lockfiles; current CI installs the tested uv 0.7.1 | Local core checks on Python 3.12.11/Node.js 26.8.2; CI runner proof is recorded separately after publication |
+| D14 | Verified development baseline | Python 3.12 and Node.js 22+ with committed uv/npm lockfiles; CI installs the tested uv 0.7.1 | Local core checks on Python 3.12.11/Node.js 26.8.2 and successful GitHub Ubuntu/Python 3.12/Node 22 [CI run](https://github.com/asb108/opentavus/actions/runs/37003812605); this establishes core tooling support, not live conversation support |
 
 No user-authored feature exclusions were supplied. Later-release assignments schedule work; they do not erase features from the original vision. English is the first proposed validated speech language. Add a language only after its STT, TTS, and lip-sync cases pass.
 

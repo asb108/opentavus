@@ -120,7 +120,8 @@
         "2026-10-02: make base-check removed the optional fixture package, passed 29 base tests (5 fixture tests deselected), and confirmed empty installed-plugin discovery. make setup restored the locked development/fixture environment.",
         "2026-10-02: uv build --package opentavus-fixture-demo --out-dir artifacts/wheels built a source distribution and wheel; archive inspection confirmed the packaged manifest, adapter, and entry-point metadata.",
         "Reference tooling: Python 3.12.11, uv 0.7.1, Node.js 26.8.2, npm 11.19.1. Dependency versions are committed in uv.lock and package-lock.json. GitHub CI uses Python 3.12 and Node 22; its actual remote result is recorded separately.",
-        "No real STT/LLM/TTS model, microphone/WebRTC, LAM/browser avatar, teaching canvas, or latency target has been implemented or measured by this task."
+        "No real STT/LLM/TTS model, microphone/WebRTC, LAM/browser avatar, teaching canvas, or latency target has been implemented or measured by this task.",
+        "2026-10-02: source published to https://github.com/asb108/opentavus on main. GitHub CI run 37003812605 succeeded on Ubuntu/Python 3.12/Node 22 for implementation commit b43cf4379c018568587d942064d963d67f0cde26: https://github.com/asb108/opentavus/actions/runs/37003812605. Local and remote implementation heads were verified equal."
       ],
       "blocker": null
     },

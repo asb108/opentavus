@@ -1,5 +1,7 @@
 # OpenTavus
 
+[![Core and contracts](https://github.com/asb108/opentavus/actions/workflows/core.yml/badge.svg)](https://github.com/asb108/opentavus/actions/workflows/core.yml)
+
 OpenTavus is an open-source project building responsive avatar conversations and interactive learning with self-hostable models. The launch goal combines an interruptible video conversation, a model-and-voice picker, and a shared tutor canvas.
 
 **Current status: pre-alpha core prototype.** Typed engine contracts, validated plugin metadata, profile selection, generation policies, shared browser types, and a synthetic adapter fixture are implemented. A live conversation application, real model adapters, LAM, and performance benchmarks remain unimplemented. The fixture demo emits silence; it does not start a video agent.
@@ -9,6 +11,8 @@ OpenTavus is an open-source project building responsive avatar conversations and
 Use Python 3.12, Node.js 22 or newer, npm, and uv. The development interpreter is selected by `.python-version`; tested dependencies are recorded in `uv.lock` and `package-lock.json`.
 
 ```sh
+git clone https://github.com/asb108/opentavus.git
+cd opentavus
 make setup
 make check
 make demo
