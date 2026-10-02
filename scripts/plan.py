@@ -320,7 +320,7 @@ def print_status(plan: dict) -> None:
         if task["status"] in ("in_progress", "blocked"):
             detail = task["blocker"] or task["owner"]
             print(f"{task['status']}: {task['id']} - {detail}")
-    print("Planning artifacts only; application performance is unmeasured.")
+    print("Task status does not run checks; inspect recorded evidence and unverified acceptance.")
 
 
 def main() -> int:

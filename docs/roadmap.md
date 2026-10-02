@@ -444,6 +444,7 @@ Owned paths (proposed responsibilities, not an existence check):
 - `.github/workflows/core.yml`
 - `.gitattributes`
 - `.gitignore`
+- `scripts/plan.py`
 
 Acceptance:
 
@@ -461,6 +462,7 @@ Evidence:
 - 2026-10-02: exact digests, runtime versions, screenshots, synthetic example, per-trial timings and slow/incorrect/rejected results are recorded in docs/releases/0.1.0-alpha.1-evidence.json and linked artifacts. Final warm arithmetic request-to-Worklet-caption 2543.8 ms; equation lesson 8456.4 ms. Local stop/reset samples 15.2-15.8 ms. No percentile/speaker-waveform claim.
 - 2026-10-02: quickstarts, license/model notices, human/agent instructions, style configs, contribution ideas, conduct/governance/security, issue/PR templates and GitHub private vulnerability reporting are prepared. LAM and all optional avatar packages are absent from base checks. Full T01/T03-T09/T13 acceptance remains visible and incomplete.
 - 2026-10-02: reviewed source 6fbe5a04bc68d9702b993c9aa28eeb274f5a499f committed and pushed to https://github.com/asb108/opentavus. GitHub CI https://github.com/asb108/opentavus/actions/runs/37032780671 passed on that exact source: locked model-free contributor checks, fixture demo and isolated no-plugin base check. A fresh local .cache/contributor-env also passed make check/make demo with Pipecat, loguru, Whisper, Kokoro and the local model plugin absent. The first CI caught an optional logging import in mypy; the corrected override preserves the model-free install. This completes only the bounded T18 alpha acceptance.
+- 2026-10-02: post-release contributor walkthrough corrected the obsolete planning-only message in make plan-status. The tool now states that status does not execute checks and points to recorded evidence/unverified acceptance. Ruff check/format and make plan-status passed; this wording change does not change the tagged application behavior.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 
