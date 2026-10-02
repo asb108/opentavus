@@ -5,6 +5,10 @@ Ruff for Python, Prettier for frontend code, ESLint for React, strict mypy/TypeS
 and the shared generated schemas. Commit both lockfiles when dependencies change.
 Do not edit generated contract files manually.
 
+Retained upstream font notices preserve their original text/whitespace and are
+exempted from Git whitespace checks in `.gitattributes`. Build-served fonts/licenses
+are generated from source notices and installed packages; do not commit those copies.
+
 ## Python
 
 Use Python 3.12 for development. Use `snake_case` functions/modules, `PascalCase`

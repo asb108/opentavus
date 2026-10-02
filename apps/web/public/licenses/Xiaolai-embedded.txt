@@ -1,5 +1,0 @@
-Extracted from node_modules/@excalidraw/excalidraw/dist/prod/fonts/Xiaolai/Xiaolai-Regular-cf6ff4e0f491ca0cf3038187a997b9b4.woff2
-
-Copyright: Copyright © 2020 LXGW
-
-Family: Xiaolai SC

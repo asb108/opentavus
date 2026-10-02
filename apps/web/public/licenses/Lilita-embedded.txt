@@ -1,7 +1,0 @@
-Extracted from node_modules/@excalidraw/excalidraw/dist/prod/fonts/Lilita/Lilita-Regular-i7dPIFZ9Zz-WBtRtedDbYEF8RXi4EwQ.woff2
-
-Copyright: Copyright (c) 2011 Juan Montoreano (juan@remolacha.biz), with Reserved Font Names "Lilita One"
-
-Family: Lilita One
-
-License URL: http://scripts.sil.org/OFL

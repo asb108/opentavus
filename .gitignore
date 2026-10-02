@@ -21,5 +21,6 @@ build/
 *.egg-info/
 .DS_Store
 apps/web/public/fonts/
+apps/web/public/licenses/
 output/playwright/
 .playwright-cli/
