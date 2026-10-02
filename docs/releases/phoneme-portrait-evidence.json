@@ -1,7 +1,7 @@
 {
   "task": "T23",
   "date": "2026-10-03",
-  "status": "Final blink sequence correction under verification; prior source CI and timing results retained",
+  "status": "Bounded T23 implementation, final blink correction and actual main app verified and published; larger realism gates remain open",
   "reference": {
     "hardware": "Apple M3 Pro, 18 GB RAM",
     "os": "macOS 14.5",
@@ -679,8 +679,8 @@
   "publication": {
     "repository": "https://github.com/asb108/opentavus",
     "branch": "main",
-    "implementation_commit": "a8b1fda397f883a4c139a987d7726ea08c755fff",
-    "source_ci": "https://github.com/asb108/opentavus/actions/runs/37069529456",
+    "implementation_commit": "a4b9650417f91356b5bc3b7d63439107fdedc569",
+    "source_ci": "https://github.com/asb108/opentavus/actions/runs/37071871515",
     "source_ci_status": "success",
     "source_ci_scope": "Linux/Python 3.12/Node 22 make setup/check/demo/base-check without inference models; exact implementation head verified"
   },
@@ -1623,7 +1623,7 @@
       "cancelledPreparation": true
     }
   },
-  "final_review_correction": "Prepared blink tiles represent .3/.7/1/.7 sequential frames. Fixed amplitude-index selection that could reopen near peak; complete stage sequence now has a behavior regression and opt-in real browser assertion. make check passed, and the updated main app --photo --live observed all four blink stages [32,33,34,35], 29.997 live drawing FPS, cue P95 31.8 ms/max 32.8 ms, all 64 received/rendered transitions, Stop ACK 51.2 ms and no stale output. Final --photo --software also rendered all four blink stages and passed cadence/cleanup/failure checks with GPU compositing and 2D acceleration disabled.",
+  "final_review_correction": "Prepared blink tiles represent .3/.7/1/.7 sequential frames. Fixed amplitude-index selection that could reopen near peak; complete stage sequence now has a behavior regression and opt-in real browser assertion. make check passed, and the updated main app --photo --live observed all four blink stages [32,33,34,35], 29.997 live drawing FPS, cue P95 31.8 ms/max 32.8 ms, all 64 received/rendered transitions, Stop ACK 51.2 ms and no stale output. Final --photo --software also rendered all four blink stages and passed cadence/cleanup/failure checks with GPU compositing and 2D acceleration disabled. Exact corrected source Linux CI passed make setup/check/demo/base-check at https://github.com/asb108/opentavus/actions/runs/37071871515.",
   "earlier_main_app_summary": {
     "live": {
       "stopClickToWorkletAckMs": 46.09999999962747,
@@ -1663,5 +1663,13 @@
       }
     },
     "note": "Before final blink-stage correction; prior positive speech timing retained."
+  },
+  "prior_publication": {
+    "repository": "https://github.com/asb108/opentavus",
+    "branch": "main",
+    "implementation_commit": "a4b9650417f91356b5bc3b7d63439107fdedc569",
+    "source_ci": "https://github.com/asb108/opentavus/actions/runs/37071871515",
+    "source_ci_status": "success",
+    "source_ci_scope": "Linux/Python 3.12/Node 22 make setup/check/demo/base-check without inference models; exact implementation head verified"
   }
 }

@@ -838,7 +838,7 @@
       "id": "T23",
       "title": "Improve photographic speech with phoneme timing and distinct mouth shapes",
       "milestone": "G2",
-      "status": "in_progress",
+      "status": "done",
       "owner": "Codex / Atul",
       "depends_on": [
         "T02",
@@ -895,7 +895,8 @@
         "2026-10-03: Implementation committed/pushed as a8b1fda397f883a4c139a987d7726ea08c755fff. Exact source CI https://github.com/asb108/opentavus/actions/runs/37069529456 succeeded on Linux/Python 3.12/Node 22 for make setup/check/demo/base-check without inference models. Updated main loopback app served stock.mira.photographic.v2 / native 512 tiles and passed its own real-model --photo --live run: 29.999 live drawing FPS, 34.2 ms P95 gap, zero gaps above 100 ms; cue scheduling P95 31.5 ms / max 33.1 ms; Stop ACK 46.1 ms, zero stale audio/cues, static cleanup/failure recovery. Completion covers validated model-timed prepared articulation only; independent acoustic/visual precision, full T05/T10/T13, natural behavior, weak-PC/Windows and long-call gates remain open. See docs/releases/phoneme-portrait-evidence.json and native public capture.",
         "2026-10-03 final review: found blink selection treated its .3/.7/1/.7 sequence as an amplitude lookup, reopening near the peak. Corrected to sequential 50 ms stages and added reduced-motion/full-pulse behavior and real rendered-stage checks; final verification/CI pending for this correction. Previous timing/live/CI measurements remain historical proof.",
         "2026-10-03: Blink correction passed make check (103 Python / 3 contract / 15 web tests). Updated main-app --photo --live observed the complete [32,33,34,35] eye sequence, 29.997 live drawing FPS, cue P95 31.8 ms/max 32.8 ms, 64 received/rendered transitions with none coalesced in the measured window, all eight speech states, Stop ACK 51.2 ms and zero stale speech/cues. Public native capture replaced with this exact renderer output. Final source CI still pending.",
-        "2026-10-03: Final blink-corrected --photo --software rendered all four eye stages, passed about 30 FPS/34 ms P95/no >100 ms gaps, static cleanup and failure/cancellation checks, with GPU compositing and 2D acceleration disabled. Full natural/perceptual quality gates remain open."
+        "2026-10-03: Final blink-corrected --photo --software rendered all four eye stages, passed about 30 FPS/34 ms P95/no >100 ms gaps, static cleanup and failure/cancellation checks, with GPU compositing and 2D acceleration disabled. Full natural/perceptual quality gates remain open.",
+        "2026-10-03 final completion: blink-corrected implementation a4b9650417f91356b5bc3b7d63439107fdedc569 pushed to main; exact Linux/Python 3.12/Node 22 source CI https://github.com/asb108/opentavus/actions/runs/37071871515 succeeded on setup/check/demo/base-check. All bounded T23 acceptance is evidenced, including complete eye stages, actual main-app speech, <=80 ms scheduling, normal/software drawing cadence, cancellation/resource recovery and contributor checks. Independent acoustic/perceptual precision and full natural/emotional/Tavus-quality video remain unverified under T10/T13; no weak-PC/Windows or 20-minute claim."
       ],
       "blocker": null
     }

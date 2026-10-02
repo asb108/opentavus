@@ -41,7 +41,7 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T20](#t20) | G2 | done | T02, T18 | Codex / Atul |
 | [T21](#t21) | G2 | done | T02, T18 | Codex / Atul |
 | [T22](#t22) | G2 | done | T02, T18, T20 | Codex / Atul |
-| [T23](#t23) | G2 | in_progress | T02, T18, T22 | Codex / Atul |
+| [T23](#t23) | G2 | done | T02, T18, T22 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -671,7 +671,7 @@ Evidence:
 
 #### T23: Improve photographic speech with phoneme timing and distinct mouth shapes
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18, T22.
+Status: **done**. Owner: Codex / Atul. Dependencies: T02, T18, T22.
 
 Use model-reported phoneme spans on the actual PCM clock and visibly distinct prepared speech shapes. Reduce facial ghosting and preserve interruption, cleanup and CPU-friendly playback; retain honest video-realism limits.
 
@@ -728,6 +728,7 @@ Evidence:
 - 2026-10-03 final review: found blink selection treated its .3/.7/1/.7 sequence as an amplitude lookup, reopening near the peak. Corrected to sequential 50 ms stages and added reduced-motion/full-pulse behavior and real rendered-stage checks; final verification/CI pending for this correction. Previous timing/live/CI measurements remain historical proof.
 - 2026-10-03: Blink correction passed make check (103 Python / 3 contract / 15 web tests). Updated main-app --photo --live observed the complete [32,33,34,35] eye sequence, 29.997 live drawing FPS, cue P95 31.8 ms/max 32.8 ms, 64 received/rendered transitions with none coalesced in the measured window, all eight speech states, Stop ACK 51.2 ms and zero stale speech/cues. Public native capture replaced with this exact renderer output. Final source CI still pending.
 - 2026-10-03: Final blink-corrected --photo --software rendered all four eye stages, passed about 30 FPS/34 ms P95/no >100 ms gaps, static cleanup and failure/cancellation checks, with GPU compositing and 2D acceleration disabled. Full natural/perceptual quality gates remain open.
+- 2026-10-03 final completion: blink-corrected implementation a4b9650417f91356b5bc3b7d63439107fdedc569 pushed to main; exact Linux/Python 3.12/Node 22 source CI https://github.com/asb108/opentavus/actions/runs/37071871515 succeeded on setup/check/demo/base-check. All bounded T23 acceptance is evidenced, including complete eye stages, actual main-app speech, <=80 ms scheduling, normal/software drawing cadence, cancellation/resource recovery and contributor checks. Independent acoustic/perceptual precision and full natural/emotional/Tavus-quality video remain unverified under T10/T13; no weak-PC/Windows or 20-minute claim.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 
