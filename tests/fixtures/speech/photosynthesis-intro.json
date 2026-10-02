@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "source": "Synthetic pinned Kokoro 82M, af_heart, speed 1.05",
+  "text": "Can you explain photosynthesis concept with the help of",
+  "sample_rate": 24000,
+  "channels": 1,
+  "sha256": "865d5c03dfcec77f8b24a48c0210c90c721d36ad26cf4d7eecf82e0eb3468106",
+  "recorded_person": false,
+  "license": "Apache-2.0; upstream model retains separate Apache-2.0 terms."
+}

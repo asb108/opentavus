@@ -106,9 +106,10 @@ export const Board = forwardRef<BoardHandle, { onTeach: () => void; busy: boolea
             mermaid.initialize({
               startOnLoad: false,
               securityLevel: "strict",
+              htmlLabels: false,
+              suppressErrorRendering: true,
               maxTextSize: 2000,
               maxEdges: 40,
-              flowchart: { htmlLabels: false },
               theme: "neutral",
             });
             const rendered = await mermaid.render(`board-${id}`, tool.mermaid);

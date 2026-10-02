@@ -9,9 +9,9 @@ An open-source AI companion you can talk to, learn with, and build on. It runs l
 | Try it | What it does |
 | --- | --- |
 | Talk or type | Local Whisper recognition, streaming Qwen replies, and Kokoro speech. Use Stop to interrupt queued audio immediately. |
-| Meet Orbit and Lumen | Two original animated characters with mouth movement driven by actual played audio. No avatar GPU is required. |
+| Meet Orbit and Lumen | Two original cartoon characters with mouth movement driven by actual played audio. No avatar GPU is required. |
 | Make it yours | Choose installed Qwen sizes, four English preset voices, and either character independently. Changes apply to the next call. |
-| Teach on board | Ask for a note, formula, flowchart, or multiple-choice practice question. Draw alongside the AI, keep your edits, and export a canvas PNG or lesson Markdown. |
+| Teach on board | Ask directly for a note, formula, process flowchart, or practice question. Explicit drawing requests work with Teach mode off. Draw alongside the AI, keep your edits, and export a canvas PNG or lesson Markdown. |
 | Build in the open | Typed engine interfaces, generated Python/browser schemas, focused behavior tests, and contributor checks that work without model downloads. |
 
 ![OpenTavus alpha with a real generated lesson](docs/releases/0.1.0-alpha.1-preview.png)
@@ -33,7 +33,11 @@ make run
 
 Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)** in Chrome. Type a question to try a reply without microphone access. Start conversation for microphone input; headphones are recommended while speaker echo behavior is still being evaluated. The first call warms the speech models and can take tens of seconds. Keep the server running to reuse them.
 
-Try “What is two plus two?” Then enable **Teach on board** and ask “Teach Newton's second law with F=ma and a practice question about which equation describes it.” The small default model can make mistakes. Ask a follow-up, review the lesson, or try a larger installed model.
+Try “What is two plus two?” Then ask “Draw the photosynthesis process on the board.” You can also say the topic first, followed by “diagrams on the board,” and ask about its arrows. **Teach on board** optionally adds lessons to general questions; an explicit drawing request needs no toggle. For a formula and quiz, try “Teach Newton's second law with F=ma and a practice question about which equation describes it.” The small default model can make mistakes. Review the lesson or try a larger installed model.
+
+The [board repair evidence](docs/releases/board-repair-evidence.json) records real
+typed and synthetic-microphone checks. The current generated flowchart format is
+inputs → process → outputs; arbitrary branching diagrams remain future work.
 
 Setup downloads pinned Whisper tiny and Kokoro artifacts with SHA-256 checks, then the reviewed `qwen2.5:1.5b` Ollama model. Model downloads are explicit. After installation, inference runs on your machine. For recovery, additional models, development mode, data deletion, and exact commands, read the [local quickstart](docs/quickstarts/local.md).
 
@@ -57,6 +61,11 @@ The curated Qwen weights and Kokoro model use Apache-2.0 terms; Whisper uses MIT
 The server binds to loopback. It keeps call context in memory, does not save recordings or transcripts by default, and drops server call history when a call ends. The visible transcript stays in the page until it is refreshed. Drawings and settings are stored in this browser; formula/diagram/quiz cards currently last for the page session. Use exports before refreshing. The app is intended for trusted local use; [security reporting](SECURITY.md) documents that boundary.
 
 LAM is a separately planned, removable plugin. Nothing in the base app installs or imports LAM, Blender, reconstruction weights, or a portrait renderer. Its unresolved photo-weight terms remain visible in the [plugin contract](docs/plugin-contract.md). The current companion is a stylized character with audio-driven animation; photorealistic video and validated phoneme lip-sync require their own implementation and evidence.
+
+The first [Mac human-portrait experiment](benchmarks/portrait/mac/README.md)
+generated actual frames with MLX on the M3 Pro GPU at about 5.3 FPS. It missed the
+25 FPS live target and remains separate from the app. Its dependencies and research
+faces are excluded from the default installation; no human-video support is claimed.
 
 ## Project map
 

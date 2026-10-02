@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "hardware": "Apple M3 Pro, 18 GB RAM",
+  "os": "macOS 14.5 (23F79)",
+  "browser": "Chrome 154.0.8037.97",
+  "model": "qwen2.5:1.5b",
+  "model_digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "speech": "Whisper tiny + pinned Kokoro ONNX af_heart",
+  "question_sequence": [
+    "Can you explain photosynthesis concept with the help of",
+    "diagrams on the board.",
+    "Explain how the inputs and outputs on this diagram are connected."
+  ],
+  "trials": [
+    {
+      "mode": "typed",
+      "command": "npm run test:browser -- --board",
+      "status": "passed",
+      "teaching_toggle": false,
+      "canvas_generation": 3,
+      "ack_to_first_caption_ms": 675.5,
+      "ack_to_useful_caption_ms": 2493.100000000093,
+      "followup_explanation": "passed: applied diagram remembered; no extra card or upload request",
+      "render_review": "Visible labels; sunlight/water/carbon dioxide enter photosynthesis; glucose and oxygen are separate outputs. Chlorophyll is also shown as a required light-absorbing factor.",
+      "event_artifact": "board-repair-typed-events.json",
+      "request_to_applied_ms": 2106.5999999998603,
+      "request_to_useful_caption_ms": 4599.699999999953
+    },
+    {
+      "mode": "synthetic_microphone",
+      "command": "npm run test:browser -- --board --microphone",
+      "status": "passed",
+      "teaching_toggle": false,
+      "canvas_generation": 3,
+      "ack_to_first_caption_ms": 697.1999999999534,
+      "ack_to_useful_caption_ms": 2499.0,
+      "followup_explanation": "passed: applied diagram remembered; no extra card or upload request",
+      "render_review": "Visible labels; sunlight/water/carbon dioxide enter photosynthesis; glucose and oxygen are separate outputs. Chlorophyll is also shown as a required light-absorbing factor.",
+      "event_artifact": "board-repair-microphone-events.json",
+      "measurement_limit": "Browser receipt/Worklet clock. Input end-sample time was not instrumented; no speech-end-to-audible latency claim."
+    }
+  ],
+  "rejected_iterations": [
+    {
+      "failure": "Model-authored Mermaid contained invalid node/edge syntax."
+    },
+    {
+      "failure": "Flowchart HTML labels disappeared after safe SVG sanitization."
+    },
+    {
+      "failure": "Freeform graph connected glucose to oxygen as a conversion."
+    },
+    {
+      "failure": "Graph omitted oxygen or major inputs despite prompt refinements."
+    },
+    {
+      "failure": "Redundant process field became an overlong explanation and failed boundary validation."
+    }
+  ],
+  "test_harness_repairs": [
+    "Kept browser regular expressions literal inside generated code.",
+    "Read hidden source via textContent and matched O2 without matching CO2."
+  ],
+  "result": "Input/output tool schema and deterministic graph compilation passed real typed and synthetic-microphone checks. Other requested tool kinds keep their existing schema.",
+  "limitations": [
+    "Small-model factual quality beyond this photosynthesis case",
+    "Physical microphone/speaker acoustics",
+    "General arbitrary or branching graph generation",
+    "Browser synchronized human video",
+    "100-turn latency percentiles and long-call quality"
+  ],
+  "checks": {
+    "date": "2026-10-03",
+    "local_status": "passed",
+    "commands": [
+      "make check",
+      "make demo",
+      "make base-check",
+      "npm run test:browser -- --board",
+      "npm run test:browser -- --board --microphone",
+      "npm run test:browser -- --live"
+    ],
+    "python_behavior_tests": 84,
+    "strict_typed_source_files": 25,
+    "contract_tests": 3,
+    "web_logic_tests": 6,
+    "base_core_tests": 29,
+    "base_fixture_tests_deselected": 5,
+    "live_regression": "Original arithmetic, formula/equation quiz, feedback/export, user rectangle retention, Stop resets and next-call model/voice/character changes passed.",
+    "benchmark_reproduction": "Published Mac runner produced a complete clip and independently confirmed 5.331 FPS with cadence_gate_pass=false.",
+    "publication_status": "pending GitHub push and CI"
+  }
+}

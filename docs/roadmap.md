@@ -37,6 +37,8 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T16](#t16) | G4 | todo | T13, T14 | Unassigned |
 | [T17](#t17) | G4 | todo | T11, T13 | Unassigned |
 | [T18](#t18) | G2 | done | T00, T02 | Codex / Atul |
+| [T19](#t19) | G2 | in_progress | T02, T18 | Codex / Atul |
+| [T20](#t20) | G2 | in_progress | T02, T18 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -463,6 +465,76 @@ Evidence:
 - 2026-10-02: quickstarts, license/model notices, human/agent instructions, style configs, contribution ideas, conduct/governance/security, issue/PR templates and GitHub private vulnerability reporting are prepared. LAM and all optional avatar packages are absent from base checks. Full T01/T03-T09/T13 acceptance remains visible and incomplete.
 - 2026-10-02: reviewed source 6fbe5a04bc68d9702b993c9aa28eeb274f5a499f committed and pushed to https://github.com/asb108/opentavus. GitHub CI https://github.com/asb108/opentavus/actions/runs/37032780671 passed on that exact source: locked model-free contributor checks, fixture demo and isolated no-plugin base check. A fresh local .cache/contributor-env also passed make check/make demo with Pipecat, loguru, Whisper, Kokoro and the local model plugin absent. The first CI caught an optional logging import in mypy; the corrected override preserves the model-free install. This completes only the bounded T18 alpha acceptance.
 - 2026-10-02: post-release contributor walkthrough corrected the obsolete planning-only message in make plan-status. The tool now states that status does not execute checks and points to recorded evidence/unverified acceptance. Ruff check/format and make plan-status passed; this wording change does not change the tagged application behavior.
+
+<a id="t19"></a>
+
+#### T19: Repair automatic board creation across spoken follow-ups
+
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18.
+
+Explicit typed and spoken diagram requests work with Teach on board off; recent dialogue resolves fragmented topic requests and applied results precede spoken claims.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/runtime/src/opentavus_runtime/tools.py`
+- `packages/runtime/src/opentavus_runtime/conversation.py`
+- `packages/runtime/tests/test_tools.py`
+- `packages/runtime/tests/test_conversation.py`
+- `scripts/browser-smoke.mjs`
+- `docs/releases/board-repair-evidence.json`
+- `docs/releases/board-repair-preview.png`
+- `docs/quickstarts/browser-checks.md`
+- `apps/web/src/App.tsx`
+- `apps/web/src/features/settings/Settings.tsx`
+- `apps/web/src/features/canvas/Board.tsx`
+- `tests/fixtures/speech/`
+- `README.md`
+- `docs/design.md`
+- `docs/decisions.md`
+- `docs/releases/board-repair-typed-events.json`
+- `docs/releases/board-repair-microphone-events.json`
+
+Acceptance:
+
+- Recognize plural diagram/flowchart and creation requests without requiring Teach mode; preserve ordinary chat and explicit refusal behavior.
+- Resolve the topic from recent bounded conversation for a continuation such as diagrams on the board following a photosynthesis request; retain acknowledged board data for later explanations.
+- Do not claim a diagram is shown before browser acknowledgement; reject obsolete or invalid tools and preserve user drawings.
+- Pass behavior regression tests and a real model/browser photosynthesis flowchart check with teaching mode off, including a fragmented request and rendered output inspection.
+- Document actual cartoon-preview status and the separately prioritized realistic human-video work; commit/push verified changes and record CI.
+
+Evidence:
+
+- 2026-10-03: make check passed 84 Python behavior tests, strict mypy on 25 sources, Ruff, manifests/generated contracts, TypeScript, ESLint/Prettier, frontend build, 3 contract tests and 6 web logic tests. make demo and isolated make base-check passed (29 core tests, 5 fixture tests deselected; no installed plugins).
+- 2026-10-02/03: actual Chrome 154.0.8037.97 on M3 Pro/macOS 14.5 passed typed and two-fragment synthetic microphone photosynthesis requests with Teach mode off, visible labels and correct major inputs/output branches, positive ACK before Worklet speech, later explanation with no extra card/upload request, and input track release. Original --live formula/quiz/export/model selection/Stop/user drawing scenario passed on the final runtime source. Exact events, rejected model/render iterations and timing limits are in docs/releases/board-repair-evidence.json.
+- Flowchart generator uses a bounded process-title/inputs/outputs schema and deterministic safe Mermaid compilation. Generic arbitrary graph generation remains unimplemented; small-model general factual accuracy and full T13 latency/acoustic targets remain open. Applied tool data is bounded historical context, not vision of user drawings.
+- Publication and CI are pending; T19 stays in progress until their positive evidence is recorded.
+
+<a id="t20"></a>
+
+#### T20: Measure a bounded realistic portrait experiment on Apple Silicon
+
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18.
+
+Try the Mac graphics hardware first and establish concrete compatibility, licensing, visual and speed evidence before enabling a live human avatar.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `benchmarks/portrait/mac/`
+- `docs/releases/mac-portrait-experiment.json`
+
+Acceptance:
+
+- Pin candidate source, model revisions and component terms; isolate its dependencies from the model-free app and keep research-only faces out of distributed defaults.
+- Before model timing, fix prepared first-playable target at <=2 seconds and sustained generation at >=25 FPS on the M3 Pro/18 GB/macOS 14.5 reference machine; retain the common <=80 ms lip-sync and <=200 ms stop gates.
+- Attempt native Metal execution, record actual success or failure and resource use; generate and inspect a synchronized portrait clip if the native candidate can run within local constraints.
+- Record unmet gates and an actionable next step; keep unavailable portrait support distinct from the working cartoon preview. Publish reproducible experiment instructions and small results with no private media.
+
+Evidence:
+
+- 2026-10-02: MLX 0.30.0 Metal probe executed on Apple M3 Pro/18 GB/macOS 14.5. Isolated native pipeline imported with torch absent. Exact source/model revisions, component gaps, verified SHA-256 and package versions are recorded in benchmarks/portrait/mac and docs/releases/mac-portrait-experiment.json. No base dependency, default model download or avatar selection changed.
+- Numerical gates were fixed before timing: prepared first playable <=2 seconds, >=25 FPS cadence, <=80 ms lip-sync and <=200 ms stop. Two completed 32-frame/25 FPS clips generated at 5.326 and 5.331 FPS; first complete warm frame compute was 267.1 ms and peak MLX allocation 5,765,841,304 bytes. The earlier incomplete trial is retained separately. Encoding at 25 FPS does not establish real-time inference.
+- Native frames and muxed local clip were produced and sampled visually: mouth motion is present, the feathered crop is visibly soft. Live browser first-playable, numeric lip-sync, stop, multiple faces and sustained quality remain unexecuted. The 25 FPS gate failed and live portrait remains unavailable under T10; this bounded experiment can close after source publication, without marking live-avatar integration done.
+- Documented runner reproduced actual generation and output_complete=true. Downloader verified all existing pinned artifacts; Ruff checks and dependency-free --help passed. Research-only source/generated face media is excluded from Git and defaults. Publication is pending.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "source": "Synthetic pinned Kokoro 82M, af_heart, speed 1.05",
+  "text": "diagrams on the board.",
+  "sample_rate": 24000,
+  "channels": 1,
+  "sha256": "86a7c461c91e008f57f335b2de51878958d8c1be471f8a1b3bdae388e69ff0c1",
+  "recorded_person": false,
+  "license": "Apache-2.0; upstream model retains separate Apache-2.0 terms."
+}

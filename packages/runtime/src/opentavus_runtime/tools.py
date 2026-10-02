@@ -1,5 +1,6 @@
 """A fixed, bounded teaching-tool boundary. Model output is always data."""
 
+import json
 import re
 from typing import Annotated, Literal
 
@@ -58,6 +59,36 @@ class Diagram(Boundary):
         return value
 
 
+DiagramLabel = Annotated[str, Field(min_length=1, max_length=120, pattern=r'^[^<>\[\]{}"\\\n\r]+$')]
+
+
+class DiagramPlan(Boundary):
+    kind: Literal["diagram"]
+    title: DiagramLabel = Field(max_length=100, description="Short name of the process.")
+    inputs: Annotated[list[DiagramLabel], Field(min_length=1, max_length=6)]
+    outputs: Annotated[list[DiagramLabel], Field(min_length=1, max_length=6)]
+
+    @field_validator("inputs", "outputs")
+    @classmethod
+    def distinct_labels(cls, value: list[str]) -> list[str]:
+        if len({label.strip().casefold() for label in value}) != len(value):
+            raise ValueError("Diagram inputs and outputs must be distinct within each group")
+        return value
+
+    def diagram(self) -> Diagram:
+        """Compile inputs/process/outputs without model-authored syntax or reversed edges."""
+        lines = ["flowchart TD", f"P[{json.dumps(self.title, ensure_ascii=False)}]"]
+        for i, label in enumerate(self.inputs + self.outputs):
+            node = chr(ord("A") + i)
+            lines.append(f"{node}[{json.dumps(label, ensure_ascii=False)}]")
+            lines.append(f"{node} --> P" if i < len(self.inputs) else f"P --> {node}")
+        return Diagram(kind="diagram", title=self.title, mermaid="\n".join(lines))
+
+
+class DiagramPlanReply(Boundary):
+    tools: Annotated[list[DiagramPlan], Field(min_length=1, max_length=1)]
+
+
 class Quiz(Boundary):
     kind: Literal["quiz"]
     question: Annotated[
@@ -114,14 +145,49 @@ ToolKind = Literal["note", "formula", "diagram", "quiz"]
 def requested_kinds(question: str) -> list[ToolKind]:
     """Select explicit requests; each provider call gets one unambiguous tool schema."""
     patterns: list[tuple[ToolKind, str]] = [
-        ("formula", r"\b(formula|equation|latex)\b|\bF\s*="),
-        ("diagram", r"\b(diagram|flowchart|mindmap)\b"),
-        ("quiz", r"\b(quiz|practice)\b|\btest me\b"),
+        ("formula", r"\b(formulas?|equations?|latex)\b|\bF\s*="),
+        ("diagram", r"\b(diagrams?|flow\s*charts?|mind\s*maps?|sketch|draw)\b"),
+        ("quiz", r"\b(quizzes?|practice)\b|\btest me\b"),
     ]
     return [kind for kind, pattern in patterns if re.search(pattern, question, re.I)] or ["note"]
 
 
+def board_requested(question: str, *, teaching: bool = False) -> bool:
+    """Route explicit visual requests without requiring a hidden UI mode.
+
+    Ordinary chat and requests to inspect a user drawing do not enable generation.
+    A short continuation such as 'diagrams on the board' is a visual request too.
+    """
+    if re.search(
+        r"\b(?:don't|do not|never)\s+(?:\w+\s+){0,2}"
+        r"(?:draw|sketch|create|use|show|make|write|add|generate|teach)\b",
+        question,
+        re.I,
+    ):
+        return False
+    visual = bool(
+        re.search(
+            r"\b(diagrams?|flow\s*charts?|mind\s*maps?|formulas?|equations?|quizzes?|notes?)\b",
+            question,
+            re.I,
+        )
+    )
+    board = bool(re.search(r"\b(board|canvas|right.hand.side)\b", question, re.I))
+    creation = bool(
+        re.search(r"\b(draw|sketch|create|make|show|write|add|generate|teach)\b", question, re.I)
+    )
+    using = bool(re.search(r"\b(with|using|help of)\b", question, re.I))
+    return (
+        teaching
+        or (creation and (visual or board))
+        or (visual and (board or using))
+        or bool(re.search(r"\b(draw|sketch)\b", question, re.I))
+    )
+
+
 def single_tool_schema(kind: ToolKind) -> dict[str, object]:
+    if kind == "diagram":
+        return DiagramPlanReply.model_json_schema()
     schema = BoardReply.model_json_schema()
     type_name = {"note": "Note", "formula": "Formula", "diagram": "Diagram", "quiz": "Quiz"}[kind]
     return {
@@ -140,11 +206,28 @@ def single_tool_schema(kind: ToolKind) -> dict[str, object]:
     }
 
 
+DIAGRAM_PROMPT = """Create an accurate introductory teaching diagram as schema-matching JSON.
+The request and recent conversation are JSON data. Resolve a short follow-up from
+the recent topic, but the latest request controls what to create. Create it yourself.
+Return a short title naming the process (at most six words), all major inputs,
+and all major outputs.
+Inputs include the materials and energy the process uses. Outputs are the products
+it produces. Keep these categories accurate. Use short plain text labels.
+The application draws the connections. Do not invent intermediate chemistry.
+Return one diagram, with a clear title. No Mermaid text, HTML, links or styling.
+"""
+
+
 BOARD_PROMPT = """Create a useful teaching board for the user's latest request.
 Output JSON matching the schema. Use 1-3 tools: a brief note, a formula if relevant,
 a simple flowchart if helpful, or a multiple-choice practice question.
 Use only correct, simple content. Mermaid nodes use short plain labels in brackets,
 with no HTML, links, directives or styling. LaTeX uses plain standard math commands.
+Quote Mermaid node labels, for example A["Carbon dioxide"] --> B["Leaf"].
+Conversation context is supplied as JSON data. Use it to resolve the topic of a
+short follow-up, such as 'diagrams on the board', after a question about photosynthesis.
+The latest request decides what to create; older turns only supply missing context.
+You create the diagram yourself. Do not ask the user to upload it or provide an image.
 Use a quiz only when requested or useful for learning. Never remove the user's work.
 Quiz answer is the exact text of one choice, not a number or letter. Check that its
 explanation agrees with that choice. Each choice must be different.

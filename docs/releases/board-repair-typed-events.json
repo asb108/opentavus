@@ -1,0 +1,1552 @@
+{
+  "schema_version": 1,
+  "measurement": "browser clock; not speaker waveform",
+  "events": [
+    {
+      "t": 2895.5999999998603,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 0,
+      "played": 0
+    },
+    {
+      "t": 2897.0999999998603,
+      "direction": "out",
+      "type": "ask",
+      "teach": false
+    },
+    {
+      "t": 2898.1999999999534,
+      "direction": "in",
+      "type": "session",
+      "generation": 0
+    },
+    {
+      "t": 2899.6999999999534,
+      "direction": "in",
+      "type": "status",
+      "generation": 0,
+      "status": "listening"
+    },
+    {
+      "t": 2899.7999999998137,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 1
+    },
+    {
+      "t": 2899.7999999998137,
+      "direction": "in",
+      "type": "transcript",
+      "generation": 1
+    },
+    {
+      "t": 2899.899999999907,
+      "direction": "in",
+      "type": "status",
+      "generation": 1,
+      "status": "thinking"
+    },
+    {
+      "t": 2901.6999999999534,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 0,
+      "played": 0
+    },
+    {
+      "t": 2901.7999999998137,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 1
+    },
+    {
+      "t": 4164.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 0
+    },
+    {
+      "t": 4165,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 1920
+    },
+    {
+      "t": 4165.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 3840
+    },
+    {
+      "t": 4165.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 5760
+    },
+    {
+      "t": 4165.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 7680
+    },
+    {
+      "t": 4165.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 9600
+    },
+    {
+      "t": 4165.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 11520
+    },
+    {
+      "t": 4165.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 13440
+    },
+    {
+      "t": 4166.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 15360
+    },
+    {
+      "t": 4166.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 17280
+    },
+    {
+      "t": 4166.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 19200
+    },
+    {
+      "t": 4166.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 21120
+    },
+    {
+      "t": 4166.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 23040
+    },
+    {
+      "t": 4167.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 24960
+    },
+    {
+      "t": 4167.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 26880
+    },
+    {
+      "t": 4167.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 28800
+    },
+    {
+      "t": 4167.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 30720
+    },
+    {
+      "t": 4168.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 32640
+    },
+    {
+      "t": 4168.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 34560
+    },
+    {
+      "t": 4168.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 36480
+    },
+    {
+      "t": 4168.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 38400
+    },
+    {
+      "t": 4168.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 40320
+    },
+    {
+      "t": 4169,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 42240
+    },
+    {
+      "t": 4169.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 44160
+    },
+    {
+      "t": 4169.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 46080
+    },
+    {
+      "t": 4169.5,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 1
+    },
+    {
+      "t": 4170.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 1,
+      "sample": 48000
+    },
+    {
+      "t": 4201.59999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 1,
+      "level": 0.00040166787790026635,
+      "played": 832,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 4207.5,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 4223.399999999907,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 1,
+      "played": 1024
+    },
+    {
+      "t": 4223.399999999907,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 2
+    },
+    {
+      "t": 4223.399999999907,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 2
+    },
+    {
+      "t": 4224.299999999814,
+      "direction": "in",
+      "type": "status",
+      "generation": 2,
+      "status": "listening"
+    },
+    {
+      "t": 4240.699999999953,
+      "direction": "out",
+      "type": "ask",
+      "teach": false
+    },
+    {
+      "t": 4256.899999999907,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 3
+    },
+    {
+      "t": 4257.699999999953,
+      "direction": "in",
+      "type": "transcript",
+      "generation": 3
+    },
+    {
+      "t": 4257.799999999814,
+      "direction": "in",
+      "type": "status",
+      "generation": 3,
+      "status": "thinking"
+    },
+    {
+      "t": 4257.799999999814,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 2,
+      "played": 0
+    },
+    {
+      "t": 4257.799999999814,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 3
+    },
+    {
+      "t": 6242.09999999986,
+      "direction": "in",
+      "type": "canvas",
+      "generation": 3,
+      "sample": 0,
+      "tool": "canvas_diagram"
+    },
+    {
+      "t": 6347.299999999814,
+      "direction": "out",
+      "type": "canvas_result",
+      "generation": 3,
+      "applied": true
+    },
+    {
+      "t": 7021.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 0
+    },
+    {
+      "t": 7022,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 1920
+    },
+    {
+      "t": 7022.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 3840
+    },
+    {
+      "t": 7022.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 5760
+    },
+    {
+      "t": 7022.799999999814,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 3
+    },
+    {
+      "t": 7024.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 7680
+    },
+    {
+      "t": 7024.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 9600
+    },
+    {
+      "t": 7024.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 11520
+    },
+    {
+      "t": 7024.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 13440
+    },
+    {
+      "t": 7024.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 15360
+    },
+    {
+      "t": 7025,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 17280
+    },
+    {
+      "t": 7044.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.00005037350710389807,
+      "played": 576,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7076.299999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0010189678711562042,
+      "played": 1408,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7113.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.02584920542557044,
+      "played": 2240,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7145.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.029560619971726376,
+      "played": 3072,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7182.899999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.028405378951638017,
+      "played": 3904,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7214.899999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.07945415865276224,
+      "played": 4736,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7252.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.13337544160481185,
+      "played": 5568,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7284.09999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.17248389083123303,
+      "played": 6400,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7321.399999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.12553492668858834,
+      "played": 7232,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7353.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.04922206012917117,
+      "played": 8064,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7390.899999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.09476602681204623,
+      "played": 8896,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7422.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.020460505511849244,
+      "played": 9728,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7460.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.029790994093313507,
+      "played": 10560,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7492.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.006830111190950323,
+      "played": 11392,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7529.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0010481596619417468,
+      "played": 12224,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7561.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0006487495273239409,
+      "played": 13056,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7598.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.00023172519757823853,
+      "played": 13888,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7700.09999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.000566370146932644,
+      "played": 16384,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7737.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.00009726543007585995,
+      "played": 17216,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 7769.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.00006825270589860111,
+      "played": 18048,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 8821.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 18368
+    },
+    {
+      "t": 8821.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 20288
+    },
+    {
+      "t": 8821.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 22208
+    },
+    {
+      "t": 8821.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 24128
+    },
+    {
+      "t": 8822,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 26048
+    },
+    {
+      "t": 8822.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 27968
+    },
+    {
+      "t": 8822.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 29888
+    },
+    {
+      "t": 8822.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 31808
+    },
+    {
+      "t": 8822.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 33728
+    },
+    {
+      "t": 8823.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 35648
+    },
+    {
+      "t": 8823.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 37568
+    },
+    {
+      "t": 8823.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 39488
+    },
+    {
+      "t": 8823.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 41408
+    },
+    {
+      "t": 8824,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 43328
+    },
+    {
+      "t": 8824.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 45248
+    },
+    {
+      "t": 8824.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 47168
+    },
+    {
+      "t": 8824.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 49088
+    },
+    {
+      "t": 8824.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 51008
+    },
+    {
+      "t": 8825.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 52928
+    },
+    {
+      "t": 8825.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 54848
+    },
+    {
+      "t": 8825.5,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 3
+    },
+    {
+      "t": 8825.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 56768
+    },
+    {
+      "t": 8826.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 58688
+    },
+    {
+      "t": 8826.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 60608
+    },
+    {
+      "t": 8826.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 62528
+    },
+    {
+      "t": 8826.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 64448
+    },
+    {
+      "t": 8826.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 3,
+      "sample": 66368
+    },
+    {
+      "t": 8840.399999999907,
+      "direction": "check",
+      "type": "board_useful_caption"
+    },
+    {
+      "t": 8852.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0002605817998908727,
+      "played": 18944,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 8878.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.046120833094038784,
+      "played": 19776,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 8916.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.008274424063362654,
+      "played": 20608,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 8948.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 3,
+      "level": 0.0013653758884916228,
+      "played": 21440,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 8973.59999999986,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 8990,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 3,
+      "played": 21952
+    },
+    {
+      "t": 8990,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 4
+    },
+    {
+      "t": 8990,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 4
+    },
+    {
+      "t": 8991,
+      "direction": "in",
+      "type": "status",
+      "generation": 4,
+      "status": "listening"
+    },
+    {
+      "t": 9008.199999999953,
+      "direction": "out",
+      "type": "ask",
+      "teach": false
+    },
+    {
+      "t": 9023.299999999814,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 5
+    },
+    {
+      "t": 9024.299999999814,
+      "direction": "in",
+      "type": "transcript",
+      "generation": 5
+    },
+    {
+      "t": 9024.299999999814,
+      "direction": "in",
+      "type": "status",
+      "generation": 5,
+      "status": "thinking"
+    },
+    {
+      "t": 9024.299999999814,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 4,
+      "played": 0
+    },
+    {
+      "t": 9024.399999999907,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 5
+    },
+    {
+      "t": 9604.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 0
+    },
+    {
+      "t": 9604.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 1920
+    },
+    {
+      "t": 9604.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 3840
+    },
+    {
+      "t": 9604.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 5760
+    },
+    {
+      "t": 9604.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 7680
+    },
+    {
+      "t": 9605.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 9600
+    },
+    {
+      "t": 9605.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 11520
+    },
+    {
+      "t": 9605.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 13440
+    },
+    {
+      "t": 9605.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 15360
+    },
+    {
+      "t": 9606.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 17280
+    },
+    {
+      "t": 9606.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 19200
+    },
+    {
+      "t": 9606.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 21120
+    },
+    {
+      "t": 9609.5,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 5
+    },
+    {
+      "t": 9610.699999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.00005393110471953847,
+      "played": 64,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9641.59999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0014004472731228327,
+      "played": 896,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9678.899999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.02601668869250035,
+      "played": 1728,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9710.899999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.027892339337491075,
+      "played": 2560,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9748.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.02431413286087661,
+      "played": 3392,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9780.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.15274322621144398,
+      "played": 4224,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9817.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.12549610667405003,
+      "played": 5056,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9849.59999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.04519623841876012,
+      "played": 5888,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9886.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.01641329992098945,
+      "played": 6720,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9918.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.04496306800767811,
+      "played": 7552,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9956.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.10966456833722024,
+      "played": 8384,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 9988.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.1302383171765235,
+      "played": 9216,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10025.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.03299056602499034,
+      "played": 10048,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10057.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.027725725984176417,
+      "played": 10880,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10094.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.08415524529388353,
+      "played": 11712,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10126.899999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.026575325600890095,
+      "played": 12544,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10164.09999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.05477073326996579,
+      "played": 13376,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10196.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.005931138335812662,
+      "played": 14208,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10233.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0012757018689936181,
+      "played": 15040,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10265.59999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0009747512605763382,
+      "played": 15872,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10302.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0004668954145199356,
+      "played": 16704,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10334.799999999814,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0002712830482688917,
+      "played": 17536,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10372.399999999907,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.00025975329438859184,
+      "played": 18368,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10404.199999999953,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0002463619683070311,
+      "played": 19200,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10441.59999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.00014197901454121725,
+      "played": 20032,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 10473.5,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.00016387110960919098,
+      "played": 20864,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 11454.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 21504
+    },
+    {
+      "t": 11454.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 23424
+    },
+    {
+      "t": 11455.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 25344
+    },
+    {
+      "t": 11455.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 27264
+    },
+    {
+      "t": 11455.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 29184
+    },
+    {
+      "t": 11455.59999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 31104
+    },
+    {
+      "t": 11455.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 33024
+    },
+    {
+      "t": 11456,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 34944
+    },
+    {
+      "t": 11456.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 36864
+    },
+    {
+      "t": 11456.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 38784
+    },
+    {
+      "t": 11456.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 40704
+    },
+    {
+      "t": 11456.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 42624
+    },
+    {
+      "t": 11457.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 44544
+    },
+    {
+      "t": 11457.299999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 46464
+    },
+    {
+      "t": 11457.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 48384
+    },
+    {
+      "t": 11457.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 50304
+    },
+    {
+      "t": 11457.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 52224
+    },
+    {
+      "t": 11458,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 54144
+    },
+    {
+      "t": 11458.199999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 56064
+    },
+    {
+      "t": 11458.5,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 57984
+    },
+    {
+      "t": 11458.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 59904
+    },
+    {
+      "t": 11458.799999999814,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 61824
+    },
+    {
+      "t": 11459.09999999986,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 63744
+    },
+    {
+      "t": 11459.399999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 65664
+    },
+    {
+      "t": 11459.699999999953,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 67584
+    },
+    {
+      "t": 11459.899999999907,
+      "direction": "in",
+      "type": "audio",
+      "generation": 5,
+      "sample": 69504
+    },
+    {
+      "t": 11460.199999999953,
+      "direction": "playout",
+      "type": "caption",
+      "generation": 5
+    },
+    {
+      "t": 11475,
+      "direction": "check",
+      "type": "board_followup_caption"
+    },
+    {
+      "t": 11481.59999999986,
+      "direction": "playout",
+      "type": "progress",
+      "generation": 5,
+      "level": 0.0001449145702265197,
+      "played": 22080,
+      "idle": false,
+      "done": false
+    },
+    {
+      "t": 11507.299999999814,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 11523.199999999953,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 5,
+      "played": 22656
+    },
+    {
+      "t": 11523.199999999953,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 6
+    },
+    {
+      "t": 11523.299999999814,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 6
+    },
+    {
+      "t": 11524.199999999953,
+      "direction": "in",
+      "type": "status",
+      "generation": 6,
+      "status": "listening"
+    },
+    {
+      "t": 11541.299999999814,
+      "direction": "out",
+      "type": "stop"
+    },
+    {
+      "t": 11556.799999999814,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 6,
+      "played": 0
+    },
+    {
+      "t": 11556.799999999814,
+      "direction": "out",
+      "type": "playback_stopped",
+      "generation": 7
+    },
+    {
+      "t": 11556.799999999814,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 7
+    },
+    {
+      "t": 11557.799999999814,
+      "direction": "in",
+      "type": "status",
+      "generation": 7,
+      "status": "listening"
+    },
+    {
+      "t": 11557.899999999907,
+      "direction": "in",
+      "type": "interrupt",
+      "generation": 8
+    },
+    {
+      "t": 11558.799999999814,
+      "direction": "playout",
+      "type": "stopped",
+      "oldGeneration": 7,
+      "played": 0
+    }
+  ]
+}

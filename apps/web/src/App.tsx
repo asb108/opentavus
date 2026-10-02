@@ -169,7 +169,7 @@ export default function App() {
                   <span />
                   {active ? "Local conversation" : "Meet your companion"}
                 </span>
-                <span className="ai-label">AI character</span>
+                <span className="ai-label">Cartoon preview</span>
               </div>
               <div className="character-frame">
                 <div className="orbit-circle" />

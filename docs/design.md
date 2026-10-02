@@ -1,6 +1,6 @@
 # OpenTavus design
 
-Updated 2 October 2026. This is the implementation baseline for the full first release, with an earlier local alpha now implemented. [Tasks](tasks.json) record work and evidence. The user's requirements and preview choices are recorded in [decisions](decisions.md). The alpha does not complete the full v0.1 quality gates.
+Updated 3 October 2026. This is the implementation baseline for the full first release, with an earlier local alpha now implemented. [Tasks](tasks.json) record work and evidence. The user's requirements and preview choices are recorded in [decisions](decisions.md). The alpha does not complete the full v0.1 quality gates.
 
 ## Implemented local alpha
 
@@ -15,6 +15,30 @@ The teaching planner obtains schema-constrained JSON, then validates a fixed not
 The API is loopback-only, admits one browser call, validates origins/hosts/settings, and requires a scoped call token in a socket hello or HTTP Authorization header. Tokens are not placed in URLs. Prepared calls with no socket expire. Call context lives in memory and is discarded on close; transcripts/recordings are not written by default. Versioned browser storage retains settings and drawings; lesson cards remain page-session state. There is no SQLite persona/asset database in this preview.
 
 The current commands, limitations, and hardware evidence are in [the quickstart](quickstarts/local.md) and [alpha release notes](releases/0.1.0-alpha.1.md). The following sections retain the full v0.1 direction; they must not be read as a claim that every listed feature is shipped.
+
+## Automatic drawing and Mac portrait follow-up
+
+Explicit drawing requests work with teaching mode off, including plural names and
+fragmented speech. The planner receives the latest request plus at most six recent
+dialogue turns, with each message bounded to 2,000 characters. At most eight
+successfully acknowledged board results enter later explanation context. This is
+history of applied tools; the agent cannot inspect the user's drawings.
+
+For the initial small-model flowchart, the private generation schema contains a
+process title, inputs and outputs. The runtime compiles quoted Mermaid labels and
+consistent connections. The public diagram event remains Mermaid. This narrower
+format replaced a graph schema after real runs omitted products or reversed arrows;
+arbitrary branching graphs still require a separate capable generator and evidence.
+Mermaid's root `htmlLabels: false` keeps SVG text visible through the strict
+sanitizer. Deprecated flowchart-only settings failed in the installed Mermaid
+11.17 renderer. Browser checks verify labels and connections as well as tool ACKs.
+
+The user chose realistic portrait/video and asked to try the Mac graphics hardware
+first. T20's isolated native MLX MuseTalk trial generated actual frames on M3 Pro,
+but its 5.3 FPS failed the fixed 25 FPS target. The app's character remains explicitly
+labeled Cartoon preview. [The experiment](../benchmarks/portrait/mac/README.md)
+records pinned artifacts, component gaps and unverified live timing/visual gates.
+It installs no default plugin, and it does not replace full T10 acceptance.
 
 ## Outcome and product promise
 

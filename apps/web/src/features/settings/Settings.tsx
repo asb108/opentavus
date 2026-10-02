@@ -109,13 +109,14 @@ export function Settings({
               <span>
                 <strong>{avatar.name}</strong>
                 <small>
-                  {avatar.id === "orbit" ? "Sunny and curious" : "A quieter green companion"}
+                  {avatar.id === "orbit" ? "Blue cartoon preview" : "Green cartoon preview"}
                 </small>
               </span>
             </label>
           ))}
         </div>
       </fieldset>
+      <p>These are cartoon previews. Realistic human video is a separate avatar capability.</p>
       <div className="settings-footnote">
         <strong>Speech recognition</strong>
         <span>{catalog?.stt || "Whisper tiny / English"}</span>

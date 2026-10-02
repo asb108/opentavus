@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "repository": "mlx-community/MuseTalk-1.5-fp16",
+  "revision": "ad54104a0129121fe2ea67471250c0656c985284",
+  "source_revision": "c6eb30ebd1ed4d043983209813370153de9346bf",
+  "default_profile_eligibility": "unresolved",
+  "reason": "Published model and port declare MIT; the port lacks a standalone license notice and the conversion does not pin every original component revision. This explicit benchmark does not enable an application profile.",
+  "files": [
+    {
+      "name": "config.json",
+      "size": 186,
+      "sha256": "527702bfd2111adab8b4713d4f70d920a479b5816cbb373731e791f6e3bd47d5"
+    },
+    {
+      "name": "unet.safetensors",
+      "size": 1699979043,
+      "sha256": "12d1e2f496bc91e4db8c989cffa8aa94b3d6a7098ab9d80ba92a1f38cce362f2"
+    },
+    {
+      "name": "vae.safetensors",
+      "size": 167335279,
+      "sha256": "2a7670782dbe0ab66c40833dfd431b193375f0bdfc7c2daf76f5bc4e59070f98"
+    },
+    {
+      "name": "whisper_encoder.safetensors",
+      "size": 16423174,
+      "sha256": "c04baf7220bbc73393eeba74b6224398ce56caad60e4e0a0f4c28af3180836d3"
+    }
+  ]
+}

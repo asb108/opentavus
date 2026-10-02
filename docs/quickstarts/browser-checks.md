@@ -24,3 +24,23 @@ The current smoke checks are bounded integration proof. They do not establish 10
 Run `npm run test:browser -- --microphone` for the synthetic microphone route. It supplies the committed public speech fixture as an AudioContext MediaStream, waits for the browser's real WebRTC connection, observes real Whisper transcription and model speech reaching playout, and confirms the input track is released on end. It does not capture a physical microphone. The native Chrome fake-file device produced silence in the reference trial, so this explicit source makes the input and its limits reproducible.
 
 For manual diagnosis, use the installed CLI's named sessions, snapshots, visible controls, screenshots, and console checks. Keep hardware/version/model-digest context with a performance report. Browser build/logic tests in `make check` require no browser process; actual Chrome results are separate.
+
+## Automatic board requests
+
+```sh
+npm run test:browser -- --board
+npm run test:browser -- --board --microphone
+```
+
+Both checks keep Teach mode off, split the photosynthesis topic from “diagrams on
+the board,” inspect actual SVG labels/connections, wait for a positive canvas ACK
+before spoken explanation, and ask a follow-up about the applied diagram. The
+microphone variant supplies two committed synthetic Kokoro clips through a
+MediaStream into real WebRTC/VAD/Whisper recognition. Its final explanation
+follow-up is typed. End releases the synthetic track and audio context.
+
+Evidence files use `smoke-board-*` and `smoke-board-microphone-*` under ignored
+`output/playwright/`. These contain public synthetic questions only. The event
+files exclude content/credentials/audio. [Published evidence](../releases/board-repair-evidence.json)
+records failed model/render iterations as well as the successful bounded cases.
+General branching graphs, physical acoustics and percentile latency remain open.

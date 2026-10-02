@@ -239,8 +239,74 @@ async def test_listening_cancellation_is_independent_of_answer_interruption():
     except asyncio.CancelledError:
         pass
     await call.close()
+
     try:
         listening.cancellation.check()
         raise AssertionError("Closed listening context stayed active")
     except asyncio.CancelledError:
         pass
+
+
+async def test_fragmented_spoken_diagram_uses_prior_topic_without_teaching_toggle():
+    class DiagramEngines(FakeEngines):
+        async def board(self, prompt, schema, context):
+            self.board_prompt = prompt
+            return json.dumps(
+                {
+                    "tools": [
+                        {
+                            "kind": "diagram",
+                            "title": "Photosynthesis",
+                            "inputs": ["Sunlight", "Water", "Carbon dioxide"],
+                            "outputs": ["Glucose", "Oxygen"],
+                        }
+                    ]
+                }
+            )
+
+    engine = DiagramEngines()
+    call = conversation(engine)
+    events = []
+
+    async def emit(event):
+        events.append(event)
+        if isinstance(event, CanvasEvent):
+            call.acknowledge_canvas(event.generation_id, event.operation_id, True)
+        elif isinstance(event, AudioEvent):
+            call.acknowledge_playback(event.generation_id, call.sent_sample)
+
+    call.emit = emit
+    await call.ask("Can you explain photosynthesis concept with the help of", from_mic=True)
+    await call.reply_task
+    assert not any(isinstance(event, CanvasEvent) for event in events)
+    await call.ask("diagrams on the board.", from_mic=True)
+    await asyncio.wait_for(call.reply_task, 1)
+    assert "photosynthesis concept" in engine.board_prompt
+    assert '"latest_request": "diagrams on the board."' in engine.board_prompt
+    operation = next(event for event in events if isinstance(event, CanvasEvent))
+    assert operation.tool_name == "canvas_diagram"
+    assert "Photosynthesis" in engine.messages[0].content
+    assert call.board_history[0].title == "Photosynthesis"
+
+    await call.ask("Explain what those arrows mean.")
+    await call.reply_task
+    assert "Previously applied board data" in engine.messages[0].content
+    assert "Sunlight" in engine.messages[0].content
+    assert len(call.board_history) == 1  # An explanation does not regenerate a diagram.
+    await call.close()
+    assert call.board_history == []
+
+
+async def test_failed_diagram_application_is_not_remembered_as_visible():
+    call = conversation(FakeEngines())
+
+    async def emit(event):
+        if isinstance(event, CanvasEvent):
+            call.acknowledge_canvas(event.generation_id, event.operation_id, False)
+
+    call.emit = emit
+    await call.ask("Write a note about momentum on the board.")
+    await call.reply_task
+    assert call.board_history == []
+    assert not call.llm.reply_called
+    await call.close()
