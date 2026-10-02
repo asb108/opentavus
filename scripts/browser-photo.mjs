@@ -20,7 +20,7 @@ writeFileSync(
         channel: "chrome",
         args: software ? ["--disable-gpu", "--disable-accelerated-2d-canvas"] : [],
       },
-      contextOptions: { viewport: { width: 1440, height: 1000 } },
+      contextOptions: { viewport: { width: 1440, height: 1000 }, reducedMotion: "no-preference" },
     },
     timeouts: { action: 10000, navigation: 60000 },
   }),
@@ -45,6 +45,7 @@ try {
     await page.addInitScript(() => {
       window.__photoFrames=[];window.__photoEvents=[];window.__photoExpressions=[];window.__photoClosedImages=0;
       window.__photoCues=[];
+      window.__photoBlinkTiles=[];
       const cues=new MutationObserver(()=>{
         const canvas=document.querySelector('canvas.avatar[data-avatar="mira-photo"]');
         if(!canvas?.dataset.cue||window.__photoCues.length>=2000)return;
@@ -63,7 +64,11 @@ try {
           const t=performance.now();
           // All tile composites in one synchronous render count as one frame.
           if(!drawing && window.__photoFrames.length<18000){
-            drawing=true;queueMicrotask(()=>{drawing=false;});
+            drawing=true;queueMicrotask(()=>{
+              drawing=false;
+              const tile=this.canvas.dataset.blinkTile;
+              if(tile&&!window.__photoBlinkTiles.includes(Number(tile)))window.__photoBlinkTiles.push(Number(tile));
+            });
             window.__photoFrames.push(t);
           }
           const expression=this.canvas.dataset.expression;
@@ -92,7 +97,10 @@ try {
         gapsOver100Ms:gaps.filter(t=>t>100).length,firstFrameAfterNavigationMs:window.__photoFrames[0]};
       if(idle.fps<28||idle.gapsOver100Ms)throw new Error('Photographic cadence failed: '+JSON.stringify(idle));
       const canvas=document.querySelector('canvas.avatar');
+      const blinkTiles=window.__photoBlinkTiles;
+      if([32,33,34,35].some(tile=>!blinkTiles.includes(tile)))throw new Error('Prepared blink stages were not rendered: '+blinkTiles);
       window.__photoResult={idle,width:canvas.width,height:canvas.height,decodedRGBABytes:4*(canvas.width*6)**2*4,
+        blinkTiles,
         graphicsMode:${JSON.stringify(software ? "gpu-disabled-software-canvas" : "default-browser")}};
     },start);
     await page.screenshot({path:${JSON.stringify(path.join(output, "photo-idle.png"))},fullPage:true});

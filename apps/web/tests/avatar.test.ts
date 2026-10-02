@@ -64,7 +64,13 @@ describe("photographic presentation policy", () => {
     expect(speechLevel(0)).toBe(0);
   });
   it("keeps reduced motion still and returns a bounded blink/pose across loops", () => {
-    expect(portraitPose(6300, true)).toEqual({ phase: 0, next: 0, mix: 0, blink: 0 });
+    expect(portraitPose(6300, true)).toEqual({
+      phase: 0,
+      next: 0,
+      mix: 0,
+      blink: 0,
+      blinkTile: null,
+    });
     expect(portraitPose(6300, false).blink).toBeCloseTo(1);
     expect(portraitPose(6400, false)).toEqual(portraitPose(0, false));
     for (const time of [-5, 0, 6000, 6200, 6399, 9999999]) {
@@ -74,5 +80,13 @@ describe("photographic presentation policy", () => {
       expect(pose.blink).toBeGreaterThanOrEqual(0);
       expect(pose.blink).toBeLessThanOrEqual(1);
     }
+  });
+  it("plays the prepared blink once in closing/opening order instead of reopening at its peak", () => {
+    expect([6210, 6260, 6310, 6360].map((time) => portraitPose(time, false, 4).blinkTile)).toEqual([
+      32, 33, 34, 35,
+    ]);
+    expect(portraitPose(6200, false, 4).blinkTile).toBe(null);
+    expect(portraitPose(6400, false, 4).blinkTile).toBe(null);
+    expect(portraitPose(6310, true, 4).blinkTile).toBe(null);
   });
 });

@@ -152,14 +152,15 @@ export async function createPhotographic(
       tile(context, image, head * 8, 1);
       const index = shapes.indexOf(shape);
       if (index > 0) region(image, head * 8 + index, mouthMask);
-      if (pose.blink > 0) {
-        region(image, 32 + Math.min(3, Math.floor(pose.blink * 4)), eyeMask);
+      if (pose.blinkTile !== null) {
+        region(image, pose.blinkTile, eyeMask);
       }
       context.globalAlpha = 1;
       canvas.dataset.expression = current;
       canvas.dataset.mouth = String(openness[shape]);
       canvas.dataset.viseme = shape;
       canvas.dataset.timing = timedShape === null ? "energy-fallback" : "phoneme";
+      canvas.dataset.blinkTile = pose.blinkTile === null ? "" : String(pose.blinkTile);
       if (canvas.dataset.cue !== String(cue)) {
         canvas.dataset.cue = String(cue);
         canvas.dataset.cueReceivedAt = String(cueReceivedAt);

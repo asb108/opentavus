@@ -62,7 +62,8 @@ at 30 FPS during ordinary articulation, with approximately 144 MiB of decoded
 sheet data plus small compositing masks. Four gently varying head poses, eight mouth
 shapes and blink keys per expression form a finite motion bank. Each draw uses one coherent head pose rather than crossfading facial photographs.
 Speech replaces a softly masked mouth region without whole-face fades. Eye
-blinks remain independent. Static mode needs only the poster.
+blinks remain independent. Their four prepared keys play in sequential 50 ms
+stages, closing once before reopening; they are not indexed by a sine amplitude. Static mode needs only the poster.
 
 Kokoro's pinned export returns phoneme durations with its waveform. The local
 adapter maps IPA to closed/open/wide/round/pucker/teeth/tongue shapes, carries

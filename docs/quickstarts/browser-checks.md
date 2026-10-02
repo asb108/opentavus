@@ -71,7 +71,7 @@ npm run test:browser -- --photo --software
 ```
 
 The first measures seven seconds of native 512-pixel prepared playback, verifies
-that static switching stops drawing and closes all four decoded images, and
+the complete prepared blink sequence and that static switching stops drawing and closes all four decoded images, and
 checks damaged sheets, cancelled loading and unavailable Canvas 2D recovery.
 The live check also records actual local Qwen/Kokoro speech and photographic
 motion at normal speed, observes all four presentation cues, verifies Stop and

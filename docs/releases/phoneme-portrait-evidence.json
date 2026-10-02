@@ -1,7 +1,7 @@
 {
   "task": "T23",
   "date": "2026-10-03",
-  "status": "bounded T23 implementation verified and published; larger realism gates remain open",
+  "status": "Final blink sequence correction under verification; prior source CI and timing results retained",
   "reference": {
     "hardware": "Apple M3 Pro, 18 GB RAM",
     "os": "macOS 14.5",
@@ -26,21 +26,27 @@
   "live_final": {
     "idle": {
       "frames": 210,
-      "durationMs": 6966.5,
-      "fps": 30.00071772051963,
-      "p95GapMs": 34.09999999962747,
+      "durationMs": 6967.299999998882,
+      "fps": 29.997272975188885,
+      "p95GapMs": 34.100000001490116,
       "gapsOver100Ms": 0,
-      "firstFrameAfterNavigationMs": 419.90000000037253
+      "firstFrameAfterNavigationMs": 405.2999999988824
     },
     "width": 512,
     "height": 512,
     "decodedRGBABytes": 150994944,
+    "blinkTiles": [
+      32,
+      33,
+      34,
+      35
+    ],
     "graphicsMode": "default-browser",
     "live": {
-      "stopClickToWorkletAckMs": 48.29999999888241,
+      "stopClickToWorkletAckMs": 51.19999999925494,
       "stalePositiveEnergy": 0,
       "mouthAfterStop": 0,
-      "positiveEnergyEvents": 151,
+      "positiveEnergyEvents": 142,
       "observedExpressions": [
         "neutral",
         "thoughtful",
@@ -49,15 +55,15 @@
       ],
       "staleVisemes": 0,
       "drawing": {
-        "frames": 158,
-        "fps": 30.00707173027184,
+        "frames": 156,
+        "fps": 29.997484081982385,
         "p95GapMs": 34.29999999888241,
         "gapsOver100Ms": 0
       },
       "visemeScheduling": {
-        "receivedCues": 69,
+        "receivedCues": 64,
         "renderedCues": 64,
-        "coalescedOrFrameWindowBoundary": 5,
+        "coalescedOrFrameWindowBoundary": 0,
         "observedShapes": [
           "teeth",
           "open",
@@ -68,458 +74,458 @@
           "wide",
           "closed"
         ],
-        "p95Ms": 30.5,
-        "maxMs": 32.90000000037253,
+        "p95Ms": 31.800000000745058,
+        "maxMs": 32.79999999888241,
         "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
       },
       "cueTrace": [
         {
           "id": "3",
           "shape": "teeth",
-          "received": 10091.700000001118,
-          "rendered": 10099.300000000745,
-          "latencyMs": 7.599999999627471
+          "received": 10068.199999999255,
+          "rendered": 10072.900000000373,
+          "latencyMs": 4.700000001117587
         },
         {
           "id": "4",
           "shape": "open",
-          "received": 10145,
-          "rendered": 10166,
-          "latencyMs": 21
+          "received": 10121.5,
+          "rendered": 10139.599999999627,
+          "latencyMs": 18.09999999962747
         },
         {
           "id": "5",
           "shape": "tongue",
-          "received": 10193,
-          "rendered": 10199.300000000745,
-          "latencyMs": 6.300000000745058
+          "received": 10169.400000000373,
+          "rendered": 10172.099999999627,
+          "latencyMs": 2.699999999254942
         },
         {
           "id": "6",
           "shape": "round",
-          "received": 10241.099999999627,
-          "rendered": 10266,
-          "latencyMs": 24.90000000037253
+          "received": 10217.400000000373,
+          "rendered": 10239,
+          "latencyMs": 21.59999999962747
         },
         {
           "id": "7",
           "shape": "pucker",
-          "received": 10416.900000000373,
-          "rendered": 10432.5,
-          "latencyMs": 15.599999999627471
+          "received": 10393.400000000373,
+          "rendered": 10405.199999999255,
+          "latencyMs": 11.799999998882413
         },
         {
           "id": "8",
           "shape": "rest",
-          "received": 10768.900000000373,
-          "rendered": 10799.400000000373,
-          "latencyMs": 30.5
+          "received": 10745.5,
+          "rendered": 10772.900000000373,
+          "latencyMs": 27.40000000037253
         },
         {
           "id": "9",
           "shape": "pucker",
-          "received": 10913.099999999627,
-          "rendered": 10932.200000001118,
-          "latencyMs": 19.100000001490116
+          "received": 10873.400000000373,
+          "rendered": 10906.199999999255,
+          "latencyMs": 32.79999999888241
         },
         {
           "id": "10",
           "shape": "wide",
-          "received": 10960.900000000373,
-          "rendered": 10966.599999999627,
-          "latencyMs": 5.699999999254942
+          "received": 10921.400000000373,
+          "rendered": 10939.400000000373,
+          "latencyMs": 18
         },
         {
           "id": "11",
           "shape": "tongue",
-          "received": 11062.300000000745,
-          "rendered": 11065.800000000745,
-          "latencyMs": 3.5
+          "received": 11022.900000000373,
+          "rendered": 11039.5,
+          "latencyMs": 16.59999999962747
         },
         {
           "id": "12",
           "shape": "teeth",
-          "received": 11115.700000001118,
-          "rendered": 11132.5,
-          "latencyMs": 16.799999998882413
+          "received": 11097.5,
+          "rendered": 11106.099999999627,
+          "latencyMs": 8.599999999627471
         },
         {
           "id": "13",
           "shape": "open",
-          "received": 11190.300000000745,
-          "rendered": 11199.200000001118,
-          "latencyMs": 8.900000000372529
+          "received": 11198.799999998882,
+          "rendered": 11205.400000000373,
+          "latencyMs": 6.600000001490116
+        },
+        {
+          "id": "14",
+          "shape": "closed",
+          "received": 11294.799999998882,
+          "rendered": 11305.400000000373,
+          "latencyMs": 10.600000001490116
         },
         {
           "id": "15",
           "shape": "rest",
-          "received": 11265,
-          "rendered": 11265.800000000745,
-          "latencyMs": 0.8000000007450581
+          "received": 11636.099999999627,
+          "rendered": 11639.299999998882,
+          "latencyMs": 3.199999999254942
         },
         {
           "id": "16",
-          "shape": "open",
-          "received": 11313,
-          "rendered": 11332.5,
-          "latencyMs": 19.5
+          "shape": "teeth",
+          "received": 12046.900000000373,
+          "rendered": 12072.299999998882,
+          "latencyMs": 25.399999998509884
         },
         {
           "id": "17",
-          "shape": "closed",
-          "received": 11361,
-          "rendered": 11365.900000000373,
-          "latencyMs": 4.900000000372529
+          "shape": "round",
+          "received": 12073.400000000373,
+          "rendered": 12106.199999999255,
+          "latencyMs": 32.79999999888241
         },
         {
           "id": "18",
-          "shape": "round",
-          "received": 11414.300000000745,
-          "rendered": 11432.5,
-          "latencyMs": 18.199999999254942
+          "shape": "pucker",
+          "received": 12174.799999998882,
+          "rendered": 12206.199999999255,
+          "latencyMs": 31.40000000037253
         },
         {
           "id": "19",
-          "shape": "teeth",
-          "received": 11611.700000001118,
-          "rendered": 11632.599999999627,
-          "latencyMs": 20.899999998509884
+          "shape": "tongue",
+          "received": 12222.900000000373,
+          "rendered": 12239.099999999627,
+          "latencyMs": 16.199999999254942
         },
         {
           "id": "20",
-          "shape": "tongue",
-          "received": 11686.300000000745,
-          "rendered": 11699.099999999627,
-          "latencyMs": 12.799999998882413
+          "shape": "round",
+          "received": 12270.900000000373,
+          "rendered": 12272.699999999255,
+          "latencyMs": 1.799999998882413
         },
         {
           "id": "21",
-          "shape": "rest",
-          "received": 11937.099999999627,
-          "rendered": 11966,
-          "latencyMs": 28.90000000037253
+          "shape": "pucker",
+          "received": 12324.099999999627,
+          "rendered": 12339.5,
+          "latencyMs": 15.400000000372529
         },
         {
           "id": "22",
           "shape": "teeth",
-          "received": 12113,
-          "rendered": 12132.599999999627,
-          "latencyMs": 19.59999999962747
+          "received": 12398.900000000373,
+          "rendered": 12406.5,
+          "latencyMs": 7.599999999627471
         },
         {
           "id": "23",
-          "shape": "round",
-          "received": 12139.800000000745,
-          "rendered": 12166,
-          "latencyMs": 26.199999999254942
+          "shape": "wide",
+          "received": 12446.799999998882,
+          "rendered": 12473.299999998882,
+          "latencyMs": 26.5
         },
         {
           "id": "24",
-          "shape": "pucker",
-          "received": 12241,
-          "rendered": 12266,
-          "latencyMs": 25
+          "shape": "tongue",
+          "received": 12500.299999998882,
+          "rendered": 12506.199999999255,
+          "latencyMs": 5.900000000372529
         },
         {
           "id": "25",
-          "shape": "tongue",
-          "received": 12289,
-          "rendered": 12298.900000000373,
-          "latencyMs": 9.900000000372529
+          "shape": "open",
+          "received": 12596.400000000373,
+          "rendered": 12606.699999999255,
+          "latencyMs": 10.299999998882413
         },
         {
           "id": "26",
-          "shape": "round",
-          "received": 12337,
-          "rendered": 12365.599999999627,
-          "latencyMs": 28.59999999962747
+          "shape": "teeth",
+          "received": 12671.099999999627,
+          "rendered": 12673.299999998882,
+          "latencyMs": 2.199999999254942
         },
         {
           "id": "27",
-          "shape": "pucker",
-          "received": 12390.400000000373,
-          "rendered": 12398.700000001118,
-          "latencyMs": 8.300000000745058
+          "shape": "wide",
+          "received": 12724.099999999627,
+          "rendered": 12740.199999999255,
+          "latencyMs": 16.09999999962747
         },
         {
           "id": "28",
           "shape": "teeth",
-          "received": 12464.900000000373,
-          "rendered": 12465.900000000373,
-          "latencyMs": 1
+          "received": 12847.099999999627,
+          "rendered": 12872.799999998882,
+          "latencyMs": 25.699999999254942
         },
         {
           "id": "29",
-          "shape": "wide",
-          "received": 12513,
-          "rendered": 12532.400000000373,
-          "latencyMs": 19.40000000037253
+          "shape": "rest",
+          "received": 12996.299999998882,
+          "rendered": 13006.299999998882,
+          "latencyMs": 10
         },
         {
           "id": "30",
-          "shape": "tongue",
-          "received": 12566.300000000745,
-          "rendered": 12599.200000001118,
-          "latencyMs": 32.90000000037253
+          "shape": "wide",
+          "received": 13070.799999998882,
+          "rendered": 13073.299999998882,
+          "latencyMs": 2.5
         },
         {
           "id": "31",
-          "shape": "open",
-          "received": 12662.599999999627,
-          "rendered": 12666,
-          "latencyMs": 3.400000000372529
+          "shape": "teeth",
+          "received": 13124.199999999255,
+          "rendered": 13139.699999999255,
+          "latencyMs": 15.5
         },
         {
           "id": "32",
-          "shape": "teeth",
-          "received": 12737.099999999627,
-          "rendered": 12765,
-          "latencyMs": 27.90000000037253
+          "shape": "rest",
+          "received": 13172.299999998882,
+          "rendered": 13172.699999999255,
+          "latencyMs": 0.40000000037252903
         },
         {
           "id": "33",
-          "shape": "wide",
-          "received": 12790.400000000373,
-          "rendered": 12799.400000000373,
-          "latencyMs": 9
+          "shape": "tongue",
+          "received": 13198.799999998882,
+          "rendered": 13206.400000000373,
+          "latencyMs": 7.600000001490116
         },
         {
           "id": "34",
-          "shape": "teeth",
-          "received": 12913.099999999627,
-          "rendered": 12932.300000000745,
-          "latencyMs": 19.200000001117587
+          "shape": "open",
+          "received": 13220.299999998882,
+          "rendered": 13239.699999999255,
+          "latencyMs": 19.40000000037253
         },
         {
           "id": "35",
           "shape": "rest",
-          "received": 13062.400000000373,
-          "rendered": 13065.800000000745,
-          "latencyMs": 3.400000000372529
+          "received": 13246.799999998882,
+          "rendered": 13272.799999998882,
+          "latencyMs": 26
         },
         {
           "id": "36",
-          "shape": "wide",
-          "received": 13137,
-          "rendered": 13165,
-          "latencyMs": 28
+          "shape": "closed",
+          "received": 13300.099999999627,
+          "rendered": 13305.599999999627,
+          "latencyMs": 5.5
         },
         {
           "id": "37",
           "shape": "teeth",
-          "received": 13190.300000000745,
-          "rendered": 13199.200000001118,
-          "latencyMs": 8.900000000372529
+          "received": 13348.199999999255,
+          "rendered": 13373.299999998882,
+          "latencyMs": 25.09999999962747
+        },
+        {
+          "id": "38",
+          "shape": "open",
+          "received": 13375.199999999255,
+          "rendered": 13406.699999999255,
+          "latencyMs": 31.5
         },
         {
           "id": "39",
-          "shape": "tongue",
-          "received": 13265.099999999627,
-          "rendered": 13265.800000000745,
-          "latencyMs": 0.7000000011175871
+          "shape": "teeth",
+          "received": 13545.599999999627,
+          "rendered": 13573.199999999255,
+          "latencyMs": 27.59999999962747
         },
         {
           "id": "40",
-          "shape": "open",
-          "received": 13291.700000001118,
-          "rendered": 13299.200000001118,
-          "latencyMs": 7.5
+          "shape": "wide",
+          "received": 13647,
+          "rendered": 13673,
+          "latencyMs": 26
         },
         {
           "id": "41",
-          "shape": "rest",
-          "received": 13313,
-          "rendered": 13332.5,
-          "latencyMs": 19.5
+          "shape": "teeth",
+          "received": 13721.599999999627,
+          "rendered": 13739.299999998882,
+          "latencyMs": 17.699999999254942
         },
         {
           "id": "42",
-          "shape": "closed",
-          "received": 13366.400000000373,
-          "rendered": 13398.599999999627,
-          "latencyMs": 32.19999999925494
+          "shape": "rest",
+          "received": 13774.900000000373,
+          "rendered": 13806.199999999255,
+          "latencyMs": 31.299999998882413
         },
         {
           "id": "43",
-          "shape": "teeth",
-          "received": 13414.5,
-          "rendered": 13431.800000000745,
-          "latencyMs": 17.300000000745058
+          "shape": "closed",
+          "received": 13822.799999998882,
+          "rendered": 13839.799999998882,
+          "latencyMs": 17
         },
         {
           "id": "44",
           "shape": "open",
-          "received": 13441,
-          "rendered": 13466,
-          "latencyMs": 25
+          "received": 13870.900000000373,
+          "rendered": 13872.900000000373,
+          "latencyMs": 2
         },
         {
           "id": "45",
-          "shape": "teeth",
-          "received": 13617.099999999627,
-          "rendered": 13632.700000001118,
-          "latencyMs": 15.600000001490116
+          "shape": "wide",
+          "received": 13924.099999999627,
+          "rendered": 13938.5,
+          "latencyMs": 14.400000000372529
         },
         {
           "id": "46",
-          "shape": "wide",
-          "received": 13713,
-          "rendered": 13732.099999999627,
-          "latencyMs": 19.09999999962747
+          "shape": "rest",
+          "received": 13972.099999999627,
+          "rendered": 13972.400000000373,
+          "latencyMs": 0.30000000074505806
         },
         {
           "id": "47",
-          "shape": "teeth",
-          "received": 13787.800000000745,
-          "rendered": 13799.200000001118,
-          "latencyMs": 11.400000000372529
+          "shape": "pucker",
+          "received": 14020.099999999627,
+          "rendered": 14039.599999999627,
+          "latencyMs": 19.5
         },
         {
           "id": "48",
-          "shape": "rest",
-          "received": 13862.400000000373,
-          "rendered": 13865.800000000745,
-          "latencyMs": 3.400000000372529
+          "shape": "wide",
+          "received": 14046.900000000373,
+          "rendered": 14072,
+          "latencyMs": 25.09999999962747
         },
         {
           "id": "49",
-          "shape": "closed",
-          "received": 13915.900000000373,
-          "rendered": 13932,
-          "latencyMs": 16.09999999962747
+          "shape": "tongue",
+          "received": 14121.5,
+          "rendered": 14139,
+          "latencyMs": 17.5
         },
         {
           "id": "50",
-          "shape": "open",
-          "received": 13964,
-          "rendered": 13965.900000000373,
-          "latencyMs": 1.900000000372529
+          "shape": "teeth",
+          "received": 14174.799999998882,
+          "rendered": 14206.599999999627,
+          "latencyMs": 31.800000000745058
         },
         {
           "id": "51",
-          "shape": "wide",
-          "received": 14017,
-          "rendered": 14032.599999999627,
-          "latencyMs": 15.599999999627471
+          "shape": "rest",
+          "received": 14222.799999998882,
+          "rendered": 14238.599999999627,
+          "latencyMs": 15.800000000745058
+        },
+        {
+          "id": "52",
+          "shape": "closed",
+          "received": 14271.099999999627,
+          "rendered": 14272.599999999627,
+          "latencyMs": 1.5
         },
         {
           "id": "53",
-          "shape": "pucker",
-          "received": 14065.099999999627,
-          "rendered": 14065.800000000745,
-          "latencyMs": 0.7000000011175871
+          "shape": "tongue",
+          "received": 14324.400000000373,
+          "rendered": 14339.900000000373,
+          "latencyMs": 15.5
         },
         {
           "id": "54",
           "shape": "wide",
-          "received": 14091.599999999627,
-          "rendered": 14098.5,
-          "latencyMs": 6.900000000372529
+          "received": 14345.799999998882,
+          "rendered": 14373.099999999627,
+          "latencyMs": 27.300000000745058
         },
         {
           "id": "55",
           "shape": "tongue",
-          "received": 14139.599999999627,
-          "rendered": 14165.800000000745,
-          "latencyMs": 26.200000001117587
+          "received": 14473.599999999627,
+          "rendered": 14506.299999998882,
+          "latencyMs": 32.69999999925494
         },
         {
           "id": "56",
           "shape": "teeth",
-          "received": 14187.700000001118,
-          "rendered": 14199.200000001118,
-          "latencyMs": 11.5
+          "received": 14548.199999999255,
+          "rendered": 14572.400000000373,
+          "latencyMs": 24.200000001117587
         },
         {
           "id": "57",
           "shape": "rest",
-          "received": 14241,
-          "rendered": 14265.099999999627,
-          "latencyMs": 24.09999999962747
+          "received": 14596.099999999627,
+          "rendered": 14605.299999998882,
+          "latencyMs": 9.199999999254942
         },
         {
           "id": "58",
-          "shape": "closed",
-          "received": 14289.099999999627,
-          "rendered": 14299.200000001118,
-          "latencyMs": 10.100000001490116
+          "shape": "teeth",
+          "received": 14649.5,
+          "rendered": 14673.099999999627,
+          "latencyMs": 23.59999999962747
+        },
+        {
+          "id": "59",
+          "shape": "open",
+          "received": 14698.099999999627,
+          "rendered": 14706.099999999627,
+          "latencyMs": 8
         },
         {
           "id": "60",
-          "shape": "wide",
-          "received": 14363.800000000745,
-          "rendered": 14365.900000000373,
-          "latencyMs": 2.099999999627471
+          "shape": "tongue",
+          "received": 14745.5,
+          "rendered": 14773.099999999627,
+          "latencyMs": 27.59999999962747
         },
         {
           "id": "61",
-          "shape": "tongue",
-          "received": 14491.700000001118,
-          "rendered": 14499.300000000745,
-          "latencyMs": 7.599999999627471
+          "shape": "teeth",
+          "received": 14820.299999998882,
+          "rendered": 14839.5,
+          "latencyMs": 19.200000001117587
         },
         {
           "id": "62",
-          "shape": "teeth",
-          "received": 14566.400000000373,
-          "rendered": 14599.099999999627,
-          "latencyMs": 32.69999999925494
+          "shape": "open",
+          "received": 14846.799999998882,
+          "rendered": 14873.299999998882,
+          "latencyMs": 26.5
         },
         {
           "id": "63",
-          "shape": "rest",
-          "received": 14614.400000000373,
-          "rendered": 14631.599999999627,
-          "latencyMs": 17.199999999254942
+          "shape": "tongue",
+          "received": 14996.199999999255,
+          "rendered": 15006.199999999255,
+          "latencyMs": 10
         },
         {
           "id": "64",
-          "shape": "teeth",
-          "received": 14662.5,
-          "rendered": 14665.900000000373,
-          "latencyMs": 3.400000000372529
+          "shape": "rest",
+          "received": 15049.400000000373,
+          "rendered": 15072.400000000373,
+          "latencyMs": 23
         },
         {
           "id": "65",
-          "shape": "open",
-          "received": 14715.800000000745,
-          "rendered": 14732.599999999627,
-          "latencyMs": 16.799999998882413
+          "shape": "tongue",
+          "received": 15124.099999999627,
+          "rendered": 15139.900000000373,
+          "latencyMs": 15.800000000745058
         },
         {
           "id": "66",
-          "shape": "tongue",
-          "received": 14763.900000000373,
-          "rendered": 14766.099999999627,
-          "latencyMs": 2.199999999254942
-        },
-        {
-          "id": "68",
           "shape": "open",
-          "received": 14865.099999999627,
-          "rendered": 14866,
-          "latencyMs": 0.900000000372529
-        },
-        {
-          "id": "69",
-          "shape": "tongue",
-          "received": 15014.5,
-          "rendered": 15032.599999999627,
-          "latencyMs": 18.09999999962747
-        },
-        {
-          "id": "70",
-          "shape": "rest",
-          "received": 15062.400000000373,
-          "rendered": 15065,
-          "latencyMs": 2.599999999627471
-        },
-        {
-          "id": "71",
-          "shape": "teeth",
-          "received": 15137.099999999627,
-          "rendered": 15165.400000000373,
-          "latencyMs": 28.300000000745058
+          "received": 15145.5,
+          "rendered": 15172.900000000373,
+          "latencyMs": 27.40000000037253
         }
       ]
     },
@@ -530,16 +536,22 @@
   },
   "software_final": {
     "idle": {
-      "frames": 210,
-      "durationMs": 6966.800000000745,
-      "fps": 29.999425848305915,
-      "p95GapMs": 34.19999999925494,
+      "frames": 211,
+      "durationMs": 7000,
+      "fps": 30,
+      "p95GapMs": 34.20000000111759,
       "gapsOver100Ms": 0,
-      "firstFrameAfterNavigationMs": 422.19999999925494
+      "firstFrameAfterNavigationMs": 401.90000000037253
     },
     "width": 512,
     "height": 512,
     "decodedRGBABytes": 150994944,
+    "blinkTiles": [
+      32,
+      33,
+      34,
+      35
+    ],
     "graphicsMode": "gpu-disabled-software-canvas",
     "graphicsFeatures": {
       "2d_canvas": "disabled_software",
@@ -614,7 +626,7 @@
   "real_model_timing": "../../benchmarks/portrait/prepared/kokoro-timing-result.json",
   "capture": {
     "file": "phoneme-portrait-preview.webm",
-    "sha256": "a685a988369c6a163f80f8ff1e35af0e5499598e2eb1e1f5e366be5339d480ef",
+    "sha256": "540f05bee0b316b39a392bcd4fe0a75d0dc36c50412cd6dfc3adf5fe6f0e6d25",
     "media": {
       "programs": [],
       "stream_groups": [],
@@ -624,34 +636,34 @@
           "width": 512,
           "height": 512,
           "r_frame_rate": "60/1",
-          "nb_read_frames": "191"
+          "nb_read_frames": "203"
         },
         {
           "codec_name": "opus",
           "r_frame_rate": "0/0",
-          "nb_read_frames": "113"
+          "nb_read_frames": "112"
         }
       ],
       "format": {
-        "duration": "6.826000",
-        "size": "1000698"
+        "duration": "6.775000",
+        "size": "1057908"
       }
     },
     "method": "Native canvas.captureStream(30) and MediaStreamDestination from the same actual AudioWorklet AudioContext; VP8/Opus. FFmpeg stream copy adds seekable duration metadata only; no resize, frame interpolation, speed or lip-offset adjustment.",
-    "source_sha256": "fbe5c47dc577b889c62590c629424d4b66bd84e150015001a9ed45da39fcf846",
+    "source_sha256": "3d32787208caa02c3d497be17657c570532b504e6dfb8fb5444236479ad2badd",
     "visual_review": "Reviewed selected closed/open/wide/rounded preparation probes and multiple actual speaking capture frames at native size. Coherent eyes/hair after removing head fades; visible consonant/vowel changes. Finite repeated poses, abrupt shape/pose transitions, approximate round/pucker geometry and generated teeth remain. Two cue transitions were coalesced or outside the measured frame window; anatomical/perceptual precision is not established. A repeated final check separately measured actual live Canvas drawing cadence and encoded capture timestamps; short cues can coalesce before a 30 FPS draw.",
     "frame_timestamps": {
-      "frames": 191,
-      "span_seconds": 6.766,
-      "average_encoded_fps": 28.08158439255099,
-      "p95_gap_ms": 65.99999999999983,
-      "maximum_gap_ms": 68.00000000000006,
+      "frames": 203,
+      "span_seconds": 6.733,
+      "average_encoded_fps": 30.001485222040696,
+      "p95_gap_ms": 34.000000000000696,
+      "maximum_gap_ms": 49.999999999999986,
       "gaps_over_100_ms": 0,
       "boundary": "Native variable-frame-rate recording, separate from Canvas drawing cadence; nominal r_frame_rate is not measured FPS."
     }
   },
   "checks": {
-    "make_check": "103 Python tests, 3 generated-contract tests, 14 web behavior tests, strict Python/TypeScript, styles, generated schema and build passed",
+    "make_check": "103 Python tests, 3 generated-contract tests, 15 web behavior tests, strict Python/TypeScript, styles, generated schema/build and plan passed, including the blink sequence regression",
     "make_demo": "Installed synthetic fixture PCM/discovery passed; no live timing claim",
     "make_base_check": "37 passed, 5 fixture tests deselected; no installed plugins; separate .cache/base-env",
     "fresh_contributor_environment": "UV_PROJECT_ENVIRONMENT=.cache/contribution-env uv sync --locked --group app --group fixtures; same environment uv run --no-sync pytest -q: 103 passed. Plugin timing tests load the optional adapter source without installing plugins, NumPy, ONNX or weights.",
@@ -1102,21 +1114,27 @@
     "result": {
       "idle": {
         "frames": 210,
-        "durationMs": 6966.300000000745,
-        "fps": 30.00157903047208,
-        "p95GapMs": 34,
+        "durationMs": 6967.299999998882,
+        "fps": 29.997272975188885,
+        "p95GapMs": 34.100000001490116,
         "gapsOver100Ms": 0,
-        "firstFrameAfterNavigationMs": 428.40000000037253
+        "firstFrameAfterNavigationMs": 405.2999999988824
       },
       "width": 512,
       "height": 512,
       "decodedRGBABytes": 150994944,
+      "blinkTiles": [
+        32,
+        33,
+        34,
+        35
+      ],
       "graphicsMode": "default-browser",
       "live": {
-        "stopClickToWorkletAckMs": 46.09999999962747,
+        "stopClickToWorkletAckMs": 51.19999999925494,
         "stalePositiveEnergy": 0,
         "mouthAfterStop": 0,
-        "positiveEnergyEvents": 150,
+        "positiveEnergyEvents": 142,
         "observedExpressions": [
           "neutral",
           "thoughtful",
@@ -1125,15 +1143,15 @@
         ],
         "staleVisemes": 0,
         "drawing": {
-          "frames": 158,
-          "fps": 29.99904461641349,
-          "p95GapMs": 34.19999999925494,
+          "frames": 156,
+          "fps": 29.997484081982385,
+          "p95GapMs": 34.29999999888241,
           "gapsOver100Ms": 0
         },
         "visemeScheduling": {
-          "receivedCues": 71,
-          "renderedCues": 66,
-          "coalescedOrFrameWindowBoundary": 5,
+          "receivedCues": 64,
+          "renderedCues": 64,
+          "coalescedOrFrameWindowBoundary": 0,
           "observedShapes": [
             "teeth",
             "open",
@@ -1144,472 +1162,458 @@
             "wide",
             "closed"
           ],
-          "p95Ms": 31.5,
-          "maxMs": 33.100000001490116,
+          "p95Ms": 31.800000000745058,
+          "maxMs": 32.79999999888241,
           "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
         },
         "cueTrace": [
           {
             "id": "3",
             "shape": "teeth",
-            "received": 11267.200000001118,
-            "rendered": 11288.5,
-            "latencyMs": 21.299999998882413
+            "received": 10068.199999999255,
+            "rendered": 10072.900000000373,
+            "latencyMs": 4.700000001117587
           },
           {
             "id": "4",
             "shape": "open",
-            "received": 11320.300000000745,
-            "rendered": 11322.099999999627,
-            "latencyMs": 1.799999998882413
+            "received": 10121.5,
+            "rendered": 10139.599999999627,
+            "latencyMs": 18.09999999962747
           },
           {
             "id": "5",
             "shape": "tongue",
-            "received": 11368.300000000745,
-            "rendered": 11388.700000001118,
-            "latencyMs": 20.40000000037253
+            "received": 10169.400000000373,
+            "rendered": 10172.099999999627,
+            "latencyMs": 2.699999999254942
           },
           {
             "id": "6",
             "shape": "round",
-            "received": 11416.400000000373,
-            "rendered": 11422.400000000373,
-            "latencyMs": 6
+            "received": 10217.400000000373,
+            "rendered": 10239,
+            "latencyMs": 21.59999999962747
           },
           {
             "id": "7",
             "shape": "pucker",
-            "received": 11592.200000001118,
-            "rendered": 11622.599999999627,
-            "latencyMs": 30.399999998509884
+            "received": 10393.400000000373,
+            "rendered": 10405.199999999255,
+            "latencyMs": 11.799999998882413
           },
           {
             "id": "8",
             "shape": "rest",
-            "received": 11944.300000000745,
-            "rendered": 11955.800000000745,
-            "latencyMs": 11.5
+            "received": 10745.5,
+            "rendered": 10772.900000000373,
+            "latencyMs": 27.40000000037253
           },
           {
             "id": "9",
             "shape": "pucker",
-            "received": 12082.900000000373,
-            "rendered": 12088.400000000373,
-            "latencyMs": 5.5
+            "received": 10873.400000000373,
+            "rendered": 10906.199999999255,
+            "latencyMs": 32.79999999888241
           },
           {
             "id": "10",
             "shape": "wide",
-            "received": 12136.300000000745,
-            "rendered": 12155.900000000373,
-            "latencyMs": 19.59999999962747
+            "received": 10921.400000000373,
+            "rendered": 10939.400000000373,
+            "latencyMs": 18
           },
           {
             "id": "11",
             "shape": "tongue",
-            "received": 12237.5,
-            "rendered": 12256.800000000745,
-            "latencyMs": 19.300000000745058
+            "received": 11022.900000000373,
+            "rendered": 11039.5,
+            "latencyMs": 16.59999999962747
           },
           {
             "id": "12",
             "shape": "teeth",
-            "received": 12312.400000000373,
-            "rendered": 12322.599999999627,
-            "latencyMs": 10.199999999254942
+            "received": 11097.5,
+            "rendered": 11106.099999999627,
+            "latencyMs": 8.599999999627471
           },
           {
             "id": "13",
             "shape": "open",
-            "received": 12386.900000000373,
-            "rendered": 12389.200000001118,
-            "latencyMs": 2.300000000745058
+            "received": 11198.799999998882,
+            "rendered": 11205.400000000373,
+            "latencyMs": 6.600000001490116
           },
           {
             "id": "14",
             "shape": "closed",
-            "received": 12435,
-            "rendered": 12455.900000000373,
-            "latencyMs": 20.90000000037253
+            "received": 11294.799999998882,
+            "rendered": 11305.400000000373,
+            "latencyMs": 10.600000001490116
           },
           {
             "id": "15",
             "shape": "rest",
-            "received": 12482.900000000373,
-            "rendered": 12489.099999999627,
-            "latencyMs": 6.199999999254942
+            "received": 11636.099999999627,
+            "rendered": 11639.299999998882,
+            "latencyMs": 3.199999999254942
           },
           {
             "id": "16",
-            "shape": "tongue",
-            "received": 12536.200000001118,
-            "rendered": 12555.900000000373,
-            "latencyMs": 19.699999999254942
+            "shape": "teeth",
+            "received": 12046.900000000373,
+            "rendered": 12072.299999998882,
+            "latencyMs": 25.399999998509884
+          },
+          {
+            "id": "17",
+            "shape": "round",
+            "received": 12073.400000000373,
+            "rendered": 12106.199999999255,
+            "latencyMs": 32.79999999888241
           },
           {
             "id": "18",
-            "shape": "rest",
-            "received": 12584.200000001118,
-            "rendered": 12589.200000001118,
-            "latencyMs": 5
+            "shape": "pucker",
+            "received": 12174.799999998882,
+            "rendered": 12206.199999999255,
+            "latencyMs": 31.40000000037253
           },
           {
             "id": "19",
             "shape": "tongue",
-            "received": 12611,
-            "rendered": 12622.599999999627,
-            "latencyMs": 11.599999999627471
+            "received": 12222.900000000373,
+            "rendered": 12239.099999999627,
+            "latencyMs": 16.199999999254942
           },
           {
             "id": "20",
-            "shape": "open",
-            "received": 12637.5,
-            "rendered": 12655.900000000373,
-            "latencyMs": 18.40000000037253
+            "shape": "round",
+            "received": 12270.900000000373,
+            "rendered": 12272.699999999255,
+            "latencyMs": 1.799999998882413
           },
           {
             "id": "21",
-            "shape": "rest",
-            "received": 12658.900000000373,
-            "rendered": 12689.200000001118,
-            "latencyMs": 30.300000000745058
+            "shape": "pucker",
+            "received": 12324.099999999627,
+            "rendered": 12339.5,
+            "latencyMs": 15.400000000372529
           },
           {
             "id": "22",
-            "shape": "tongue",
-            "received": 12712.200000001118,
-            "rendered": 12722.5,
-            "latencyMs": 10.299999998882413
+            "shape": "teeth",
+            "received": 12398.900000000373,
+            "rendered": 12406.5,
+            "latencyMs": 7.599999999627471
           },
           {
             "id": "23",
-            "shape": "teeth",
-            "received": 12786.900000000373,
-            "rendered": 12788.300000000745,
-            "latencyMs": 1.400000000372529
+            "shape": "wide",
+            "received": 12446.799999998882,
+            "rendered": 12473.299999998882,
+            "latencyMs": 26.5
           },
           {
             "id": "24",
-            "shape": "wide",
-            "received": 12834.900000000373,
-            "rendered": 12856.099999999627,
-            "latencyMs": 21.199999999254942
+            "shape": "tongue",
+            "received": 12500.299999998882,
+            "rendered": 12506.199999999255,
+            "latencyMs": 5.900000000372529
           },
           {
             "id": "25",
-            "shape": "tongue",
-            "received": 13037.5,
-            "rendered": 13055.200000001118,
-            "latencyMs": 17.700000001117587
+            "shape": "open",
+            "received": 12596.400000000373,
+            "rendered": 12606.699999999255,
+            "latencyMs": 10.299999998882413
           },
           {
             "id": "26",
-            "shape": "rest",
-            "received": 13240.300000000745,
-            "rendered": 13240.400000000373,
-            "latencyMs": 0.09999999962747097
+            "shape": "teeth",
+            "received": 12671.099999999627,
+            "rendered": 12673.299999998882,
+            "latencyMs": 2.199999999254942
           },
           {
             "id": "27",
-            "shape": "teeth",
-            "received": 13448.300000000745,
-            "rendered": 13455.599999999627,
-            "latencyMs": 7.299999998882413
+            "shape": "wide",
+            "received": 12724.099999999627,
+            "rendered": 12740.199999999255,
+            "latencyMs": 16.09999999962747
           },
           {
             "id": "28",
-            "shape": "round",
-            "received": 13474.900000000373,
-            "rendered": 13489.200000001118,
-            "latencyMs": 14.300000000745058
+            "shape": "teeth",
+            "received": 12847.099999999627,
+            "rendered": 12872.799999998882,
+            "latencyMs": 25.699999999254942
           },
           {
             "id": "29",
-            "shape": "pucker",
-            "received": 13571.200000001118,
-            "rendered": 13589.5,
-            "latencyMs": 18.299999998882413
+            "shape": "rest",
+            "received": 12996.299999998882,
+            "rendered": 13006.299999998882,
+            "latencyMs": 10
           },
           {
             "id": "30",
-            "shape": "tongue",
-            "received": 13625.099999999627,
-            "rendered": 13656.099999999627,
-            "latencyMs": 31
+            "shape": "wide",
+            "received": 13070.799999998882,
+            "rendered": 13073.299999998882,
+            "latencyMs": 2.5
           },
           {
             "id": "31",
-            "shape": "round",
-            "received": 13672.300000000745,
-            "rendered": 13688.599999999627,
-            "latencyMs": 16.299999998882413
+            "shape": "teeth",
+            "received": 13124.199999999255,
+            "rendered": 13139.699999999255,
+            "latencyMs": 15.5
           },
           {
             "id": "32",
-            "shape": "pucker",
-            "received": 13720.300000000745,
-            "rendered": 13722.599999999627,
-            "latencyMs": 2.299999998882413
+            "shape": "rest",
+            "received": 13172.299999998882,
+            "rendered": 13172.699999999255,
+            "latencyMs": 0.40000000037252903
           },
           {
             "id": "33",
-            "shape": "teeth",
-            "received": 13800.200000001118,
-            "rendered": 13822.700000001118,
-            "latencyMs": 22.5
+            "shape": "tongue",
+            "received": 13198.799999998882,
+            "rendered": 13206.400000000373,
+            "latencyMs": 7.600000001490116
           },
           {
             "id": "34",
-            "shape": "wide",
-            "received": 13848.400000000373,
-            "rendered": 13856.599999999627,
-            "latencyMs": 8.199999999254942
+            "shape": "open",
+            "received": 13220.299999998882,
+            "rendered": 13239.699999999255,
+            "latencyMs": 19.40000000037253
           },
           {
             "id": "35",
-            "shape": "tongue",
-            "received": 13896.400000000373,
-            "rendered": 13922.800000000745,
-            "latencyMs": 26.40000000037253
+            "shape": "rest",
+            "received": 13246.799999998882,
+            "rendered": 13272.799999998882,
+            "latencyMs": 26
           },
           {
             "id": "36",
-            "shape": "open",
-            "received": 13997.599999999627,
-            "rendered": 14022.599999999627,
-            "latencyMs": 25
+            "shape": "closed",
+            "received": 13300.099999999627,
+            "rendered": 13305.599999999627,
+            "latencyMs": 5.5
           },
           {
             "id": "37",
             "shape": "teeth",
-            "received": 14072.599999999627,
-            "rendered": 14089.599999999627,
-            "latencyMs": 17
+            "received": 13348.199999999255,
+            "rendered": 13373.299999998882,
+            "latencyMs": 25.09999999962747
           },
           {
             "id": "38",
-            "shape": "wide",
-            "received": 14120.900000000373,
-            "rendered": 14122.400000000373,
-            "latencyMs": 1.5
+            "shape": "open",
+            "received": 13375.199999999255,
+            "rendered": 13406.699999999255,
+            "latencyMs": 31.5
           },
           {
             "id": "39",
             "shape": "teeth",
-            "received": 14248.5,
-            "rendered": 14256,
-            "latencyMs": 7.5
+            "received": 13545.599999999627,
+            "rendered": 13573.199999999255,
+            "latencyMs": 27.59999999962747
           },
           {
             "id": "40",
-            "shape": "rest",
-            "received": 14397.700000001118,
-            "rendered": 14422.5,
-            "latencyMs": 24.799999998882413
+            "shape": "wide",
+            "received": 13647,
+            "rendered": 13673,
+            "latencyMs": 26
           },
           {
             "id": "41",
-            "shape": "wide",
-            "received": 14472.300000000745,
-            "rendered": 14488.599999999627,
-            "latencyMs": 16.299999998882413
+            "shape": "teeth",
+            "received": 13721.599999999627,
+            "rendered": 13739.299999998882,
+            "latencyMs": 17.699999999254942
           },
           {
             "id": "42",
-            "shape": "teeth",
-            "received": 14520.599999999627,
-            "rendered": 14523.200000001118,
-            "latencyMs": 2.600000001490116
+            "shape": "rest",
+            "received": 13774.900000000373,
+            "rendered": 13806.199999999255,
+            "latencyMs": 31.299999998882413
           },
           {
             "id": "43",
-            "shape": "rest",
-            "received": 14573.599999999627,
-            "rendered": 14589.5,
-            "latencyMs": 15.900000000372529
+            "shape": "closed",
+            "received": 13822.799999998882,
+            "rendered": 13839.799999998882,
+            "latencyMs": 17
+          },
+          {
+            "id": "44",
+            "shape": "open",
+            "received": 13870.900000000373,
+            "rendered": 13872.900000000373,
+            "latencyMs": 2
           },
           {
             "id": "45",
-            "shape": "open",
-            "received": 14621.900000000373,
-            "rendered": 14623,
-            "latencyMs": 1.099999999627471
+            "shape": "wide",
+            "received": 13924.099999999627,
+            "rendered": 13938.5,
+            "latencyMs": 14.400000000372529
           },
           {
             "id": "46",
             "shape": "rest",
-            "received": 14648.300000000745,
-            "rendered": 14655.400000000373,
-            "latencyMs": 7.099999999627471
+            "received": 13972.099999999627,
+            "rendered": 13972.400000000373,
+            "latencyMs": 0.30000000074505806
           },
           {
             "id": "47",
-            "shape": "closed",
-            "received": 14696.5,
-            "rendered": 14723,
-            "latencyMs": 26.5
+            "shape": "pucker",
+            "received": 14020.099999999627,
+            "rendered": 14039.599999999627,
+            "latencyMs": 19.5
           },
           {
             "id": "48",
-            "shape": "teeth",
-            "received": 14749.700000001118,
-            "rendered": 14756,
-            "latencyMs": 6.299999998882413
+            "shape": "wide",
+            "received": 14046.900000000373,
+            "rendered": 14072,
+            "latencyMs": 25.09999999962747
           },
           {
             "id": "49",
-            "shape": "open",
-            "received": 14772.099999999627,
-            "rendered": 14788.800000000745,
-            "latencyMs": 16.700000001117587
+            "shape": "tongue",
+            "received": 14121.5,
+            "rendered": 14139,
+            "latencyMs": 17.5
           },
           {
             "id": "50",
             "shape": "teeth",
-            "received": 14947.099999999627,
-            "rendered": 14956,
-            "latencyMs": 8.900000000372529
+            "received": 14174.799999998882,
+            "rendered": 14206.599999999627,
+            "latencyMs": 31.800000000745058
           },
           {
             "id": "51",
-            "shape": "wide",
-            "received": 15048.300000000745,
-            "rendered": 15055.900000000373,
-            "latencyMs": 7.599999999627471
+            "shape": "rest",
+            "received": 14222.799999998882,
+            "rendered": 14238.599999999627,
+            "latencyMs": 15.800000000745058
           },
           {
             "id": "52",
-            "shape": "teeth",
-            "received": 15123.099999999627,
-            "rendered": 15155.900000000373,
-            "latencyMs": 32.80000000074506
+            "shape": "closed",
+            "received": 14271.099999999627,
+            "rendered": 14272.599999999627,
+            "latencyMs": 1.5
           },
           {
             "id": "53",
-            "shape": "rest",
-            "received": 15170.900000000373,
-            "rendered": 15188.5,
-            "latencyMs": 17.59999999962747
+            "shape": "tongue",
+            "received": 14324.400000000373,
+            "rendered": 14339.900000000373,
+            "latencyMs": 15.5
           },
           {
             "id": "54",
-            "shape": "closed",
-            "received": 15224.300000000745,
-            "rendered": 15255.800000000745,
-            "latencyMs": 31.5
+            "shape": "wide",
+            "received": 14345.799999998882,
+            "rendered": 14373.099999999627,
+            "latencyMs": 27.300000000745058
           },
           {
             "id": "55",
-            "shape": "open",
-            "received": 15272.300000000745,
-            "rendered": 15289.300000000745,
-            "latencyMs": 17
+            "shape": "tongue",
+            "received": 14473.599999999627,
+            "rendered": 14506.299999998882,
+            "latencyMs": 32.69999999925494
           },
           {
             "id": "56",
-            "shape": "wide",
-            "received": 15320.400000000373,
-            "rendered": 15322.200000001118,
-            "latencyMs": 1.800000000745058
+            "shape": "teeth",
+            "received": 14548.199999999255,
+            "rendered": 14572.400000000373,
+            "latencyMs": 24.200000001117587
           },
           {
             "id": "57",
             "shape": "rest",
-            "received": 15346.900000000373,
-            "rendered": 15355.700000001118,
-            "latencyMs": 8.800000000745058
+            "received": 14596.099999999627,
+            "rendered": 14605.299999998882,
+            "latencyMs": 9.199999999254942
+          },
+          {
+            "id": "58",
+            "shape": "teeth",
+            "received": 14649.5,
+            "rendered": 14673.099999999627,
+            "latencyMs": 23.59999999962747
           },
           {
             "id": "59",
-            "shape": "wide",
-            "received": 15421.800000000745,
-            "rendered": 15422.800000000745,
-            "latencyMs": 1
+            "shape": "open",
+            "received": 14698.099999999627,
+            "rendered": 14706.099999999627,
+            "latencyMs": 8
           },
           {
             "id": "60",
             "shape": "tongue",
-            "received": 15496.300000000745,
-            "rendered": 15522.900000000373,
-            "latencyMs": 26.59999999962747
+            "received": 14745.5,
+            "rendered": 14773.099999999627,
+            "latencyMs": 27.59999999962747
           },
           {
             "id": "61",
             "shape": "teeth",
-            "received": 15549.900000000373,
-            "rendered": 15556.5,
-            "latencyMs": 6.599999999627471
+            "received": 14820.299999998882,
+            "rendered": 14839.5,
+            "latencyMs": 19.200000001117587
           },
           {
             "id": "62",
-            "shape": "rest",
-            "received": 15597.700000001118,
-            "rendered": 15622.400000000373,
-            "latencyMs": 24.699999999254942
+            "shape": "open",
+            "received": 14846.799999998882,
+            "rendered": 14873.299999998882,
+            "latencyMs": 26.5
           },
           {
             "id": "63",
-            "shape": "closed",
-            "received": 15645.599999999627,
-            "rendered": 15656,
-            "latencyMs": 10.400000000372529
+            "shape": "tongue",
+            "received": 14996.199999999255,
+            "rendered": 15006.199999999255,
+            "latencyMs": 10
+          },
+          {
+            "id": "64",
+            "shape": "rest",
+            "received": 15049.400000000373,
+            "rendered": 15072.400000000373,
+            "latencyMs": 23
           },
           {
             "id": "65",
-            "shape": "wide",
-            "received": 15720.5,
-            "rendered": 15722.800000000745,
-            "latencyMs": 2.300000000745058
-          },
-          {
-            "id": "66",
             "shape": "tongue",
-            "received": 15848.599999999627,
-            "rendered": 15856.300000000745,
-            "latencyMs": 7.700000001117587
-          },
-          {
-            "id": "67",
-            "shape": "teeth",
-            "received": 15923.099999999627,
-            "rendered": 15956.200000001118,
-            "latencyMs": 33.100000001490116
-          },
-          {
-            "id": "68",
-            "shape": "rest",
-            "received": 15971,
-            "rendered": 15989,
-            "latencyMs": 18
-          },
-          {
-            "id": "69",
-            "shape": "teeth",
-            "received": 16024.300000000745,
-            "rendered": 16056,
-            "latencyMs": 31.699999999254942
-          },
-          {
-            "id": "70",
-            "shape": "open",
-            "received": 16072.599999999627,
-            "rendered": 16088.400000000373,
+            "received": 15124.099999999627,
+            "rendered": 15139.900000000373,
             "latencyMs": 15.800000000745058
           },
           {
-            "id": "71",
-            "shape": "tongue",
-            "received": 16120.700000001118,
-            "rendered": 16122.800000000745,
-            "latencyMs": 2.099999999627471
-          },
-          {
-            "id": "73",
+            "id": "66",
             "shape": "open",
-            "received": 16221.900000000373,
-            "rendered": 16222.599999999627,
-            "latencyMs": 0.6999999992549419
+            "received": 15145.5,
+            "rendered": 15172.900000000373,
+            "latencyMs": 27.40000000037253
           }
         ]
       },
@@ -1618,5 +1622,46 @@
       "invalidAssetFallback": true,
       "cancelledPreparation": true
     }
+  },
+  "final_review_correction": "Prepared blink tiles represent .3/.7/1/.7 sequential frames. Fixed amplitude-index selection that could reopen near peak; complete stage sequence now has a behavior regression and opt-in real browser assertion. make check passed, and the updated main app --photo --live observed all four blink stages [32,33,34,35], 29.997 live drawing FPS, cue P95 31.8 ms/max 32.8 ms, all 64 received/rendered transitions, Stop ACK 51.2 ms and no stale output. Final --photo --software also rendered all four blink stages and passed cadence/cleanup/failure checks with GPU compositing and 2D acceleration disabled.",
+  "earlier_main_app_summary": {
+    "live": {
+      "stopClickToWorkletAckMs": 46.09999999962747,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 150,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ],
+      "staleVisemes": 0,
+      "drawing": {
+        "frames": 158,
+        "fps": 29.99904461641349,
+        "p95GapMs": 34.19999999925494,
+        "gapsOver100Ms": 0
+      },
+      "visemeScheduling": {
+        "receivedCues": 71,
+        "renderedCues": 66,
+        "coalescedOrFrameWindowBoundary": 5,
+        "observedShapes": [
+          "teeth",
+          "open",
+          "tongue",
+          "round",
+          "pucker",
+          "rest",
+          "wide",
+          "closed"
+        ],
+        "p95Ms": 31.5,
+        "maxMs": 33.100000001490116,
+        "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
+      }
+    },
+    "note": "Before final blink-stage correction; prior positive speech timing retained."
   }
 }
