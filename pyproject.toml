@@ -41,7 +41,8 @@ strict = true
 files = ["packages/core/src", "plugins/fixtures/demo/src", "packages/runtime/src", "apps/api/src", "plugins/local/src"]
 
 [[tool.mypy.overrides]]
-module = ["pipecat.*", "kokoro_onnx.*", "faster_whisper.*", "numpy.*", "onnxruntime.*"]
+# These packages belong to the optional model installation, including its logger.
+module = ["pipecat.*", "loguru.*", "kokoro_onnx.*", "faster_whisper.*", "numpy.*", "onnxruntime.*"]
 ignore_missing_imports = true
 follow_imports = "skip"
 
