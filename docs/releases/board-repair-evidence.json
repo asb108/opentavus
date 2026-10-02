@@ -60,7 +60,8 @@
   ],
   "test_harness_repairs": [
     "Kept browser regular expressions literal inside generated code.",
-    "Read hidden source via textContent and matched O2 without matching CO2."
+    "Read hidden source via textContent and matched O2 without matching CO2.",
+    "Matched quiz choice accessible names with their letter prefix; the initial exact-name selector was a harness failure, not a failed tool application."
   ],
   "result": "Input/output tool schema and deterministic graph compilation passed real typed and synthetic-microphone checks. Other requested tool kinds keep their existing schema.",
   "limitations": [
@@ -81,7 +82,7 @@
       "npm run test:browser -- --board --microphone",
       "npm run test:browser -- --live"
     ],
-    "python_behavior_tests": 84,
+    "python_behavior_tests": 85,
     "strict_typed_source_files": 25,
     "contract_tests": 3,
     "web_logic_tests": 6,
@@ -89,6 +90,9 @@
     "base_fixture_tests_deselected": 5,
     "live_regression": "Original arithmetic, formula/equation quiz, feedback/export, user rectangle retention, Stop resets and next-call model/voice/character changes passed.",
     "benchmark_reproduction": "Published Mac runner produced a complete clip and independently confirmed 5.331 FPS with cadence_gate_pass=false.",
-    "publication_status": "pending GitHub push and CI"
+    "publication_status": "pushed to public asb108/opentavus main; exact-source GitHub CI passed",
+    "source_commit": "4f2d1409732c6e6dee169d064b887099493fe639",
+    "ci_url": "https://github.com/asb108/opentavus/actions/runs/37049602650",
+    "singular_quiz": "Real model/browser Make a quiz about two plus three request with teaching off produced choices, accepted 5 and displayed correct answer feedback."
   }
 }

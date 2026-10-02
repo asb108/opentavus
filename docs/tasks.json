@@ -631,7 +631,7 @@
       "id": "T19",
       "title": "Repair automatic board creation across spoken follow-ups",
       "milestone": "G2",
-      "status": "in_progress",
+      "status": "done",
       "owner": "Codex / Atul",
       "depends_on": [
         "T02",
@@ -668,7 +668,7 @@
         "2026-10-03: make check passed 84 Python behavior tests, strict mypy on 25 sources, Ruff, manifests/generated contracts, TypeScript, ESLint/Prettier, frontend build, 3 contract tests and 6 web logic tests. make demo and isolated make base-check passed (29 core tests, 5 fixture tests deselected; no installed plugins).",
         "2026-10-02/03: actual Chrome 154.0.8037.97 on M3 Pro/macOS 14.5 passed typed and two-fragment synthetic microphone photosynthesis requests with Teach mode off, visible labels and correct major inputs/output branches, positive ACK before Worklet speech, later explanation with no extra card/upload request, and input track release. Original --live formula/quiz/export/model selection/Stop/user drawing scenario passed on the final runtime source. Exact events, rejected model/render iterations and timing limits are in docs/releases/board-repair-evidence.json.",
         "Flowchart generator uses a bounded process-title/inputs/outputs schema and deterministic safe Mermaid compilation. Generic arbitrary graph generation remains unimplemented; small-model general factual accuracy and full T13 latency/acoustic targets remain open. Applied tool data is bounded historical context, not vision of user drawings.",
-        "Publication and CI are pending; T19 stays in progress until their positive evidence is recorded."
+        "2026-10-03: source commits 89cb1bcb8caa56a9aaf3ac3a069764fcf1cf57fe and 4f2d1409732c6e6dee169d064b887099493fe639 pushed to public asb108/opentavus main. GitHub CI https://github.com/asb108/opentavus/actions/runs/37049602650 completed successfully on exact 4f2d140 source, including 85 Python tests and the complete contributor checks. A real singular quiz request with Teach mode off produced choices and correct answer feedback; its initial harness selector failed because choice buttons include a letter prefix, then the corrected selector passed."
       ],
       "blocker": null
     },
@@ -676,7 +676,7 @@
       "id": "T20",
       "title": "Measure a bounded realistic portrait experiment on Apple Silicon",
       "milestone": "G2",
-      "status": "in_progress",
+      "status": "done",
       "owner": "Codex / Atul",
       "depends_on": [
         "T02",
@@ -697,7 +697,7 @@
         "2026-10-02: MLX 0.30.0 Metal probe executed on Apple M3 Pro/18 GB/macOS 14.5. Isolated native pipeline imported with torch absent. Exact source/model revisions, component gaps, verified SHA-256 and package versions are recorded in benchmarks/portrait/mac and docs/releases/mac-portrait-experiment.json. No base dependency, default model download or avatar selection changed.",
         "Numerical gates were fixed before timing: prepared first playable <=2 seconds, >=25 FPS cadence, <=80 ms lip-sync and <=200 ms stop. Two completed 32-frame/25 FPS clips generated at 5.326 and 5.331 FPS; first complete warm frame compute was 267.1 ms and peak MLX allocation 5,765,841,304 bytes. The earlier incomplete trial is retained separately. Encoding at 25 FPS does not establish real-time inference.",
         "Native frames and muxed local clip were produced and sampled visually: mouth motion is present, the feathered crop is visibly soft. Live browser first-playable, numeric lip-sync, stop, multiple faces and sustained quality remain unexecuted. The 25 FPS gate failed and live portrait remains unavailable under T10; this bounded experiment can close after source publication, without marking live-avatar integration done.",
-        "Documented runner reproduced actual generation and output_complete=true. Downloader verified all existing pinned artifacts; Ruff checks and dependency-free --help passed. Research-only source/generated face media is excluded from Git and defaults. Publication is pending."
+        "Documented runner reproduced actual generation and output_complete=true. Downloader verified all existing pinned artifacts; Ruff checks and dependency-free --help passed. Research-only source/generated face media is excluded from Git and defaults. Reproduction source and small results pushed in 89cb1bcb8caa56a9aaf3ac3a069764fcf1cf57fe; subsequent exact-source GitHub CI https://github.com/asb108/opentavus/actions/runs/37049602650 passed. The experiment is complete; the failing/unexecuted live-avatar gates stay visible and T10 remains unfinished."
       ],
       "blocker": null
     }
