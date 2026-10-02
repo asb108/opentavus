@@ -104,7 +104,8 @@
   "lightweight_checks": {
     "make check": "passed: 60 Python behavior tests; strict mypy on 25 source files; Ruff; both generated schemas/types; TypeScript; ESLint/Prettier; production build; 3 contract tests and 6 web behavior tests.",
     "make demo": "passed installed synthetic fixture; not model proof.",
-    "make base-check": "passed isolated environment: 29 base tests, 5 installed-fixture tests deselected, zero installed plugins."
+    "make base-check": "passed isolated environment: 29 base tests, 5 installed-fixture tests deselected, zero installed plugins.",
+    "fresh contributor environment": "UV_PROJECT_ENVIRONMENT=.cache/contributor-env uv sync --locked --group app --group fixtures, then make check and make demo in that environment passed. find_spec confirmed pipecat, loguru, kokoro_onnx, faster_whisper and opentavus_local absent."
   },
   "observed_failures": [
     {
@@ -156,8 +157,20 @@
     "LAM installation/removal, photo models, custom GLB/VRM and GPU paths"
   ],
   "publication": {
-    "state": "pending",
-    "repository": "https://github.com/asb108/opentavus"
+    "state": "source_published",
+    "recorded_at_utc": "2026-10-02T16:19:04.327569+00:00",
+    "repository": "https://github.com/asb108/opentavus",
+    "source_commit": "6fbe5a04bc68d9702b993c9aa28eeb274f5a499f",
+    "source_ci": {
+      "conclusion": "success",
+      "databaseId": 37032780671,
+      "headSha": "6fbe5a04bc68d9702b993c9aa28eeb274f5a499f",
+      "status": "completed",
+      "url": "https://github.com/asb108/opentavus/actions/runs/37032780671"
+    },
+    "ci_scope": "Clean Ubuntu contributor build, Python 3.12/Node 22, locked dependencies without inference; fixture demo and isolated plugin-absent core check. This is not Linux model/browser performance proof.",
+    "release_track": "0.1.0-alpha.1 prerelease; full v0.1 quality acceptance remains open",
+    "private_vulnerability_reporting": "enabled and verified through the GitHub API"
   },
   "live_checks": {
     "npm run test:browser": "passed rendered app/settings and 390\u00d7844 overflow check before real calls.",

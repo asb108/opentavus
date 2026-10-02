@@ -36,7 +36,7 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T15](#t15) | G4 | todo | T13 | Unassigned |
 | [T16](#t16) | G4 | todo | T13, T14 | Unassigned |
 | [T17](#t17) | G4 | todo | T11, T13 | Unassigned |
-| [T18](#t18) | G2 | in_progress | T00, T02 | Codex / Atul |
+| [T18](#t18) | G2 | done | T00, T02 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -408,7 +408,7 @@ Evidence:
 
 #### T18: Publish the first local product alpha for community trials
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T00, T02.
+Status: **done**. Owner: Codex / Atul. Dependencies: T00, T02.
 
 Users can try local animated conversation, independent model/voice settings, and a shared teaching board, and contribute through reproducible lightweight checks. Full v0.1 quality and optional portrait requirements remain open.
 
@@ -440,6 +440,10 @@ Owned paths (proposed responsibilities, not an existence check):
 - `.editorconfig`
 - `.prettierrc.json`
 - `eslint.config.mjs`
+- `pyproject.toml`
+- `.github/workflows/core.yml`
+- `.gitattributes`
+- `.gitignore`
 
 Acceptance:
 
@@ -456,7 +460,7 @@ Evidence:
 - 2026-10-02: npm run test:browser -- --live passed on M3 Pro/18 GB/macOS 14.5/Chrome 154: actual local speech, applied formula/equation quiz with feedback, exports, Stop resets, next-call 1.5B/Heart/Orbit to 0.5B/Michael/Lumen, separate transcript IDs/names and user rectangle retention. --microphone passed synthetic WebRTC/Silero/Whisper/Qwen/Kokoro input/output and track release. These are bounded trials; physical acoustics and sustained lifecycle targets remain unverified.
 - 2026-10-02: exact digests, runtime versions, screenshots, synthetic example, per-trial timings and slow/incorrect/rejected results are recorded in docs/releases/0.1.0-alpha.1-evidence.json and linked artifacts. Final warm arithmetic request-to-Worklet-caption 2543.8 ms; equation lesson 8456.4 ms. Local stop/reset samples 15.2-15.8 ms. No percentile/speaker-waveform claim.
 - 2026-10-02: quickstarts, license/model notices, human/agent instructions, style configs, contribution ideas, conduct/governance/security, issue/PR templates and GitHub private vulnerability reporting are prepared. LAM and all optional avatar packages are absent from base checks. Full T01/T03-T09/T13 acceptance remains visible and incomplete.
-- Publication acceptance pending: reviewed commit/push and exact GitHub CI result. This task remains in_progress until publication evidence is recorded.
+- 2026-10-02: reviewed source 6fbe5a04bc68d9702b993c9aa28eeb274f5a499f committed and pushed to https://github.com/asb108/opentavus. GitHub CI https://github.com/asb108/opentavus/actions/runs/37032780671 passed on that exact source: locked model-free contributor checks, fixture demo and isolated no-plugin base check. A fresh local .cache/contributor-env also passed make check/make demo with Pipecat, loguru, Whisper, Kokoro and the local model plugin absent. The first CI caught an optional logging import in mypy; the corrected override preserves the model-free install. This completes only the bounded T18 alpha acceptance.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 
