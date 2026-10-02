@@ -18,7 +18,7 @@ from pydantic import (
     model_validator,
 )
 
-from .contracts import Eligibility, EngineKind, Execution, PayloadFormat, SessionState
+from .contracts import Eligibility, EngineKind, Execution, PayloadFormat, SessionState, VisemeShape
 from .errors import ErrorCode
 
 Identifier = Annotated[str, Field(min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")]
@@ -182,6 +182,12 @@ class TextEvent(EventBase):
     text: Annotated[str, Field(max_length=8192)]
 
 
+class VisemeSpan(Boundary):
+    shape: VisemeShape
+    start_sample: Nonnegative
+    end_sample: Positive
+
+
 class AudioEvent(EventBase):
     type: Literal["audio"]
     utterance_id: Identifier
@@ -191,6 +197,7 @@ class AudioEvent(EventBase):
     channels: Annotated[int, Field(ge=1, le=2)]
     data_b64: Annotated[str, Field(min_length=4, max_length=1048576)]
     caption: Annotated[str, Field(max_length=2000)] = ""
+    visemes: Annotated[list[VisemeSpan], Field(max_length=64)] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def pcm_is_aligned(self) -> Self:
@@ -200,6 +207,14 @@ class AudioEvent(EventBase):
             raise ValueError("PCM must use valid base64") from error
         if not pcm or len(pcm) % (2 * self.channels):
             raise ValueError("PCM must contain complete channel/sample frames")
+        frames = len(pcm) // (2 * self.channels)
+        previous_end = 0
+        for cue in self.visemes:
+            if cue.start_sample < previous_end or cue.end_sample <= cue.start_sample:
+                raise ValueError("Viseme spans must be ordered, positive and non-overlapping")
+            if cue.end_sample > frames:
+                raise ValueError("Viseme spans must remain inside their PCM packet")
+            previous_end = cue.end_sample
         return self
 
 

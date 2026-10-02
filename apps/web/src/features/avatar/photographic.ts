@@ -1,9 +1,23 @@
 import manifest from "../../../../../assets/stock/photographic/manifest.json";
+import type { VisemeSpan } from "@opentavus/contracts";
 import { portraitPose, speechLevel, type Delivery } from "./behavior";
 import { AvatarFailure } from "./failure";
 import type { AvatarRenderer } from "./renderer";
 
-/** Trusted, prepared photographic frames. Live calls never load inference models. */
+type Shape = VisemeSpan["shape"];
+const shapes: Shape[] = ["rest", "closed", "open", "wide", "round", "pucker", "teeth", "tongue"];
+const openness: Record<Shape, number> = {
+  rest: 0,
+  closed: 0,
+  open: 1,
+  wide: 0.55,
+  round: 0.7,
+  pucker: 0.25,
+  teeth: 0.15,
+  tongue: 0.3,
+};
+
+/** Prepared neural portrait frames; live calls need neither WebGL nor inference. */
 export async function createPhotographic(
   canvas: HTMLCanvasElement,
   signal: AbortSignal,
@@ -16,14 +30,39 @@ export async function createPhotographic(
     );
   if (
     manifest.eligibility !== "reviewed_permissive" ||
-    manifest.tile !== 384 ||
-    manifest.grid !== 6
+    manifest.tile !== 512 ||
+    manifest.grid !== 6 ||
+    manifest.poses !== 4 ||
+    JSON.stringify(manifest.visemes) !== JSON.stringify(shapes)
   )
     throw new AvatarFailure(
       "asset_unavailable",
       "Photographic assets are not prepared. Choose another character and rebuild the app.",
     );
+  const size = manifest.tile;
   const images = new Map<Delivery, ImageBitmap>();
+  const overlay = new OffscreenCanvas(size, size);
+  const overlayContext = overlay.getContext("2d");
+  if (!overlayContext)
+    throw new AvatarFailure(
+      "unsupported_graphics",
+      "Portrait compositing is unavailable. Choose a static portrait.",
+    );
+  // Soft masks replace only a coherent facial region; lip changes never fade the entire face.
+  const mask = (x: number, y: number, width: number, height: number) => {
+    const surface = new OffscreenCanvas(size, size);
+    const ctx = surface.getContext("2d")!;
+    ctx.translate(x * size, y * size);
+    ctx.scale(width * size, height * size);
+    const gradient = ctx.createRadialGradient(0, 0, 0.65, 0, 0, 1);
+    gradient.addColorStop(0, "white");
+    gradient.addColorStop(1, "transparent");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(-1, -1, 2, 2);
+    return surface;
+  };
+  const mouthMask = mask(0.505, 0.556, 0.23, 0.145);
+  const eyeMask = mask(0.5, 0.357, 0.225, 0.095);
   let disposed = false;
   let frame = 0;
   const dispose = () => {
@@ -33,6 +72,7 @@ export async function createPhotographic(
     signal.removeEventListener("abort", dispose);
     for (const image of images.values()) image.close();
     images.clear();
+    for (const surface of [overlay, mouthMask, eyeMask]) surface.width = surface.height = 1;
   };
   signal.addEventListener("abort", dispose, { once: true });
   try {
@@ -52,78 +92,79 @@ export async function createPhotographic(
       ).join("");
       if (hash !== asset.sha256) throw new Error("Invalid photographic checksum");
       const image = await createImageBitmap(new Blob([bytes], { type: "image/webp" }));
-      if (disposed || signal.aborted || image.width !== 2304 || image.height !== 2304) {
+      if (disposed || signal.aborted || image.width !== size * 6 || image.height !== size * 6) {
         image.close();
         throw new Error("Photographic preparation was cancelled or malformed");
       }
       images.set(asset.id as Delivery, image);
     }
     if (images.size !== 4) throw new Error("Photographic expressions are incomplete");
-    canvas.width = canvas.height = 384;
+    canvas.width = canvas.height = size;
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
     let level = 0;
-    let mouth = 0;
+    let timedShape: Shape | null = "rest";
     let listening = false;
     let delivery: Delivery = "neutral";
-    let current: Delivery = "neutral";
-    let previous: Delivery = "neutral";
-    let transition = -Infinity;
     let last = -Infinity;
-    const tile = (image: ImageBitmap, index: number, opacity: number) => {
+    let cue = 0;
+    let cueReceivedAt = 0;
+    const tile = (
+      ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+      image: ImageBitmap,
+      index: number,
+      opacity: number,
+    ) => {
       if (opacity <= 0) return;
-      context.globalAlpha = opacity;
-      context.drawImage(
+      ctx.globalAlpha = opacity;
+      ctx.drawImage(
         image,
-        (index % 6) * 384,
-        Math.floor(index / 6) * 384,
-        384,
-        384,
+        (index % 6) * size,
+        Math.floor(index / 6) * size,
+        size,
+        size,
         0,
         0,
-        384,
-        384,
+        size,
+        size,
       );
+    };
+    const region = (image: ImageBitmap, index: number, mask: OffscreenCanvas) => {
+      overlayContext.globalCompositeOperation = "source-over";
+      overlayContext.globalAlpha = 1;
+      overlayContext.clearRect(0, 0, size, size);
+      tile(overlayContext, image, index, 1);
+      overlayContext.globalAlpha = 1;
+      overlayContext.globalCompositeOperation = "destination-in";
+      overlayContext.drawImage(mask, 0, 0);
+      context.globalAlpha = 1;
+      context.drawImage(overlay, 0, 0);
     };
     const render = (now: number, immediate = false) => {
       if (disposed) return;
       if (!immediate && (document.hidden || now - last < 1000 / 30 - 0.5)) return;
       last = now;
-      // Level zero closes immediately; smoothing only shapes ongoing speech.
-      mouth = level === 0 ? 0 : mouth + (level - mouth) * 0.6;
-      const desired = listening && level === 0 ? "attentive" : delivery;
-      if (desired !== current) {
-        previous = current;
-        current = desired;
-        transition = now;
-      }
-      const expressionMix = Math.min(1, (now - transition) / 220);
-      const pose = portraitPose(now, reducedMotion.matches);
-      const position = mouth * 3;
-      const lower = Math.floor(position);
-      const upper = Math.min(3, lower + 1);
-      const mix = position - lower;
+      const current = listening && level === 0 ? "attentive" : delivery;
+      const shape = timedShape ?? (level === 0 ? "rest" : level > 0.6 ? "open" : "wide");
+      const pose = portraitPose(now, reducedMotion.matches, manifest.poses);
       const image = images.get(current)!;
-      // Normalize each compositing step so bilinear weights sum to one.
-      const weights = [
-        [pose.phase * 4 + lower, (1 - pose.mix) * (1 - mix)],
-        [pose.phase * 4 + upper, (1 - pose.mix) * mix],
-        [pose.next * 4 + lower, pose.mix * (1 - mix)],
-        [pose.next * 4 + upper, pose.mix * mix],
-      ];
-      let total = 0;
-      for (const [index, weight] of weights) {
-        if (weight <= 0) continue;
-        total += weight;
-        tile(image, index, weight / total);
+      // One coherent head pose avoids doubled eyes/hair from crossfading photographs.
+      const head = pose.mix < 0.5 ? pose.phase : pose.next;
+      tile(context, image, head * 8, 1);
+      const index = shapes.indexOf(shape);
+      if (index > 0) region(image, head * 8 + index, mouthMask);
+      if (pose.blink > 0) {
+        region(image, 32 + Math.min(3, Math.floor(pose.blink * 4)), eyeMask);
       }
-      if (mouth === 0 && pose.blink > 0) {
-        const index = Math.min(2, Math.floor(pose.blink * 3));
-        tile(image, 32 + index, pose.blink);
-      }
-      if (expressionMix < 1) tile(images.get(previous)!, pose.phase * 4 + lower, 1 - expressionMix);
       context.globalAlpha = 1;
       canvas.dataset.expression = current;
-      canvas.dataset.mouth = String(mouth);
+      canvas.dataset.mouth = String(openness[shape]);
+      canvas.dataset.viseme = shape;
+      canvas.dataset.timing = timedShape === null ? "energy-fallback" : "phoneme";
+      if (canvas.dataset.cue !== String(cue)) {
+        canvas.dataset.cue = String(cue);
+        canvas.dataset.cueReceivedAt = String(cueReceivedAt);
+        canvas.dataset.cueRenderedAt = String(performance.now());
+      }
     };
     const draw = (now: number) => {
       if (disposed) return;
@@ -136,7 +177,14 @@ export async function createPhotographic(
       setLevel(value) {
         if (disposed) return;
         level = speechLevel(value);
-        if (level === 0 && mouth > 0) render(performance.now(), true);
+      },
+      setViseme(shape) {
+        if (disposed) return;
+        timedShape = shape;
+        cueReceivedAt = performance.now();
+        cue++;
+        // Stop closes immediately; ordinary articulation retains the 30 FPS cap.
+        if (shape === "rest" && level === 0) render(cueReceivedAt, true);
       },
       setListening(value) {
         listening = value;

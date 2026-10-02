@@ -8,7 +8,7 @@ The alpha's lightweight checks cover generation cancellation, contiguous PCM sam
 
 Opt-in Playwright CLI checks drive Chrome with installed local models. Record generated speech reaching the Worklet, actual canvas acknowledgements, stop/reset behavior, and selection changes separately from server-send timing. Synthetic microphone capture verifies the WebRTC/VAD/STT route without recording a person's environment; it does not prove physical microphone acoustics, speaker echo cancellation, or accessibility across every browser.
 
-The companion uses the energy of played audio for mouth movement. This is an audio-driven animation preview; it does not satisfy a phoneme lip-sync quality claim. Serial board planning/render acknowledgement adds delay before the spoken lesson. Small-model factual errors and rejected tool output must be included in evidence. The 100-turn latency percentiles, 20-minute/cycle reliability, natural-turn detection, physical speaker echo, media-route comparison, and additional platform profiles remain open.
+Photographic Mira uses model-derived phoneme cues on the actual played-sample clock. Untimed engines and the other characters use played-audio energy. Cue scheduling is measurable separately from perceptual phoneme accuracy; neither fixture tests nor a 30 FPS counter establish realistic human speech. Serial board planning/render acknowledgement adds delay before the spoken lesson. Small-model factual errors and rejected tool output must be included in evidence. The 100-turn latency percentiles, 20-minute/cycle reliability, natural-turn detection, physical speaker echo, media-route comparison, and additional platform profiles remain open.
 
 T21's [stock-human preview check](releases/browser-human-evidence.json) measured
 approximately 30 FPS over five seconds at 384 × 384 on M3 Pro, with a 34.1 ms
@@ -40,12 +40,25 @@ or the speed of a weaker processor. Keep PC claims separate.
 
 This establishes bounded prepared photographic playback, not full human behavior.
 The source identity is consistent in inspected expression frames and sampled
-capture frames, but teeth/eye texture and crossfade artifacts can occur. The
-mouth follows amplitude rather than consonant/vowel timing. A single synthetic
+capture frames, but teeth/eye texture and crossfade artifacts can occur. That T22 version's
+mouth followed amplitude rather than consonant/vowel timing and was rejected by
+the user for its appearance and lack of lip-sync. A single synthetic
 utterance/Stop and a seven-second cadence sample do not satisfy the multiple-face,
 100-turn, 20-minute, physical-acoustic, weak-PC or precise lip-sync gates. MPS
 preparation had CPU fallback enabled; no profiler proof establishes which
 individual operations executed on which processor.
+
+T23 replaces amplitude-only photographic articulation with bounded packet-relative
+phoneme cues from Kokoro's existing duration-enabled export, distinct prepared
+mouth shapes, native 512-pixel tiles, and mouth-region compositing. Its
+[timed portrait evidence](releases/phoneme-portrait-evidence.json) records real
+model/browser checks and a normal-speed capture. Targets for this bounded slice
+are 30 FPS drawing and at most 80 ms Worklet-cue-receipt-to-completed-Canvas draw.
+Report coalesced/short cues and visual artifacts. This scheduling result excludes
+DAC output latency and independent acoustic/perceptual alignment; the full v0.1
+lip-sync gate below stays open. A finite portrait bank is not demonstrated Tavus
+quality or full natural human behavior. Windows, weak-PC and long-call checks
+remain separate acceptance work.
 
 ## Reference profiles and timing
 

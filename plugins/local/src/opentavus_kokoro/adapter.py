@@ -1,17 +1,83 @@
 """Kokoro ONNX with bounded phrase synthesis and generation cancellation."""
 
 import asyncio
+import math
 import threading
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Sequence
 from pathlib import Path
-from typing import Any
+from typing import Any, Protocol
 
 from opentavus_core.contracts import (
     AdapterConfiguration,
     AdapterContext,
     AudioOutput,
     Generation,
+    VisemeCue,
+    VisemeShape,
 )
+
+
+class PhonemeTiming(Protocol):
+    phoneme: str
+    start: float
+    end: float
+
+
+def phoneme_shape(phoneme: str) -> VisemeShape:
+    """Map Kokoro IPA to a small, replaceable set of prepared mouth shapes.
+
+    Contribution point: refine these groups for a reviewed language/face. Unknown
+    symbols rest; this is visual articulation, not a claim of anatomical accuracy.
+    """
+    groups: tuple[tuple[str, VisemeShape], ...] = (
+        ("mbp", "closed"),
+        ("fv", "teeth"),
+        ("tdnlθðɾ", "tongue"),
+        ("uwʊ", "pucker"),
+        ("oɔɒ", "round"),
+        ("ieɪɛæj", "wide"),
+        ("aɑʌəɜɐɚɝ", "open"),
+        ("szʃʒʧʤkɡgɹrŋh", "teeth"),
+    )
+    return next((shape for symbols, shape in groups if phoneme in symbols and phoneme), "rest")
+
+
+def sample_cues(timings: Sequence[PhonemeTiming], frames: int) -> tuple[VisemeCue, ...]:
+    """Validate model timings, filling silence on the actual returned waveform clock."""
+    cues: list[VisemeCue] = []
+    previous = 0
+    for index, timing in enumerate(timings):
+        if not math.isfinite(timing.start) or not math.isfinite(timing.end):
+            raise ValueError("Speech phoneme timings must be finite")
+        start, end = round(timing.start * 24000), round(timing.end * 24000)
+        if start < 0 or end < start or start < previous or end > frames:
+            raise ValueError("Speech phoneme timings must fit the returned waveform")
+        if start > previous:
+            cues.append(VisemeCue("rest", previous, start))
+        if end > start:
+            shape = phoneme_shape(timing.phoneme)
+            # Kokoro assigns time to IPA stress/length marks. They carry the vowel,
+            # not silence: stress anticipates it, length holds the preceding shape.
+            if timing.phoneme in {"ˈ", "ˌ"} and index + 1 < len(timings):
+                shape = phoneme_shape(timings[index + 1].phoneme)
+            elif timing.phoneme == "ː" and cues:
+                shape = cues[-1].shape
+            if cues and cues[-1].shape == shape and cues[-1].end_sample == start:
+                cues[-1] = VisemeCue(shape, cues[-1].start_sample, end)
+            else:
+                cues.append(VisemeCue(shape, start, end))
+        previous = end
+    if timings and previous < frames:
+        cues.append(VisemeCue("rest", previous, frames))
+    return tuple(cues)
+
+
+def packet_cues(cues: tuple[VisemeCue, ...], start: int, end: int) -> tuple[VisemeCue, ...]:
+    return tuple(
+        VisemeCue(cue.shape, max(start, cue.start_sample) - start, min(end, cue.end_sample) - start)
+        for cue in cues
+        if cue.start_sample < end and cue.end_sample > start
+    )
 
 
 class KokoroAdapter:
@@ -39,11 +105,11 @@ class KokoroAdapter:
 
         self._model = await asyncio.to_thread(load)
 
-    def _synthesize(self, text: str) -> bytes:
+    def _synthesize(self, text: str) -> tuple[bytes, tuple[VisemeCue, ...]]:
         import numpy as np
 
         with self._lock:
-            samples, rate = self._model.create(
+            samples, rate, timings = self._model.create_timed(
                 text,
                 voice=self.voice,
                 speed=1.05,
@@ -51,7 +117,8 @@ class KokoroAdapter:
             )
             if rate != 24000:
                 raise ValueError("Kokoro returned an unsupported sample rate")
-            return bytes((np.clip(samples, -1, 1) * 32767).astype("<i2").tobytes())
+            pcm = bytes((np.clip(samples, -1, 1) * 32767).astype("<i2").tobytes())
+            return pcm, sample_cues(timings, len(pcm) // 2)
 
     async def speak(
         self, text: AsyncIterator[str], context: AdapterContext
@@ -62,7 +129,7 @@ class KokoroAdapter:
             context.cancellation.check()
             if len(phrase) > 500:
                 raise ValueError("Synthesis phrase exceeds 500 characters")
-            pcm = await asyncio.to_thread(self._synthesize, phrase)
+            pcm, cues = await asyncio.to_thread(self._synthesize, phrase)
             context.cancellation.check()
             # 80 ms packets: a large phrase never enters the network as one huge frame.
             for start in range(0, len(pcm), 3840):
@@ -76,6 +143,7 @@ class KokoroAdapter:
                     block,
                     24000,
                     1,
+                    packet_cues(cues, start // 2, (start + len(block)) // 2),
                 )
                 sample += len(block) // 2
                 sequence += 1

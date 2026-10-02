@@ -26,19 +26,20 @@ LivePortrait's pinned MIT core animates the manually aligned source without
 InsightFace or landmark weights. Preparation uses its appearance/motion/warping/
 generator/stitching/retargeting models and declared approximate eye/lip ratios.
 It prepares neutral, warm, attentive and thoughtful faces, subtle head phases,
-mouth levels and blink keys. The browser draws the locally bundled WebP sheets
-against played-audio energy and closes speech movement immediately on Stop.
+eight controlled mouth shapes and blink keys. The browser draws the locally bundled WebP sheets
+against Kokoro phoneme timings on the played-audio sample clock and closes speech movement immediately on Stop.
 These are presentation expressions, not inference about the user's emotions.
 
 The asset [manifest](manifest.json) pins sources, hashes and preparation records.
-Four 2304 × 2304 sheets contain 36 native 384 × 384 tiles each, with bounded
-decoded memory of approximately 81 MiB. Static mode uses only the poster. Source
+Four 3072 × 3072 sheets contain 36 native 512 × 512 tiles each, with bounded
+decoded memory of approximately 144 MiB. Static mode uses only the poster. Source
 images and preparation models are not copied into browser public assets. Prepared
 assets are distributed under [CC0](LICENSE.txt) to the extent of held rights;
 the engine and app retain their own licenses.
 
-Inspect changes at native playback speed. Mouth levels are approximate and cannot
-distinguish consonants/vowels. Eye/teeth texture and subtle transition artifacts
+Inspect changes at native playback speed. Mouth geometry is approximate. The cues distinguish broad
+consonant/vowel groups; tongue/teeth texture is not detailed anatomical articulation.
+Only a feathered mouth region changes for speech, independently of head and eye motion. Eye/teeth texture and subtle transition artifacts
 can occur. Full natural interaction/prosody, exact lip timing, long-call resources
 and weak-PC performance still require separate evidence. Do not relabel a static
 camera pan, 3D face or mocked speech check as photographic human-video proof.

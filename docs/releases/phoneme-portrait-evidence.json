@@ -1,0 +1,1089 @@
+{
+  "task": "T23",
+  "date": "2026-10-03",
+  "status": "local verification passed; publication pending",
+  "reference": {
+    "hardware": "Apple M3 Pro, 18 GB RAM",
+    "os": "macOS 14.5",
+    "browser": "Chrome",
+    "python": "3.12.11",
+    "node": "26.8.2",
+    "speech_profile": "CPU Kokoro ONNX af_heart, local Ollama Qwen2.5 1.5B"
+  },
+  "problem": "User rejected T22 appearance and amplitude-only mouth movement despite 30 FPS playback.",
+  "changes": [
+    "Duration-enabled existing Kokoro model via pinned create_timed; no new alignment model",
+    "IPA stress/length handling, bounded packet-relative spans, shared resampled Worklet sample clock",
+    "Four head poses, eight speech states, native 512-pixel prepared tiles",
+    "Single coherent head pose and softly masked mouth/eye regions; whole-face phoneme/head crossfades removed",
+    "Reset flushes PCM/cues together; static/corrupt-asset/cancellation/unavailable-Canvas recovery retained"
+  ],
+  "targets": {
+    "browser_fps": 30,
+    "cue_receipt_to_canvas_max_ms": 80,
+    "boundary": "Scheduling, not independent acoustic or perceptual phoneme alignment"
+  },
+  "live_final": {
+    "idle": {
+      "frames": 210,
+      "durationMs": 6966.5,
+      "fps": 30.00071772051963,
+      "p95GapMs": 34.09999999962747,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 419.90000000037253
+    },
+    "width": 512,
+    "height": 512,
+    "decodedRGBABytes": 150994944,
+    "graphicsMode": "default-browser",
+    "live": {
+      "stopClickToWorkletAckMs": 48.29999999888241,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 151,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ],
+      "staleVisemes": 0,
+      "drawing": {
+        "frames": 158,
+        "fps": 30.00707173027184,
+        "p95GapMs": 34.29999999888241,
+        "gapsOver100Ms": 0
+      },
+      "visemeScheduling": {
+        "receivedCues": 69,
+        "renderedCues": 64,
+        "coalescedOrFrameWindowBoundary": 5,
+        "observedShapes": [
+          "teeth",
+          "open",
+          "tongue",
+          "round",
+          "pucker",
+          "rest",
+          "wide",
+          "closed"
+        ],
+        "p95Ms": 30.5,
+        "maxMs": 32.90000000037253,
+        "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
+      },
+      "cueTrace": [
+        {
+          "id": "3",
+          "shape": "teeth",
+          "received": 10091.700000001118,
+          "rendered": 10099.300000000745,
+          "latencyMs": 7.599999999627471
+        },
+        {
+          "id": "4",
+          "shape": "open",
+          "received": 10145,
+          "rendered": 10166,
+          "latencyMs": 21
+        },
+        {
+          "id": "5",
+          "shape": "tongue",
+          "received": 10193,
+          "rendered": 10199.300000000745,
+          "latencyMs": 6.300000000745058
+        },
+        {
+          "id": "6",
+          "shape": "round",
+          "received": 10241.099999999627,
+          "rendered": 10266,
+          "latencyMs": 24.90000000037253
+        },
+        {
+          "id": "7",
+          "shape": "pucker",
+          "received": 10416.900000000373,
+          "rendered": 10432.5,
+          "latencyMs": 15.599999999627471
+        },
+        {
+          "id": "8",
+          "shape": "rest",
+          "received": 10768.900000000373,
+          "rendered": 10799.400000000373,
+          "latencyMs": 30.5
+        },
+        {
+          "id": "9",
+          "shape": "pucker",
+          "received": 10913.099999999627,
+          "rendered": 10932.200000001118,
+          "latencyMs": 19.100000001490116
+        },
+        {
+          "id": "10",
+          "shape": "wide",
+          "received": 10960.900000000373,
+          "rendered": 10966.599999999627,
+          "latencyMs": 5.699999999254942
+        },
+        {
+          "id": "11",
+          "shape": "tongue",
+          "received": 11062.300000000745,
+          "rendered": 11065.800000000745,
+          "latencyMs": 3.5
+        },
+        {
+          "id": "12",
+          "shape": "teeth",
+          "received": 11115.700000001118,
+          "rendered": 11132.5,
+          "latencyMs": 16.799999998882413
+        },
+        {
+          "id": "13",
+          "shape": "open",
+          "received": 11190.300000000745,
+          "rendered": 11199.200000001118,
+          "latencyMs": 8.900000000372529
+        },
+        {
+          "id": "15",
+          "shape": "rest",
+          "received": 11265,
+          "rendered": 11265.800000000745,
+          "latencyMs": 0.8000000007450581
+        },
+        {
+          "id": "16",
+          "shape": "open",
+          "received": 11313,
+          "rendered": 11332.5,
+          "latencyMs": 19.5
+        },
+        {
+          "id": "17",
+          "shape": "closed",
+          "received": 11361,
+          "rendered": 11365.900000000373,
+          "latencyMs": 4.900000000372529
+        },
+        {
+          "id": "18",
+          "shape": "round",
+          "received": 11414.300000000745,
+          "rendered": 11432.5,
+          "latencyMs": 18.199999999254942
+        },
+        {
+          "id": "19",
+          "shape": "teeth",
+          "received": 11611.700000001118,
+          "rendered": 11632.599999999627,
+          "latencyMs": 20.899999998509884
+        },
+        {
+          "id": "20",
+          "shape": "tongue",
+          "received": 11686.300000000745,
+          "rendered": 11699.099999999627,
+          "latencyMs": 12.799999998882413
+        },
+        {
+          "id": "21",
+          "shape": "rest",
+          "received": 11937.099999999627,
+          "rendered": 11966,
+          "latencyMs": 28.90000000037253
+        },
+        {
+          "id": "22",
+          "shape": "teeth",
+          "received": 12113,
+          "rendered": 12132.599999999627,
+          "latencyMs": 19.59999999962747
+        },
+        {
+          "id": "23",
+          "shape": "round",
+          "received": 12139.800000000745,
+          "rendered": 12166,
+          "latencyMs": 26.199999999254942
+        },
+        {
+          "id": "24",
+          "shape": "pucker",
+          "received": 12241,
+          "rendered": 12266,
+          "latencyMs": 25
+        },
+        {
+          "id": "25",
+          "shape": "tongue",
+          "received": 12289,
+          "rendered": 12298.900000000373,
+          "latencyMs": 9.900000000372529
+        },
+        {
+          "id": "26",
+          "shape": "round",
+          "received": 12337,
+          "rendered": 12365.599999999627,
+          "latencyMs": 28.59999999962747
+        },
+        {
+          "id": "27",
+          "shape": "pucker",
+          "received": 12390.400000000373,
+          "rendered": 12398.700000001118,
+          "latencyMs": 8.300000000745058
+        },
+        {
+          "id": "28",
+          "shape": "teeth",
+          "received": 12464.900000000373,
+          "rendered": 12465.900000000373,
+          "latencyMs": 1
+        },
+        {
+          "id": "29",
+          "shape": "wide",
+          "received": 12513,
+          "rendered": 12532.400000000373,
+          "latencyMs": 19.40000000037253
+        },
+        {
+          "id": "30",
+          "shape": "tongue",
+          "received": 12566.300000000745,
+          "rendered": 12599.200000001118,
+          "latencyMs": 32.90000000037253
+        },
+        {
+          "id": "31",
+          "shape": "open",
+          "received": 12662.599999999627,
+          "rendered": 12666,
+          "latencyMs": 3.400000000372529
+        },
+        {
+          "id": "32",
+          "shape": "teeth",
+          "received": 12737.099999999627,
+          "rendered": 12765,
+          "latencyMs": 27.90000000037253
+        },
+        {
+          "id": "33",
+          "shape": "wide",
+          "received": 12790.400000000373,
+          "rendered": 12799.400000000373,
+          "latencyMs": 9
+        },
+        {
+          "id": "34",
+          "shape": "teeth",
+          "received": 12913.099999999627,
+          "rendered": 12932.300000000745,
+          "latencyMs": 19.200000001117587
+        },
+        {
+          "id": "35",
+          "shape": "rest",
+          "received": 13062.400000000373,
+          "rendered": 13065.800000000745,
+          "latencyMs": 3.400000000372529
+        },
+        {
+          "id": "36",
+          "shape": "wide",
+          "received": 13137,
+          "rendered": 13165,
+          "latencyMs": 28
+        },
+        {
+          "id": "37",
+          "shape": "teeth",
+          "received": 13190.300000000745,
+          "rendered": 13199.200000001118,
+          "latencyMs": 8.900000000372529
+        },
+        {
+          "id": "39",
+          "shape": "tongue",
+          "received": 13265.099999999627,
+          "rendered": 13265.800000000745,
+          "latencyMs": 0.7000000011175871
+        },
+        {
+          "id": "40",
+          "shape": "open",
+          "received": 13291.700000001118,
+          "rendered": 13299.200000001118,
+          "latencyMs": 7.5
+        },
+        {
+          "id": "41",
+          "shape": "rest",
+          "received": 13313,
+          "rendered": 13332.5,
+          "latencyMs": 19.5
+        },
+        {
+          "id": "42",
+          "shape": "closed",
+          "received": 13366.400000000373,
+          "rendered": 13398.599999999627,
+          "latencyMs": 32.19999999925494
+        },
+        {
+          "id": "43",
+          "shape": "teeth",
+          "received": 13414.5,
+          "rendered": 13431.800000000745,
+          "latencyMs": 17.300000000745058
+        },
+        {
+          "id": "44",
+          "shape": "open",
+          "received": 13441,
+          "rendered": 13466,
+          "latencyMs": 25
+        },
+        {
+          "id": "45",
+          "shape": "teeth",
+          "received": 13617.099999999627,
+          "rendered": 13632.700000001118,
+          "latencyMs": 15.600000001490116
+        },
+        {
+          "id": "46",
+          "shape": "wide",
+          "received": 13713,
+          "rendered": 13732.099999999627,
+          "latencyMs": 19.09999999962747
+        },
+        {
+          "id": "47",
+          "shape": "teeth",
+          "received": 13787.800000000745,
+          "rendered": 13799.200000001118,
+          "latencyMs": 11.400000000372529
+        },
+        {
+          "id": "48",
+          "shape": "rest",
+          "received": 13862.400000000373,
+          "rendered": 13865.800000000745,
+          "latencyMs": 3.400000000372529
+        },
+        {
+          "id": "49",
+          "shape": "closed",
+          "received": 13915.900000000373,
+          "rendered": 13932,
+          "latencyMs": 16.09999999962747
+        },
+        {
+          "id": "50",
+          "shape": "open",
+          "received": 13964,
+          "rendered": 13965.900000000373,
+          "latencyMs": 1.900000000372529
+        },
+        {
+          "id": "51",
+          "shape": "wide",
+          "received": 14017,
+          "rendered": 14032.599999999627,
+          "latencyMs": 15.599999999627471
+        },
+        {
+          "id": "53",
+          "shape": "pucker",
+          "received": 14065.099999999627,
+          "rendered": 14065.800000000745,
+          "latencyMs": 0.7000000011175871
+        },
+        {
+          "id": "54",
+          "shape": "wide",
+          "received": 14091.599999999627,
+          "rendered": 14098.5,
+          "latencyMs": 6.900000000372529
+        },
+        {
+          "id": "55",
+          "shape": "tongue",
+          "received": 14139.599999999627,
+          "rendered": 14165.800000000745,
+          "latencyMs": 26.200000001117587
+        },
+        {
+          "id": "56",
+          "shape": "teeth",
+          "received": 14187.700000001118,
+          "rendered": 14199.200000001118,
+          "latencyMs": 11.5
+        },
+        {
+          "id": "57",
+          "shape": "rest",
+          "received": 14241,
+          "rendered": 14265.099999999627,
+          "latencyMs": 24.09999999962747
+        },
+        {
+          "id": "58",
+          "shape": "closed",
+          "received": 14289.099999999627,
+          "rendered": 14299.200000001118,
+          "latencyMs": 10.100000001490116
+        },
+        {
+          "id": "60",
+          "shape": "wide",
+          "received": 14363.800000000745,
+          "rendered": 14365.900000000373,
+          "latencyMs": 2.099999999627471
+        },
+        {
+          "id": "61",
+          "shape": "tongue",
+          "received": 14491.700000001118,
+          "rendered": 14499.300000000745,
+          "latencyMs": 7.599999999627471
+        },
+        {
+          "id": "62",
+          "shape": "teeth",
+          "received": 14566.400000000373,
+          "rendered": 14599.099999999627,
+          "latencyMs": 32.69999999925494
+        },
+        {
+          "id": "63",
+          "shape": "rest",
+          "received": 14614.400000000373,
+          "rendered": 14631.599999999627,
+          "latencyMs": 17.199999999254942
+        },
+        {
+          "id": "64",
+          "shape": "teeth",
+          "received": 14662.5,
+          "rendered": 14665.900000000373,
+          "latencyMs": 3.400000000372529
+        },
+        {
+          "id": "65",
+          "shape": "open",
+          "received": 14715.800000000745,
+          "rendered": 14732.599999999627,
+          "latencyMs": 16.799999998882413
+        },
+        {
+          "id": "66",
+          "shape": "tongue",
+          "received": 14763.900000000373,
+          "rendered": 14766.099999999627,
+          "latencyMs": 2.199999999254942
+        },
+        {
+          "id": "68",
+          "shape": "open",
+          "received": 14865.099999999627,
+          "rendered": 14866,
+          "latencyMs": 0.900000000372529
+        },
+        {
+          "id": "69",
+          "shape": "tongue",
+          "received": 15014.5,
+          "rendered": 15032.599999999627,
+          "latencyMs": 18.09999999962747
+        },
+        {
+          "id": "70",
+          "shape": "rest",
+          "received": 15062.400000000373,
+          "rendered": 15065,
+          "latencyMs": 2.599999999627471
+        },
+        {
+          "id": "71",
+          "shape": "teeth",
+          "received": 15137.099999999627,
+          "rendered": 15165.400000000373,
+          "latencyMs": 28.300000000745058
+        }
+      ]
+    },
+    "closedImageBitmaps": 4,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "software_final": {
+    "idle": {
+      "frames": 210,
+      "durationMs": 6966.800000000745,
+      "fps": 29.999425848305915,
+      "p95GapMs": 34.19999999925494,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 422.19999999925494
+    },
+    "width": 512,
+    "height": 512,
+    "decodedRGBABytes": 150994944,
+    "graphicsMode": "gpu-disabled-software-canvas",
+    "graphicsFeatures": {
+      "2d_canvas": "disabled_software",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "disabled_software",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "disabled_off",
+      "rasterization": "disabled_software",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "disabled_off",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "disabled_software",
+      "video_encode": "disabled_software",
+      "webgl": "unavailable_software",
+      "webgpu": "unavailable_software",
+      "webnn": "unavailable_software"
+    },
+    "closedImageBitmaps": 4,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "initial_live": {
+    "idle": {
+      "frames": 209,
+      "durationMs": 6949.4000000003725,
+      "fps": 29.930641494228112,
+      "p95GapMs": 34.20000000111759,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 452.09999999962747
+    },
+    "width": 512,
+    "height": 512,
+    "decodedRGBABytes": 150994944,
+    "graphicsMode": "default-browser",
+    "closedImageBitmaps": 4,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true,
+    "live": {
+      "stopClickToWorkletAckMs": 51.40000000037253,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 152,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ],
+      "staleVisemes": 0,
+      "visemeScheduling": {
+        "renderedCues": 61,
+        "observedShapes": [
+          "teeth",
+          "open",
+          "tongue",
+          "round",
+          "pucker",
+          "rest",
+          "wide",
+          "closed"
+        ],
+        "p95Ms": 29.700000001117587,
+        "maxMs": 34,
+        "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
+      }
+    },
+    "review": "Scheduling passed but head crossfades still doubled eye/hair edges. Removed crossfades and repeated real/graphics checks."
+  },
+  "preparation": "../../benchmarks/portrait/prepared/phoneme-preparation-result.json",
+  "real_model_timing": "../../benchmarks/portrait/prepared/kokoro-timing-result.json",
+  "capture": {
+    "file": "phoneme-portrait-preview.webm",
+    "sha256": "a685a988369c6a163f80f8ff1e35af0e5499598e2eb1e1f5e366be5339d480ef",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 512,
+          "height": 512,
+          "r_frame_rate": "60/1",
+          "nb_read_frames": "191"
+        },
+        {
+          "codec_name": "opus",
+          "r_frame_rate": "0/0",
+          "nb_read_frames": "113"
+        }
+      ],
+      "format": {
+        "duration": "6.826000",
+        "size": "1000698"
+      }
+    },
+    "method": "Native canvas.captureStream(30) and MediaStreamDestination from the same actual AudioWorklet AudioContext; VP8/Opus. FFmpeg stream copy adds seekable duration metadata only; no resize, frame interpolation, speed or lip-offset adjustment.",
+    "source_sha256": "fbe5c47dc577b889c62590c629424d4b66bd84e150015001a9ed45da39fcf846",
+    "visual_review": "Reviewed selected closed/open/wide/rounded preparation probes and multiple actual speaking capture frames at native size. Coherent eyes/hair after removing head fades; visible consonant/vowel changes. Finite repeated poses, abrupt shape/pose transitions, approximate round/pucker geometry and generated teeth remain. Two cue transitions were coalesced or outside the measured frame window; anatomical/perceptual precision is not established. A repeated final check separately measured actual live Canvas drawing cadence and encoded capture timestamps; short cues can coalesce before a 30 FPS draw.",
+    "frame_timestamps": {
+      "frames": 191,
+      "span_seconds": 6.766,
+      "average_encoded_fps": 28.08158439255099,
+      "p95_gap_ms": 65.99999999999983,
+      "maximum_gap_ms": 68.00000000000006,
+      "gaps_over_100_ms": 0,
+      "boundary": "Native variable-frame-rate recording, separate from Canvas drawing cadence; nominal r_frame_rate is not measured FPS."
+    }
+  },
+  "checks": {
+    "make_check": "103 Python tests, 3 generated-contract tests, 14 web behavior tests, strict Python/TypeScript, styles, generated schema and build passed",
+    "make_demo": "Installed synthetic fixture PCM/discovery passed; no live timing claim",
+    "make_base_check": "37 passed, 5 fixture tests deselected; no installed plugins; separate .cache/base-env",
+    "fresh_contributor_environment": "UV_PROJECT_ENVIRONMENT=.cache/contribution-env uv sync --locked --group app --group fixtures; same environment uv run --no-sync pytest -q: 103 passed. Plugin timing tests load the optional adapter source without installing plugins, NumPy, ONNX or weights."
+  },
+  "unverified": [
+    "Independent waveform/phoneme acoustic alignment and full P95 lip-sync gate",
+    "Full natural human/emotional behavior or Tavus equivalence",
+    "100 representative turns, 20-minute calls and repeated lifecycle reliability",
+    "Windows/weak-PC performance; software Canvas evidence is on the named Mac, not CPU-only Ollama proof",
+    "Multiple face/custom imports and live neural avatar video"
+  ],
+  "publication": null,
+  "earlier_coherent_capture": {
+    "live": {
+      "stopClickToWorkletAckMs": 51.30000000074506,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 145,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ],
+      "staleVisemes": 0,
+      "visemeScheduling": {
+        "receivedCues": 56,
+        "renderedCues": 54,
+        "coalescedOrFrameWindowBoundary": 2,
+        "observedShapes": [
+          "teeth",
+          "open",
+          "tongue",
+          "round",
+          "pucker",
+          "rest",
+          "wide",
+          "closed"
+        ],
+        "p95Ms": 32.69999999925494,
+        "maxMs": 33.69999999925494,
+        "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
+      },
+      "cueTrace": [
+        {
+          "id": "3",
+          "shape": "teeth",
+          "received": 9883.5,
+          "rendered": 9910.799999998882,
+          "latencyMs": 27.299999998882413
+        },
+        {
+          "id": "4",
+          "shape": "open",
+          "received": 9936.799999998882,
+          "rendered": 9943.599999999627,
+          "latencyMs": 6.800000000745058
+        },
+        {
+          "id": "5",
+          "shape": "tongue",
+          "received": 9984.799999998882,
+          "rendered": 10010.5,
+          "latencyMs": 25.700000001117587
+        },
+        {
+          "id": "6",
+          "shape": "round",
+          "received": 10032.799999998882,
+          "rendered": 10043.599999999627,
+          "latencyMs": 10.800000000745058
+        },
+        {
+          "id": "7",
+          "shape": "pucker",
+          "received": 10208.799999998882,
+          "rendered": 10210.099999999627,
+          "latencyMs": 1.300000000745058
+        },
+        {
+          "id": "8",
+          "shape": "rest",
+          "received": 10560.699999999255,
+          "rendered": 10578.099999999627,
+          "latencyMs": 17.40000000037253
+        },
+        {
+          "id": "9",
+          "shape": "pucker",
+          "received": 10688.699999999255,
+          "rendered": 10710.199999999255,
+          "latencyMs": 21.5
+        },
+        {
+          "id": "10",
+          "shape": "wide",
+          "received": 10736.799999998882,
+          "rendered": 10744.400000000373,
+          "latencyMs": 7.600000001490116
+        },
+        {
+          "id": "11",
+          "shape": "tongue",
+          "received": 10838.099999999627,
+          "rendered": 10844.299999998882,
+          "latencyMs": 6.199999999254942
+        },
+        {
+          "id": "12",
+          "shape": "teeth",
+          "received": 10912.799999998882,
+          "rendered": 10943.900000000373,
+          "latencyMs": 31.100000001490116
+        },
+        {
+          "id": "13",
+          "shape": "open",
+          "received": 11014.099999999627,
+          "rendered": 11044.299999998882,
+          "latencyMs": 30.199999999254942
+        },
+        {
+          "id": "14",
+          "shape": "closed",
+          "received": 11110.599999999627,
+          "rendered": 11144.299999998882,
+          "latencyMs": 33.69999999925494
+        },
+        {
+          "id": "15",
+          "shape": "rest",
+          "received": 11451.400000000373,
+          "rendered": 11476.699999999255,
+          "latencyMs": 25.299999998882413
+        },
+        {
+          "id": "16",
+          "shape": "teeth",
+          "received": 11771.5,
+          "rendered": 11777,
+          "latencyMs": 5.5
+        },
+        {
+          "id": "17",
+          "shape": "round",
+          "received": 11798.099999999627,
+          "rendered": 11811.099999999627,
+          "latencyMs": 13
+        },
+        {
+          "id": "18",
+          "shape": "pucker",
+          "received": 11899.400000000373,
+          "rendered": 11911,
+          "latencyMs": 11.599999999627471
+        },
+        {
+          "id": "19",
+          "shape": "tongue",
+          "received": 11947.5,
+          "rendered": 11978.400000000373,
+          "latencyMs": 30.90000000037253
+        },
+        {
+          "id": "20",
+          "shape": "round",
+          "received": 11995.5,
+          "rendered": 12010.299999998882,
+          "latencyMs": 14.799999998882413
+        },
+        {
+          "id": "21",
+          "shape": "pucker",
+          "received": 12048.799999998882,
+          "rendered": 12077.900000000373,
+          "latencyMs": 29.100000001490116
+        },
+        {
+          "id": "22",
+          "shape": "teeth",
+          "received": 12123.400000000373,
+          "rendered": 12143.599999999627,
+          "latencyMs": 20.199999999254942
+        },
+        {
+          "id": "23",
+          "shape": "wide",
+          "received": 12171.5,
+          "rendered": 12176.900000000373,
+          "latencyMs": 5.400000000372529
+        },
+        {
+          "id": "24",
+          "shape": "tongue",
+          "received": 12224.799999998882,
+          "rendered": 12244.099999999627,
+          "latencyMs": 19.300000000745058
+        },
+        {
+          "id": "25",
+          "shape": "open",
+          "received": 12320.799999998882,
+          "rendered": 12344.400000000373,
+          "latencyMs": 23.600000001490116
+        },
+        {
+          "id": "26",
+          "shape": "teeth",
+          "received": 12395.5,
+          "rendered": 12410.299999998882,
+          "latencyMs": 14.799999998882413
+        },
+        {
+          "id": "27",
+          "shape": "wide",
+          "received": 12448.799999998882,
+          "rendered": 12477.900000000373,
+          "latencyMs": 29.100000001490116
+        },
+        {
+          "id": "28",
+          "shape": "teeth",
+          "received": 12598.199999999255,
+          "rendered": 12611.400000000373,
+          "latencyMs": 13.200000001117587
+        },
+        {
+          "id": "29",
+          "shape": "rest",
+          "received": 12747.5,
+          "rendered": 12778.099999999627,
+          "latencyMs": 30.59999999962747
+        },
+        {
+          "id": "30",
+          "shape": "wide",
+          "received": 12822.299999998882,
+          "rendered": 12843.699999999255,
+          "latencyMs": 21.40000000037253
+        },
+        {
+          "id": "31",
+          "shape": "tongue",
+          "received": 12870.099999999627,
+          "rendered": 12877.799999998882,
+          "latencyMs": 7.699999999254942
+        },
+        {
+          "id": "32",
+          "shape": "teeth",
+          "received": 12945,
+          "rendered": 12977.099999999627,
+          "latencyMs": 32.09999999962747
+        },
+        {
+          "id": "33",
+          "shape": "open",
+          "received": 12998.099999999627,
+          "rendered": 13011.099999999627,
+          "latencyMs": 13
+        },
+        {
+          "id": "34",
+          "shape": "tongue",
+          "received": 13120.799999998882,
+          "rendered": 13143.599999999627,
+          "latencyMs": 22.800000000745058
+        },
+        {
+          "id": "35",
+          "shape": "teeth",
+          "received": 13174.099999999627,
+          "rendered": 13177,
+          "latencyMs": 2.900000000372529
+        },
+        {
+          "id": "36",
+          "shape": "rest",
+          "received": 13270.199999999255,
+          "rendered": 13277.699999999255,
+          "latencyMs": 7.5
+        },
+        {
+          "id": "37",
+          "shape": "closed",
+          "received": 13344.900000000373,
+          "rendered": 13377.599999999627,
+          "latencyMs": 32.69999999925494
+        },
+        {
+          "id": "38",
+          "shape": "tongue",
+          "received": 13398.199999999255,
+          "rendered": 13410.299999998882,
+          "latencyMs": 12.099999999627471
+        },
+        {
+          "id": "39",
+          "shape": "wide",
+          "received": 13424.699999999255,
+          "rendered": 13444.400000000373,
+          "latencyMs": 19.700000001117587
+        },
+        {
+          "id": "40",
+          "shape": "tongue",
+          "received": 13574.199999999255,
+          "rendered": 13577.799999998882,
+          "latencyMs": 3.599999999627471
+        },
+        {
+          "id": "41",
+          "shape": "teeth",
+          "received": 13648.900000000373,
+          "rendered": 13677.699999999255,
+          "latencyMs": 28.799999998882413
+        },
+        {
+          "id": "42",
+          "shape": "rest",
+          "received": 13696.799999998882,
+          "rendered": 13710.900000000373,
+          "latencyMs": 14.100000001490116
+        },
+        {
+          "id": "44",
+          "shape": "pucker",
+          "received": 13771.5,
+          "rendered": 13776.900000000373,
+          "latencyMs": 5.400000000372529
+        },
+        {
+          "id": "45",
+          "shape": "teeth",
+          "received": 13872.799999998882,
+          "rendered": 13877.900000000373,
+          "latencyMs": 5.100000001490116
+        },
+        {
+          "id": "46",
+          "shape": "wide",
+          "received": 13920.900000000373,
+          "rendered": 13943.599999999627,
+          "latencyMs": 22.699999999254942
+        },
+        {
+          "id": "47",
+          "shape": "teeth",
+          "received": 13974.199999999255,
+          "rendered": 13977.599999999627,
+          "latencyMs": 3.400000000372529
+        },
+        {
+          "id": "48",
+          "shape": "rest",
+          "received": 14022.199999999255,
+          "rendered": 14043.799999998882,
+          "latencyMs": 21.59999999962747
+        },
+        {
+          "id": "49",
+          "shape": "teeth",
+          "received": 14096.799999998882,
+          "rendered": 14111.099999999627,
+          "latencyMs": 14.300000000745058
+        },
+        {
+          "id": "50",
+          "shape": "open",
+          "received": 14144.900000000373,
+          "rendered": 14177.699999999255,
+          "latencyMs": 32.79999999888241
+        },
+        {
+          "id": "51",
+          "shape": "tongue",
+          "received": 14246.199999999255,
+          "rendered": 14277,
+          "latencyMs": 30.800000000745058
+        },
+        {
+          "id": "52",
+          "shape": "open",
+          "received": 14395.599999999627,
+          "rendered": 14410.199999999255,
+          "latencyMs": 14.599999999627471
+        },
+        {
+          "id": "53",
+          "shape": "wide",
+          "received": 14448.799999998882,
+          "rendered": 14477.5,
+          "latencyMs": 28.700000001117587
+        },
+        {
+          "id": "54",
+          "shape": "tongue",
+          "received": 14523.400000000373,
+          "rendered": 14544.400000000373,
+          "latencyMs": 21
+        },
+        {
+          "id": "55",
+          "shape": "rest",
+          "received": 14822.299999998882,
+          "rendered": 14843.599999999627,
+          "latencyMs": 21.300000000745058
+        },
+        {
+          "id": "56",
+          "shape": "tongue",
+          "received": 14923.599999999627,
+          "rendered": 14943.799999998882,
+          "latencyMs": 20.199999999254942
+        },
+        {
+          "id": "58",
+          "shape": "rest",
+          "received": 14971.599999999627,
+          "rendered": 14977.599999999627,
+          "latencyMs": 6
+        }
+      ]
+    },
+    "capture_cadence": {
+      "frames": 160,
+      "span_seconds": 6.548,
+      "average_encoded_fps": 24.282223579719,
+      "p95_gap_ms": 67,
+      "maximum_gap_ms": 77,
+      "gaps_over_100_ms": 0
+    },
+    "review": "Kept as evidence rather than using the 30 FPS drawing counter to label this recording 30 FPS."
+  }
+}

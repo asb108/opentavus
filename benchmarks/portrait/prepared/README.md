@@ -1,6 +1,6 @@
 # Photographic portrait preparation
 
-T22 prepares a fictional photographic human after the user rejected the 3D
+T22/T23 prepare a fictional photographic human after the user rejected the 3D
 appearance. This is an explicit offline maintainer workflow. It is separate from
 the base installation, live speech and the earlier MuseTalk experiment. A
 prepared-frame preview is not unrestricted live video generation or validated
@@ -57,10 +57,11 @@ Mac-specific, while browser playback installs none of these packages.
 
 The source is manually aligned and square. Retargeting starts from declared
 approximate eye/lip ratios; it does not load a face-analysis model to measure them.
-Motion contains eight small head phases, four mouth levels and four blink keys
-per expression. Expression styling uses a fixed allowlist. Mouth selection from
-audio energy cannot distinguish phonemes, and natural interaction/prosody require
-their own quality work. Check native-speed output for identity drift, eye/teeth
+T23 motion contains four gentle head poses, eight broad mouth shapes and four
+blink keys per expression. Expression styling uses a fixed allowlist. The live
+Kokoro path supplies phoneme timing; an untimed engine uses energy fallback.
+Natural interaction/prosody and exact anatomical articulation require their own
+quality work. Check native-speed output for identity drift, eye/teeth
 artifacts and visible transitions before making an asset eligible.
 
 Generation and preparation write parameters, dependency versions, hashes,
@@ -80,7 +81,19 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 .cache/face-env/bin/python \
 The [open generation result](open-generation-result.json) records 27.5 seconds
 and 9.71 GB peak MLX allocation on the M3 Pro. [Selected preparation](preparation-result.json)
 records 145 actual neural frames in 196.3 seconds with MPS/CPU fallback enabled.
-Outputs are 512 pixels before being reduced to native 384-pixel prepared tiles.
+T23 retains native 512-pixel output tiles. Each expression has four gentle head
+poses × eight mouth shapes plus four blink keys. The 144 MiB decoded sheet budget
+is deliberate; verify weaker clients separately.
 Different runtime/numerical backends may change output bytes; compare appearance
 and update hashes deliberately. The browser uses the committed assets and loads
 none of these inference dependencies. See the [published playback evidence](../../../docs/releases/photographic-human-evidence.json).
+
+
+T23 adds a [separate preparation record](phoneme-preparation-result.json) for the
+speech-shape bank. `--probe` renders all eight shapes before preparing full sheets.
+No timing is invented by this script: the live Kokoro adapter supplies sample-based
+phoneme spans from the existing pinned duration-enabled export. Stress/length marks
+carry vowel shapes. Mouth controls use the pinned upstream's lip retargeting,
+pouting and smile offsets, with manually declared source ratios. They approximate
+speech geometry and do not establish anatomical or perceptual alignment accuracy.
+T22's original [preparation record](preparation-result.json) is retained as history.

@@ -70,12 +70,14 @@ npm run test:browser -- --photo --live
 npm run test:browser -- --photo --software
 ```
 
-The first measures seven seconds of native 384-pixel prepared playback, verifies
+The first measures seven seconds of native 512-pixel prepared playback, verifies
 that static switching stops drawing and closes all four decoded images, and
 checks damaged sheets, cancelled loading and unavailable Canvas 2D recovery.
 The live check also records actual local Qwen/Kokoro speech and photographic
 motion at normal speed, observes all four presentation cues, verifies Stop and
-closed-mouth behavior, and confirms that a call works after an avatar failure.
+closed-mouth behavior, requires at least five distinct model-timed speech shapes,
+checks at most 80 ms Worklet-cue-to-Canvas scheduling and no stale cues after Stop,
+and confirms that a call works after an avatar failure.
 Its capture contains only the public synthetic question, never a real microphone.
 
 `--software` starts this check's own Chrome with `--disable-gpu` and
@@ -90,5 +92,5 @@ These checks require the updated server and its built frontend. An independently
 configured server can use `OPENTAVUS_TEST_URL`; its own allowed origins must match
 that address. Do not weaken production admission checks to run the test. Avoid
 other calls on the selected server. The CLI closes only its own browser session.
-See [photographic evidence](../releases/photographic-human-evidence.json) for
+See [timed portrait evidence](../releases/phoneme-portrait-evidence.json) for
 measured results and the finite-motion/approximate-lip-sync boundary.

@@ -1,4 +1,4 @@
-// A single audio clock owns speech, caption start, avatar energy and progress.
+// One sample clock owns speech, captions, phoneme shapes, energy and progress.
 class OpenTavusPlayout extends AudioWorkletProcessor {
   constructor() {
     super();
@@ -10,6 +10,7 @@ class OpenTavusPlayout extends AudioWorkletProcessor {
     this.phase = 0;
     this.tick = 0;
     this.completed = false;
+    this.viseme = "rest";
     this.port.onmessage = ({ data }) => {
       if (data.type === "reset") {
         const old = this.generation;
@@ -19,7 +20,13 @@ class OpenTavusPlayout extends AudioWorkletProcessor {
         this.current = null;
         this.position = this.played = this.phase = 0;
         this.completed = false;
-        this.port.postMessage({ type: "stopped", oldGeneration: old, played });
+        this.viseme = "rest";
+        this.port.postMessage({
+          type: "stopped",
+          generation: this.generation,
+          oldGeneration: old,
+          played,
+        });
       } else if (data.generation === this.generation && data.type === "chunk") {
         // The server bounds in-flight audio; a malformed sender also hits this guard.
         if (this.queue.length < 64) this.queue.push(data);
@@ -28,6 +35,16 @@ class OpenTavusPlayout extends AudioWorkletProcessor {
         this.completed = true;
       }
     };
+  }
+  mouth(shape) {
+    if (shape === this.viseme) return;
+    this.viseme = shape;
+    this.port.postMessage({
+      type: "viseme",
+      generation: this.generation,
+      shape,
+      played: this.played,
+    });
   }
   process(_inputs, outputs) {
     const output = outputs[0]?.[0];
@@ -38,6 +55,7 @@ class OpenTavusPlayout extends AudioWorkletProcessor {
         this.current = this.queue.shift() || null;
         this.position = 0;
         this.phase = 0;
+        if (this.current) this.current.cueIndex = 0;
         if (this.current?.caption)
           this.port.postMessage({
             type: "caption",
@@ -47,6 +65,16 @@ class OpenTavusPlayout extends AudioWorkletProcessor {
       }
       if (this.current) {
         const samples = this.current.samples;
+        const cues = this.current.visemes || [];
+        while (
+          this.current.cueIndex < cues.length &&
+          this.phase >= cues[this.current.cueIndex].end_sample
+        )
+          this.current.cueIndex++;
+        const cue = cues[this.current.cueIndex];
+        this.mouth(
+          cues.length ? (cue && this.phase >= cue.start_sample ? cue.shape : "rest") : null,
+        );
         const a = Math.floor(this.phase);
         const fraction = this.phase - a;
         output[i] =
@@ -58,7 +86,10 @@ class OpenTavusPlayout extends AudioWorkletProcessor {
         this.played += Math.max(0, advanced);
         this.position += Math.max(0, advanced);
         if (this.phase >= samples.length) this.current = null;
-      } else output[i] = 0;
+      } else {
+        output[i] = 0;
+        this.mouth("rest");
+      }
     }
     // Native audio runs every ~3ms; send UI updates only at ~30 Hz.
     this.tick += output.length;

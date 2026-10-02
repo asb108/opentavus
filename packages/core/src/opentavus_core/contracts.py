@@ -89,6 +89,20 @@ class ToolCall:
     arguments_json: str
 
 
+VisemeShape: TypeAlias = Literal[
+    "rest", "closed", "open", "wide", "round", "pucker", "teeth", "tongue"
+]
+
+
+@dataclass(frozen=True)
+class VisemeCue:
+    """A mouth shape on the PCM sample clock, relative to its audio packet."""
+
+    shape: VisemeShape
+    start_sample: int
+    end_sample: int
+
+
 @dataclass(frozen=True)
 class AudioOutput:
     generation: Generation
@@ -98,6 +112,7 @@ class AudioOutput:
     pcm: bytes
     sample_rate: int
     channels: int
+    visemes: tuple[VisemeCue, ...] = ()
 
 
 @dataclass(frozen=True)

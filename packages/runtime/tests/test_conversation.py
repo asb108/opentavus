@@ -2,7 +2,7 @@ import asyncio
 import json
 from pathlib import Path
 
-from opentavus_core.contracts import AudioOutput, TextDelta
+from opentavus_core.contracts import AudioOutput, TextDelta, VisemeCue
 from opentavus_core.schema import AudioEvent, CanvasEvent, ErrorEvent, InterruptEvent
 from opentavus_runtime.conversation import Conversation
 
@@ -53,6 +53,7 @@ class FakeEngines:
                     b"\x10\x00" * 1920,
                     24000,
                     1,
+                    (VisemeCue("closed", 0, 960), VisemeCue("wide", 960, 1920)),
                 )
 
     async def transcribe(self, audio, context):
@@ -93,6 +94,8 @@ async def test_stream_waits_for_playout_and_has_contiguous_samples():
         for left, right in zip(samples[:-1], samples[1:], strict=True)
     )
     assert samples[0].caption == "A useful first phrase."
+    assert all(event.visemes[0].start_sample == 0 for event in samples)
+    assert all(event.visemes[1].end_sample == 1920 for event in samples)
     await call.close()
 
 

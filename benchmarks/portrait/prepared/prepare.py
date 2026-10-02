@@ -2,7 +2,7 @@
 
 Uses only a manually aligned, fictional source and LivePortrait's pinned core.
 Expression offsets follow its MIT gradio_pipeline.py controls. These finite states
-are an appearance preview, not an audio-to-phoneme model or inferred user emotion.
+are controlled viseme approximations, not inferred user emotion or live video.
 """
 
 import argparse
@@ -18,6 +18,8 @@ from pathlib import Path
 from download import verified
 
 LIVEPORTRAIT_REVISION = "9b294b3d0536135442ea73cb01e6cb3ca7029dd3"
+VISEMES = ["rest", "closed", "open", "wide", "round", "pucker", "teeth", "tongue"]
+TILE = 512
 
 
 def main() -> None:
@@ -78,11 +80,16 @@ def main() -> None:
     args.output.mkdir(parents=True, exist_ok=True)
     times = []
 
-    def render(expression: str, phase: float, mouth: float, blink: float = 0) -> Image.Image:
+    def render(expression: str, phase: float, shape: str, blink: float = 0) -> Image.Image:
         frame_start = time.perf_counter()
         delta = info["exp"].clone()
         # Controlled expression styling; no classification of a user's face/voice.
-        smile = 1.2 if expression == "warm" else 0.02
+        # Mouth controls are deliberately separate from conversational expression.
+        smile = (0.45 if shape == "rest" else 0.12) if expression == "warm" else 0.0
+        if shape == "wide":
+            smile += 0.65
+        if shape in {"round", "pucker"}:
+            smile -= 0.45
         for index, axis, coefficient in [
             (20, 1, -0.01),
             (14, 1, -0.02),
@@ -94,6 +101,26 @@ def main() -> None:
             (7, 1, -0.0035),
         ]:
             delta[0, index, axis] += smile * coefficient
+        mouth, pout = {
+            "rest": (0.0, 0.0),
+            "closed": (0.0, 0.0),
+            "open": (0.45, 0.0),
+            "wide": (0.23, 0.0),
+            "round": (0.28, 0.055),
+            "pucker": (0.12, 0.065),
+            "teeth": (0.08, 0.0),
+            "tongue": (0.13, 0.0),
+        }[shape]
+        # Pout and lip offsets use the pinned upstream's public expression controls.
+        delta[0, 19, 0] += pout
+        if shape == "teeth":
+            delta[0, 20, 2] += 0.0015
+            delta[0, 20, 1] += 0.0015
+            delta[0, 14, 1] += 0.0015
+        if shape == "tongue":
+            delta[0, 19, 1] -= 0.002
+            delta[0, 19, 2] -= 0.0002
+            delta[0, 17, 1] += 0.0002
         eyebrow = -7.0 if expression == "thoughtful" else 3.0 if expression == "attentive" else 0
         if eyebrow > 0:
             delta[0, 1, 1] += eyebrow * 0.001
@@ -104,16 +131,15 @@ def main() -> None:
             delta[0, 1, 1] += eyebrow * 0.0003
             delta[0, 2, 1] -= eyebrow * 0.0003
         rotation = get_rotation_matrix(
-            info["pitch"] + math.sin(phase) * 1.0,
-            info["yaw"] + math.sin(phase) * 1.5,
-            info["roll"] + math.sin(phase + 0.5) * 0.4,
+            info["pitch"] + math.sin(phase) * 0.45,
+            info["yaw"] + math.sin(phase) * 0.7,
+            info["roll"] + math.sin(phase + 0.5) * 0.2,
         )
         driving = info["scale"][..., None] * (info["kp"] @ rotation + delta)
         driving[:, :, :2] += info["t"][:, None, :2]
         # Source ratios are declared manual approximations for this closed-lip image.
-        if mouth > 0:
-            ratio = torch.tensor([[0.015, mouth]], dtype=torch.float32, device=device)
-            driving += wrapper.retarget_lip(source_keypoints, ratio)
+        ratio = torch.tensor([[0.015, mouth]], dtype=torch.float32, device=device)
+        driving += wrapper.retarget_lip(source_keypoints, ratio)
         if blink > 0:
             ratio = torch.tensor(
                 [[0.3, 0.3, 0.3 * (1 - blink)]], dtype=torch.float32, device=device
@@ -129,31 +155,28 @@ def main() -> None:
     expressions = ["neutral", "warm", "attentive", "thoughtful"]
     if args.probe:
         for expression in expressions:
-            render(expression, 0, 0).save(args.output / f"{expression}.png")
+            render(expression, 0, "rest").save(args.output / f"{expression}.png")
             print(f"Rendered {expression} in {times[-1]:.2f}s", flush=True)
-        render("neutral", 0, 0.16).save(args.output / "mouth.png")
-        render("neutral", 0, 0, 1).save(args.output / "blink.png")
+        for shape in VISEMES:
+            render("neutral", 0, shape).save(args.output / f"viseme-{shape}.png")
+        render("neutral", 0, "rest", 1).save(args.output / "blink.png")
     else:
-        # 8 subtle head phases × 4 mouth levels, plus blink keys. Bounded 36-tile sheets.
-        levels = [0, 0.07, 0.12, 0.18]
+        # 4 gentle head poses × 8 speech shapes, plus blink keys; 36 bounded tiles.
         for expression in expressions:
-            sheet = Image.new("RGB", (384 * 6, 384 * 6))
+            sheet = Image.new("RGB", (TILE * 6, TILE * 6))
             for index in range(36):
-                pose = index // 4 if index < 32 else 0
-                mouth = levels[index % 4] if index < 32 else 0
+                pose = index // 8 if index < 32 else 0
+                shape = VISEMES[index % 8] if index < 32 else "rest"
                 blink = 0 if index < 32 else [0.3, 0.7, 1, 0.7][index - 32]
-                image = render(expression, pose / 8 * math.tau, mouth, blink)
-                image = image.resize((384, 384), Image.Resampling.LANCZOS)
-                sheet.paste(image, ((index % 6) * 384, (index // 6) * 384))
+                image = render(expression, pose / 4 * math.tau, shape, blink)
+                sheet.paste(image, ((index % 6) * TILE, (index // 6) * TILE))
                 if index % 8 == 0:
                     print(
                         f"{expression}: {index + 1}/36; {times[-1]:.2f}s per prepared frame",
                         flush=True,
                     )
             sheet.save(args.output / f"{expression}.webp", quality=88, method=6)
-        render("neutral", 0, 0).resize((384, 384), Image.Resampling.LANCZOS).save(
-            args.output / "poster.webp", quality=92, method=6
-        )
+        render("neutral", 0, "rest").save(args.output / "poster.webp", quality=92, method=6)
     summary = {
         "source_sha256": hashlib.sha256(args.source.read_bytes()).hexdigest(),
         "source_revision": revision,
@@ -166,7 +189,9 @@ def main() -> None:
         "total_seconds": time.perf_counter() - started,
         "probe": args.probe,
         "output_size": 512,
-        "prepared_tile_size": 384,
+        "prepared_tile_size": TILE,
+        "visemes": VISEMES,
+        "poses": 4,
         "manual_source_ratios": {"lip": 0.015, "eye": 0.3},
         "insightface_loaded": any("insightface" in module for module in sys.modules),
         "dependencies": {
@@ -175,7 +200,8 @@ def main() -> None:
         },
         "limitations": [
             "finite controlled expressions",
-            "approximate mouth levels, not phoneme timing",
+            "controlled mouth shapes; speech timing is supplied separately by Kokoro",
+            "tongue/teeth shapes are approximations, not detailed dental articulation",
             "manually aligned single fictional portrait",
             "prepared assets only; no live video generator",
         ],

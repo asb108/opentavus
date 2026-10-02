@@ -40,12 +40,12 @@ model for better lessons. Keep the server running after its initial model warm-u
 | Path | Required graphics | Current support |
 | --- | --- | --- |
 | Static human portrait + speech/board | No 3D rendering | Shipped preview; the portrait does not move its lips. |
-| Prepared photographic human + speech/board | Browser Canvas 2D; no CUDA/server avatar inference | Shipped preview; about 3 MB of sheets/poster and 81 MiB of decoded sheet data. Finite expressions and approximate audio-driven mouth movement. |
+| Prepared photographic human + speech/board | Browser Canvas 2D; no CUDA/server avatar inference | Shipped preview; about 5.5 MB of sheets/poster and 144 MiB of decoded sheet data. Finite expressions with Kokoro-timed approximate speech shapes. |
 | Stock 3D human + speech/board | Browser WebGL 2; NVIDIA/CUDA is not required | Shipped preview; mouth movement follows played-audio energy. |
 | Live neural talking video | Depends on the selected model and measured hardware | Experimental. Native MuseTalk MLX reached about 5.3 FPS on this Mac and missed the 25 FPS live target. |
 
 Photographic frames were prepared once by the maintainer with an open portrait
-model. The measured Mac preparation took about 196 seconds for 145 frames; users
+model. The measured Mac preparation took about 199 seconds for 145 native 512-pixel frames; users
 playing the shipped sheets do not repeat that work. The selected source image is
 an explicitly requested one-time OpenAI creation. The [asset provenance](../../assets/stock/photographic/README.md)
 also documents a fully open FLUX source and recipe. The [browser measurements](../releases/photographic-human-evidence.json)

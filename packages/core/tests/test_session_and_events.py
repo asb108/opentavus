@@ -50,6 +50,19 @@ def test_audio_event_roundtrip_preserves_sample_timebase():
     assert EVENT_ADAPTER.validate_json(EVENT_ADAPTER.dump_json(event)) == event
 
 
+def test_visemes_are_packet_relative_and_optional_for_untimed_engines():
+    raw = audio_event()
+    assert EVENT_ADAPTER.validate_json(json.dumps(raw)).visemes == []
+    raw["visemes"] = [
+        {"shape": "closed", "start_sample": 0, "end_sample": 80},
+        {"shape": "round", "start_sample": 80, "end_sample": 240},
+    ]
+    event = EVENT_ADAPTER.validate_json(json.dumps(raw))
+    assert event.presentation_sample == 240
+    assert event.visemes[1].end_sample == 240
+    assert EVENT_ADAPTER.validate_json(EVENT_ADAPTER.dump_json(event)) == event
+
+
 @pytest.mark.parametrize(
     "change",
     [
@@ -61,6 +74,18 @@ def test_audio_event_roundtrip_preserves_sample_timebase():
         {"channels": 2, "data_b64": "AAA="},
         {"sample_rate": 0},
         {"unexpected": True},
+        {"visemes": [{"shape": "open", "start_sample": 0, "end_sample": 241}]},
+        {"visemes": [{"shape": "open", "start_sample": 2, "end_sample": 2}]},
+        {"visemes": [{"shape": "arbitrary", "start_sample": 0, "end_sample": 10}]},
+        {"visemes": [{"shape": "closed", "start_sample": -1, "end_sample": 10}]},
+        {"visemes": [{"shape": "open", "start_sample": 0.5, "end_sample": 10}]},
+        {"visemes": [{"shape": "rest", "start_sample": 0, "end_sample": 1}] * 65},
+        {
+            "visemes": [
+                {"shape": "open", "start_sample": 10, "end_sample": 100},
+                {"shape": "closed", "start_sample": 99, "end_sample": 200},
+            ]
+        },
     ],
 )
 def test_malformed_audio_event_is_rejected(change):

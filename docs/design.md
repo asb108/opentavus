@@ -6,9 +6,9 @@ Updated 3 October 2026. This is the implementation baseline for the full first r
 
 The current application combines a local call, independent model/voice/character settings, and a shared teaching board. It uses FastAPI, a framework-free core, a session runtime, React/Vite, Pipecat SmallWebRTC/Silero/segmented STT for microphone input, local Ollama Qwen2.5, CPU Whisper tiny, and Kokoro ONNX. Model artifacts and selected voice terms are pinned in [the model matrix](models.md). Setup is explicit; the default development install does not include model packages or weights.
 
-Output PCM, captions, and companion mouth energy use one browser AudioWorklet clock. Generations cancel server production and reject late browser output; browser stop/progress acknowledgements constrain buffering. At most roughly two seconds of server audio and 64 browser packets can be queued. Complete acknowledged phrases enter the next-turn context; incomplete phrases are omitted because this model path has no word timing. The visible transcript shows a phrase when its playback starts and marks interrupted replies.
+Output PCM, captions, mouth cues and companion energy use one browser AudioWorklet sample clock. Generations cancel server production and reject late browser output; browser stop/progress acknowledgements constrain buffering. At most roughly two seconds of server audio and 64 browser packets can be queued. Complete acknowledged phrases enter the next-turn context; incomplete phrases are omitted because this model path has no word timing. The visible transcript shows a phrase when its playback starts and marks interrupted replies.
 
-Mira's photographic mode uses prepared facial/head frames, controlled expressions and blinking through browser Canvas 2D. Static Mira, a curated CC0 stock 3D human, and the original stylized Orbit/Lumen remain independent choices. All animated modes use played-audio energy. GLB/VRM imports, live neural portrait video, natural emotional behavior, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting have separate acceptance work. Full T05 still requires compatible custom import and its contract evidence. Audio-driven mouth energy is not phoneme-accurate lip-sync proof.
+Mira's photographic mode uses prepared facial/head frames, controlled expressions and blinking through browser Canvas 2D. Static Mira, a curated CC0 stock 3D human, and the original stylized Orbit/Lumen remain independent choices. Photographic Mira consumes Kokoro phoneme cues; untimed engines and other characters retain played-energy animation. GLB/VRM imports, live neural portrait video, natural emotional behavior, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting have separate acceptance work. Full T05 still requires compatible custom import and its contract evidence. Timed cue scheduling is separate from perceptual phoneme accuracy.
 
 The teaching planner obtains schema-constrained JSON, then validates a fixed note/formula/diagram/quiz/clear allowlist again. Notes are Excalidraw text. Safe formula/diagram cards and quiz panels appear above the drawings. A browser operation acknowledgement gates the subsequent spoken board explanation. Explicit formula, diagram and quiz requests each use a single-tool provider schema: a real small-model trial returned a formula in place of a quiz with the union schema. Requested results are all validated before applying them. Their browser acknowledgements gate speech, which adds visible delay; the full timing strategy remains to be optimized and measured. Quiz answers match the exact text of a distinct choice. Unheard reply text stays out of history; temporary interruption notes provide model turn boundaries when no complete phrase was heard.
 
@@ -56,23 +56,35 @@ calling OpenAI's model open source. Generation/preparation stays outside live
 audio and the default installation.
 
 The trusted photographic renderer loads four hash-checked local WebP sheets,
-about 3 MB in total with the poster, and releases all four ImageBitmaps on
-disposal. Its working resolution is 384 × 384, capped at 30 FPS, with roughly
-81 MiB of decoded sheet data. Eight head phases, four mouth levels and blink
-keys per expression form a finite motion bank. Neutral, warm, attentive and
-thoughtful cues describe the companion's own presentation; they do not infer
-the user's emotions. Typed `deliveryFor()` policy selects delivery from an
-acknowledged played caption; runtime status supplies thinking/listening cues.
-It owns no additional speech queue. Zero played energy closes the mouth
-immediately, including Stop and call end. Reduced motion disables idle head
-movement/blinking. Failure or cancellation releases partial preparation and
-uses the static photographic poster without replacing the chosen call.
+about 5.5 MB with the poster, and releases all four ImageBitmaps on disposal.
+Native 512 × 512 tiles retain the preparation model's output resolution, capped
+at 30 FPS during ordinary articulation, with approximately 144 MiB of decoded
+sheet data plus small compositing masks. Four gently varying head poses, eight mouth
+shapes and blink keys per expression form a finite motion bank. Each draw uses one coherent head pose rather than crossfading facial photographs.
+Speech replaces a softly masked mouth region without whole-face fades. Eye
+blinks remain independent. Static mode needs only the poster.
 
-The [photographic check](releases/photographic-human-evidence.json) measured
-approximately 30 FPS over seven seconds on this Mac, captured real voice/motion
-at normal speed, checked expressions/Stop and verified the shared teaching
-board. Precise phonemes, full natural behavior, long-call reliability and weak-PC
-measurements are still open. The prepared motion is not unrestricted live video.
+Kokoro's pinned export returns phoneme durations with its waveform. The local
+adapter maps IPA to closed/open/wide/round/pucker/teeth/tongue shapes, carries
+stress and length marks into their vowels, fills pauses, and clips cues into each
+80 ms PCM packet. Validated spans use packet-relative sample offsets; the runtime
+rebases audio presentation time without shifting those offsets. The same Worklet
+resamples and plays PCM and emits mouth changes when their samples are played.
+There is no separate speech/animation queue. Empty cues explicitly use energy
+animation; they never imply timing proof. Reset purges PCM and cues together and
+rejects old generations. Stop closes immediately. Ordinary speech drawing targets
+30 FPS and at most 80 ms from Worklet cue receipt to completed Canvas draw.
+These are scheduling targets, not a DAC/acoustic or anatomical accuracy claim.
+
+Neutral, warm, attentive and thoughtful cues describe the companion's own
+presentation; they do not infer the user's emotions. Typed `deliveryFor()` selects
+delivery from a played caption; runtime status supplies thinking/listening cues.
+Reduced motion disables idle head movement/blinking while preserving articulation.
+Failure or cancellation releases partial preparation and uses the static poster
+without replacing the call. T22's earlier energy-only measurement remains
+historical; T23's [timed portrait evidence](releases/phoneme-portrait-evidence.json)
+records current measurements and the remaining visual/long-call/platform limits.
+Prepared motion is not unrestricted live video or demonstrated Tavus equivalence.
 
 ## Outcome and product promise
 

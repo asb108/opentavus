@@ -35,3 +35,38 @@ This record distinguishes the user's requirements from engineering choices. Evid
 No user-authored feature exclusions were supplied. Later-release assignments schedule work; they do not erase features from the original vision. English is the first proposed validated speech language. Add a language only after its STT, TTS, and lip-sync cases pass.
 
 Unknown hardware performance, avatar quality, component licenses, and exact runtime versions are settled by the named tasks, not by assuming upstream results apply to this application. A material change to the launch experiences should be brought back to the user with the observed evidence; routine implementation choices remain with the task owner.
+
+
+## D27: Use the speech model's durations for photographic articulation (T23)
+
+The user rejected T22's portrait appearance and absence of convincing lip-sync.
+Its loudness-only four-level mouth bank could not distinguish a closed M/B/P from
+an open vowel, and whole-face mouth crossfades could double facial edges. Browser
+frame cadence established playback speed but did not establish realistic speech.
+
+The installed Apache-2.0 Kokoro export (SHA-256
+`beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a`)
+was inspected on CPU: its outputs include waveform and duration. Pinned
+`kokoro-onnx==0.6.1` already implements `create_timed`; `create` delegates to it and
+had discarded its marks in our adapter. Use that existing data rather than adding
+another alignment model or a second playback clock. A real phrase produced bounded
+sample-derived cues without new downloads. Stress marks anticipate their vowel;
+length marks hold it. The simple IPA-to-viseme policy remains a small contribution
+point, with explicit rest for unknown symbols and energy fallback for no timings.
+
+Core dataclasses remain framework independent. The wire validates at most 64
+ordered packet-relative spans inside attached PCM. They travel and reset together
+in the existing bounded Worklet queue. A coordinated browser/server rebuild is
+required because older strict clients reject an unfamiliar optional field.
+
+Retain native 512-pixel prepared frames with four gentle poses and eight broad
+speech shapes, independent mouth/eye masks and idempotent resource cleanup. This
+raises sheet data from 81 to 144 MiB and assets from 3 to 5.5 MB; keep static mode
+available and measure software Canvas separately. Live calls still load no avatar
+inference model or extra audio context. Preparation uses the same pinned MIT core
+and excluded face-detection dependencies as T22.
+
+The [evidence](releases/phoneme-portrait-evidence.json) separates cue scheduling,
+actual voice/capture, visual limitations and publication. No independent acoustic
+alignment, unrestricted emotional behavior or Tavus-equivalence result is inferred
+from those measurements. T10/T13's larger quality gates remain open.

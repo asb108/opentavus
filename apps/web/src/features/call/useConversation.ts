@@ -52,7 +52,10 @@ export function useConversation(
     (update: PlayoutUpdate) => {
       if (!call.current) return;
       if (update.type === "stopped") {
-        avatar.current?.setLevel(0);
+        if (update.generation === generation.current) {
+          avatar.current?.setLevel(0);
+          avatar.current?.setViseme?.("rest");
+        }
         send({
           ...eventBase(),
           type: "playback_stopped",
@@ -62,6 +65,7 @@ export function useConversation(
         return;
       }
       if (update.generation !== generation.current) return;
+      if (update.type === "viseme") avatar.current?.setViseme?.(update.shape ?? null);
       if (update.type === "caption" && update.text) {
         setState("speaking");
         const text = update.text;
@@ -219,6 +223,7 @@ export function useConversation(
           setMicEnabled(false);
           setState("idle");
           avatar.current?.setLevel(0);
+          avatar.current?.setViseme?.("rest");
           avatar.current?.setListening(false);
           avatar.current?.setDelivery?.("neutral");
           void playout.current?.close();
@@ -293,6 +298,7 @@ export function useConversation(
     generation.current += 1;
     playout.current?.reset(generation.current);
     avatar.current?.setLevel(0);
+    avatar.current?.setViseme?.("rest");
     avatar.current?.setListening(true);
     avatar.current?.setDelivery?.("neutral");
     working.current = false;
@@ -307,6 +313,7 @@ export function useConversation(
     setMicEnabled(false);
     const current = call.current;
     avatar.current?.setLevel(0);
+    avatar.current?.setViseme?.("rest");
     avatar.current?.setListening(false);
     avatar.current?.setDelivery?.("neutral");
     setState("idle");

@@ -1,7 +1,7 @@
-import type { AudioEvent } from "@opentavus/contracts";
+import type { AudioEvent, VisemeSpan } from "@opentavus/contracts";
 
 export interface PlayoutUpdate {
-  type: "caption" | "progress" | "stopped" | "overflow";
+  type: "caption" | "progress" | "stopped" | "overflow" | "viseme";
   generation: number;
   oldGeneration?: number;
   played?: number;
@@ -9,6 +9,7 @@ export interface PlayoutUpdate {
   level?: number;
   idle?: boolean;
   done?: boolean;
+  shape?: VisemeSpan["shape"] | null;
 }
 
 export class Playout {
@@ -49,6 +50,23 @@ export class Playout {
     const bytes = atob(event.data_b64);
     if (bytes.length % 2 || bytes.length > 48000) throw new Error("Invalid speech packet.");
     const samples = new Float32Array(bytes.length / 2);
+    const visemes = event.visemes || [];
+    let previousEnd = 0;
+    if (visemes.length > 64) throw new Error("Too many speech mouth cues.");
+    for (const cue of visemes) {
+      if (
+        !Number.isSafeInteger(cue.start_sample) ||
+        !Number.isSafeInteger(cue.end_sample) ||
+        cue.start_sample < previousEnd ||
+        cue.end_sample <= cue.start_sample ||
+        cue.end_sample > samples.length ||
+        !["rest", "closed", "open", "wide", "round", "pucker", "teeth", "tongue"].includes(
+          cue.shape,
+        )
+      )
+        throw new Error("Invalid speech mouth cue.");
+      previousEnd = cue.end_sample;
+    }
     for (let i = 0; i < samples.length; i++) {
       const unsigned = bytes.charCodeAt(i * 2) | (bytes.charCodeAt(i * 2 + 1) << 8);
       samples[i] = (unsigned >= 32768 ? unsigned - 65536 : unsigned) / 32768;
@@ -61,6 +79,7 @@ export class Playout {
         samples,
         sampleRate: event.sample_rate,
         caption: event.caption,
+        visemes,
       },
       [samples.buffer],
     );

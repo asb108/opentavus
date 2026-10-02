@@ -45,8 +45,11 @@ const expectedPhotoIds = ["neutral", "warm", "attentive", "thoughtful", "poster"
 if (
   photoManifest.eligibility !== "reviewed_permissive" ||
   photoManifest.license !== "CC0-1.0" ||
-  photoManifest.tile !== 384 ||
+  photoManifest.tile !== 512 ||
   photoManifest.grid !== 6 ||
+  photoManifest.poses !== 4 ||
+  JSON.stringify(photoManifest.visemes) !==
+    JSON.stringify(["rest", "closed", "open", "wide", "round", "pucker", "teeth", "tongue"]) ||
   photoManifest.files.length !== expectedPhotoIds.length ||
   expectedPhotoIds.some((id) => photoManifest.files.filter((asset) => asset.id === id).length !== 1)
 )

@@ -30,6 +30,7 @@ from opentavus_core.schema import (
     StatusEvent,
     TextEvent,
     TranscriptEvent,
+    VisemeSpan,
     WireEvent,
 )
 
@@ -296,6 +297,14 @@ class Conversation:
                                     channels=audio.channels,
                                     data_b64=base64.b64encode(audio.pcm).decode(),
                                     caption=phrase if first else "",
+                                    visemes=[
+                                        VisemeSpan(
+                                            shape=cue.shape,
+                                            start_sample=cue.start_sample,
+                                            end_sample=cue.end_sample,
+                                        )
+                                        for cue in audio.visemes
+                                    ],
                                 )
                             )
                             first = False

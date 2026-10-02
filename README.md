@@ -9,17 +9,18 @@ An open-source AI companion you can talk to, learn with, and build on. It runs l
 | Try it | What it does |
 | --- | --- |
 | Talk or type | Local Whisper recognition, streaming Qwen replies, and Kokoro speech. Use Stop to interrupt queued audio immediately. |
-| Meet Mira | A fictional photographic human with prepared head movement, blinking, listening and expression cues. Mouth movement follows played audio, and Stop closes it immediately. No NVIDIA avatar server is required. |
+| Meet Mira | A fictional photographic human with prepared head movement, blinking, listening and expression cues. Kokoro phoneme timings drive distinct mouth shapes on the played-audio clock; Stop closes it immediately. No NVIDIA avatar server is required. |
 | Make it yours | Choose installed Qwen sizes, four English preset voices, and photographic, static, 3D or cartoon characters independently. Changes apply to the next call. |
 | Teach on board | Ask directly for a note, formula, process flowchart, or practice question. Explicit drawing requests work with Teach mode off. Draw alongside the AI, keep your edits, and export a canvas PNG or lesson Markdown. |
 | Build in the open | Typed engine interfaces, generated Python/browser schemas, focused behavior tests, and contributor checks that work without model downloads. |
 
-![Photographic Mira with the generated photosynthesis diagram](docs/releases/photographic-human-preview.png)
+![Photographic Mira during real local speech](docs/releases/phoneme-portrait-preview.png)
 
-[Watch the actual voice-and-portrait preview](docs/releases/photographic-human-preview.webm).
+[Watch the actual voice-and-portrait preview](docs/releases/phoneme-portrait-preview.webm).
 This short capture uses real local Qwen/Kokoro speech at normal speed. Mira's
-motion comes from a finite prepared set; precise phoneme lip-sync and fully
-natural emotional behavior remain open. The [measured evidence](docs/releases/photographic-human-evidence.json)
+motion comes from a finite prepared set. Mouth cues now use model-derived phoneme
+timings rather than loudness alone; anatomical accuracy and fully natural
+emotional behavior remain open. The [measured evidence](docs/releases/phoneme-portrait-evidence.json)
 records the checks and their limits.
 
 ## Try the local app
@@ -78,8 +79,8 @@ The [asset provenance and exact prompt](assets/stock/photographic/README.md)
 also retain a locally generated FLUX.2 Klein 4B source and an [open-model preparation recipe](benchmarks/portrait/prepared/README.md).
 LivePortrait's reviewed MIT core prepared the motion without InsightFace or actor
 media. The prepared files are offered under CC0 to the extent of held rights;
-engine and model licenses remain separate. The browser downloads about 3 MB of
-frames, with approximately 81 MiB of decoded image storage; source images and
+engine and model licenses remain separate. The browser downloads about 5.5 MB of
+frames, with approximately 144 MiB of decoded image storage; source images and
 preparation models stay out of browser assets.
 
 LAM is a separately planned, removable plugin. Nothing in the base app installs

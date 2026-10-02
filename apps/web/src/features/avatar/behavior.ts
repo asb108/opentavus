@@ -15,11 +15,11 @@ export function speechLevel(value: number): number {
 }
 
 /** A blink meets the neutral head pose at the loop boundary, avoiding a pose jump. */
-export function portraitPose(now: number, reduced: boolean) {
+export function portraitPose(now: number, reduced: boolean, poses = 8) {
   if (reduced) return { phase: 0, next: 0, mix: 0, blink: 0 };
   const time = ((now % 6400) + 6400) % 6400;
-  const position = (time / 6400) * 8;
+  const position = (time / 6400) * poses;
   const phase = Math.floor(position);
   const blink = time > 6200 ? Math.sin(((time - 6200) / 200) * Math.PI) : 0;
-  return { phase, next: (phase + 1) % 8, mix: position - phase, blink };
+  return { phase, next: (phase + 1) % poses, mix: position - phase, blink };
 }

@@ -40,7 +40,7 @@
       "purpose": "code",
       "source_url": "repo://plugins/local/src/opentavus_kokoro/adapter.py",
       "revision": "0.1.0a1",
-      "sha256": "d167728b2e991381f1bdcb29c20b3322da868beb3f80dd766e5ce7073eb6cc2d",
+      "sha256": "2ec8837c34d62e673a980ace6b3aca688635a50aba606dbdfb1f1655bd20444a",
       "license_id": "Apache-2.0",
       "license_url": "repo://LICENSE",
       "attribution": "OpenTavus contributors",

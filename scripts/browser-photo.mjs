@@ -44,6 +44,16 @@ try {
   run(`
     await page.addInitScript(() => {
       window.__photoFrames=[];window.__photoEvents=[];window.__photoExpressions=[];window.__photoClosedImages=0;
+      window.__photoCues=[];
+      const cues=new MutationObserver(()=>{
+        const canvas=document.querySelector('canvas.avatar[data-avatar="mira-photo"]');
+        if(!canvas?.dataset.cue||window.__photoCues.length>=2000)return;
+        const last=window.__photoCues.at(-1),id=canvas.dataset.cue;
+        if(last?.id===id)return;
+        const received=Number(canvas.dataset.cueReceivedAt),rendered=Number(canvas.dataset.cueRenderedAt);
+        window.__photoCues.push({id,shape:canvas.dataset.viseme,received,rendered,latencyMs:rendered-received});
+      });
+      cues.observe(document,{subtree:true,attributes:true,attributeFilter:['data-cue']});
       const close=ImageBitmap.prototype.close;
       ImageBitmap.prototype.close=function(){window.__photoClosedImages++;return close.call(this);};
       const draw=CanvasRenderingContext2D.prototype.drawImage;
@@ -66,7 +76,7 @@ try {
         constructor(...args){super(...args);this.port.addEventListener('message',({data})=>{
           if(window.__photoEvents.length<20000 && (data.type!=='progress'||data.level>0||data.done))
             window.__photoEvents.push({t:performance.now(),type:data.type,generation:data.generation,
-              oldGeneration:data.oldGeneration,level:data.level});
+              oldGeneration:data.oldGeneration,level:data.level,shape:data.shape,played:data.played});
         });this.port.start();}
       };
     });
@@ -82,7 +92,7 @@ try {
         gapsOver100Ms:gaps.filter(t=>t>100).length,firstFrameAfterNavigationMs:window.__photoFrames[0]};
       if(idle.fps<28||idle.gapsOver100Ms)throw new Error('Photographic cadence failed: '+JSON.stringify(idle));
       const canvas=document.querySelector('canvas.avatar');
-      window.__photoResult={idle,width:canvas.width,height:canvas.height,decodedRGBABytes:4*2304*2304*4,
+      window.__photoResult={idle,width:canvas.width,height:canvas.height,decodedRGBABytes:4*(canvas.width*6)**2*4,
         graphicsMode:${JSON.stringify(software ? "gpu-disabled-software-canvas" : "default-browser")}};
     },start);
     await page.screenshot({path:${JSON.stringify(path.join(output, "photo-idle.png"))},fullPage:true});
@@ -134,11 +144,30 @@ try {
       const late=window.__photoEvents.filter(e=>e.type==='progress'&&e.generation===reset.oldGeneration&&e.t>reset.t&&e.level>0);
       const mouth=Number(document.querySelector('canvas.avatar').dataset.mouth);
       if(late.length||mouth!==0)throw new Error('Photographic speech continued after Stop');
+      const staleVisemes=window.__photoEvents.filter(e=>e.type==='viseme'&&e.generation===reset.oldGeneration&&e.t>reset.t);
+      if(staleVisemes.length)throw new Error('Old-generation mouth cues survived Stop');
+      const voiceStart=window.__photoEvents.find(e=>e.type==='progress'&&e.level>0)?.t;
+      const cues=window.__photoCues.filter(c=>c.received>=voiceStart&&c.received<window.__photoStop);
+      const shapes=[...new Set(cues.map(c=>c.shape))];
+      const delays=cues.map(c=>c.latencyMs).sort((a,b)=>a-b);
+      const receivedCues=window.__photoEvents.filter(e=>e.type==='viseme'&&e.t>=voiceStart&&e.t<window.__photoStop).length;
+      const frames=window.__photoFrames.filter(t=>t>=voiceStart&&t<window.__photoStop);
+      const gaps=frames.slice(1).map((t,i)=>t-frames[i]),sortedGaps=[...gaps].sort((a,b)=>a-b);
+      const drawing={frames:frames.length,fps:(frames.length-1)*1000/(frames.at(-1)-frames[0]),
+        p95GapMs:sortedGaps[Math.floor(sortedGaps.length*.95)],gapsOver100Ms:gaps.filter(g=>g>100).length};
+      if(drawing.fps<28||drawing.gapsOver100Ms)throw new Error('Live drawing cadence failed: '+JSON.stringify(drawing));
+      if(!shapes.includes('closed')||!shapes.includes('wide')||!shapes.some(s=>s==='round'||s==='pucker')||shapes.length<5)
+        throw new Error('Speech did not render distinct timed mouth shapes: '+shapes);
+      if(delays.at(-1)>80)throw new Error('Mouth cue scheduling exceeded 80 ms: '+delays.at(-1));
       if(!window.__photoExpressions.includes('thoughtful')||!window.__photoExpressions.includes('warm')||!window.__photoExpressions.includes('attentive'))
         throw new Error('Real call did not reach the expected expression cues: '+window.__photoExpressions);
       window.__photoResult.live={stopClickToWorkletAckMs:reset.t-window.__photoStop,stalePositiveEnergy:late.length,
         mouthAfterStop:mouth,positiveEnergyEvents:window.__photoEvents.filter(e=>e.level>0).length,
-        observedExpressions:window.__photoExpressions};
+        observedExpressions:window.__photoExpressions,staleVisemes:staleVisemes.length,
+        drawing,
+        visemeScheduling:{receivedCues,renderedCues:cues.length,coalescedOrFrameWindowBoundary:Math.max(0,receivedCues-cues.length),observedShapes:shapes,p95Ms:delays[Math.floor(delays.length*.95)],maxMs:delays.at(-1),
+          boundary:'Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy'},
+        cueTrace:cues};
     });
     await page.screenshot({path:${JSON.stringify(path.join(output, "photo-stopped.png"))},fullPage:true});
     await page.getByRole('button',{name:'End conversation'}).click();

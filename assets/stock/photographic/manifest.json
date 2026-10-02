@@ -1,19 +1,13 @@
 {
   "schema_version": 1,
-  "id": "stock.mira.photographic.v1",
+  "id": "stock.mira.photographic.v2",
   "display_name": "Mira \u00b7 Photographic preview",
   "eligibility": "reviewed_permissive",
   "license": "CC0-1.0",
   "license_scope": "generated fictional output assets to the extent of rights held; model/code terms remain independent",
-  "tile": 384,
+  "tile": 512,
   "grid": 6,
-  "poses": 8,
-  "mouth_levels": [
-    0,
-    0.07,
-    0.12,
-    0.18
-  ],
+  "poses": 4,
   "blink_indices": [
     32,
     33,
@@ -47,39 +41,49 @@
       "landmark.onnx",
       "actor/driving media"
     ],
-    "preparation_record": "../../../benchmarks/portrait/prepared/preparation-result.json"
+    "preparation_record": "../../../benchmarks/portrait/prepared/phoneme-preparation-result.json"
   },
   "files": [
     {
       "id": "neutral",
-      "bytes": 750264,
-      "sha256": "d9e8ef8442751c26fd14848133123e8630e2189003d5a863a09a2eb844cda946"
+      "bytes": 1351024,
+      "sha256": "445d7f5994f238a39b9f38ba5b36ce751a54af3d5c0f38bbd196b0a8fc4956f3"
     },
     {
       "id": "warm",
-      "bytes": 749020,
-      "sha256": "c20b6481ef85cc2f4aa2c7f64b50f9f0ce92d05ddfdea653cef07d71660573bf"
+      "bytes": 1374090,
+      "sha256": "02942cb1bc3af11b2beed4fda1fa2a6e033d9fd0a6b297473c764078cc8ba113"
     },
     {
       "id": "attentive",
-      "bytes": 746716,
-      "sha256": "a08d9b486689f5014339dfa1a2c92c5ded5af2195d1db02860db724c4eb95a8e"
+      "bytes": 1367966,
+      "sha256": "b955f20b40a6839440da92a28e72c32f6eada64e7e1150b53e55101cb8d01d46"
     },
     {
       "id": "thoughtful",
-      "bytes": 749062,
-      "sha256": "c1a0f913a12e1c39dfaa36d4105778108d8676cbc220eb9f0e63ebf3de7a44d8"
+      "bytes": 1365956,
+      "sha256": "e2ab797bcee14d960e5cf792cd2abed9fa6d6ba36b22c3832559273fd51c4baa"
     },
     {
       "id": "poster",
-      "bytes": 28866,
-      "sha256": "aa5ff5acebc8fb28863d2a8e9c99af4736c34b519db3cd5806419a1654b00c35"
+      "bytes": 52290,
+      "sha256": "d60ad0907080a3c12ddced731244d3236a42bd745a49551b50e2581e9ea44d8a"
     }
   ],
   "limits": [
     "finite controlled motion/expression bank",
-    "audio energy, not phoneme-accurate speech",
+    "model-derived phoneme times with approximate viseme geometry; perceptual alignment remains unverified",
     "single manually aligned fictional adult",
-    "PC/long-call proof pending"
+    "weak-PC/Windows/long-call proof pending"
+  ],
+  "visemes": [
+    "rest",
+    "closed",
+    "open",
+    "wide",
+    "round",
+    "pucker",
+    "teeth",
+    "tongue"
   ]
 }

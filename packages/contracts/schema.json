@@ -145,6 +145,14 @@
           "pattern": "^[a-zA-Z0-9_.-]+$",
           "title": "Utterance Id",
           "type": "string"
+        },
+        "visemes": {
+          "items": {
+            "$ref": "#/$defs/VisemeSpan"
+          },
+          "maxItems": 64,
+          "title": "Visemes",
+          "type": "array"
         }
       },
       "required": [
@@ -1260,6 +1268,42 @@
         "text"
       ],
       "title": "TranscriptEvent",
+      "type": "object"
+    },
+    "VisemeSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "end_sample": {
+          "exclusiveMinimum": 0,
+          "title": "End Sample",
+          "type": "integer"
+        },
+        "shape": {
+          "enum": [
+            "rest",
+            "closed",
+            "open",
+            "wide",
+            "round",
+            "pucker",
+            "teeth",
+            "tongue"
+          ],
+          "title": "Shape",
+          "type": "string"
+        },
+        "start_sample": {
+          "minimum": 0,
+          "title": "Start Sample",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "shape",
+        "start_sample",
+        "end_sample"
+      ],
+      "title": "VisemeSpan",
       "type": "object"
     }
   },

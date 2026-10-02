@@ -25,11 +25,23 @@ callback. Preparation is abortable, and disposal is idempotent after partial
 initialization. It consumes the common played-audio energy with no independent
 AudioContext or speech queue. Lost graphics, invalid assets and late preparation
 cannot end or replace the selected conversation. Photographic playback uses the
-same boundary, with optional typed `setDelivery` presentation cues; offline
+same boundary, with optional typed `setDelivery` presentation and `setViseme` mouth cues; offline
 animation dependencies do not belong to the base. Its curated manifest fixes four
-expression sheets, 36 tiles per sheet and 384-pixel tiles. Build and browser checks
+expression sheets, four head poses × eight visemes plus four blink keys per sheet, and native 512-pixel tiles. Build and browser checks
 reject wrong hashes/sizes. Abort/dispose closes even partially decoded images.
 There is no URL-driven custom face/model import in this preview.
+
+`AudioOutput.visemes` contains optional typed mouth spans. `AudioEvent.visemes`
+validates at most 64 ordered, non-overlapping spans with integer sample offsets
+inside that packet's complete PCM frames. Shapes are a fixed allowlist; no URLs,
+model code or arbitrary renderer parameters travel on this path. Offsets are
+packet-relative and rates match the attached PCM. The browser validates them
+again before transferring PCM and cues to the Worklet's existing bounded queue.
+Generation reset discards both. The core has no Kokoro/NumPy/model dependency.
+Empty spans explicitly retain energy-based animation. The coordinated alpha
+server and browser contract gained this optional field; older strict clients need
+a refreshed build. Do not claim backward compatibility for an old browser tab.
+
 
 The photographic asset review distinguishes an owner-authorized OpenAI source
 creation from the reviewed open animation core and the retained open-model source

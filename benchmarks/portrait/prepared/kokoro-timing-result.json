@@ -1,0 +1,49 @@
+{
+  "synthetic_public_phrase": "Mum, buy a blue balloon. We move our lips when we speak.",
+  "sample_rate": 24000,
+  "provider": "CPUExecutionProvider",
+  "model_sha256": "beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a",
+  "kokoro_onnx": "0.6.1",
+  "onnxruntime": "1.24.4",
+  "runs": [
+    {
+      "voice": "af_heart",
+      "seconds_to_synthesize": 1.460209249999025,
+      "pcm_seconds": 3.290625,
+      "packets": 42,
+      "cue_spans": 91,
+      "shapes": [
+        "closed",
+        "open",
+        "pucker",
+        "rest",
+        "teeth",
+        "tongue",
+        "wide"
+      ],
+      "bounded_inside_pcm": true,
+      "duration_export_available": true,
+      "contiguous_presentation": true
+    },
+    {
+      "voice": "bf_emma",
+      "seconds_to_synthesize": 1.3568881250012055,
+      "pcm_seconds": 3.1453333333333333,
+      "packets": 40,
+      "cue_spans": 88,
+      "shapes": [
+        "closed",
+        "open",
+        "pucker",
+        "rest",
+        "teeth",
+        "tongue",
+        "wide"
+      ],
+      "bounded_inside_pcm": true,
+      "duration_export_available": true,
+      "contiguous_presentation": true
+    }
+  ],
+  "boundary": "Returned model duration/sample validation, not independent acoustic alignment"
+}

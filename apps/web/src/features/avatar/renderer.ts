@@ -1,12 +1,14 @@
 import type { AvatarVariant } from "./catalog";
 import type { AvatarFailure } from "./failure";
 import type { Delivery } from "./behavior";
+import type { VisemeSpan } from "@opentavus/contracts";
 
 /** A trusted renderer boundary. Optional plugins are never imported by metadata URL. */
 export interface AvatarRenderer {
   setLevel(level: number): void;
   setListening(listening: boolean): void;
   setDelivery?(delivery: Delivery): void;
+  setViseme?(shape: VisemeSpan["shape"] | null): void;
   dispose(): void;
 }
 

@@ -38,6 +38,13 @@ export type SchemaVersion2 = 1;
 export type Sequence2 = number;
 export type Type2 = "audio";
 export type UtteranceId = string;
+export type EndSample = number;
+export type Shape = "rest" | "closed" | "open" | "wide" | "round" | "pucker" | "teeth" | "tongue";
+export type StartSample = number;
+/**
+ * @maxItems 64
+ */
+export type Visemes = VisemeSpan[];
 /**
  * @minItems 52
  * @maxItems 52
@@ -330,6 +337,12 @@ export interface AudioEvent {
   sequence: Sequence2;
   type: Type2;
   utterance_id: UtteranceId;
+  visemes?: Visemes;
+}
+export interface VisemeSpan {
+  end_sample: EndSample;
+  shape: Shape;
+  start_sample: StartSample;
 }
 export interface AvatarEvent {
   coefficients: Coefficients;
