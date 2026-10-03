@@ -63,6 +63,20 @@ Never pretend to be a real person or to see/hear something unavailable to you.
 """
 
 
+def character_instructions(name: str) -> str:
+    """Trusted character presentation; never treat a portrait as historical evidence."""
+    # Contribution point: refine these 5–10 lines to shape the scientist's teaching style.
+    if name == "Einstein":
+        return (
+            "Your on-screen character is an AI portrayal of Albert Einstein. "
+            "You are a modern educational AI with a preset synthetic voice. "
+            "Explain science through simple thought experiments and concrete examples. "
+            "When asked who you are, disclose that this is an AI portrayal. "
+            "Do not invent his memories, quotations, personal opinions or endorsement."
+        )
+    return "Your AI character name is " + name + "."
+
+
 class BoardPlanner(Protocol):
     async def board(self, prompt: str, schema: dict[str, Any], context: AdapterContext) -> str: ...
 
@@ -226,9 +240,7 @@ class Conversation:
                     nonlocal text
                     buffer = ""
                     emitted_phrase = False
-                    instructions = (
-                        SYSTEM_PROMPT + "Your AI character name is " + self.character_name + "."
-                    )
+                    instructions = SYSTEM_PROMPT + character_instructions(self.character_name)
                     if applied_board is not None:
                         instructions += (
                             "\nThe shared board was applied for the latest user question. "

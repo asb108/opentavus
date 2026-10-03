@@ -24,7 +24,7 @@ import { useConversation } from "./features/call/useConversation";
 const Board = lazy(() =>
   import("./features/canvas/Board").then((module) => ({ default: module.Board })),
 );
-const defaults: CallSettings = { model: "qwen2.5:1.5b", voice: "af_heart", avatar: "mira-photo" };
+const defaults: CallSettings = { model: "qwen2.5:1.5b", voice: "am_michael", avatar: "einstein" };
 function savedSettings(): CallSettings {
   try {
     const value = JSON.parse(
@@ -34,7 +34,7 @@ function savedSettings(): CallSettings {
       value &&
       ["qwen2.5:0.5b", "qwen2.5:1.5b", "qwen2.5:7b"].includes(value.model) &&
       ["af_heart", "af_bella", "am_michael", "bf_emma"].includes(value.voice) &&
-      ["mira-photo", "mira", "portrait", "orbit", "lumen"].includes(value.avatar)
+      Object.hasOwn(avatarInfo, value.avatar)
     )
       return value;
   } catch {

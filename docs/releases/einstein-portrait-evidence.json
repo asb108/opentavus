@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "task": "T24",
+  "status": "local_verified_publication_pending",
+  "date": "2026-10-04",
+  "scope": "Curated historical Einstein AI portrayal with prepared open neural motion and existing phoneme-timed local speech; broader live-video and natural behavior gates remain open.",
+  "reference": {
+    "os": "macOS 14.5",
+    "cpu": "Apple M3 Pro",
+    "memory_gb": 18,
+    "browser": "Chrome via Playwright CLI",
+    "server": "http://127.0.0.1:8765",
+    "llm": "qwen2.5:1.5b",
+    "tts": "Existing pinned Kokoro ONNX",
+    "voice": "am_michael preset",
+    "source": "Ferdinand Schmutzer, 1921, public-domain historical photograph as identified by Wikimedia Commons",
+    "source_sha256": "d145da92b2a4756c2261f7358fcd75c5271dbe7c51757e6b00dd458fa80a8d8c"
+  },
+  "assets": {
+    "manifest": "../../assets/stock/einstein/manifest.json",
+    "source_rights": "../../assets/stock/einstein/README.md",
+    "preparation": "../../benchmarks/portrait/prepared/einstein-preparation-result.json",
+    "native_tile": 512,
+    "prepared_frames": 145,
+    "offline_preparation_seconds": 194.2,
+    "served_bytes": 7536518,
+    "decoded_selected_bank_bytes": 150994944,
+    "private_source_or_voice_clone": false
+  },
+  "local_checks": {
+    "make_check": "passed twice on final implementation: 105 Python, 3 contract, 17 frontend behavior tests; strict types/style/generated contracts/build/plan",
+    "make_base_check": "passed: 37 core; 5 fixture cases deselected; no installed plugins",
+    "make_demo": "passed: synthetic fixture only",
+    "fresh_contributor": "105 tests passed with NumPy, ONNX Runtime, Kokoro and optional local adapters absent",
+    "benchmarks_ruff": "passed: Ruff check/format, Python compilation and dependency-free --help"
+  },
+  "commands": [
+    "make check",
+    "make base-check",
+    "make demo",
+    "npm run test:browser -- --scientist --live",
+    "npm run test:browser -- --scientist --software",
+    "npm run test:browser -- --photo",
+    "UV_PROJECT_ENVIRONMENT=.cache/scientist-contributor-env uv run --no-sync pytest -q"
+  ],
+  "live_browser": {
+    "avatar": "einstein",
+    "idle": {
+      "frames": 210,
+      "durationMs": 6966.19999999553,
+      "fps": 30.002009704018565,
+      "p95GapMs": 34,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 552.3000000044703
+    },
+    "width": 512,
+    "height": 512,
+    "decodedRGBABytes": 150994944,
+    "blinkTiles": [
+      32,
+      33,
+      34,
+      35
+    ],
+    "graphicsMode": "default-browser",
+    "live": {
+      "stopClickToWorkletAckMs": 54,
+      "stalePositiveEnergy": 0,
+      "mouthAfterStop": 0,
+      "positiveEnergyEvents": 148,
+      "observedExpressions": [
+        "neutral",
+        "thoughtful",
+        "warm",
+        "attentive"
+      ],
+      "staleVisemes": 0,
+      "drawing": {
+        "frames": 158,
+        "fps": 30.009365980448145,
+        "p95GapMs": 34.29999999701977,
+        "gapsOver100Ms": 0
+      },
+      "visemeScheduling": {
+        "receivedCues": 60,
+        "renderedCues": 57,
+        "coalescedOrFrameWindowBoundary": 3,
+        "observedShapes": [
+          "teeth",
+          "open",
+          "tongue",
+          "round",
+          "pucker",
+          "rest",
+          "wide",
+          "closed"
+        ],
+        "p95Ms": 32.399999998509884,
+        "maxMs": 34,
+        "boundary": "Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy"
+      }
+    },
+    "closedImageBitmaps": 4,
+    "historicalIdentityDisclosed": true,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "software_browser": {
+    "avatar": "einstein",
+    "idle": {
+      "frames": 210,
+      "durationMs": 6967.19999999553,
+      "fps": 29.997703525108236,
+      "p95GapMs": 34.19999999552965,
+      "gapsOver100Ms": 0,
+      "firstFrameAfterNavigationMs": 539.6000000014901
+    },
+    "width": 512,
+    "height": 512,
+    "decodedRGBABytes": 150994944,
+    "blinkTiles": [
+      32,
+      33,
+      34,
+      35
+    ],
+    "graphicsMode": "gpu-disabled-software-canvas",
+    "graphicsFeatures": {
+      "2d_canvas": "disabled_software",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "disabled_software",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "disabled_off",
+      "rasterization": "disabled_software",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "disabled_off",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "disabled_software",
+      "video_encode": "disabled_software",
+      "webgl": "unavailable_software",
+      "webgpu": "unavailable_software",
+      "webnn": "unavailable_software"
+    },
+    "closedImageBitmaps": 4,
+    "staticCleanup": true,
+    "invalidAssetFallback": true,
+    "cancelledPreparation": true
+  },
+  "mira_regression": "passed: cadence, full blink stages, static disposal, damaged asset, cancelled loading and unavailable Canvas",
+  "user_preview": {
+    "selected": "einstein",
+    "ready": true,
+    "disclosure": "AI portrayal \u00b7 Synthetic voice",
+    "saved_model": "qwen2.5:1.5b",
+    "saved_voice": "af_heart",
+    "verification": "In-app browser DOM and screenshot; existing model/voice retained when selecting the new scientist"
+  },
+  "media": {
+    "path": "einstein-portrait-preview.webm",
+    "duration_seconds": 7.158,
+    "video_frames": 213,
+    "video_timestamp_fps": 29.65034965034965,
+    "video_max_gap_ms": 66.00000000000028,
+    "audio_packets": 118,
+    "streams": [
+      {
+        "type": "video",
+        "codec": "vp8",
+        "width": 512,
+        "height": 512,
+        "sample_rate": null
+      },
+      {
+        "type": "audio",
+        "codec": "opus",
+        "width": null,
+        "height": null,
+        "sample_rate": "48000"
+      }
+    ],
+    "bytes": 1248064,
+    "sha256": "7e200f1c35ce35b6f5aad8a6269326973370d919f180db7938a254b6a67071be",
+    "transform": "Container-only FFmpeg -c copy remux; no re-encoding, retiming, frame interpolation or lip/audio offset change.",
+    "public_question": "Say hello and welcome, then explain photosynthesis in four short sentences.",
+    "screenshot": {
+      "path": "einstein-portrait-preview.png",
+      "sha256": "8301927f1bee438cec3e8a70a26f3a2a9b6df51ffd9c0287a2a7f1f940d7a984"
+    }
+  },
+  "repeated_checks": [
+    "First probe ran out of disk space. Removed only ignored, recreatable prior experiment/contributor/source-generation caches; preserved current app, speech/animation models, tracked sources and historical evidence. Repeated probe and full preparation succeeded.",
+    "First identity assertion read the first streamed caption. Repeated with completed playback before inspection; AI identity disclosure passed without changing the identity prompt."
+  ],
+  "publication": {
+    "implementation_commit": null,
+    "source_ci": null
+  },
+  "unverified": [
+    "Independent acoustic/perceptual phoneme precision",
+    "Full natural emotional/human behavior and Tavus-equivalent live neural video",
+    "Windows and weak-PC complete-stack performance",
+    "20-minute reliability and full T05/T10/T13 acceptance",
+    "Arbitrary face upload/custom avatar import or source-grounded historical dialogue"
+  ]
+}

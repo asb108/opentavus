@@ -99,6 +99,8 @@ class Installation:
                 {"id": "bf_emma", "name": "Emma", "description": "British English"},
             ],
             "avatars": [
+                {"id": "einstein", "name": "Einstein · Historical portrait"},
+                {"id": "einstein-portrait", "name": "Einstein · Static portrait"},
                 {"id": "mira-photo", "name": "Mira · Photographic preview"},
                 {"id": "mira", "name": "Mira · 3D human"},
                 {"id": "portrait", "name": "Mira · Static portrait"},

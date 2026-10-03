@@ -42,6 +42,7 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T21](#t21) | G2 | done | T02, T18 | Codex / Atul |
 | [T22](#t22) | G2 | done | T02, T18, T20 | Codex / Atul |
 | [T23](#t23) | G2 | done | T02, T18, T22 | Codex / Atul |
+| [T24](#t24) | G2 | in_progress | T23 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -729,6 +730,55 @@ Evidence:
 - 2026-10-03: Blink correction passed make check (103 Python / 3 contract / 15 web tests). Updated main-app --photo --live observed the complete [32,33,34,35] eye sequence, 29.997 live drawing FPS, cue P95 31.8 ms/max 32.8 ms, 64 received/rendered transitions with none coalesced in the measured window, all eight speech states, Stop ACK 51.2 ms and zero stale speech/cues. Public native capture replaced with this exact renderer output. Final source CI still pending.
 - 2026-10-03: Final blink-corrected --photo --software rendered all four eye stages, passed about 30 FPS/34 ms P95/no >100 ms gaps, static cleanup and failure/cancellation checks, with GPU compositing and 2D acceleration disabled. Full natural/perceptual quality gates remain open.
 - 2026-10-03 final completion: blink-corrected implementation a4b9650417f91356b5bc3b7d63439107fdedc569 pushed to main; exact Linux/Python 3.12/Node 22 source CI https://github.com/asb108/opentavus/actions/runs/37071871515 succeeded on setup/check/demo/base-check. All bounded T23 acceptance is evidenced, including complete eye stages, actual main-app speech, <=80 ms scheduling, normal/software drawing cadence, cancellation/resource recovery and contributor checks. Independent acoustic/perceptual precision and full natural/emotional/Tavus-quality video remain unverified under T10/T13; no weak-PC/Windows or 20-minute claim.
+
+<a id="t24"></a>
+
+#### T24: Add a realistic historical scientist portrayal
+
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T23.
+
+A recognizable Albert Einstein photographic AI portrayal reuses local timed speech and prepared browser motion. New settings prefer the scientist; Mira and independent voice/model choices remain available.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `assets/stock/einstein/`
+- `apps/web/src/features/avatar/`
+- `apps/web/src/App.tsx`
+- `apps/web/src/features/call/useConversation.ts`
+- `apps/api/src/opentavus_api/`
+- `apps/api/tests/`
+- `packages/runtime/src/opentavus_runtime/installation.py`
+- `packages/runtime/src/opentavus_runtime/conversation.py`
+- `packages/runtime/tests/`
+- `packages/contracts/`
+- `apps/web/tests/`
+- `benchmarks/portrait/prepared/`
+- `scripts/frontend-assets.mjs`
+- `scripts/browser-photo.mjs`
+- `scripts/browser-smoke.mjs`
+- `README.md`
+- `AGENTS.md`
+- `THIRD_PARTY_NOTICES.md`
+- `docs/`
+
+Acceptance:
+
+- Use a reviewed public-domain historical photograph; record original URL, author, rights statement, exact source and prepared hashes, manual alignment, pinned open animation model and reproduction instructions.
+- Inspect actual scientist expression, mouth and eye frames; publish a normal-speed native speech capture. Show an AI portrayal and preset synthetic voice disclosure, with no claim of historical quotations, memories, endorsement or authentic voice.
+- Validate scientist settings/API/catalog and trusted photographic asset selection, retain existing character choices, and default new settings to the scientist. Preserve valid saved model/voice preferences and avoid switching an active call.
+- Use one shared photographic renderer with reviewed per-face compositing regions, existing audio-clock cues, cancellation and disposal; damaged scientist sheets recover to the correct static portrait while the call continues.
+- Run contributor/base checks and real local browser speech, Stop, full blink stages and recovery. Record cadence and scheduling with the same T23 targets; retain unverified perceptual/full-natural-video boundaries.
+- Push the implementation and verify exact-source CI; update canonical documentation and task evidence without closing the broader live portrait/quality tasks.
+
+Evidence:
+
+- 2026-10-04: User requested a realistic famous scientist instead of Mira. Selected Albert Einstein as a historical educational AI portrayal. Current clean main is 4873aa0; T23 supplies shared PCM phoneme timing and prepared motion. Public-domain photo review, new assets, implementation and browser proof pending.
+- 2026-10-04: Preserved the public-domain Schmutzer 1921 source (SHA-256 d145da92b2a4756c2261f7358fcd75c5271dbe7c51757e6b00dd458fa80a8d8c), author/version/rights reasoning, explicit crop [790,250,1220], aligned PNG and per-face regions. Reviewed neutral/warm/attentive/thoughtful, open/round/wide/teeth and blink probes plus a native captured speech frame. Existing pinned MIT LivePortrait prepared 145 actual frames in 194.2 s on MPS with CPU fallback; no source-generation service, InsightFace or voice cloning. Served bank 7,536,518 bytes; selected decoded sheets 144 MiB.
+- make check passed 105 Python, 3 contract and 17 frontend behavior tests, strict types/style/generated contracts/build/plan. make base-check passed 37 core with no plugins (5 fixture deselected); make demo passed synthetic contracts. Fresh contributor environment without optional local adapters, NumPy/ONNX/Kokoro passed all 105 Python tests.
+- Updated main loopback server and real --scientist --live passed: 30.009 live drawing FPS, P95 gap 34.3 ms, no >100 ms gaps; eight observed speech states, cue scheduling P95 32.4 ms/max 34.0 ms; 57 rendered/60 received transitions (3 coalesced/frame-window cases). All four blink stages observed. Stop ACK 54 ms, no stale positive energy/visemes and mouth closed. Correct scientist static/failure poster, disposal, cancelled load, unavailable Canvas and a real reply after damaged-sheet fallback passed. Completed identity reply disclosed AI.
+- Software Canvas --scientist --software passed at 29.998 FPS / P95 gap 34.2 ms / zero >100 ms gaps; Chrome confirmed GPU/2D disabled and WebGL/WebGPU unavailable. Mira --photo regression passed shared-renderer cadence, blink, disposal and all recovery cases. No weak-PC complete-stack claim.
+- Native 512-pixel VP8/Opus capture published under docs/releases/einstein-portrait-preview.webm: 7.158 seconds, 213 actual video frames (timestamp average 29.65 FPS) and 118 audio packets. Container-only -c copy remux preserves media timing; drawing cadence and encoded timestamps are recorded separately. In-app browser now selects Einstein with ready=true, portrayal disclosure, and existing Qwen/Heart voice retained.
+- Full historical factual grounding, perceptual phoneme accuracy, natural emotions/live video, Windows/weak-PC and long-call quality remain unverified. Source push and exact-source CI pending; task remains in_progress.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 

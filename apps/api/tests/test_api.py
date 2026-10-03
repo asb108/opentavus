@@ -2,6 +2,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 from opentavus_api.app import create_app
+from opentavus_api.models import CallSettings
 from opentavus_core.errors import CoreError
 
 ORIGIN = {"origin": "http://127.0.0.1:8765"}
@@ -49,6 +50,29 @@ def test_invalid_settings_are_rejected_without_echoing_request_data():
         )
         assert response.status_code == 422
         assert "private-value" not in response.text
+
+
+def test_scientist_defaults_and_independent_existing_choices():
+    assert CallSettings().avatar == "einstein"
+    assert CallSettings().voice == "am_michael"
+    for avatar in (
+        "einstein",
+        "einstein-portrait",
+        "mira-photo",
+        "portrait",
+        "mira",
+        "orbit",
+        "lumen",
+    ):
+        settings = CallSettings(avatar=avatar, model="qwen2.5:7b", voice="bf_emma")
+        assert settings.model == "qwen2.5:7b"
+        assert settings.voice == "bf_emma"
+    with client() as browser:
+        response = browser.post(
+            "/api/conversations", headers=ORIGIN, json={"avatar": "unreviewed-scientist"}
+        )
+        assert response.status_code == 422
+        assert "unreviewed-scientist" not in response.text
 
 
 def test_failed_preparation_releases_the_single_user_capacity():

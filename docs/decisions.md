@@ -70,3 +70,22 @@ The [evidence](releases/phoneme-portrait-evidence.json) separates cue scheduling
 actual voice/capture, visual limitations and publication. No independent acoustic
 alignment, unrestricted emotional behavior or Tavus-equivalence result is inferred
 from those measurements. T10/T13's larger quality gates remain open.
+
+## D28: Curated historical photograph with a shared prepared renderer
+
+2026-10-04 / T24. The user requested a realistic famous scientist instead of Mira.
+Select Albert Einstein from Ferdinand Schmutzer's public-domain 1921 photograph;
+preserve the exact original and source rights reasoning. Keep the historical
+monochrome look and use the existing pinned open LivePortrait core for offline
+motion. Reviewed expression/viseme/blink probes show a recognizable photographic
+face. The full bank prepared 145 native frames in 194.2 seconds on M3 Pro/MPS
+with CPU fallback and no InsightFace; this is offline creation time, not call latency.
+
+A second face needs its own mouth/eye geometry. Move the already-used Mira masks
+into reviewed manifest metadata and use one validated bank/renderer boundary.
+Trusted local roots, fixed file IDs and existing played-audio timing preserve the
+cancellation/resource behavior. Static/failure modes show the selected scientist.
+New settings prefer Einstein; valid existing voice/model/character preferences
+remain unchanged. Historical identity is explicitly an educational AI portrayal
+with preset synthetic voice, no invented memories/quotations or endorsement.
+Full natural behavior/perceptual alignment/live-video quality remains separate.

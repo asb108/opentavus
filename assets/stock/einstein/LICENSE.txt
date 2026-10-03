@@ -1,0 +1,20 @@
+Historical source photograph: Public Domain Mark 1.0
+
+Albert Einstein during a lecture in Vienna, 1921, by Ferdinand Schmutzer
+(1870–1928). Wikimedia Commons identifies this photograph as public domain in
+its country of origin and in the United States, with the reasoning recorded at:
+https://commons.wikimedia.org/wiki/File:Albert_Einstein_1921_by_F_Schmutzer.jpg
+https://creativecommons.org/publicdomain/mark/1.0/
+
+The upstream digital version removes white specks. OpenTavus preserves those
+source bytes and prepares a square alignment, expressions and motion with the
+independently MIT-licensed LivePortrait core. No actual speech recording is used.
+
+CC0 1.0 Universal applies to the prepared derivative assets only to the extent
+of rights held by OpenTavus contributors. It does not relicense the original
+photograph, model weights or code, or grant endorsement or personality rights:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode.en
+
+This is an explicitly labeled educational AI portrayal, not an authentic video,
+voice, quotation, memory or statement by Albert Einstein. The selectable Kokoro
+voice is an independent synthetic preset. See manifest.json for exact provenance.

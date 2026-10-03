@@ -2,6 +2,11 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { validateStockGlb } from "../src/features/avatar/asset";
 import { deliveryFor, portraitPose, speechLevel } from "../src/features/avatar/behavior";
+import {
+  photographicBank,
+  validatePhotographicManifest,
+} from "../src/features/avatar/photographic-asset";
+import { avatarInfo } from "../src/features/avatar/catalog";
 
 function glb(value: unknown): ArrayBuffer {
   const json = new TextEncoder().encode(JSON.stringify(value));
@@ -88,5 +93,42 @@ describe("photographic presentation policy", () => {
     expect(portraitPose(6200, false, 4).blinkTile).toBe(null);
     expect(portraitPose(6400, false, 4).blinkTile).toBe(null);
     expect(portraitPose(6310, true, 4).blinkTile).toBe(null);
+  });
+});
+
+describe("reviewed photographic character selection", () => {
+  it("keeps each face's own poster, compositing geometry and AI portrayal disclosure", () => {
+    const scientist = photographicBank("einstein")!;
+    const mira = photographicBank("mira-photo")!;
+    expect(scientist.root).toBe("/avatars/einstein");
+    expect(photographicBank("einstein-portrait")).toEqual(scientist);
+    expect(photographicBank("portrait")).toEqual(mira);
+    expect(photographicBank("orbit")).toBeUndefined();
+    const parsed = validatePhotographicManifest(scientist.manifest, scientist.id);
+    expect(parsed.regions).not.toEqual(
+      validatePhotographicManifest(mira.manifest, mira.id).regions,
+    );
+    expect(avatarInfo.einstein.label).toContain("AI portrayal");
+    expect(avatarInfo.einstein.label).toContain("Synthetic voice");
+  });
+  it("rejects swapped identities, invalid facial regions, blink sequences and remote/path file IDs", () => {
+    const bank = photographicBank("einstein")!;
+    const original = bank.manifest as Record<string, unknown>;
+    for (const value of [
+      { ...original, id: "stock.mira.photographic.v2" },
+      { ...original, regions: { mouth: [NaN, 0.5, 0.2, 0.1], eyes: [0.5, 0.4, 0.2, 0.1] } },
+      { ...original, regions: { mouth: [0.05, 0.5, 0.2, 0.1], eyes: [0.5, 0.4, 0.2, 0.1] } },
+      { ...original, blink_indices: [32, 33, 35, 34] },
+      { ...original, files: [{ id: "../unreviewed", bytes: 10, sha256: "0".repeat(64) }] },
+      {
+        ...original,
+        files: Array.from({ length: 5 }, () => ({
+          id: "neutral",
+          bytes: 10,
+          sha256: "0".repeat(64),
+        })),
+      },
+    ])
+      expect(() => validatePhotographicManifest(value, bank.id)).toThrow();
   });
 });

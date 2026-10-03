@@ -6,6 +6,13 @@ import path from "node:path";
 const root = process.cwd();
 const output = path.join(root, "output/playwright");
 const live = process.argv.includes("--live");
+const scientist = process.argv.includes("--scientist");
+const variant = scientist ? "einstein" : "mira-photo";
+const characterName = scientist ? "Einstein" : "Mira";
+const motionLabel = scientist ? "Einstein · Historical portrait" : "Mira · Photographic preview";
+const staticLabel = scientist ? "Einstein · Static portrait" : "Mira · Static portrait";
+const assetRoot = scientist ? "einstein" : "photo";
+const stem = scientist ? "einstein" : "photo";
 const software = process.argv.includes("--software");
 const server = process.env.OPENTAVUS_TEST_URL ?? "http://127.0.0.1:8765";
 const session = `opentavus-photo-${process.pid}`;
@@ -43,11 +50,12 @@ try {
   command("snapshot");
   run(`
     await page.addInitScript(() => {
+      const variant=${JSON.stringify(variant)};
       window.__photoFrames=[];window.__photoEvents=[];window.__photoExpressions=[];window.__photoClosedImages=0;
       window.__photoCues=[];
       window.__photoBlinkTiles=[];
       const cues=new MutationObserver(()=>{
-        const canvas=document.querySelector('canvas.avatar[data-avatar="mira-photo"]');
+        const canvas=document.querySelector('canvas.avatar[data-avatar="${variant}"]');
         if(!canvas?.dataset.cue||window.__photoCues.length>=2000)return;
         const last=window.__photoCues.at(-1),id=canvas.dataset.cue;
         if(last?.id===id)return;
@@ -60,7 +68,7 @@ try {
       const draw=CanvasRenderingContext2D.prototype.drawImage;
       let drawing=false;
       CanvasRenderingContext2D.prototype.drawImage=function(...args){
-        if(this.canvas instanceof HTMLCanvasElement && this.canvas.dataset.avatar==='mira-photo'){
+        if(this.canvas instanceof HTMLCanvasElement && this.canvas.dataset.avatar===variant){
           const t=performance.now();
           // All tile composites in one synchronous render count as one frame.
           if(!drawing && window.__photoFrames.length<18000){
@@ -86,7 +94,11 @@ try {
       };
     });
     await page.reload();
-    await page.waitForSelector('[data-avatar="mira-photo"][data-ready="true"]');
+    await page.getByRole('button',{name:'Companion settings'}).click();
+    await page.getByRole('radio',{name:new RegExp(${JSON.stringify(motionLabel)})}).check();
+    await page.getByRole('button',{name:'Close settings'}).click();
+    await page.waitForSelector('[data-avatar="${variant}"][data-ready="true"]');
+    if(${JSON.stringify(scientist)} && !/AI portrayal.*Synthetic voice/.test(await page.locator('.ai-label').innerText()))throw new Error('Historical portrayal disclosure missing');
     const start=await page.evaluate(()=>performance.now());
     await page.waitForTimeout(7000);
     await page.evaluate(start=>{
@@ -99,11 +111,11 @@ try {
       const canvas=document.querySelector('canvas.avatar');
       const blinkTiles=window.__photoBlinkTiles;
       if([32,33,34,35].some(tile=>!blinkTiles.includes(tile)))throw new Error('Prepared blink stages were not rendered: '+blinkTiles);
-      window.__photoResult={idle,width:canvas.width,height:canvas.height,decodedRGBABytes:4*(canvas.width*6)**2*4,
+      window.__photoResult={avatar:${JSON.stringify(variant)},idle,width:canvas.width,height:canvas.height,decodedRGBABytes:4*(canvas.width*6)**2*4,
         blinkTiles,
         graphicsMode:${JSON.stringify(software ? "gpu-disabled-software-canvas" : "default-browser")}};
     },start);
-    await page.screenshot({path:${JSON.stringify(path.join(output, "photo-idle.png"))},fullPage:true});
+    await page.screenshot({path:${JSON.stringify(path.join(output, stem + "-idle.png"))},fullPage:true});
   `);
 
   if (software)
@@ -140,8 +152,8 @@ try {
     await page.waitForFunction(()=>window.__photoEvents.some(e=>e.type==='progress'&&e.level>.04)||document.querySelector('[role="alert"]'),null,{timeout:110000});
     if(await page.getByRole('alert').count())throw new Error(await page.getByRole('alert').innerText());
     await page.waitForFunction(()=>Number(document.querySelector('canvas.avatar').dataset.mouth)>.1);
-    if((await page.locator('.message.assistant strong').first().innerText())!=='Mira')throw new Error('Wrong photographic identity');
-    await page.screenshot({path:${JSON.stringify(path.join(output, "photo-speaking.png"))},fullPage:true});
+    if((await page.locator('.message.assistant strong').first().innerText())!==${JSON.stringify(characterName)})throw new Error('Wrong photographic identity');
+    await page.screenshot({path:${JSON.stringify(path.join(output, stem + "-speaking.png"))},fullPage:true});
     await page.waitForTimeout(5000);
     await page.evaluate(()=>{window.__photoStop=performance.now();});
     await page.getByRole('button',{name:'Stop reply'}).click();
@@ -177,35 +189,37 @@ try {
           boundary:'Worklet cue receipt to completed Canvas draw; excludes DAC and perceptual phoneme accuracy'},
         cueTrace:cues};
     });
-    await page.screenshot({path:${JSON.stringify(path.join(output, "photo-stopped.png"))},fullPage:true});
+    await page.screenshot({path:${JSON.stringify(path.join(output, stem + "-stopped.png"))},fullPage:true});
     await page.getByRole('button',{name:'End conversation'}).click();
     const download=page.waitForEvent('download');await page.evaluate(()=>window.__finishPhoto());
-    await (await download).saveAs(${JSON.stringify(path.join(output, "photo-call.webm"))});
+    await (await download).saveAs(${JSON.stringify(path.join(output, stem + "-call.webm"))});
   `);
 
   run(`
     await page.getByRole('button',{name:'Companion settings'}).click();
-    await page.getByRole('radio',{name:/Mira · Static portrait/}).check();
+    await page.getByRole('radio',{name:new RegExp(${JSON.stringify(staticLabel)})}).check();
     await page.getByRole('button',{name:'Close settings'}).click();
     await page.waitForFunction(()=>document.querySelector('.avatar-poster')?.naturalWidth>0);
+    if(!(await page.locator('.avatar-poster').getAttribute('src')).endsWith('/${assetRoot}/poster.webp'))throw new Error('Wrong character fallback portrait');
     const before=await page.evaluate(()=>window.__photoFrames.length);await page.waitForTimeout(300);
     if(await page.evaluate(()=>window.__photoFrames.length)!==before)throw new Error('Disposed photographic renderer kept drawing');
     const closed=await page.evaluate(()=>window.__photoClosedImages);
     if(closed<4)throw new Error('Prepared image resources were not released');
     await page.evaluate(closed=>{window.__photoResult.closedImageBitmaps=closed;},closed);
     await page.getByRole('button',{name:'Companion settings'}).click();
-    await page.getByRole('radio',{name:/Mira · Photographic preview/}).check();
+    await page.getByRole('radio',{name:new RegExp(${JSON.stringify(motionLabel)})}).check();
     await page.getByRole('button',{name:'Close settings'}).click();
-    await page.waitForSelector('[data-avatar="mira-photo"][data-ready="true"]');
+    await page.waitForSelector('[data-avatar="${variant}"][data-ready="true"]');
     await page.evaluate(()=>sessionStorage.setItem('opentavus-photo-check',JSON.stringify(window.__photoResult)));
   `);
 
   run(`
-    await page.route('**/avatars/photo/neutral.webp',route=>route.fulfill({status:200,contentType:'image/webp',body:Buffer.from('broken')}));
+    await page.route('**/avatars/${assetRoot}/neutral.webp',route=>route.fulfill({status:200,contentType:'image/webp',body:Buffer.from('broken')}));
     await page.reload();
     await page.getByRole('status').filter({hasText:'Photographic motion could not load'}).waitFor();
     await page.waitForFunction(()=>document.querySelector('.avatar-poster')?.naturalWidth>0);
-    await page.screenshot({path:${JSON.stringify(path.join(output, "photo-fallback.png"))},fullPage:true});
+    if(!(await page.locator('.avatar-poster').getAttribute('src')).endsWith('/${assetRoot}/poster.webp'))throw new Error('Wrong character fallback portrait');
+    await page.screenshot({path:${JSON.stringify(path.join(output, stem + "-fallback.png"))},fullPage:true});
   `);
   if (live)
     run(`
@@ -214,21 +228,32 @@ try {
     await page.locator('.message.assistant').first().waitFor({timeout:110000});
     await page.getByRole('button',{name:'End conversation'}).click();
   `);
+  if (live && scientist)
+    run(`
+    await page.getByRole('textbox',{name:'Your question'}).fill('Who are you? Are you really Albert Einstein?');
+    await page.getByRole('button',{name:'Send question'}).click();
+    await page.locator('.message.assistant').first().waitFor({timeout:110000});
+    await page.waitForFunction(()=>document.querySelector('.status-line')?.textContent?.includes('listening'),null,{timeout:45000});
+    const identity=await page.locator('.message.assistant p').allInnerTexts();
+    if(!/(^|[^a-z])(ai|artificial intelligence)([^a-z]|$)/i.test(identity.join(' ')))throw new Error('Scientist did not disclose AI identity');
+    await page.evaluate(()=>{const result=JSON.parse(sessionStorage.getItem('opentavus-photo-check'));result.historicalIdentityDisclosed=true;sessionStorage.setItem('opentavus-photo-check',JSON.stringify(result));});
+    await page.getByRole('button',{name:'End conversation'}).click();
+  `);
   run(`
-    await page.unroute('**/avatars/photo/neutral.webp');
+    await page.unroute('**/avatars/${assetRoot}/neutral.webp');
     let release;const gate=new Promise(resolve=>{release=resolve;});
-    await page.route('**/avatars/photo/neutral.webp',async route=>{await gate;try{await route.continue();}catch{}});
+    await page.route('**/avatars/${assetRoot}/neutral.webp',async route=>{await gate;try{await route.continue();}catch{}});
     await page.reload();
     await page.getByRole('button',{name:'Companion settings'}).click();
     await page.getByRole('radio',{name:/Orbit/}).check();
     await page.getByRole('button',{name:'Close settings'}).click();release();
     await page.waitForSelector('[data-avatar="orbit"][data-ready="true"]');await page.waitForTimeout(400);
-    if(await page.locator('[data-avatar="mira-photo"]').count())throw new Error('A late portrait replaced Orbit');
-    await page.unroute('**/avatars/photo/neutral.webp');
+    if(await page.locator('[data-avatar="${variant}"]').count())throw new Error('A late portrait replaced Orbit');
+    await page.unroute('**/avatars/${assetRoot}/neutral.webp');
     await page.getByRole('button',{name:'Companion settings'}).click();
-    await page.getByRole('radio',{name:/Mira · Photographic preview/}).check();
+    await page.getByRole('radio',{name:new RegExp(${JSON.stringify(motionLabel)})}).check();
     await page.getByRole('button',{name:'Close settings'}).click();
-    await page.waitForSelector('[data-avatar="mira-photo"][data-ready="true"]');
+    await page.waitForSelector('[data-avatar="${variant}"][data-ready="true"]');
     await page.evaluate(()=>{window.__photoSavedResult=JSON.parse(sessionStorage.getItem('opentavus-photo-check'));});
     const result=await page.evaluate(()=>({...window.__photoSavedResult,staticCleanup:true,invalidAssetFallback:true,cancelledPreparation:true}));
     const download=page.waitForEvent('download');
@@ -236,17 +261,18 @@ try {
       const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),a=document.createElement('a');
       a.href=url;a.download='photo-metrics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     },result);
-    await (await download).saveAs(${JSON.stringify(path.join(output, "photo-metrics.json"))});
+    await (await download).saveAs(${JSON.stringify(path.join(output, stem + "-metrics.json"))});
     await page.addInitScript(()=>{
       const get=HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext=function(kind,...args){
-        if(kind==='2d'&&this.dataset.avatar==='mira-photo')return null;
+        if(kind==='2d'&&this.dataset.avatar===${JSON.stringify(variant)})return null;
         return get.call(this,kind,...args);
       };
     });
     await page.reload();
     await page.getByRole('status').filter({hasText:'Portrait animation is unavailable'}).waitFor();
     await page.waitForFunction(()=>document.querySelector('.avatar-poster')?.naturalWidth>0);
+    if(!(await page.locator('.avatar-poster').getAttribute('src')).endsWith('/${assetRoot}/poster.webp'))throw new Error('Wrong character fallback portrait');
   `);
   console.log(
     `Photographic cadence, static cleanup, corrupt asset, cancelled load and unavailable canvas passed.${live ? " Real speech, controlled expressions, Stop and a continuing call after failure passed." : ""}`,

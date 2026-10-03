@@ -2,6 +2,7 @@ import type { AvatarVariant } from "./catalog";
 import type { AvatarFailure } from "./failure";
 import type { Delivery } from "./behavior";
 import type { VisemeSpan } from "@opentavus/contracts";
+import { photographicBank } from "./photographic-asset";
 
 /** A trusted renderer boundary. Optional plugins are never imported by metadata URL. */
 export interface AvatarRenderer {
@@ -19,17 +20,21 @@ export async function createAvatar(
   unavailable: (failure: AvatarFailure) => void,
 ): Promise<AvatarRenderer> {
   signal.throwIfAborted();
-  if (variant === "mira-photo") {
+  if (variant === "portrait" || variant === "einstein-portrait")
+    return { setLevel() {}, setListening() {}, dispose() {} };
+  const bank = photographicBank(variant);
+  if (bank) {
     const { createPhotographic } = await import("./photographic");
     signal.throwIfAborted();
-    return createPhotographic(canvas, signal);
+    return createPhotographic(canvas, signal, bank);
   }
   if (variant === "mira") {
     const { createHuman } = await import("./human");
     signal.throwIfAborted();
     return createHuman(canvas, signal, unavailable);
   }
-  if (variant === "portrait") return { setLevel() {}, setListening() {}, dispose() {} };
+  if (variant !== "orbit" && variant !== "lumen")
+    throw new Error("The selected character is unavailable.");
   return createCompanion(canvas, variant);
 }
 

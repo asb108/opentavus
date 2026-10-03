@@ -94,3 +94,17 @@ that address. Do not weaken production admission checks to run the test. Avoid
 other calls on the selected server. The CLI closes only its own browser session.
 See [timed portrait evidence](../releases/phoneme-portrait-evidence.json) for
 measured results and the finite-motion/approximate-lip-sync boundary.
+
+### Historical scientist portrait
+
+```sh
+npm run test:browser -- --scientist --live
+npm run test:browser -- --scientist --software
+```
+
+The same photographic checks select Einstein explicitly, assert the AI portrayal
+label and correct static/failure poster, record real local speech and Stop, and
+save `output/playwright/einstein-*` artifacts. Questions are public synthetic test
+prompts. `--photo` alone retains Mira regression coverage despite the new default.
+Software Canvas checks establish only the named browser configuration, not whole
+call performance on a weak PC.

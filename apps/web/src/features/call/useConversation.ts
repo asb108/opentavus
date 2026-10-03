@@ -72,7 +72,7 @@ export function useConversation(
         avatar.current?.setListening(false);
         avatar.current?.setDelivery?.(deliveryFor(text));
         const id = `${call.current.conversation_id}:assistant-${update.generation}`;
-        const name = avatarInfo[call.current.settings.avatar ?? "mira-photo"].name;
+        const name = avatarInfo[call.current.settings.avatar ?? "einstein"].name;
         setMessages((previous) => {
           const existing = previous.find((m) => m.id === id);
           return existing

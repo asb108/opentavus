@@ -28,7 +28,11 @@ cannot end or replace the selected conversation. Photographic playback uses the
 same boundary, with optional typed `setDelivery` presentation and `setViseme` mouth cues; offline
 animation dependencies do not belong to the base. Its curated manifest fixes four
 expression sheets, four head poses × eight visemes plus four blink keys per sheet, and native 512-pixel tiles. Build and browser checks
-reject wrong hashes/sizes. Abort/dispose closes even partially decoded images.
+reject wrong hashes/sizes. The trusted bank registry selects Mira or Einstein by
+explicit settings ID and fixes the local public asset root. Reviewed normalized
+mouth/eye regions must be finite, bounded and contained within the tile; file
+IDs are a fixed expression/poster allowlist. The browser checks asset identity,
+blink ordering and all files before decoding. Abort/dispose closes even partially decoded images.
 There is no URL-driven custom face/model import in this preview.
 
 `AudioOutput.visemes` contains optional typed mouth spans. `AudioEvent.visemes`
@@ -49,6 +53,13 @@ alternative. Provenance must identify each separately. A source image generated
 by a proprietary service cannot be relabeled as an open-model output. Asset
 creation, prepared browser rendering and live neural video are distinct
 capabilities with distinct evidence; one does not establish the other.
+
+Historical stock portraits have a separate original-source rights record, derivative
+scope and portrayal metadata. Einstein's public-domain photograph is preserved with
+its author, original URL, version and hash; no proprietary source generation is
+needed. A visible AI portrayal/preset-voice disclosure and bounded educational
+identity prompt accompany both animated and static choices. Generated expressions
+and dialogue cannot be advertised as authentic historical statements or recordings.
 
 ## Descriptor and discovery
 

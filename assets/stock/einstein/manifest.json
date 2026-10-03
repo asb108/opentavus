@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "id": "stock.einstein.photographic.v1",
+  "display_name": "Einstein \u00b7 Historical AI portrayal",
+  "eligibility": "reviewed_permissive",
+  "license": "CC0-1.0",
+  "license_scope": "Public-domain source photograph; CC0 waiver for prepared derivatives only to the extent of rights held; model/code terms remain independent. This conveys no endorsement or authentic voice.",
+  "tile": 512,
+  "grid": 6,
+  "poses": 4,
+  "blink_indices": [
+    32,
+    33,
+    34,
+    35
+  ],
+  "source": {
+    "path": "source-original.jpg",
+    "bytes": 2441086,
+    "sha256": "d145da92b2a4756c2261f7358fcd75c5271dbe7c51757e6b00dd458fa80a8d8c",
+    "author": "Ferdinand Schmutzer (1870\u20131928)",
+    "date": "1921",
+    "url": "https://commons.wikimedia.org/wiki/File:Albert_Einstein_1921_by_F_Schmutzer.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Albert_Einstein_1921_by_F_Schmutzer.jpg",
+    "file_version": "2014-07-06T12:12:00Z",
+    "rights": "Public Domain Mark 1.0, as identified by Wikimedia Commons; author died in 1928; source page documents country-of-origin and US unpublished-work status.",
+    "rights_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "reviewed_at": "2026-10-04",
+    "modifications": [
+      "Upstream removal of white specks",
+      "Manual square crop [left=790, top=250, side=1220]",
+      "Open LivePortrait prepared motion; no colorization or source-generation service"
+    ]
+  },
+  "animation": {
+    "repository": "https://github.com/KlingAIResearch/LivePortrait",
+    "revision": "9b294b3d0536135442ea73cb01e6cb3ca7029dd3",
+    "model_repository": "KwaiVGI/LivePortrait",
+    "model_revision": "82a4fa6735ca58432b6ce39301b4b9ee066dea47",
+    "license": "MIT",
+    "excluded": [
+      "InsightFace",
+      "landmark.onnx",
+      "actor/driving media"
+    ],
+    "preparation_record": "../../../benchmarks/portrait/prepared/einstein-preparation-result.json"
+  },
+  "files": [
+    {
+      "id": "neutral",
+      "bytes": 1866490,
+      "sha256": "9fac97a2204d4fa1509b6759fe9c67fa0f26e270e6244dff083c2ad2dc9df71b"
+    },
+    {
+      "id": "warm",
+      "bytes": 1864478,
+      "sha256": "b917bf55c108c2feed5d8f135448b384fbaaad30a9df4f38e27e17766d15a9ea"
+    },
+    {
+      "id": "attentive",
+      "bytes": 1858952,
+      "sha256": "f79c206b67ce60f53a309d654bdea7954029d90efc811335533b3508dec16e4f"
+    },
+    {
+      "id": "thoughtful",
+      "bytes": 1875264,
+      "sha256": "aba0df40190caa0c3008ba6ab93175eb118fa4b8e75c9392d680a8a24bc364d8"
+    },
+    {
+      "id": "poster",
+      "bytes": 71334,
+      "sha256": "1fe20912b60b63ad92070396c0cb4be926275cc41c0a1d9b31cac678eb5e034d"
+    }
+  ],
+  "limits": [
+    "finite controlled motion/expression bank",
+    "model-derived phoneme times with approximate viseme geometry; perceptual alignment remains unverified",
+    "single manually aligned historical photo; generated expressions are not historical evidence",
+    "weak-PC/Windows/long-call proof pending"
+  ],
+  "visemes": [
+    "rest",
+    "closed",
+    "open",
+    "wide",
+    "round",
+    "pucker",
+    "teeth",
+    "tongue"
+  ],
+  "regions": {
+    "mouth": [
+      0.478,
+      0.686,
+      0.195,
+      0.135
+    ],
+    "eyes": [
+      0.485,
+      0.475,
+      0.185,
+      0.09
+    ]
+  },
+  "portrayal": {
+    "kind": "historical_educational_ai",
+    "person": "Albert Einstein",
+    "disclosure": "AI portrayal \u00b7 Synthetic voice",
+    "voice": "Independent Kokoro preset; not an authentic recording or cloned Einstein voice",
+    "endorsement": false
+  },
+  "alignment": {
+    "path": "source-aligned.png",
+    "bytes": 215596,
+    "sha256": "db6d06a901a33fb1b52ec9620811befa6a17b0b2ac861a388f6fcf9466ca5ea7",
+    "crop": [
+      790,
+      250,
+      1220
+    ],
+    "source_ratios": {
+      "lip": 0.015,
+      "eye": 0.3
+    }
+  }
+}

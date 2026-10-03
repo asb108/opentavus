@@ -83,8 +83,10 @@
       "additionalProperties": false,
       "properties": {
         "avatar": {
-          "default": "mira-photo",
+          "default": "einstein",
           "enum": [
+            "einstein",
+            "einstein-portrait",
             "mira-photo",
             "mira",
             "portrait",
@@ -105,7 +107,7 @@
           "type": "string"
         },
         "voice": {
-          "default": "af_heart",
+          "default": "am_michael",
           "enum": [
             "af_heart",
             "af_bella",

@@ -1,11 +1,15 @@
-import manifest from "../../../../../assets/stock/photographic/manifest.json";
 import type { VisemeSpan } from "@opentavus/contracts";
 import { portraitPose, speechLevel, type Delivery } from "./behavior";
 import { AvatarFailure } from "./failure";
 import type { AvatarRenderer } from "./renderer";
+import {
+  photographicShapes,
+  validatePhotographicManifest,
+  type PhotographicBank,
+} from "./photographic-asset";
 
 type Shape = VisemeSpan["shape"];
-const shapes: Shape[] = ["rest", "closed", "open", "wide", "round", "pucker", "teeth", "tongue"];
+const shapes = photographicShapes;
 const openness: Record<Shape, number> = {
   rest: 0,
   closed: 0,
@@ -21,23 +25,14 @@ const openness: Record<Shape, number> = {
 export async function createPhotographic(
   canvas: HTMLCanvasElement,
   signal: AbortSignal,
+  bank: PhotographicBank,
 ): Promise<AvatarRenderer> {
+  const manifest = validatePhotographicManifest(bank.manifest, bank.id);
   const context = canvas.getContext("2d", { alpha: false });
   if (!context)
     throw new AvatarFailure(
       "unsupported_graphics",
       "Portrait animation is unavailable. You can continue talking or choose a static portrait.",
-    );
-  if (
-    manifest.eligibility !== "reviewed_permissive" ||
-    manifest.tile !== 512 ||
-    manifest.grid !== 6 ||
-    manifest.poses !== 4 ||
-    JSON.stringify(manifest.visemes) !== JSON.stringify(shapes)
-  )
-    throw new AvatarFailure(
-      "asset_unavailable",
-      "Photographic assets are not prepared. Choose another character and rebuild the app.",
     );
   const size = manifest.tile;
   const images = new Map<Delivery, ImageBitmap>();
@@ -61,8 +56,8 @@ export async function createPhotographic(
     ctx.fillRect(-1, -1, 2, 2);
     return surface;
   };
-  const mouthMask = mask(0.505, 0.556, 0.23, 0.145);
-  const eyeMask = mask(0.5, 0.357, 0.225, 0.095);
+  const mouthMask = mask(...manifest.regions.mouth);
+  const eyeMask = mask(...manifest.regions.eyes);
   let disposed = false;
   let frame = 0;
   const dispose = () => {
@@ -79,7 +74,7 @@ export async function createPhotographic(
     signal.throwIfAborted();
     for (const asset of manifest.files) {
       if (asset.id === "poster") continue;
-      const response = await fetch(`/avatars/photo/${asset.id}.webp`, {
+      const response = await fetch(`${bank.root}/${asset.id}.webp`, {
         signal: AbortSignal.any([signal, AbortSignal.timeout(12000)]),
       });
       if (!response.ok || Number(response.headers.get("Content-Length")) > 4 * 1024 * 1024)

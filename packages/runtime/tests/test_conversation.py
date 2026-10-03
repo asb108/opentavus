@@ -99,6 +99,20 @@ async def test_stream_waits_for_playout_and_has_contiguous_samples():
     await call.close()
 
 
+async def test_scientist_portrait_uses_an_explicit_educational_ai_identity():
+    engine = FakeEngines(chunks=1)
+    call = conversation(engine)
+    call.character_name = "Einstein"
+    await call.ask("Who are you?")
+    await asyncio.wait_for(call.reply_task, 1)
+    instructions = engine.messages[0].content
+    assert "AI portrayal of Albert Einstein" in instructions
+    assert "preset synthetic voice" in instructions
+    assert "Do not invent his memories, quotations" in instructions
+    assert "Never pretend to be a real person" in instructions
+    await call.close()
+
+
 async def test_late_text_audio_and_board_are_cancelled_by_generation():
     engine = FakeEngines(late=True)
     call = conversation(engine)

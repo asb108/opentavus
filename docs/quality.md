@@ -8,7 +8,7 @@ The alpha's lightweight checks cover generation cancellation, contiguous PCM sam
 
 Opt-in Playwright CLI checks drive Chrome with installed local models. Record generated speech reaching the Worklet, actual canvas acknowledgements, stop/reset behavior, and selection changes separately from server-send timing. Synthetic microphone capture verifies the WebRTC/VAD/STT route without recording a person's environment; it does not prove physical microphone acoustics, speaker echo cancellation, or accessibility across every browser.
 
-Photographic Mira uses model-derived phoneme cues on the actual played-sample clock. Untimed engines and the other characters use played-audio energy. Cue scheduling is measurable separately from perceptual phoneme accuracy; neither fixture tests nor a 30 FPS counter establish realistic human speech. Serial board planning/render acknowledgement adds delay before the spoken lesson. Small-model factual errors and rejected tool output must be included in evidence. The 100-turn latency percentiles, 20-minute/cycle reliability, natural-turn detection, physical speaker echo, media-route comparison, and additional platform profiles remain open.
+Photographic Mira and Einstein use model-derived phoneme cues on the actual played-sample clock. Untimed engines and the other characters use played-audio energy. Cue scheduling is measurable separately from perceptual phoneme accuracy; neither fixture tests nor a 30 FPS counter establish realistic human speech. Serial board planning/render acknowledgement adds delay before the spoken lesson. Small-model factual errors and rejected tool output must be included in evidence. The 100-turn latency percentiles, 20-minute/cycle reliability, natural-turn detection, physical speaker echo, media-route comparison, and additional platform profiles remain open.
 
 T21's [stock-human preview check](releases/browser-human-evidence.json) measured
 approximately 30 FPS over five seconds at 384 × 384 on M3 Pro, with a 34.1 ms
@@ -59,6 +59,16 @@ DAC output latency and independent acoustic/perceptual alignment; the full v0.1
 lip-sync gate below stays open. A finite portrait bank is not demonstrated Tavus
 quality or full natural human behavior. Windows, weak-PC and long-call checks
 remain separate acceptance work.
+
+T24 adds a second curated photographic identity and per-face compositing regions.
+Use the same 30 FPS drawing / <=80 ms cue scheduling targets and real speech,
+ordered eye stages, Stop, static resource cleanup and damaged-asset recovery checks.
+Inspect the actual historical face at native size and retain a normal-speed audio
+capture. [Scientist evidence](releases/einstein-portrait-evidence.json) records the
+bounded native speech/browser checks; source publication is tracked separately. Source rights, static/failure identity and explicit AI portrayal/synthetic
+voice disclosure are independent acceptance requirements. A famous face does not
+establish historical accuracy, authentic voice, emotional behavior or full live
+video realism; the larger quality gates below still apply.
 
 ## Reference profiles and timing
 

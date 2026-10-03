@@ -4,24 +4,25 @@
 
 An open-source AI companion you can talk to, learn with, and build on. It runs local speech and language models, animates a character as it speaks, and shares a drawing board with you. No API key or subscription is required.
 
-**Current product: local alpha on `main`.** You can try the conversation, independent model/voice/character settings, photographic Mira, and teaching board now. The earlier `v0.1.0-alpha.1` tag preserves its original preview. This is an early single-user application. Response speed and generated lesson quality still vary; the full v0.1 [quality targets](docs/quality.md) remain open.
+**Current product: local alpha on `main`.** You can try the conversation, independent model/voice/character settings, a photographic Einstein AI portrayal, Mira, and the teaching board now. The earlier `v0.1.0-alpha.1` tag preserves its original preview. This is an early single-user application. Response speed and generated lesson quality still vary; the full v0.1 [quality targets](docs/quality.md) remain open.
 
 | Try it | What it does |
 | --- | --- |
 | Talk or type | Local Whisper recognition, streaming Qwen replies, and Kokoro speech. Use Stop to interrupt queued audio immediately. |
-| Meet Mira | A fictional photographic human with prepared head movement, blinking, listening and expression cues. Kokoro phoneme timings drive distinct mouth shapes on the played-audio clock; Stop closes it immediately. No NVIDIA avatar server is required. |
-| Make it yours | Choose installed Qwen sizes, four English preset voices, and photographic, static, 3D or cartoon characters independently. Changes apply to the next call. |
+| Meet Einstein | A historical photographic AI portrayal with an independent synthetic preset voice. Prepared head movement, blinking, listening and expression cues accompany speech. Mira remains available. Kokoro phoneme timings drive distinct mouth shapes on the played-audio clock; Stop closes it immediately. No NVIDIA avatar server is required. |
+| Make it yours | Choose installed Qwen sizes, four English preset voices, and historical/fictional photographic, static, 3D or cartoon characters independently. Changes apply to the next call. |
 | Teach on board | Ask directly for a note, formula, process flowchart, or practice question. Explicit drawing requests work with Teach mode off. Draw alongside the AI, keep your edits, and export a canvas PNG or lesson Markdown. |
 | Build in the open | Typed engine interfaces, generated Python/browser schemas, focused behavior tests, and contributor checks that work without model downloads. |
 
-![Photographic Mira during real local speech](docs/releases/phoneme-portrait-preview.png)
+![Einstein AI portrayal during real local speech](docs/releases/einstein-portrait-preview.png)
 
-[Watch the actual voice-and-portrait preview](docs/releases/phoneme-portrait-preview.webm).
-This short capture uses real local Qwen/Kokoro speech at normal speed. Mira's
-motion comes from a finite prepared set. Mouth cues now use model-derived phoneme
-timings rather than loudness alone; anatomical accuracy and fully natural
-emotional behavior remain open. The [measured evidence](docs/releases/phoneme-portrait-evidence.json)
-records the checks and their limits.
+[Watch Einstein's actual voice-and-portrait preview](docs/releases/einstein-portrait-preview.webm).
+This normal-speed capture uses real local Qwen/Kokoro speech and the historical
+photograph's prepared motion. The [measured evidence](docs/releases/einstein-portrait-evidence.json)
+records approximately 30 FPS drawing, model-timed mouth cues, all blink stages,
+Stop and recovery checks. Perceptual phoneme accuracy and full natural emotional
+behavior remain open. [Mira's earlier timed preview](docs/releases/phoneme-portrait-preview.webm)
+and [evidence](docs/releases/phoneme-portrait-evidence.json) remain available.
 
 ## Try the local app
 
@@ -40,9 +41,11 @@ make run
 
 Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)** in Chrome. Type a question to try a reply without microphone access. Start conversation for microphone input; headphones are recommended while speaker echo behavior is still being evaluated. The first call warms the speech models and can take tens of seconds. Keep the server running to reuse them.
 
-New settings select **Mira · Photographic preview**. Existing character choices
-are preserved; select Mira in **Companion settings → Character** before the next
-call. Static portrait mode uses only a still image. Avatar loading failure shows
+New settings select **Einstein · Historical portrait** with the Michael preset
+voice. Existing saved choices are preserved; select Einstein in
+**Companion settings → Character** before the next call. The visible **AI portrayal ·
+Synthetic voice** label distinguishes the simulation from the historical person.
+Mira remains available, and character changes keep your selected model and voice. Static portrait mode uses only a still image. Avatar loading failure shows
 that portrait and a recovery message while the conversation remains usable.
 
 Try “What is two plus two?” Then ask “Draw the photosynthesis process on the board.” You can also say the topic first, followed by “diagrams on the board,” and ask about its arrows. **Teach on board** optionally adds lessons to general questions; an explicit drawing request needs no toggle. For a formula and quiz, try “Teach Newton's second law with F=ma and a practice question about which equation describes it.” The small default model can make mistakes. Review the lesson or try a larger installed model.
@@ -71,6 +74,8 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md), the [style guide](docs/style-guid
 The curated Qwen weights and Kokoro model use Apache-2.0 terms; Whisper uses MIT. Exact revisions, voice restrictions, and runtime notices are recorded in the [model matrix](docs/models.md) and [third-party notices](THIRD_PARTY_NOTICES.md). Optional dependencies retain their own licenses, including the eSpeak NG runtime used for phonemization. The application code is [Apache-2.0](LICENSE).
 
 The server binds to loopback. It keeps call context in memory, does not save recordings or transcripts by default, and drops server call history when a call ends. The visible transcript stays in the page until it is refreshed. Drawings and settings are stored in this browser; formula/diagram/quiz cards currently last for the page session. Use exports before refreshing. The app is intended for trusted local use; [security reporting](SECURITY.md) documents that boundary.
+
+Einstein uses [Ferdinand Schmutzer's public-domain 1921 photograph](assets/stock/einstein/README.md), prepared with the pinned open LivePortrait core. No source-generation service or actual Einstein recording is used. His replies and expressions are an educational AI simulation.
 
 Mira's selected source portrait was created once with the built-in OpenAI image
 generator, as explicitly requested by the project owner. That generator is

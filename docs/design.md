@@ -2,13 +2,37 @@
 
 Updated 3 October 2026. This is the implementation baseline for the full first release, with an earlier local alpha now implemented. [Tasks](tasks.json) record work and evidence. The user's requirements and preview choices are recorded in [decisions](decisions.md). The alpha does not complete the full v0.1 quality gates.
 
+## Historical scientist portrayal (T24)
+
+Albert Einstein is a curated photographic choice built from Ferdinand Schmutzer's
+public-domain 1921 photograph, with the exact source and rights explanation in
+[the asset provenance](../assets/stock/einstein/README.md). The monochrome source
+is preserved. Open LivePortrait prepares controlled motion offline; its model
+libraries and weights are absent from live browser playback. New settings select
+Einstein and a Michael preset voice; valid saved model/voice/character choices
+remain intact. Mira and the existing alternatives remain available.
+
+Historical choices show **AI portrayal · Synthetic voice**. Their trusted identity
+prompt describes a modern educational AI, encourages concrete thought experiments,
+and excludes invented memories, quotations and endorsement. A picture and the
+model's general knowledge are not a source-grounded historical dialogue system.
+The voice remains independently selectable and is not cloned from the scientist.
+
+One shared photographic renderer selects a trusted local bank, checks its identity,
+geometry, file digests and dimensions, and uses the existing audio-clock cues.
+Mouth/eye masks are reviewed per face. A static scientist choice and the failure
+poster use that same scientist's asset. Only the selected bank's four sheets are
+decoded; switching releases them. No arbitrary URL, custom-photo upload, new
+speech queue or live inference path is introduced. Visual/speech evidence is
+recorded separately from compilation in [the scientist evidence](releases/einstein-portrait-evidence.json); full natural human behavior remains open.
+
 ## Implemented local alpha
 
 The current application combines a local call, independent model/voice/character settings, and a shared teaching board. It uses FastAPI, a framework-free core, a session runtime, React/Vite, Pipecat SmallWebRTC/Silero/segmented STT for microphone input, local Ollama Qwen2.5, CPU Whisper tiny, and Kokoro ONNX. Model artifacts and selected voice terms are pinned in [the model matrix](models.md). Setup is explicit; the default development install does not include model packages or weights.
 
 Output PCM, captions, mouth cues and companion energy use one browser AudioWorklet sample clock. Generations cancel server production and reject late browser output; browser stop/progress acknowledgements constrain buffering. At most roughly two seconds of server audio and 64 browser packets can be queued. Complete acknowledged phrases enter the next-turn context; incomplete phrases are omitted because this model path has no word timing. The visible transcript shows a phrase when its playback starts and marks interrupted replies.
 
-Mira's photographic mode uses prepared facial/head frames, controlled expressions and blinking through browser Canvas 2D. Static Mira, a curated CC0 stock 3D human, and the original stylized Orbit/Lumen remain independent choices. Photographic Mira consumes Kokoro phoneme cues; untimed engines and other characters retain played-energy animation. GLB/VRM imports, live neural portrait video, natural emotional behavior, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting have separate acceptance work. Full T05 still requires compatible custom import and its contract evidence. Timed cue scheduling is separate from perceptual phoneme accuracy.
+Einstein and Mira's photographic modes use prepared facial/head frames, controlled expressions and blinking through browser Canvas 2D. Static Mira, a curated CC0 stock 3D human, and the original stylized Orbit/Lumen remain independent choices. Photographic characters consume Kokoro phoneme cues; untimed engines and other characters retain played-energy animation. GLB/VRM imports, live neural portrait video, natural emotional behavior, LAM, Smart Turn, GPU workers, remote endpoints, and Internet hosting have separate acceptance work. Full T05 still requires compatible custom import and its contract evidence. Timed cue scheduling is separate from perceptual phoneme accuracy.
 
 The teaching planner obtains schema-constrained JSON, then validates a fixed note/formula/diagram/quiz/clear allowlist again. Notes are Excalidraw text. Safe formula/diagram cards and quiz panels appear above the drawings. A browser operation acknowledgement gates the subsequent spoken board explanation. Explicit formula, diagram and quiz requests each use a single-tool provider schema: a real small-model trial returned a formula in place of a quiz with the union schema. Requested results are all validated before applying them. Their browser acknowledgements gate speech, which adds visible delay; the full timing strategy remains to be optimized and measured. Quiz answers match the exact text of a distinct choice. Unheard reply text stays out of history; temporary interruption notes provide model turn boundaries when no complete phrase was heard.
 

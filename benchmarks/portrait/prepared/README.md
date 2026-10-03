@@ -97,3 +97,12 @@ carry vowel shapes. Mouth controls use the pinned upstream's lip retargeting,
 pouting and smile offsets, with manually declared source ratios. They approximate
 speech geometry and do not establish anatomical or perceptual alignment accuracy.
 T22's original [preparation record](preparation-result.json) is retained as history.
+
+## Historical scientist preparation (T24)
+
+Einstein uses the reviewed public-domain original and explicit `--crop 790 250 1220`,
+with declared `--source-lip 0.015 --source-eye 0.3`. No source generation is needed.
+The source-aligned PNG is retained. See [source, rights and reproduction](../../../assets/stock/einstein/README.md)
+and [the preparation record](einstein-preparation-result.json). `--probe` rendered
+mouth, expression and closed-eye samples before the full 145-frame bank. This is
+an offline illustration/animation of a historical photo, not authentic video.

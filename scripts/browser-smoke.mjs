@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-if (process.argv.includes("--photo")) {
+if (process.argv.includes("--photo") || process.argv.includes("--scientist")) {
   await import("./browser-photo.mjs");
   process.exit(0);
 }
@@ -269,7 +269,7 @@ try {
           !(await page.getByRole('heading', {name:'Lumen',exact:true}).isVisible()))
         throw new Error('The second call did not use the selected profile.');
       const speakers = await page.locator('.message.assistant strong').allTextContents();
-      if (speakers.length < 3 || speakers.at(-1) !== 'Lumen' || speakers[0] !== 'Mira')
+      if (speakers.length < 3 || speakers.at(-1) !== 'Lumen' || speakers[0] !== 'Einstein')
         throw new Error('Transcript generations or speaker names crossed call boundaries.');
       await page.getByRole('button', {name:'Stop reply'}).click();
       await page.getByRole('button', {name:'End conversation'}).click();

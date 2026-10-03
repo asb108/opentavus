@@ -62,3 +62,16 @@ conversion. The noncommercial 9B models are excluded. Source links, exact hashes
 and the conversion-provenance boundary are in the [preparation manifest](benchmarks/portrait/prepared/models.json)
 and review. Neither generation nor animation weights are redistributed here or
 installed by the base app; all heavy preparation runs separately from live media.
+
+## Historical scientist portrait
+
+Einstein uses Ferdinand Schmutzer's 1921 photograph, preserved as original source
+bytes and manually aligned before open LivePortrait preparation. [The source and
+rights statement](https://commons.wikimedia.org/wiki/File:Albert_Einstein_1921_by_F_Schmutzer.jpg)
+identifies it as public domain, including the country-of-origin and US unpublished-work
+reasoning. The upstream digital version removes white specks. [Asset provenance](assets/stock/einstein/README.md),
+[manifest](assets/stock/einstein/manifest.json), and [notice](assets/stock/einstein/LICENSE.txt)
+retain the exact author, file version, source/hash, derivative scope and model revisions.
+The prepared derivative waiver applies only to rights held by contributors; it
+conveys no endorsement. The app labels the educational simulation as an AI portrayal
+and uses independent Kokoro presets rather than an authentic or cloned Einstein voice.

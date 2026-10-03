@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type MutableRefObject } from "react";
 import { createAvatar, type AvatarRenderer } from "./renderer";
 import { avatarInfo, type AvatarVariant } from "./catalog";
 import { AvatarFailure } from "./failure";
+import { photographicBank } from "./photographic-asset";
 
 export function Avatar({
   variant,
@@ -13,7 +14,9 @@ export function Avatar({
   const canvas = useRef<HTMLCanvasElement>(null);
   const [status, setStatus] = useState<"preparing" | "ready" | "fallback">("preparing");
   const [failure, setFailure] = useState("");
-  const photographic = variant === "mira-photo" || variant === "portrait";
+  const bank = photographicBank(variant);
+  const photographic = bank !== undefined;
+  const staticPortrait = variant === "portrait" || variant === "einstein-portrait";
   const human = variant === "mira" || photographic;
   useEffect(() => {
     if (!canvas.current) return;
@@ -51,29 +54,29 @@ export function Avatar({
   }, [variant, rendererRef]);
   return (
     <>
-      {human && (status !== "ready" || variant === "portrait") && (
+      {human && (status !== "ready" || staticPortrait) && (
         <img
           className={`avatar avatar-human avatar-poster ${photographic ? "avatar-photographic" : ""}`}
-          src={photographic ? "/avatars/photo/poster.webp" : "/avatars/mira.png"}
-          alt="Mira, a fictional human AI avatar"
+          src={bank ? `${bank.root}/poster.webp` : "/avatars/mira.png"}
+          alt={`${avatarInfo[variant].name}, an AI character portrait`}
         />
       )}
       <canvas
         key={variant}
         ref={canvas}
         className={`avatar ${human ? "avatar-human" : ""} ${photographic ? "avatar-photographic" : ""}`}
-        hidden={status !== "ready" || variant === "portrait"}
+        hidden={status !== "ready" || staticPortrait}
         role="img"
         aria-label={`${avatarInfo[variant].name}, an animated AI character`}
         data-avatar={variant}
         data-ready={status === "ready"}
       />
-      {status === "preparing" && (variant === "mira" || variant === "mira-photo") && (
+      {status === "preparing" && human && !staticPortrait && (
         <span className="avatar-notice" role="status">
           {photographic ? "Preparing portrait motion…" : "Loading human avatar…"}
         </span>
       )}
-      {(status === "fallback" || variant === "portrait") && (
+      {(status === "fallback" || staticPortrait) && (
         <span className="avatar-notice" role="status">
           {status === "fallback" ? failure : "Portrait mode · No animation"}
         </span>

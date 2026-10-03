@@ -140,6 +140,8 @@ def create_app(
                     installation, conversation_id, settings.model, settings.voice
                 )
             conversation.character_name = {
+                "einstein": "Einstein",
+                "einstein-portrait": "Einstein",
                 "mira-photo": "Mira",
                 "mira": "Mira",
                 "portrait": "Mira",

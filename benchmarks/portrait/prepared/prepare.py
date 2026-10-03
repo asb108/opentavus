@@ -1,6 +1,6 @@
 """Prepare photographic facial motion offline, without face-detection weights.
 
-Uses only a manually aligned, fictional source and LivePortrait's pinned core.
+Uses a reviewed, manually aligned source and LivePortrait's pinned core.
 Expression offsets follow its MIT gradio_pipeline.py controls. These finite states
 are controlled viseme approximations, not inferred user emotion or live video.
 """
@@ -25,12 +25,23 @@ TILE = 512
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
+    parser.add_argument(
+        "--crop",
+        type=int,
+        nargs=3,
+        metavar=("LEFT", "TOP", "SIDE"),
+        help="Reviewed square alignment in original image pixels; no face detector",
+    )
+    parser.add_argument("--source-lip", type=float, default=0.015)
+    parser.add_argument("--source-eye", type=float, default=0.3)
     parser.add_argument("--upstream", type=Path, default=Path(".cache/liveportrait-src"))
     parser.add_argument("--models", type=Path, default=Path(".cache/photographic-models"))
     parser.add_argument("--output", type=Path, default=Path(".cache/photographic-output/motion"))
     parser.add_argument("--device", choices=["cpu", "mps"], default="mps")
     parser.add_argument("--probe", action="store_true", help="Render only expression samples first")
     args = parser.parse_args()
+    if any(not math.isfinite(v) or not 0 <= v <= 1 for v in (args.source_lip, args.source_eye)):
+        parser.error("Manual source ratios must be finite numbers between zero and one")
     revision = subprocess.check_output(
         ["git", "-C", str(args.upstream), "rev-parse", "HEAD"], text=True
     ).strip()
@@ -70,14 +81,27 @@ def main() -> None:
     )
     wrapper = LivePortraitWrapper(config)
     source_image = Image.open(args.source).convert("RGB")
+    if args.crop:
+        left, top, side = args.crop
+        if (
+            min(left, top) < 0
+            or side < 256
+            or left + side > source_image.width
+            or top + side > source_image.height
+        ):
+            parser.error("The square crop must be inside the reviewed source image")
+        source_image = source_image.crop((left, top, left + side, top + side))
     if source_image.width != source_image.height:
-        raise SystemExit("Provide a square, manually aligned fictional portrait")
+        raise SystemExit("Provide a square, reviewed portrait or an explicit --crop")
     source = wrapper.prepare_source(np.asarray(source_image))
     info = wrapper.get_kp_info(source)
     feature = wrapper.extract_feature_3d(source)
     source_keypoints = wrapper.transform_keypoint(info)
     device = wrapper.device
     args.output.mkdir(parents=True, exist_ok=True)
+    source_image.resize((TILE, TILE), Image.Resampling.LANCZOS).save(
+        args.output / "source-aligned.png"
+    )
     times = []
 
     def render(expression: str, phase: float, shape: str, blink: float = 0) -> Image.Image:
@@ -138,11 +162,13 @@ def main() -> None:
         driving = info["scale"][..., None] * (info["kp"] @ rotation + delta)
         driving[:, :, :2] += info["t"][:, None, :2]
         # Source ratios are declared manual approximations for this closed-lip image.
-        ratio = torch.tensor([[0.015, mouth]], dtype=torch.float32, device=device)
+        ratio = torch.tensor([[args.source_lip, mouth]], dtype=torch.float32, device=device)
         driving += wrapper.retarget_lip(source_keypoints, ratio)
         if blink > 0:
             ratio = torch.tensor(
-                [[0.3, 0.3, 0.3 * (1 - blink)]], dtype=torch.float32, device=device
+                [[args.source_eye, args.source_eye, args.source_eye * (1 - blink)]],
+                dtype=torch.float32,
+                device=device,
             )
             driving += wrapper.retarget_eye(source_keypoints, ratio)
         driving = wrapper.stitching(source_keypoints, driving)
@@ -179,6 +205,7 @@ def main() -> None:
         render("neutral", 0, "rest").save(args.output / "poster.webp", quality=92, method=6)
     summary = {
         "source_sha256": hashlib.sha256(args.source.read_bytes()).hexdigest(),
+        "manual_crop": args.crop,
         "source_revision": revision,
         "model_revision": source_manifest["revision"],
         "device": device,
@@ -192,7 +219,7 @@ def main() -> None:
         "prepared_tile_size": TILE,
         "visemes": VISEMES,
         "poses": 4,
-        "manual_source_ratios": {"lip": 0.015, "eye": 0.3},
+        "manual_source_ratios": {"lip": args.source_lip, "eye": args.source_eye},
         "insightface_loaded": any("insightface" in module for module in sys.modules),
         "dependencies": {
             name: version(name)
@@ -202,7 +229,7 @@ def main() -> None:
             "finite controlled expressions",
             "controlled mouth shapes; speech timing is supplied separately by Kokoro",
             "tongue/teeth shapes are approximations, not detailed dental articulation",
-            "manually aligned single fictional portrait",
+            "manually aligned single reviewed portrait",
             "prepared assets only; no live video generator",
         ],
     }

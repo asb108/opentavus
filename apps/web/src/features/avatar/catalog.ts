@@ -3,6 +3,16 @@ import type { Settings } from "../../api";
 export type AvatarVariant = Settings["avatar"];
 
 export const avatarInfo = {
+  einstein: {
+    name: "Einstein",
+    label: "AI portrayal · Synthetic voice",
+    description: "Albert Einstein · Historical photograph with prepared speech motion",
+  },
+  "einstein-portrait": {
+    name: "Einstein",
+    label: "AI portrayal · Synthetic voice",
+    description: "Albert Einstein · Static historical portrait · Least graphics work",
+  },
   "mira-photo": {
     name: "Mira",
     label: "AI · Photographic preview",
