@@ -42,7 +42,7 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T21](#t21) | G2 | done | T02, T18 | Codex / Atul |
 | [T22](#t22) | G2 | done | T02, T18, T20 | Codex / Atul |
 | [T23](#t23) | G2 | done | T02, T18, T22 | Codex / Atul |
-| [T24](#t24) | G2 | in_progress | T23 | Codex / Atul |
+| [T24](#t24) | G2 | done | T23 | Codex / Atul |
 
 **Ready to claim now:** None. Run `make plan-status` after changing task status.
 
@@ -735,7 +735,7 @@ Evidence:
 
 #### T24: Add a realistic historical scientist portrayal
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T23.
+Status: **done**. Owner: Codex / Atul. Dependencies: T23.
 
 A recognizable Albert Einstein photographic AI portrayal reuses local timed speech and prepared browser motion. New settings prefer the scientist; Mira and independent voice/model choices remain available.
 
@@ -779,6 +779,7 @@ Evidence:
 - Software Canvas --scientist --software passed at 29.998 FPS / P95 gap 34.2 ms / zero >100 ms gaps; Chrome confirmed GPU/2D disabled and WebGL/WebGPU unavailable. Mira --photo regression passed shared-renderer cadence, blink, disposal and all recovery cases. No weak-PC complete-stack claim.
 - Native 512-pixel VP8/Opus capture published under docs/releases/einstein-portrait-preview.webm: 7.158 seconds, 213 actual video frames (timestamp average 29.65 FPS) and 118 audio packets. Container-only -c copy remux preserves media timing; drawing cadence and encoded timestamps are recorded separately. In-app browser now selects Einstein with ready=true, portrayal disclosure, and existing Qwen/Heart voice retained.
 - Full historical factual grounding, perceptual phoneme accuracy, natural emotions/live video, Windows/weak-PC and long-call quality remain unverified. Source push and exact-source CI pending; task remains in_progress.
+- 2026-10-04 completion: implementation c347cc96cd11fe7214f7a91276e46528aeb6ab4b pushed to public asb108/opentavus main. Exact source CI https://github.com/asb108/opentavus/actions/runs/37159070585 succeeded on Linux/Python 3.12/Node 22 for setup/check/demo/base-check without inference models. All bounded T24 acceptance is evidenced in docs/releases/einstein-portrait-evidence.json, the source/asset records and native public capture. Einstein is selected/ready in the user preview with existing model/voice preserved. No full natural behavior, Tavus equivalence, weak-PC/Windows or larger T05/T10/T13 completion claim.
 
 ### G3 - Reproducible setup and demonstrated v0.1
 

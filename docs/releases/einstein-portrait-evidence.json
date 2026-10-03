@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task": "T24",
-  "status": "local_verified_publication_pending",
+  "status": "done_bounded_scientist_portrayal",
   "date": "2026-10-04",
   "scope": "Curated historical Einstein AI portrayal with prepared open neural motion and existing phoneme-timed local speech; broader live-video and natural behavior gates remain open.",
   "reference": {
@@ -193,8 +193,11 @@
     "First identity assertion read the first streamed caption. Repeated with completed playback before inspection; AI identity disclosure passed without changing the identity prompt."
   ],
   "publication": {
-    "implementation_commit": null,
-    "source_ci": null
+    "implementation_commit": "c347cc96cd11fe7214f7a91276e46528aeb6ab4b",
+    "source_ci": "https://github.com/asb108/opentavus/actions/runs/37159070585",
+    "source_ci_result": "success",
+    "repo": "https://github.com/asb108/opentavus",
+    "scope": "Linux/Python 3.12/Node 22 setup/check/demo/base-check, without inference models"
   },
   "unverified": [
     "Independent acoustic/perceptual phoneme precision",
