@@ -136,7 +136,7 @@ flowchart LR
     Reasoning -. explicit profile .-> Hosted[Configured endpoint or OpenRouter]
     Contracts --> Avatar[Selected avatar adapter]
     Runtime --> Tools[Teaching capability: validated canvas tools]
-    Tools -->|Applied result acknowledgement| User
+    Tools <-->|Board operations and applied-result ACKs| User
     Avatar -. optional .-> LAM[LAM plugin]
     Avatar -. optional .-> GPU[GPU worker]
     Runtime -. later capability .-> Tasks[Independent computer-task coordinator]
