@@ -198,14 +198,27 @@ async def test_cancelled_generation_makes_no_request_and_timeout_is_public():
     await client.close()
 
 
-async def test_openrouter_probe_downgrades_teaching_and_has_explicit_no_fallback_policy():
+@pytest.mark.parametrize(
+    ("parameters", "supported"),
+    [
+        ([], False),
+        (None, False),
+        ("response_format", False),
+        ({}, False),
+        ([None], False),
+        (["response_format"], True),
+    ],
+)
+async def test_openrouter_probe_checks_teaching_and_has_explicit_no_fallback_policy(
+    parameters, supported
+):
     calls = []
 
     def handler(request):
         calls.append(request)
         if request.method == "GET":
             return httpx.Response(
-                200, json={"data": [{"id": "fixture-model", "supported_parameters": []}]}
+                200, json={"data": [{"id": "fixture-model", "supported_parameters": parameters}]}
             )
         return httpx.Response(
             200,
@@ -226,14 +239,15 @@ async def test_openrouter_probe_downgrades_teaching_and_has_explicit_no_fallback
         settings, SecretStr("fixture-key"), transport=httpx.MockTransport(handler)
     )
     await client.prepare()
-    assert not client.teaching_available
+    assert client.teaching_available is supported
     assert [item.text async for item in client.reply([Message("user", "Hi")], context())] == ["Hi."]
     assert json.loads(calls[1].content)["provider"] == {
         "allow_fallbacks": False,
         "require_parameters": True,
     }
-    with pytest.raises(CoreError, match="Teaching is unavailable"):
-        await client.board("Question", {}, context())
+    if not supported:
+        with pytest.raises(CoreError, match="Teaching is unavailable"):
+            await client.board("Question", {}, context())
     await client.close()
 
 

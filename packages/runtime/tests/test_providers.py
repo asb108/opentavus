@@ -65,6 +65,8 @@ def test_failed_atomic_write_preserves_previous_profile(tmp_path, monkeypatch):
     [
         "http://remote.example/v1",
         "https://key@example.com/v1",
+        "https://@example.com/v1",
+        "https://:@example.com/v1",
         "https://example.com/v1?key=x",
         "https://example.com/v1#key",
         "https://example.com/../v1",
@@ -86,3 +88,11 @@ def test_missing_credential_and_changed_model_fail_before_activation():
     with pytest.raises(CoreError):
         store.get("fixture", "other")
     assert not store.views(plugin_installed=True, speech_ready=True)[0].ready
+
+
+@pytest.mark.parametrize("provider_id", [".", ".."])
+def test_dot_only_ids_cannot_create_profiles_that_browser_paths_cannot_delete(provider_id):
+    with pytest.raises(ValidationError):
+        ProviderConfiguration(
+            id=provider_id, name="Fixture", endpoint="http://127.0.0.1:11434/v1", model="fixture"
+        )

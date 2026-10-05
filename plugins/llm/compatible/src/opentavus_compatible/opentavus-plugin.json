@@ -38,7 +38,7 @@
       "purpose": "code",
       "source_url": "repo://plugins/llm/compatible/src/opentavus_compatible/adapter.py",
       "revision": "0.1.0a1",
-      "sha256": "05eb6ab8906255fabbe65b5efa60444788aaba7cbd738391d05c080ed92268de",
+      "sha256": "45624de59c0c0eb68754ef1d3284313cc0626f3d0e2a525532a8f848af9322b7",
       "license_id": "Apache-2.0",
       "license_url": "repo://LICENSE",
       "attribution": "OpenTavus contributors",

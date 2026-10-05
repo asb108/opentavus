@@ -19,8 +19,8 @@ def endpoint_url(value: str) -> str:
         raise ValueError("Use a valid model API base URL") from None
     if (
         not host
-        or parsed.username
-        or parsed.password
+        or parsed.username is not None
+        or parsed.password is not None
         or parsed.query
         or parsed.fragment
         or re.search(r"[\s\\\x00-\x1f\x7f]", value)
@@ -64,8 +64,8 @@ class ProviderConfiguration(Boundary):
 
     @model_validator(mode="after")
     def explicit_route(self) -> Self:
-        if self.id == "local":
-            raise ValueError("The reviewed local profile is reserved")
+        if self.id in {"local", ".", ".."}:
+            raise ValueError("The reviewed local profile and dot-only path names are reserved")
         if self.kind == "openrouter" and (
             self.endpoint != "https://openrouter.ai/api/v1" or not self.requires_key
         ):

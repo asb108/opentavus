@@ -55,7 +55,7 @@
     }
   ],
   "source_checks": {
-    "make_check": "passed: 142 Python tests, 3 contract tests, 19 web behavior tests, types/styles/generated schemas/build/plan",
+    "make_check": "passed: 151 Python tests, 3 contract tests, 19 web behavior tests, types/styles/generated schemas/build/plan",
     "make_demo": "passed: installed fixture discovery",
     "make_base_check": "passed: 37 core tests, 5 fixture cases deselected; discover_installed empty",
     "native_browser_regression": "npm run test:browser -- --live passed through the reviewed native Ollama/Kokoro route"
@@ -187,5 +187,11 @@
       "board_before_caption": true
     }
   ],
-  "latency_boundary": "Two small runs, not percentiles. First ordinary browser Worklet output varied from 2.226 to 6.147 seconds; subsequent conversation cases roughly 0.774\u20132.061 seconds in the repeat. Teaching caption arrival was 4.269\u20136.935 seconds in the repeat. Full targets remain unmet/unverified."
+  "latency_boundary": "Two small runs, not percentiles. First ordinary browser Worklet output varied from 2.226 to 6.147 seconds; subsequent conversation cases roughly 0.774\u20132.061 seconds in the repeat. Teaching caption arrival was 4.269\u20136.935 seconds in the repeat. Full targets remain unmet/unverified.",
+  "publication": {
+    "implementation_commit": "726fb8125d19a69509be19d282ee886032310898",
+    "implementation_ci": "https://github.com/asb108/opentavus/actions/runs/37337388415",
+    "implementation_ci_conclusion": "success",
+    "followup": "Dot-only ID and empty URL user-info rejection, typed optional capability metadata and related fixtures; final exact-source CI reported in handoff."
+  }
 }

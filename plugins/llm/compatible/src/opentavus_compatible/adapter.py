@@ -147,8 +147,12 @@ class CompatibleAdapter:
                     if isinstance(canonical, str) and len(canonical) <= 160:
                         self._models.add(canonical)
                     if self.configuration.kind == "openrouter" and self.configuration.teaching:
-                        self.teaching_available = "response_format" in model.get(
-                            "supported_parameters", []
+                        parameters = model.get("supported_parameters")
+                        self.teaching_available = (
+                            isinstance(parameters, list)
+                            and len(parameters) <= 128
+                            and all(isinstance(parameter, str) for parameter in parameters)
+                            and "response_format" in parameters
                         )
         except (httpx.HTTPError, TimeoutError):
             raise CoreError(
