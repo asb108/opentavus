@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "api_version": 1,
+  "id": "provider.compatible",
+  "kind": "llm",
+  "display_name": "Configured compatible model (experimental)",
+  "entry_point": "opentavus_compatible.adapter:create",
+  "capabilities": {
+    "default": {
+      "required_artifacts": [
+        "code"
+      ],
+      "input_formats": [
+        "text.delta.v1"
+      ],
+      "output_formats": [
+        "text.delta.v1"
+      ]
+    }
+  },
+  "execution": [
+    "endpoint"
+  ],
+  "languages": [
+    "en"
+  ],
+  "streaming": "native",
+  "cancellation": "discard_late_output",
+  "hardware": {
+    "endpoint": {
+      "min_ram_mb": 0,
+      "accelerator": "none"
+    }
+  },
+  "artifacts": [
+    {
+      "id": "code",
+      "purpose": "code",
+      "source_url": "repo://plugins/llm/compatible/src/opentavus_compatible/adapter.py",
+      "revision": "0.1.0a1",
+      "sha256": "05eb6ab8906255fabbe65b5efa60444788aaba7cbd738391d05c080ed92268de",
+      "license_id": "Apache-2.0",
+      "license_url": "repo://LICENSE",
+      "attribution": "OpenTavus contributors",
+      "eligibility": "reviewed_permissive"
+    }
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_.-]+$",
+        "minLength": 1,
+        "maxLength": 96
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      },
+      "kind": {
+        "enum": [
+          "compatible",
+          "openrouter"
+        ]
+      },
+      "endpoint": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 300
+      },
+      "model": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160,
+        "pattern": "^[a-zA-Z0-9_.:/-]+$"
+      },
+      "teaching": {
+        "type": "boolean"
+      },
+      "requires_key": {
+        "type": "boolean"
+      },
+      "max_output_tokens": {
+        "type": "integer",
+        "minimum": 64,
+        "maximum": 1024
+      },
+      "timeout_seconds": {
+        "type": "integer",
+        "minimum": 5,
+        "maximum": 90
+      },
+      "terms_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 300
+      },
+      "model_identity": {
+        "const": "provider_declared"
+      },
+      "api_key": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512,
+        "writeOnly": true
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "endpoint",
+      "model"
+    ],
+    "additionalProperties": false
+  }
+}

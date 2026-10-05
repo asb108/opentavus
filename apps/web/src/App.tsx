@@ -13,38 +13,22 @@ import {
   Square,
   X,
 } from "lucide-react";
-import { request, type Catalog, type Settings as CallSettings } from "./api";
+import { providerRequest, request, type Catalog, type ProviderView } from "./api";
 import { Avatar } from "./features/avatar/Avatar";
 import type { AvatarRenderer } from "./features/avatar/renderer";
 import { avatarInfo } from "./features/avatar/catalog";
 import type { BoardHandle } from "./features/canvas/Board";
 import { Settings } from "./features/settings/Settings";
 import { useConversation } from "./features/call/useConversation";
+import { publicPreferences, savedSettings } from "./features/settings/preferences";
 
 const Board = lazy(() =>
   import("./features/canvas/Board").then((module) => ({ default: module.Board })),
 );
-const defaults: CallSettings = { model: "qwen2.5:1.5b", voice: "am_michael", avatar: "einstein" };
-function savedSettings(): CallSettings {
-  try {
-    const value = JSON.parse(
-      localStorage.getItem("opentavus.settings.v1") || "null",
-    ) as CallSettings | null;
-    if (
-      value &&
-      ["qwen2.5:0.5b", "qwen2.5:1.5b", "qwen2.5:7b"].includes(value.model) &&
-      ["af_heart", "af_bella", "am_michael", "bf_emma"].includes(value.voice) &&
-      Object.hasOwn(avatarInfo, value.avatar)
-    )
-      return value;
-  } catch {
-    /* Settings are optional; an invalid local copy uses the defaults. */
-  }
-  return defaults;
-}
 
 export default function App() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
+  const [providers, setProviders] = useState<ProviderView[]>([]);
   const [settings, setSettings] = useState(savedSettings);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [question, setQuestion] = useState("");
@@ -60,13 +44,32 @@ export default function App() {
   const active = conversation.state !== "idle";
   const displayedSettings = active ? callSettings : settings;
   const callAvatar = callSettings.avatar;
-  const ready =
-    catalog?.models.some((model) => model.name === settings.model && model.ready) === true;
+  const selectionReady =
+    settings.provider_id === "local"
+      ? catalog?.models.some((model) => model.name === settings.model && model.ready) === true
+      : providers.some(
+          (provider) =>
+            provider.configuration.id === settings.provider_id &&
+            provider.configuration.model === settings.model &&
+            provider.ready,
+        );
+  const ready = active || selectionReady;
+  const displayedProvider = providers.find(
+    (provider) => provider.configuration.id === displayedSettings.provider_id,
+  );
+  const destination = displayedProvider?.configuration.endpoint;
+  const remote = destination
+    ? !["localhost", "127.0.0.1", "[::1]"].includes(new URL(destination).hostname)
+    : false;
+  const teachingAvailable = active
+    ? conversation.teachingAvailable
+    : displayedSettings.provider_id === "local" ||
+      displayedProvider?.configuration.teaching === true;
   const stateLabels = {
     idle: "Ready for a good question",
-    preparing: "Warming your local models…",
+    preparing: "Preparing your companion…",
     listening: "I'm listening",
-    thinking: teach ? "Putting the idea together…" : "Thinking it through…",
+    thinking: teach && teachingAvailable ? "Putting the idea together…" : "Thinking it through…",
     speaking: "You can interrupt me",
   };
 
@@ -76,13 +79,17 @@ export default function App() {
       .catch(() =>
         setError("The local server is unavailable. Start it with make run, then refresh."),
       );
+    void providerRequest()
+      .then((result) => setProviders(result.providers))
+      .catch(() => setError("Provider settings could not be loaded. Refresh the local page."));
   }, [setError]);
   useEffect(() => {
     transcript.current?.scrollTo({ top: transcript.current.scrollHeight, behavior: "smooth" });
   }, [conversation.messages]);
   useEffect(() => {
     try {
-      localStorage.setItem("opentavus.settings.v1", JSON.stringify(settings));
+      localStorage.setItem("opentavus.settings.v2", JSON.stringify(publicPreferences(settings)));
+      localStorage.removeItem("opentavus.settings.v1");
     } catch {
       /* Live settings remain usable. */
     }
@@ -91,9 +98,9 @@ export default function App() {
   const begin = async () => {
     setCallSettings(settings);
     await conversation.start(settings, true);
-    conversation.setTeaching(teach);
+    conversation.setTeaching(teach && teachingAvailable);
   };
-  const submit = async (text: string = question, useBoard = teach) => {
+  const submit = async (text: string = question, useBoard = teach && teachingAvailable) => {
     if (!text.trim() || !ready) return;
     if (!active) setCallSettings(settings);
     setQuestion("");
@@ -110,7 +117,7 @@ export default function App() {
         <nav aria-label="Main navigation">
           <span className="local-badge">
             <ShieldCheck size={15} />
-            Runs on your machine
+            {remote ? "Local speech · External model" : "Runs on your machine"}
           </span>
           <a href="https://github.com/asb108/opentavus" target="_blank" rel="noreferrer">
             <Github size={17} /> Contribute
@@ -134,13 +141,14 @@ export default function App() {
             <span className="small-dot" /> Free & open source
           </span>
         </div>
-        {catalog && !ready && (
+        {catalog && !selectionReady && !active && (
           <div className="setup-notice" role="status">
             <div>
-              <strong>Your companion needs its local models.</strong>
+              <strong>Your selected model needs preparation.</strong>
               <p>
-                With Ollama running, download the reviewed speech and language models once. Then
-                refresh this page.
+                {settings.provider_id === "local"
+                  ? "With Ollama running, download the reviewed speech and language models once. Then refresh this page."
+                  : "Open companion settings to check the provider, its key and local speech models."}
               </p>
             </div>
             <button
@@ -153,6 +161,12 @@ export default function App() {
               {copied ? "Copied" : "Copy: make models"}
             </button>
           </div>
+        )}
+        {remote && (
+          <p className="provider-disclosure">
+            Your conversation text and board requests go to {destination}. This provider may charge
+            your account. Speech and portraits stay on this machine.
+          </p>
         )}
         {conversation.error && (
           <div className="error-notice" role="alert">
@@ -168,7 +182,7 @@ export default function App() {
               <div className="stage-top">
                 <span className={`state-pill ${active ? "connected" : ""}`}>
                   <span />
-                  {active ? "Local conversation" : "Meet your companion"}
+                  {active ? "AI conversation" : "Meet your companion"}
                 </span>
                 <span className="ai-label">{avatarInfo[displayedSettings.avatar].label}</span>
               </div>
@@ -290,8 +304,14 @@ export default function App() {
               <div className="composer-bottom">
                 <button
                   type="button"
-                  className={`teach-toggle ${teach ? "on" : ""}`}
-                  aria-pressed={teach}
+                  className={`teach-toggle ${teach && teachingAvailable ? "on" : ""}`}
+                  aria-pressed={teach && teachingAvailable}
+                  disabled={!teachingAvailable}
+                  title={
+                    teachingAvailable
+                      ? "Request a board explanation"
+                      : "This model is configured for conversation only"
+                  }
                   onClick={() => {
                     setTeach(!teach);
                     conversation.setTeaching(!teach);
@@ -357,6 +377,8 @@ export default function App() {
         onChange={setSettings}
         catalog={catalog}
         active={active}
+        providers={providers}
+        onProvidersChange={setProviders}
       />
     </div>
   );

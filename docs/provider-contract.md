@@ -1,8 +1,10 @@
 # Language-model provider boundary
 
-Planned first-product work / T28. Current runtime selection supports only curated
-local Ollama models. This document defines the next boundary; it does not expose
-a hosted endpoint or install a provider SDK.
+T28 implementation: the reviewed local Ollama profile and an optional compatible
+chat-completions adapter share one conversation runtime. Settings can configure a
+local/self-hosted endpoint or an explicit OpenRouter model. These additional profiles
+are experimental. Local browser/model evidence is recorded separately; hosted live
+acceptance remains open until an operator supplies credentials and tests that route.
 
 ## Purpose and ownership
 
@@ -15,9 +17,9 @@ against the same observable contract.
 
 The existing core `LanguageModel.reply()` emits text/tool deltas and uses lifecycle
 and cancellation context. The current `BoardPlanner.board()` seam supplies bounded
-schema-directed teaching output; it is declared in `conversation.py`. T28 should
-extract that shared planning protocol into framework-free contracts when both
-local and hosted implementations use it, and coordinate producer/consumer tests.
+schema-directed teaching output; it now lives in the framework-free core contracts alongside `LanguageModel`.
+Its `teaching_available` property is evaluated after preparation. Both adapters
+use this protocol, with coordinated producer/consumer tests.
 Keep provider JSON, HTTP clients and SDK types inside adapters. Do not build a
 second conversation loop just because a gateway also offers an agent SDK.
 
@@ -39,8 +41,10 @@ cannot execute a canvas or computer action by returning a tool name.
 | Availability | Core conversation state and separate teaching-capability state; configured, missing credential, unreachable, unsupported, ready or failed, with an actionable sanitized reason |
 | Terms and routing | Local/open-model eligibility or explicitly selected external-service policy; model/service terms and data destination |
 
-These are planned contract fields, not a new executable configuration format.
-T28 chooses the smallest concrete schema and generates browser types from it.
+`ProviderConfiguration` is the concrete public schema; generated browser types
+and response validation come from that Python boundary. `CallSettings` selects
+`provider_id`, model, voice and avatar. The `local` ID and three pinned Ollama
+choices remain reserved. Other models must match a saved provider ID/model exactly.
 Keep the default reviewed open-model eligibility rules. External services have
 an explicit selection policy and accurate provenance; they do not bypass artifact
 eligibility or become labeled open models through a configuration flag.
@@ -63,14 +67,17 @@ validated teaching contract rather than trusting provider-shaped arguments.
 Schema support varies by model and serving endpoint. For an OpenRouter schema
 route, request the needed response format and require parameter-compatible
 routing; validate the completed response locally. A compatibility label or model
-catalog listing alone does not prove board quality. An invalid/truncated result
-can receive a bounded repair attempt; on failure, show a teaching error and avoid
-a spoken success claim. Keep the simpler schema strategy for weaker local models.
+catalog listing alone does not prove board quality. An invalid/truncated result currently receives no retry. On failure, show a
+teaching error, continue an ordinary spoken explanation, and avoid a spoken
+success claim. A later repair policy must remain bounded and avoid duplicate effects. Keep the simpler schema strategy for weaker local models.
 [Structured outputs](https://openrouter.ai/docs/guides/features/structured-outputs),
 [provider routing](https://openrouter.ai/docs/guides/routing/provider-selection).
 
-Publish supported model/endpoint capabilities from tested configuration and a
-bounded readiness probe. Do not invent a capability from an unvalidated remote
+Preparation performs a bounded `GET /models` probe and requires the selected ID.
+For OpenRouter, schema support must also be declared in `supported_parameters`;
+otherwise the call becomes conversation-only. This metadata is a compatibility
+check, not proof of model quality or a valid key for generation. Publish supported
+model/endpoint capabilities from separate tested configuration and live evidence. Do not invent a capability from an unvalidated remote
 response. Tools/structured JSON, streaming and reasoning-token formats can differ
 across compatible endpoints; add a narrow provider-specific adaptation only for
 an actual second behavior. Keep internal reasoning out of spoken output.
@@ -97,12 +104,51 @@ a different service. Fallbacks and spending limits are configured explicitly;
 record any selected route changes. Estimated usage is identified as an estimate
 when the provider supplies no authoritative usage record.
 
-Use bounded streaming parsing, deadlines and retries. Authentication/unsupported
+Use bounded streaming parsing and deadlines. This implementation has no retries. Authentication/unsupported
 schema failures are actionable errors. Rate limits do not create infinite retries.
 After any speech or board effect starts, a retry must not duplicate it. Cancelling
 closes the client stream and rejects old-generation output; it does not promise
 that a remote provider stopped computing or billing. Retain acknowledged-history,
 board ownership and cleanup behavior on network loss.
+
+## Implemented limits and local storage
+
+The optional `opentavus-compatible` package uses HTTPX directly. No additional
+agent loop or provider SDK is introduced. The permissive base installation works
+without this package. `make models` installs it with the existing local speech
+adapters; `make setup` continues to exclude inference libraries/models.
+
+- At most eight profiles; endpoint length 300, model ID 160 and API key 512 characters.
+- Remote endpoints require HTTPS; HTTP accepts only loopback IPs/localhost.
+  Embedded credentials, query strings, fragments and path traversal are rejected.
+  Redirects, environment proxies and application retries are disabled.
+- Connection deadline 3 seconds, profile deadline 5–90 seconds (default 60),
+  maximum 32,000 input characters; ordinary output is at most 350 configured
+  tokens/6,000 characters, board output at most 1,024 tokens/12,000 characters.
+- SSE is framed across transport/UTF-8 boundaries with comments ignored, a 256 KiB
+  stream limit and 64 KiB event/line limits. A clean `stop` finish and `[DONE]`
+  are required; length truncation, wrong declared model/response identity and
+  incomplete streams fail. Internal reasoning is ignored. Native tool-call
+  arguments are rejected: teaching uses schema-directed JSON, then local validation.
+- The OpenRouter route fixes its base URL and explicitly requests
+  `allow_fallbacks: false` and `require_parameters: true`. Per-request token caps
+  limit output; monetary/account quotas remain the operator's provider settings.
+  There is no cost estimator or claim that cancellation stops remote billing.
+
+The local server writes `models/providers.json` atomically, with owner-only `0600`
+permissions on POSIX. It is **plaintext server configuration**, not an encrypted
+vault/keychain. The directory is ignored by Git and never served as a static asset.
+Public responses contain only configured/missing credential state. Replace a key,
+remove a key, or remove its entire profile in settings; changing a profile's
+destination clears its old key. Mutations are rejected while a call is preparing
+or active. Failed writes retain the previous configuration. Browser storage v2
+contains only the four public selection fields; legacy valid choices migrate.
+
+See [OpenRouter streaming](https://openrouter.ai/docs/api_reference/streaming),
+[structured output](https://openrouter.ai/docs/guides/features/structured-outputs),
+and [Ollama compatibility](https://docs.ollama.com/api/openai-compatibility) for
+upstream protocol behavior. Profile labels stay experimental until published
+live evidence supports the actual endpoint/model/capability combination.
 
 ## OpenCode integration
 

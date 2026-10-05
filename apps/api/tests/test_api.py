@@ -4,11 +4,15 @@ from fastapi.testclient import TestClient
 from opentavus_api.app import create_app
 from opentavus_api.models import CallSettings
 from opentavus_core.errors import CoreError
+from opentavus_runtime.providers import ProviderStore
 
 ORIGIN = {"origin": "http://127.0.0.1:8765"}
 
 
 class FakeInstallation:
+    def __init__(self):
+        self.providers = ProviderStore(None)
+
     async def catalog(self):
         return {"speech_ready": False, "models": []}
 
@@ -98,3 +102,73 @@ def test_a_foreign_websocket_is_rejected():
                 raise AssertionError("Foreign websocket connected")
         except WebSocketDisconnect as error:
             assert error.code == 1008
+
+
+def test_provider_credentials_are_write_only_and_origin_scoped():
+    body = {
+        "configuration": {
+            "id": "fixture",
+            "name": "Fixture",
+            "model": "fixture-model",
+            "endpoint": "http://127.0.0.1:11434/v1",
+            "requires_key": True,
+        },
+        "api_key": "fixture-private-key",
+    }
+    with client() as browser:
+        assert browser.post("/api/providers", json=body).status_code == 403
+        saved = browser.post("/api/providers", headers=ORIGIN, json=body)
+        assert saved.status_code == 200
+        assert "fixture-private-key" not in saved.text
+        assert saved.json()["providers"][0]["credential_configured"] is True
+        assert "fixture-private-key" not in browser.get("/api/providers").text
+        body["api_key"] = "invalid\nfixture-private-key"
+        rejected = browser.post("/api/providers", headers=ORIGIN, json=body)
+        assert rejected.status_code == 422
+        assert "fixture-private-key" not in rejected.text
+        body.pop("api_key")
+        body["remove_key"] = True
+        removed = browser.post("/api/providers", headers=ORIGIN, json=body)
+        assert removed.json()["providers"][0]["credential_configured"] is False
+        assert browser.delete("/api/providers/fixture", headers=ORIGIN).json()["providers"] == []
+
+
+def test_provider_changes_wait_for_call_end_and_forward_independent_choices():
+    calls = []
+
+    class Call:
+        planner = None
+
+        def __init__(self, identifier):
+            self.id = identifier
+
+        async def close(self):
+            pass
+
+    async def prepare(*args):
+        calls.append(args)
+        return Call(args[1])
+
+    with client(prepare) as browser:
+        created = browser.post(
+            "/api/conversations",
+            headers=ORIGIN,
+            json={
+                "provider_id": "fixture",
+                "model": "vendor/model",
+                "voice": "bf_emma",
+                "avatar": "orbit",
+            },
+        )
+        assert created.status_code == 200
+        assert created.json()["teaching_available"] is False
+        assert calls[0][2:] == ("vendor/model", "bf_emma", "fixture")
+        blocked = browser.delete("/api/providers/fixture", headers=ORIGIN)
+        assert blocked.status_code == 409
+        info = created.json()
+        ended = browser.delete(
+            "/api/conversations/" + info["conversation_id"],
+            headers={**ORIGIN, "Authorization": "Bearer " + info["token"]},
+        )
+        assert ended.status_code == 200
+        assert browser.delete("/api/providers/fixture", headers=ORIGIN).status_code == 200

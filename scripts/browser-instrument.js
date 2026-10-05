@@ -20,6 +20,7 @@ async (page) => {
               sample: event.presentation_sample,
               tool: event.tool_name,
               status: event.status,
+              code: event.code,
             });
         });
       }

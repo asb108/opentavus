@@ -10,6 +10,7 @@ resolution-markers = [
 [manifest]
 members = [
     "opentavus-api",
+    "opentavus-compatible",
     "opentavus-core",
     "opentavus-fixture-demo",
     "opentavus-local",
@@ -1352,6 +1353,21 @@ requires-dist = [
 ]
 
 [[package]]
+name = "opentavus-compatible"
+version = "0.1.0a1"
+source = { editable = "plugins/llm/compatible" }
+dependencies = [
+    { name = "httpx" },
+    { name = "opentavus-core" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "httpx", specifier = ">=0.28,<1" },
+    { name = "opentavus-core", editable = "packages/core" },
+]
+
+[[package]]
 name = "opentavus-core"
 version = "0.0.1"
 source = { editable = "packages/core" }
@@ -1441,6 +1457,7 @@ fixtures = [
     { name = "opentavus-fixture-demo" },
 ]
 models = [
+    { name = "opentavus-compatible" },
     { name = "opentavus-local", extra = ["stt", "tts"] },
     { name = "pipecat-ai", extra = ["webrtc"] },
 ]
@@ -1459,6 +1476,7 @@ dev = [
 ]
 fixtures = [{ name = "opentavus-fixture-demo", editable = "plugins/fixtures/demo" }]
 models = [
+    { name = "opentavus-compatible", editable = "plugins/llm/compatible" },
     { name = "opentavus-local", extras = ["stt", "tts"], editable = "plugins/local" },
     { name = "pipecat-ai", extras = ["webrtc"], specifier = "==1.12.0" },
 ]

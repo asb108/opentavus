@@ -46,12 +46,12 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T25](#t25) | G0 | done | T02, T18 | Codex / Atul |
 | [T26](#t26) | G1 | todo | T02, T18, T25 | Unassigned |
 | [T27](#t27) | G0 | done | T02, T18, T25 | Codex / Atul |
-| [T28](#t28) | G1 | todo | T02, T18, T27 | Unassigned |
+| [T28](#t28) | G1 | in_progress | T02, T18, T27 | Codex / Atul |
 | [T29](#t29) | G0 | todo | T02, T18, T23, T27 | Unassigned |
 | [T30](#t30) | G4 | todo | T02, T13, T27 | Unassigned |
 | [T31](#t31) | G4 | todo | T05, T13 | Unassigned |
 
-**Ready to claim now:** T26, T28, T29. Run `make plan-status` after changing task status.
+**Ready to claim now:** T26, T29. Run `make plan-status` after changing task status.
 
 ## Task details
 
@@ -436,7 +436,7 @@ Evidence:
 
 #### T28: Add compatible and hosted LLM providers for interaction and teaching
 
-Status: **todo**. Owner: Unassigned. Dependencies: T02, T18, T27.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T18, T27.
 
 A configured compatible/self-hosted endpoint and an explicit hosted/OpenRouter route produce streamed answers and validated teaching through the existing conversation, alongside the reviewed open local profile.
 
@@ -454,6 +454,32 @@ Owned paths (proposed responsibilities, not an existence check):
 - `packages/contracts/`
 - `docs/provider-contract.md`
 - `docs/models.md`
+- `apps/web/src/api.ts`
+- `apps/web/src/App.tsx`
+- `apps/web/src/features/call/`
+- `apps/web/src/styles.css`
+- `apps/web/tests/`
+- `scripts/api_contracts.py`
+- `scripts/plugin_manifests.py`
+- `scripts/browser-provider.mjs`
+- `scripts/generate-types.mjs`
+- `pyproject.toml`
+- `uv.lock`
+- `Makefile`
+- `README.md`
+- `docs/design.md`
+- `docs/quickstarts/local.md`
+- `docs/quickstarts/browser-checks.md`
+- `docs/decisions.md`
+- `docs/tasks.json`
+- `docs/roadmap.md`
+- `plugins/local/src/opentavus_ollama/`
+- `scripts/browser-smoke.mjs`
+- `docs/releases/provider-local-evidence.json`
+- `scripts/browser-instrument.js`
+- `docs/quality.md`
+- `AGENTS.md`
+- `docs/plugin-contract.md`
 
 Acceptance:
 
@@ -468,6 +494,12 @@ Acceptance:
 Evidence:
 
 - 2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted.
+- 2026-10-05: Implementation started from clean 2210309. User selected the Mac local compatible endpoint for the first live test. Owned scope includes the optional compatible adapter, server-held provider configuration/credentials, API/settings integration and conversation-only recovery. Hosted/OpenRouter live evidence is separate and remains unexecuted until explicitly configured.
+- 2026-10-05 implementation: optional HTTPX-compatible plugin, core BoardPlanner and public provider schema, atomic server-held credentials with no browser persistence/echo, origin-scoped settings CRUD and active-call guard, provider/model call snapshots, independent voice/face choices, OpenRouter explicit routing/metadata checks and separate conversation-only/teaching recovery. Generated API/browser contracts and pinned optional workspace package are updated. Default reviewed local eligibility remains intact.
+- 2026-10-05 local verification: make check passed 142 Python tests, 3 contracts and 19 web behavior tests plus mypy, Ruff/Prettier/ESLint, generated schema and frontend build. make demo and make base-check passed; isolated base discovered no plugins (37 tests, 5 fixture deselections). Fixtures include fragmented/malformed/oversized/wrong-model/partial-tool/error streams, cancellation stream cleanup, metadata capability downgrade, credential replacement/removal/destination scope, secure/atomic failure, origin/active-call policy and partial initialization cleanup.
+- 2026-10-05 live: node scripts/browser-provider.mjs passed twice against local Ollama 0.24.0 / qwen2.5:1.5b at /v1 on M3 Pro/macOS 14.5/Chrome. Real Kokoro/Worklet speech completed ordinary requests, correction, follow-up, Stop/recovery, unsupported-board recovery, next-call voice/face isolation and individual formula/diagram/quiz cases with applied ACK before speech. Repeat Stop ACK 13–15 ms, no stale media in the bounded post-ACK window. First reply varied 2.226–6.147 seconds; repeated later conversation 0.774–2.061 seconds and board captions 4.269–6.935 seconds, not percentiles. Mixed formula/quiz attempts failed and remain documented. See docs/releases/provider-local-evidence.json.
+- Unexecuted T28 acceptance: no hosted/OpenRouter key or live hosted inference used; actual hosted speech/teaching/Stop/corrections/network/billing proof remains open. First-product naturalness, percentile latency, mixed lesson quality, long calls, physical microphone/echo and weak-PC/GPU claims are not established by these checks. T28 stays in_progress.
+- 2026-10-05 final regression: make check passed again after lifecycle/settings fixes (142 Python, 3 contract, 19 web tests); npm run test:browser -- --live passed through the unchanged reviewed native Ollama adapter, real Kokoro speech, board/quiz and independent next-call choices. make plan-check passed 32 tasks/185 local links after canonical contributor/plugin documents were updated. Source code is ready for commit; hosted acceptance remains open.
 
 ### G2 - Human presence, independent settings and the first teaching capability
 

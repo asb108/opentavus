@@ -10,6 +10,7 @@ DOWNLOADS = json.loads((ROOT / "packages/runtime/src/opentavus_runtime/downloads
 
 
 def generate(*, check: bool = False) -> None:
+    generate_compatible(check=check)
     for name, kind in [("whisper", "stt"), ("kokoro", "tts"), ("ollama", "llm")]:
         directory = ROOT / f"plugins/local/src/opentavus_{name}"
         artifact_ids = ["code"]
@@ -142,6 +143,75 @@ def generate(*, check: bool = False) -> None:
                 raise SystemExit(f"Stale manifest: {path.relative_to(ROOT)}; run make format.")
         else:
             path.write_text(expected)
+
+
+def generate_compatible(*, check: bool) -> None:
+    directory = ROOT / "plugins/llm/compatible/src/opentavus_compatible"
+    properties = {
+        "id": {"type": "string", "pattern": "^[a-zA-Z0-9_.-]+$", "minLength": 1, "maxLength": 96},
+        "name": {"type": "string", "minLength": 1, "maxLength": 80},
+        "kind": {"enum": ["compatible", "openrouter"]},
+        "endpoint": {"type": "string", "minLength": 1, "maxLength": 300},
+        "model": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "pattern": "^[a-zA-Z0-9_.:/-]+$",
+        },
+        "teaching": {"type": "boolean"},
+        "requires_key": {"type": "boolean"},
+        "max_output_tokens": {"type": "integer", "minimum": 64, "maximum": 1024},
+        "timeout_seconds": {"type": "integer", "minimum": 5, "maximum": 90},
+        "terms_url": {"type": ["string", "null"], "maxLength": 300},
+        "model_identity": {"const": "provider_declared"},
+        "api_key": {"type": "string", "minLength": 1, "maxLength": 512, "writeOnly": True},
+    }
+    manifest = {
+        "schema_version": 1,
+        "api_version": 1,
+        "id": "provider.compatible",
+        "kind": "llm",
+        "display_name": "Configured compatible model (experimental)",
+        "entry_point": "opentavus_compatible.adapter:create",
+        "capabilities": {
+            "default": {
+                "required_artifacts": ["code"],
+                "input_formats": ["text.delta.v1"],
+                "output_formats": ["text.delta.v1"],
+            }
+        },
+        "execution": ["endpoint"],
+        "languages": ["en"],
+        "streaming": "native",
+        "cancellation": "discard_late_output",
+        "hardware": {"endpoint": {"min_ram_mb": 0, "accelerator": "none"}},
+        "artifacts": [
+            {
+                "id": "code",
+                "purpose": "code",
+                "source_url": "repo://plugins/llm/compatible/src/opentavus_compatible/adapter.py",
+                "revision": "0.1.0a1",
+                "sha256": hashlib.sha256((directory / "adapter.py").read_bytes()).hexdigest(),
+                "license_id": "Apache-2.0",
+                "license_url": "repo://LICENSE",
+                "attribution": "OpenTavus contributors",
+                "eligibility": "reviewed_permissive",
+            }
+        ],
+        "config_schema": {
+            "type": "object",
+            "properties": properties,
+            "required": ["id", "name", "endpoint", "model"],
+            "additionalProperties": False,
+        },
+    }
+    path = directory / "opentavus-plugin.json"
+    expected = json.dumps(manifest, indent=2) + "\n"
+    if check:
+        if not path.exists() or path.read_text() != expected:
+            raise SystemExit("Stale compatible manifest; run make format.")
+    else:
+        path.write_text(expected)
 
 
 if __name__ == "__main__":

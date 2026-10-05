@@ -63,7 +63,7 @@
       "purpose": "code",
       "source_url": "repo://plugins/local/src/opentavus_ollama/adapter.py",
       "revision": "0.1.0a1",
-      "sha256": "6ba64b17c5841c79e3981b6fb4a95dba141ec500e0ec88a3f91575070742916d",
+      "sha256": "e53eb5872900e17685f0dae4ef82b620d463e3fa4e4963e1a7d4d9756536afda",
       "license_id": "Apache-2.0",
       "license_url": "repo://LICENSE",
       "attribution": "OpenTavus contributors",

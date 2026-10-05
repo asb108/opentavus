@@ -41,6 +41,27 @@ uv run --no-sync opentavus setup --model qwen2.5:0.5b
 
 Refresh the page after a download, then choose the model in settings. The 0.5B model uses less storage but generally makes weaker lessons. The 7B choice is an unbenchmarked larger option, not a promised performance profile. Arbitrary model names/remote URLs are deliberately not accepted by this alpha boundary. New reviewed models enter through a manifest/catalog contribution.
 
+## Configure a compatible endpoint
+
+After `make models`, open Companion settings and choose Add model provider.
+For local Ollama, keep `http://127.0.0.1:11434/v1`, set the exact installed model ID,
+and leave the key blank. Save and select the new card. Leave schema-based board
+tools off for a conversation-only profile. Enable them separately when testing
+teaching. Settings apply to the next call; changing the brain preserves the voice
+and character. Unsupported board requests show an error and continue an explanation.
+
+For a self-hosted remote endpoint, use HTTPS and its explicit model ID. It must
+support `GET /models` and streamed `POST /chat/completions`; teaching also needs
+`response_format` JSON schema support. For OpenRouter choose its type, then set an
+explicit model ID and submit the key in the password field. These profiles are
+experimental; no hosted route is live-verified yet. See [the provider contract](../provider-contract.md).
+
+Provider credentials live in the ignored `models/providers.json` file, saved
+atomically with POSIX owner-only permissions. This is plaintext server configuration,
+not encrypted storage. Public API responses and browser preferences never contain
+key values. Replace/remove a key or remove the provider through settings while no
+call is open. Clearing browser site data does not delete server-held credentials.
+
 ## Troubleshooting
 
 | What you see | What to do |
@@ -60,7 +81,10 @@ The server does not save audio recordings or transcripts by default. It holds ca
 
 To delete saved drawings/settings, clear site data for `127.0.0.1:8765` in Chrome. Use this intentionally; it removes your browser's board. Downloaded weights are in this checkout's ignored `models/` directory, while Ollama manages its own model store. Stop the app before deliberately removing a selected model; unrelated models and user files should be preserved.
 
-All inference is local after downloads. Fonts/assets are bundled. Optional Excalidraw help/library links may navigate outside the app if you choose them; external resources are not needed for a call. Keep Ollama running when testing without Internet access. The alpha binds to loopback and is not a multi-user/public server; see [security](../../SECURITY.md).
+The reviewed default and a loopback compatible endpoint keep inference local after
+downloads. Selecting an external provider sends conversation text and board
+requests to that destination and may incur charges. Speech/portrait inference
+remains local. Fonts/assets are bundled. Optional Excalidraw help/library links may navigate outside the app if you choose them; external resources are not needed for a call. Keep Ollama running when testing without Internet access. The alpha binds to loopback and is not a multi-user/public server; see [security](../../SECURITY.md).
 
 ## Develop with live models
 

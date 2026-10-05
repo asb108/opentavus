@@ -8,10 +8,12 @@ Teaching on a shared board is its first useful capability; later capabilities
 extend the same interaction. The current local alpha runs speech and language
 models on your computer and requires no API key or subscription.
 
-The [product plan](docs/product-plan.md) adds configurable hosted/compatible LLMs
-alongside the reviewed open-model profile, and places permission-controlled
-computer assistance in a later phase. Those capabilities are planned work; the
-current alpha and its measured limits are described below.
+The alpha also includes experimental, configurable compatible endpoints and
+OpenRouter model selection alongside the reviewed open-model profile. Speech and
+portraits stay local; an explicitly selected external model receives conversation
+text and board requests under its own terms and charges. Hosted live acceptance
+remains open. The [product plan](docs/product-plan.md) places permission-controlled
+computer assistance in a later phase.
 
 **Current product: local alpha on `main`.** You can try the conversation, independent model/voice/character settings, a photographic Einstein AI portrayal, Mira, and the teaching board now. The earlier `v0.1.0-alpha.1` tag preserves its original preview. This is an early single-user application. Response speed and generated lesson quality still vary; the full v0.1 [quality targets](docs/quality.md) remain open.
 
@@ -19,7 +21,7 @@ current alpha and its measured limits are described below.
 | --- | --- |
 | Talk or type | Local Whisper recognition, streaming Qwen replies, and Kokoro speech. Use Stop to interrupt queued audio immediately. |
 | Meet Einstein | A historical photographic AI portrayal with an independent synthetic preset voice. Prepared head movement, blinking, listening and expression cues accompany speech. Mira remains available. Kokoro phoneme timings drive distinct mouth shapes on the played-audio clock; Stop closes it immediately. No NVIDIA avatar server is required. |
-| Make it yours | Choose installed Qwen sizes, four English preset voices, and historical/fictional photographic, static, 3D or cartoon characters independently. Changes apply to the next call. |
+| Make it yours | Choose reviewed local Qwen sizes or configure a compatible/OpenRouter model, independently of four English voices and photographic/static/3D/cartoon characters. Experimental routes are clearly labeled; changes apply to the next call. |
 | Teach on board | Ask directly for a note, formula, process flowchart, or practice question. Explicit drawing requests work with Teach mode off. Draw alongside the AI, keep your edits, and export a canvas PNG or lesson Markdown. |
 | Build in the open | Typed engine interfaces, generated Python/browser schemas, focused behavior tests, and contributor checks that work without model downloads. |
 
@@ -64,6 +66,18 @@ typed and synthetic-microphone checks. The current generated flowchart format is
 inputs → process → outputs; arbitrary branching diagrams remain future work.
 
 Setup downloads pinned Whisper tiny and Kokoro artifacts with SHA-256 checks, then the reviewed `qwen2.5:1.5b` Ollama model. Model downloads are explicit. After installation, inference runs on your machine. For recovery, additional models, development mode, data deletion, and exact commands, read the [local quickstart](docs/quickstarts/local.md).
+
+## Try another reasoning model
+
+Open **Companion settings → Brain → Add model provider** after installing models.
+For the Mac/local Ollama compatible route, use `http://127.0.0.1:11434/v1` and an
+installed model such as `qwen2.5:1.5b`; no API key is needed. Leave board tools off
+for ordinary conversation, or enable them to test schema-based teaching. Voice
+and character stay independent. For OpenRouter, select the type and enter an
+explicit model ID and key in the password field. Never put a key in an issue or PR.
+Read [provider setup and limits](docs/provider-contract.md) before using an external
+route. The local server holds keys in a private, ignored plaintext configuration
+file; the browser saves only public selections.
 
 ## Contribute without downloading models
 
@@ -121,7 +135,7 @@ or precise lip-sync claim.
 
 - [Product plan](docs/product-plan.md): human-interaction core, independent capabilities, delivery order and later computer assistance.
 - [Current design](docs/design.md) and [decisions](docs/decisions.md): architecture, implemented boundaries and reasons.
-- [Provider contract](docs/provider-contract.md) and [future computer use](docs/computer-use.md): planned model and action boundaries.
+- [Provider contract](docs/provider-contract.md) and [future computer use](docs/computer-use.md): implemented model and future action boundaries.
 - [Roadmap](docs/roadmap.md): work, dependencies, ownership, acceptance criteria, and evidence.
 - [Plugin contract](docs/plugin-contract.md): add an engine without coupling the core to its packages.
 - [Quality gates](docs/quality.md) and [alpha release notes](docs/releases/0.1.0-alpha.1.md): measured behavior and remaining targets.

@@ -4,7 +4,16 @@ import argparse
 import json
 from pathlib import Path
 
-from opentavus_api.models import CallCreated, CallSettings, Hello, Offer, Question, TeachMode
+from opentavus_api.models import (
+    CallCreated,
+    CallSettings,
+    Hello,
+    Offer,
+    ProviderWrite,
+    Question,
+    TeachMode,
+)
+from opentavus_core.providers import ProviderList
 from opentavus_core.schema import Boundary
 from opentavus_runtime.tools import BoardReply
 
@@ -17,6 +26,8 @@ class ControlContract(Boundary):
     question: Question
     teach_mode: TeachMode
     board: BoardReply
+    providers: ProviderList
+    provider_write: ProviderWrite
 
 
 def main() -> None:

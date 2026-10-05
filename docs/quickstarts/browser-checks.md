@@ -108,3 +108,29 @@ save `output/playwright/einstein-*` artifacts. Questions are public synthetic te
 prompts. `--photo` alone retains Mira regression coverage despite the new default.
 Software Canvas checks establish only the named browser configuration, not whole
 call performance on a weak PC.
+
+
+## Local compatible model check
+
+```sh
+npm run test:browser -- --provider
+```
+
+This opt-in check uses the running local Ollama compatible endpoint with
+`qwen2.5:1.5b`, real Kokoro speech and browser Worklet playback. It creates an
+isolated browser and a temporary provider profile through the actual settings
+form. Its key is explicitly synthetic; no hosted service or paid account is used.
+It checks transient credential input/public preferences, mobile settings,
+conversation-only capability, an ordinary request, correction, follow-up,
+unsupported-board spoken recovery, Stop and next-call voice/character isolation.
+A separate capable call checks a formula, labeled photosynthesis diagram and quiz,
+requiring applied board acknowledgements before speech. It ends its calls and
+removes only its temporary provider profile.
+
+Artifacts under ignored `output/playwright/provider-local-*` contain public
+synthetic cases, timing/state/error codes and a screenshot. Event records exclude
+keys, questions, replies and audio. These are browser-clock/Worklet observations,
+not physical speaker waveforms or aggregate latency percentiles. Failed combined
+lesson attempts remain in [the evidence record](../releases/provider-local-evidence.json).
+Hosted/OpenRouter calls, broader lesson correctness and full naturalness gates
+remain separate work.

@@ -16,6 +16,8 @@ from opentavus_core.contracts import (
 
 
 class OllamaAdapter:
+    teaching_available = True
+
     def __init__(self, model: str, endpoint: str) -> None:
         self.model = model
         self.endpoint = endpoint.rstrip("/")

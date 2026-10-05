@@ -1,0 +1,20 @@
+[project]
+name = "opentavus-compatible"
+version = "0.1.0a1"
+description = "Optional compatible chat-completions and OpenRouter model adapter"
+license = "Apache-2.0"
+requires-python = ">=3.11,<3.14"
+dependencies = ["opentavus-core", "httpx>=0.28,<1"]
+
+[project.entry-points."opentavus.manifests"]
+"provider.compatible" = "opentavus_compatible"
+
+[project.entry-points."opentavus.engines"]
+"provider.compatible" = "opentavus_compatible.adapter:create"
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+opentavus-core = { workspace = true }

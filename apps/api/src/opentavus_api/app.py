@@ -15,6 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from opentavus_core.errors import CoreError
+from opentavus_core.providers import ProviderList
 from opentavus_core.schema import (
     EVENT_ADAPTER,
     CanvasResultEvent,
@@ -29,7 +30,7 @@ from opentavus_runtime.installation import Installation
 from pydantic import ValidationError
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-from .models import CallCreated, CallSettings, Hello, Offer, Question, TeachMode
+from .models import CallCreated, CallSettings, Hello, Offer, ProviderWrite, Question, TeachMode
 
 ORIGINS = {
     "http://127.0.0.1:8765",
@@ -37,7 +38,7 @@ ORIGINS = {
     "http://127.0.0.1:5173",
     "http://localhost:5173",
 }
-Prepare = Callable[[Installation, str, str, str], Awaitable[Conversation]]
+Prepare = Callable[[Installation, str, str, str, str], Awaitable[Conversation]]
 
 
 @dataclass
@@ -114,6 +115,37 @@ def create_app(
     async def catalog() -> dict[str, Any]:
         return await installation.catalog()
 
+    async def public_providers() -> ProviderList:
+        inventory = await installation.catalog()
+        return ProviderList(
+            providers=installation.providers.views(
+                plugin_installed=inventory.get("compatible_installed", False),
+                speech_ready=inventory["speech_ready"],
+            )
+        )
+
+    @app.get("/api/providers", response_model=ProviderList)
+    async def providers() -> ProviderList:
+        return await public_providers()
+
+    def mutable_providers() -> None:
+        if active is not None or preparing:
+            raise CoreError(
+                "capacity", "End the current conversation before changing provider credentials."
+            )
+
+    @app.post("/api/providers", response_model=ProviderList)
+    async def save_provider(body: ProviderWrite) -> ProviderList:
+        mutable_providers()
+        installation.providers.save(body.configuration, body.api_key, remove_key=body.remove_key)
+        return await public_providers()
+
+    @app.delete("/api/providers/{provider_id}", response_model=ProviderList)
+    async def delete_provider(provider_id: str) -> ProviderList:
+        mutable_providers()
+        installation.providers.delete(provider_id)
+        return await public_providers()
+
     @app.get("/api/health")
     async def health() -> dict[str, Any]:
         return {"status": "ok", "version": "0.1.0a1", "mode": "local"}
@@ -137,7 +169,11 @@ def create_app(
             conversation_id = secrets.token_hex(16)
             async with asyncio.timeout(90):
                 conversation = await prepare(
-                    installation, conversation_id, settings.model, settings.voice
+                    installation,
+                    conversation_id,
+                    settings.model,
+                    settings.voice,
+                    settings.provider_id,
                 )
             conversation.character_name = {
                 "einstein": "Einstein",
@@ -165,13 +201,17 @@ def create_app(
 
             owned.expiry = asyncio.create_task(expire_unconnected())
             return CallCreated(
-                conversation_id=conversation_id, token=owned.token, settings=settings
+                conversation_id=conversation_id,
+                token=owned.token,
+                settings=settings,
+                teaching_available=conversation.planner is not None,
             )
         except CoreError:
             raise
         except Exception:
             raise CoreError(
-                "model_failed", "Could not warm the local models. Run make doctor and retry."
+                "model_failed",
+                "Could not prepare the selected models. Check settings, run make doctor and retry.",
             ) from None
         finally:
             preparing = False

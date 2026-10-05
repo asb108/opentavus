@@ -86,15 +86,17 @@ Treat plugins as trusted installed code. Discovery is not a sandbox for arbitrar
 
 ## Typed adapter behavior
 
-### Planned hosted LLM selection
+### Experimental configured LLM selection
 
 T28 adds the [provider contract](provider-contract.md). Keep the default local
 artifact eligibility rules and separate the adapter's reviewed code/artifacts
 from the user's explicit external-service choice. Provider-declared model identity
 and service terms do not become a verified weight license. Do not fabricate a
 weight artifact to fit a hosted route into a local manifest. The required typed
-profile/selection change and its validation tests belong to T28; hosted activation
-does not work in the current alpha.
+profile/selection change and its validation tests belong to T28. The optional
+`plugins/llm/compatible` code-only adapter implements configured routes and shares
+core `LanguageModel`/`BoardPlanner` contracts. Its real local compatible route has
+separate evidence; hosted live acceptance and broader quality remain open.
 
 Reuse the core language-model and schema-directed teaching boundaries. Keep
 provider events/SDKs and server secret resolution in the adapter/composition

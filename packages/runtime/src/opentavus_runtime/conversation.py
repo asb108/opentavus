@@ -8,10 +8,11 @@ import uuid
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterator, Sequence
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Literal, Protocol
+from typing import Any, Literal
 
 from opentavus_core.contracts import (
     AdapterContext,
+    BoardPlanner,
     CancellationSignal,
     Generation,
     LanguageModel,
@@ -48,13 +49,13 @@ from .tools import (
     validate_tool,
 )
 
-SYSTEM_PROMPT = """You are a friendly AI learning companion in OpenTavus.
+SYSTEM_PROMPT = """You are a friendly AI companion in OpenTavus.
 Respond in English, conversationally, in 2-4 short sentences unless asked for more.
 Start with a direct answer in a short sentence of at most 10 words.
-Be accurate and candid about uncertainty. Explain one concrete example, then invite
-the next question. Avoid markdown, tables, code blocks and lengthy spoken formulas.
-The shared board can show longer notes, formulas, diagrams and quizzes separately.
-You can create those board results yourself when asked, including by voice.
+Be accurate and candid about uncertainty. Match the user's purpose: ordinary conversation,
+brainstorming, explanation, or teaching. Use an example when it helps; do not force
+every conversation into a lesson or end every answer with a question.
+Avoid markdown, tables, code blocks and lengthy spoken formulas.
 Never ask the user to upload a diagram that they asked you to create.
 Only describe something as shown on the board when an applied board result is provided.
 Previously applied results are history; do not assume they remain visible.
@@ -75,10 +76,6 @@ def character_instructions(name: str) -> str:
             "Do not invent his memories, quotations, personal opinions or endorsement."
         )
     return "Your AI character name is " + name + "."
-
-
-class BoardPlanner(Protocol):
-    async def board(self, prompt: str, schema: dict[str, Any], context: AdapterContext) -> str: ...
 
 
 async def one(value: str) -> AsyncIterator[str]:
@@ -112,7 +109,7 @@ class Conversation:
         llm: LanguageModel,
         tts: TextToSpeech,
         stt: SpeechToText,
-        planner: BoardPlanner,
+        planner: BoardPlanner | None,
         directory: Path,
         *,
         release_speech_on_close: bool = True,
@@ -228,12 +225,25 @@ class Conversation:
         try:
             async with asyncio.timeout(120):
                 await self.status("thinking")
-                with failure_boundary(
-                    "The requested board tool could not be generated. "
-                    "Ask for one simple diagram, formula or quiz.",
-                    "tool_rejected",
-                ):
-                    applied_board = await self._teach(question, context) if teach else None
+                applied_board = None
+                board_failed = False
+                if teach:
+                    try:
+                        applied_board = await self._teach(question, context)
+                    except Exception as error:
+                        # Teaching is optional; failed tool requests must not end conversation.
+                        context.cancellation.check()
+                        board_failed = True
+                        failure = public_failure(error)
+                        await self.send(
+                            ErrorEvent(
+                                **self.base(),
+                                type="error",
+                                code=failure.code if failure else "tool_rejected",
+                                message="The board result is unavailable for this answer. "
+                                "I can still explain it aloud.",
+                            )
+                        )
                 phrases: asyncio.Queue[str | None] = asyncio.Queue(maxsize=4)
 
                 async def produce() -> None:
@@ -241,6 +251,18 @@ class Conversation:
                     buffer = ""
                     emitted_phrase = False
                     instructions = SYSTEM_PROMPT + character_instructions(self.character_name)
+                    instructions += (
+                        "\nBoard tools are available when explicitly requested."
+                        if self.planner is not None
+                        else "\nBoard tools are unavailable with this model. "
+                        "Explain aloud; never claim to draw."
+                    )
+                    if board_failed:
+                        instructions += (
+                            "\nThe latest board request failed; no complete result was applied. "
+                            "Briefly acknowledge that and explain the requested idea aloud. "
+                            "Never claim the requested diagram or formula is displayed."
+                        )
                     if applied_board is not None:
                         instructions += (
                             "\nThe shared board was applied for the latest user question. "
@@ -326,7 +348,7 @@ class Conversation:
 
                 async def guarded_produce() -> None:
                     with failure_boundary(
-                        "The local language model could not reply. Check Ollama and retry."
+                        "The selected language model could not reply. Check its settings and retry."
                     ):
                         await produce()
 
@@ -405,6 +427,11 @@ class Conversation:
             self.history[self._heard_history_index] = message
 
     async def _teach(self, question: str, context: AdapterContext) -> BoardReply:
+        planner = self.planner
+        if planner is None:
+            raise CoreError(
+                "capability_missing", "This model does not provide validated board tools."
+            )
         # Segmented speech may separate the topic from 'diagrams on the board'.
         # Keep bounded dialogue as data; the latest request still decides the tools.
         recent = [
@@ -414,7 +441,7 @@ class Conversation:
         request_context = json.dumps({"recent_conversation": recent, "latest_request": question})
 
         async def generate(kind: ToolKind) -> Tool:
-            raw = await self.planner.board(
+            raw = await planner.board(
                 (DIAGRAM_PROMPT if kind == "diagram" else BOARD_PROMPT)
                 + f"\nFor this call create exactly one {kind} tool.\nRequest context: "
                 + request_context,

@@ -1,7 +1,14 @@
 import Ajv2020 from "ajv/dist/2020";
 import schema from "../../../packages/contracts/schema.json";
 import controlSchema from "../../../packages/contracts/api.schema.json";
-import type { BoardReply, CallCreated, CallSettings, WireEvent } from "@opentavus/contracts";
+import type {
+  BoardReply,
+  CallCreated,
+  CallSettings,
+  WireEvent,
+  ProviderList,
+} from "@opentavus/contracts";
+export type { ProviderConfiguration, ProviderView } from "@opentavus/contracts";
 
 export type Settings = Required<CallSettings>;
 export type TeachingTool = BoardReply["tools"][number];
@@ -29,6 +36,19 @@ const validateCreated = ajv.compile<CallCreated>({
   $defs: controlSchema.$defs,
   ...controlSchema.properties.created,
 });
+const validateProviders = ajv.compile<ProviderList>({
+  $defs: controlSchema.$defs,
+  ...controlSchema.properties.providers,
+});
+
+export async function providerRequest(init?: RequestInit, id?: string): Promise<ProviderList> {
+  const value: unknown = await request(
+    `/api/providers${id ? `/${encodeURIComponent(id)}` : ""}`,
+    init,
+  );
+  if (!validateProviders(value)) throw new Error("The server sent invalid provider settings.");
+  return value;
+}
 
 export function parseEvent(value: unknown): WireEvent {
   if (!validateEvent(value)) throw new Error("The local server sent an invalid event.");

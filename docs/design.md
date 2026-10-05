@@ -63,8 +63,10 @@ is advertised separately when the selected route supports its validated output.
 
 v0.1 implements a curated working set, not every model in the research catalog. The alpha uses Whisper tiny, reviewed Qwen2.5 0.5B/1.5B configurations through Ollama, Kokoro, and Silero VAD. Qwen 7B is a catalog option without live reference-machine evidence. Smart Turn and stronger/alternative models require their own measured integration. Extra adapters enter the catalog only with manifests and contract evidence. The initial English profile and additional languages have separate quality results. Exact revisions and runtime versions are selected in T01 and the model matrix.
 
-T28 adds a configured compatible/self-hosted endpoint and an explicit OpenRouter
-route through [the provider boundary](provider-contract.md). Native provider data
+T28 implements an experimental configured compatible/self-hosted endpoint and
+explicit OpenRouter route through [the provider boundary](provider-contract.md).
+The compatible local route has separate browser/model checks; hosted live acceptance
+remains open. Teaching can fail or be unavailable while spoken conversation continues. Native provider data
 stays inside adapters. Reuse `LanguageModel` and the existing schema-directed
 teaching seam; extract a framework-free planning protocol when its second
 implementation needs it. OpenCode is a separate optional agent bridge under later

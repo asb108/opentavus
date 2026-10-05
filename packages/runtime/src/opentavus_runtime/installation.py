@@ -11,6 +11,8 @@ import httpx
 from opentavus_core.contracts import Adapter
 from opentavus_core.registry import InstalledPlugin, PluginRegistry, discover_installed
 
+from .providers import ProviderStore
+
 CATALOG: dict[str, Any] = json.loads(
     files("opentavus_runtime").joinpath("downloads.json").read_text()
 )
@@ -37,6 +39,7 @@ class Installation:
         self.registry = PluginRegistry(discover_installed())
         self._verified: dict[str, tuple[int, int]] = {}
         self.speech_cache: dict[str, Adapter] = {}
+        self.providers = ProviderStore(directory / "providers.json")
 
     async def close(self) -> None:
         await asyncio.gather(*(adapter.close() for adapter in self.speech_cache.values()))
@@ -74,20 +77,22 @@ class Installation:
         plugin_ids = {m.id for m in self.registry.manifests()}
         ready = (
             await asyncio.to_thread(self.speech_ready)
-            and {"local.whisper", "local.kokoro", "local.ollama"} <= plugin_ids
+            and {"local.whisper", "local.kokoro"} <= plugin_ids
         )
+        local_ready = ready and "local.ollama" in plugin_ids
         return {
             "schema_version": 1,
             "speech_ready": ready,
+            "compatible_installed": "provider.compatible" in plugin_ids,
             "setup_command": "make models",
             "models": [
                 {
                     **m,
-                    "ready": ready and installed.get(m["name"]) == model_digest(m["digest"]),
+                    "ready": local_ready and installed.get(m["name"]) == model_digest(m["digest"]),
                     "reason": "Ready"
-                    if ready and installed.get(m["name"]) == model_digest(m["digest"])
+                    if local_ready and installed.get(m["name"]) == model_digest(m["digest"])
                     else "Run make models"
-                    if not ready
+                    if not local_ready
                     else f"Run ollama pull {m['name']}",
                 }
                 for m in CATALOG["llms"]
@@ -116,7 +121,12 @@ class Installation:
     def available_artifacts(self, model: str) -> frozenset[str]:
         available = set()
         for manifest in self.registry.manifests():
-            if manifest.id not in {"local.whisper", "local.kokoro", "local.ollama"}:
+            if manifest.id not in {
+                "local.whisper",
+                "local.kokoro",
+                "local.ollama",
+                "provider.compatible",
+            }:
                 continue
             for artifact in manifest.artifacts:
                 if (

@@ -325,5 +325,30 @@ async def test_failed_board_application_is_not_remembered_as_visible():
     await call.ask("Write a note about momentum on the board.")
     await call.reply_task
     assert call.board_history == []
-    assert not call.llm.reply_called
+    assert call.llm.reply_called
+    assert "latest board request failed" in call.llm.messages[0].content
+    await call.close()
+
+
+async def test_conversation_only_model_explains_without_claiming_a_board_effect():
+    engine = FakeEngines(chunks=1)
+    call = Conversation("fixture", engine, engine, engine, None, Path("."))
+    events = []
+
+    async def emit(event):
+        events.append(event)
+
+    call.emit = emit
+    await call.ask("Hello, let's talk about a project.")
+    await call.reply_task
+    assert not any(isinstance(event, (ErrorEvent, CanvasEvent)) for event in events)
+    assert "Board tools are unavailable" in engine.messages[0].content
+    await call.ask("Draw a diagram on the board.")
+    await call.reply_task
+    assert any(
+        isinstance(event, ErrorEvent) and event.code == "capability_missing" for event in events
+    )
+    assert not any(isinstance(event, CanvasEvent) for event in events)
+    assert engine.reply_called
+    assert "never claim to draw" in engine.messages[0].content
     await call.close()

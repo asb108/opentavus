@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "release_goal": "An open-source first product centered on natural human–AI interaction: realistic presence, responsive conversation and independent local/hosted model, voice and character choices. Teaching with a shared board is the first optional capability; permission-controlled computer assistance extends the same interaction later.",
+  "release_goal": "An open-source first product centered on natural human\u2013AI interaction: realistic presence, responsive conversation and independent local/hosted model, voice and character choices. Teaching with a shared board is the first optional capability; permission-controlled computer assistance extends the same interaction later.",
   "milestones": [
     {
       "id": "G0",
@@ -161,7 +161,7 @@
       "evidence": [
         "2026-10-02: local alpha API/runtime/browser implement preparation, local scoped call admission, streamed PCM, on-page transcript, typed input, Pipecat SmallWebRTC/Silero/segmented Whisper microphone input and end cleanup. Opt-in Chrome synthetic MediaStream check reached real Whisper/Qwen/Kokoro playout and released its input track.",
         "Open acceptance: physical microphone/speaker echo, partial STT, natural-turn behavior, broader preparation/lifecycle cases, and full sustained quality targets. See alpha evidence for exact boundary.",
-        "2026-10-05 / D30: User clarified that natural human–AI interaction is the central product and teaching is one function. Role-independent calls and capability failure behavior gain explicit acceptance; this planning change establishes no new live behavior."
+        "2026-10-05 / D30: User clarified that natural human\u2013AI interaction is the central product and teaching is one function. Role-independent calls and capability failure behavior gain explicit acceptance; this planning change establishes no new live behavior."
       ],
       "blocker": null
     },
@@ -224,7 +224,7 @@
       "evidence": [
         "2026-10-02: original Orbit/Lumen browser canvas characters animate from actual played-audio energy through a small renderer interface. Alpha builds with no LAM, portrait weights or GPU avatar packages.",
         "Open acceptance: reviewed stock GLB/TalkingHead implementation, supported import/rig validation, real phoneme sync and sustained frame-cadence evidence. Original alpha characters do not satisfy those GLB requirements.",
-        "2026-10-05 / D30: User prioritizes natural human–AI interaction, with teaching as one function. Former stock-GLB/import acceptance is superseded by photographic naturalness and retained under T31. T21-T24 provide bounded stock/prepared/timed evidence, not full naturalness. T29 review and sustained visual/perceptual gates remain open; T05 stays in_progress."
+        "2026-10-05 / D30: User prioritizes natural human\u2013AI interaction, with teaching as one function. Former stock-GLB/import acceptance is superseded by photographic naturalness and retained under T31. T21-T24 provide bounded stock/prepared/timed evidence, not full naturalness. T29 review and sustained visual/perceptual gates remain open; T05 stays in_progress."
       ],
       "blocker": null
     },
@@ -467,9 +467,9 @@
         "docs/releases/",
         ".github/workflows/release.yml"
       ],
-      "outcome": "Natural human–AI interaction and independent model/provider choices pass published timing, naturalness, installation and lifecycle gates; the first teaching capability separately passes correctness and board integration gates with reproducible local/hosted evidence.",
+      "outcome": "Natural human\u2013AI interaction and independent model/provider choices pass published timing, naturalness, installation and lifecycle gates; the first teaching capability separately passes correctness and board integration gates with reproducible local/hosted evidence.",
       "acceptance": [
-        "Demonstrate natural human–AI interaction as the core open-source product, with independent provider/model/voice/character selection on a reviewed local route and an explicitly configured hosted/compatible route. Ordinary calls work without a tutor role/board, including a conversation-only model. Separately demonstrate coherent teaching as the first optional capability and recover from its failure. Publish external service terms/costs separately.",
+        "Demonstrate natural human\u2013AI interaction as the core open-source product, with independent provider/model/voice/character selection on a reviewed local route and an explicitly configured hosted/compatible route. Ordinary calls work without a tutor role/board, including a conversation-only model. Separately demonstrate coherent teaching as the first optional capability and recover from its failure. Publish external service terms/costs separately.",
         "Meet named-profile timing gates over at least 100 representative warm turns and the pre-registered T29 human-review/correctness gates; publish failures, versions, measurement uncertainty and actual normal-speed media. Do not infer indistinguishability from a prepared bank, FPS or model self-rating.",
         "Pass the 20-minute call and 20 lifecycle/reconnect cycles, speaker echo/permission cases, stale-generation rejection, provider failure/cancellation and optional-component absence with settings/board present. Selected later LAM integration has its own removal task.",
         "Verify clean open/local offline-after-download setup, hosted configuration and secret deletion, final media/board integration, source/model/service provenance, AI disclosure and retention/access behavior. GPU or Internet browser/media profiles additionally require T10/T11 evidence; hosted LLM HTTP calls are a distinct capability.",
@@ -1053,7 +1053,7 @@
     },
     {
       "id": "T27",
-      "title": "Align the product and architecture around natural human–AI interaction",
+      "title": "Align the product and architecture around natural human\u2013AI interaction",
       "milestone": "G0",
       "status": "done",
       "owner": "Codex / Atul",
@@ -1080,9 +1080,9 @@
         "docs/tasks.json",
         "docs/roadmap.md"
       ],
-      "outcome": "A readable, consistent plan makes natural human–AI interaction the core product, teaching its first optional capability, local/hosted LLMs interchangeable through validated adapters, and permission-controlled computer work a later capability with explicit contributor boundaries.",
+      "outcome": "A readable, consistent plan makes natural human\u2013AI interaction the core product, teaching its first optional capability, local/hosted LLMs interchangeable through validated adapters, and permission-controlled computer work a later capability with explicit contributor boundaries.",
       "acceptance": [
-        "Record the clarified product scope: natural human–AI interaction is central, teaching is the first optional capability and computer assistance comes later. Keep ordinary calls independent of a tutor role/board, retain AI disclosure, distinguish realism ambition from proven naturalness and separate current alpha behavior from planned support.",
+        "Record the clarified product scope: natural human\u2013AI interaction is central, teaching is the first optional capability and computer assistance comes later. Keep ordinary calls independent of a tutor role/board, retain AI disclosure, distinguish realism ambition from proven naturalness and separate current alpha behavior from planned support.",
         "Specify local/open and optional configured hosted/compatible LLM profiles, independent speech/character/board behavior, credentials/capabilities/failure boundaries and the distinction between OpenRouter and an OpenCode agent bridge using current primary sources.",
         "Keep one conversation owner and framework-free contracts; define future action/task permissions independently of speech generations and model credentials, using optional reviewed open-source executors without enabling them now.",
         "Re-sequence tasks so natural conversation, realistic presentation and provider selection gate the core release, with teaching as the first separately validated capability. Retain custom GLB/VRM, LAM and original extensions in later tasks. Preserve historical evidence and full timing targets.",
@@ -1090,7 +1090,7 @@
       ],
       "evidence": [
         "2026-10-05: User clarified that the first scope is realistic human-like conversation and teaching/drawing on a board with local or configured hosted LLMs; permission-controlled personal computer work is later. Clean e4fbea0 checkout inspected. Planning alignment and checks are in progress; no new runtime/provider/computer behavior is implemented.",
-        "2026-10-05: User corrected the scope during planning: this is not just a tutor; teaching is one function of the best achievable human–AI interaction. Product structure, role-independent calls, separate capability availability/failures and ordinary-conversation evaluation are aligned across canonical documents and tasks. Implementation remains unexecuted.",
+        "2026-10-05: User corrected the scope during planning: this is not just a tutor; teaching is one function of the best achievable human\u2013AI interaction. Product structure, role-independent calls, separate capability availability/failures and ordinary-conversation evaluation are aligned across canonical documents and tasks. Implementation remains unexecuted.",
         "2026-10-05: Completed canonical product/design/provider/computer-use/quality and contributor updates. Reviewed current LanguageModel/BoardPlanner/Conversation and composition boundaries; primary OpenRouter/OpenCode documentation supports the distinct provider and optional agent-bridge plans. Ordinary conversation, separate teaching capability failures, server-held secrets, independent future task permissions and optional extension sequencing are recorded. No runtime, dependency, profile or live model behavior changed.",
         "2026-10-05: make plan-render and make plan-check passed: 32 tasks, acyclic dependencies, completion consistency, generated roadmap and 182 local links. git diff --check passed. Compared source against e4fbea0: all existing task states/historical evidence and the complete timing-target table were preserved. Manual canonical/task review corrected superseded local-only/GLB/import wording and kept current-alpha evidence separate from planned features.",
         "2026-10-05: Used the Playwright skill in an isolated Chrome session to parse and render both architecture diagrams with Mermaid strict security in a real browser DOM; both returned parsed=true/rendered=true and the full-page capture was visually reviewed. Local output/playwright/architecture-review.png is ignored. Closed the browser session and temporary loopback diagram server. This proves document diagrams only, not the application UI, hosted models, naturalness or computer execution.",
@@ -1104,8 +1104,8 @@
       "id": "T28",
       "title": "Add compatible and hosted LLM providers for interaction and teaching",
       "milestone": "G1",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Codex / Atul",
       "depends_on": [
         "T02",
         "T18",
@@ -1123,7 +1123,33 @@
         "apps/web/src/features/settings/",
         "packages/contracts/",
         "docs/provider-contract.md",
-        "docs/models.md"
+        "docs/models.md",
+        "apps/web/src/api.ts",
+        "apps/web/src/App.tsx",
+        "apps/web/src/features/call/",
+        "apps/web/src/styles.css",
+        "apps/web/tests/",
+        "scripts/api_contracts.py",
+        "scripts/plugin_manifests.py",
+        "scripts/browser-provider.mjs",
+        "scripts/generate-types.mjs",
+        "pyproject.toml",
+        "uv.lock",
+        "Makefile",
+        "README.md",
+        "docs/design.md",
+        "docs/quickstarts/local.md",
+        "docs/quickstarts/browser-checks.md",
+        "docs/decisions.md",
+        "docs/tasks.json",
+        "docs/roadmap.md",
+        "plugins/local/src/opentavus_ollama/",
+        "scripts/browser-smoke.mjs",
+        "docs/releases/provider-local-evidence.json",
+        "scripts/browser-instrument.js",
+        "docs/quality.md",
+        "AGENTS.md",
+        "docs/plugin-contract.md"
       ],
       "outcome": "A configured compatible/self-hosted endpoint and an explicit hosted/OpenRouter route produce streamed answers and validated teaching through the existing conversation, alongside the reviewed open local profile.",
       "acceptance": [
@@ -1136,7 +1162,13 @@
         "Keep core conversation availability separate from teaching capability support. Unsupported/failed teaching requests produce an actionable capability error without breaking ordinary calls, changing provider implicitly or granting computer authority."
       ],
       "evidence": [
-        "2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted."
+        "2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted.",
+        "2026-10-05: Implementation started from clean 2210309. User selected the Mac local compatible endpoint for the first live test. Owned scope includes the optional compatible adapter, server-held provider configuration/credentials, API/settings integration and conversation-only recovery. Hosted/OpenRouter live evidence is separate and remains unexecuted until explicitly configured.",
+        "2026-10-05 implementation: optional HTTPX-compatible plugin, core BoardPlanner and public provider schema, atomic server-held credentials with no browser persistence/echo, origin-scoped settings CRUD and active-call guard, provider/model call snapshots, independent voice/face choices, OpenRouter explicit routing/metadata checks and separate conversation-only/teaching recovery. Generated API/browser contracts and pinned optional workspace package are updated. Default reviewed local eligibility remains intact.",
+        "2026-10-05 local verification: make check passed 142 Python tests, 3 contracts and 19 web behavior tests plus mypy, Ruff/Prettier/ESLint, generated schema and frontend build. make demo and make base-check passed; isolated base discovered no plugins (37 tests, 5 fixture deselections). Fixtures include fragmented/malformed/oversized/wrong-model/partial-tool/error streams, cancellation stream cleanup, metadata capability downgrade, credential replacement/removal/destination scope, secure/atomic failure, origin/active-call policy and partial initialization cleanup.",
+        "2026-10-05 live: node scripts/browser-provider.mjs passed twice against local Ollama 0.24.0 / qwen2.5:1.5b at /v1 on M3 Pro/macOS 14.5/Chrome. Real Kokoro/Worklet speech completed ordinary requests, correction, follow-up, Stop/recovery, unsupported-board recovery, next-call voice/face isolation and individual formula/diagram/quiz cases with applied ACK before speech. Repeat Stop ACK 13\u201315 ms, no stale media in the bounded post-ACK window. First reply varied 2.226\u20136.147 seconds; repeated later conversation 0.774\u20132.061 seconds and board captions 4.269\u20136.935 seconds, not percentiles. Mixed formula/quiz attempts failed and remain documented. See docs/releases/provider-local-evidence.json.",
+        "Unexecuted T28 acceptance: no hosted/OpenRouter key or live hosted inference used; actual hosted speech/teaching/Stop/corrections/network/billing proof remains open. First-product naturalness, percentile latency, mixed lesson quality, long calls, physical microphone/echo and weak-PC/GPU claims are not established by these checks. T28 stays in_progress.",
+        "2026-10-05 final regression: make check passed again after lifecycle/settings fixes (142 Python, 3 contract, 19 web tests); npm run test:browser -- --live passed through the unchanged reviewed native Ollama adapter, real Kokoro speech, board/quiz and independent next-call choices. make plan-check passed 32 tasks/185 local links after canonical contributor/plugin documents were updated. Source code is ready for commit; hosted acceptance remains open."
       ],
       "blocker": null
     },

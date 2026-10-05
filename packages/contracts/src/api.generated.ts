@@ -52,14 +52,35 @@ export type Kind4 = "clear";
 export type ConversationId = string;
 export type SchemaVersion = 1;
 export type Avatar = "einstein" | "einstein-portrait" | "mira-photo" | "mira" | "portrait" | "orbit" | "lumen";
-export type Model = "qwen2.5:0.5b" | "qwen2.5:1.5b" | "qwen2.5:7b";
+export type Model = string;
+export type ProviderId = string;
 export type Voice = "af_heart" | "af_bella" | "am_michael" | "bf_emma";
+export type TeachingAvailable = boolean;
 export type Token = string;
 export type ConversationId1 = string;
 export type Token1 = string;
 export type Type = "hello";
 export type Sdp = string;
 export type Type1 = "offer";
+export type ApiKey = string | null;
+export type Endpoint = string;
+export type Id = string;
+export type Kind5 = "compatible" | "openrouter";
+export type MaxOutputTokens = number;
+export type Model1 = string;
+export type ModelIdentity = "provider_declared";
+export type Name = string;
+export type RequiresKey = boolean;
+export type Teaching = boolean;
+export type TermsUrl = string | null;
+export type TimeoutSeconds = number;
+export type RemoveKey = boolean;
+export type CredentialConfigured = boolean;
+export type Evidence = "experimental";
+export type Ready = boolean;
+export type Reason = string;
+export type Providers = ProviderView[];
+export type SchemaVersion1 = 1;
 export type Teach = boolean;
 export type Text1 = string;
 export type Type2 = "ask";
@@ -71,6 +92,8 @@ export interface ControlContract {
   created: CallCreated;
   hello: Hello;
   offer: Offer;
+  provider_write: ProviderWrite;
+  providers: ProviderList;
   question: Question1;
   settings: CallSettings;
   teach_mode: TeachMode;
@@ -108,11 +131,13 @@ export interface CallCreated {
   conversation_id: ConversationId;
   schema_version?: SchemaVersion;
   settings: CallSettings;
+  teaching_available?: TeachingAvailable;
   token: Token;
 }
 export interface CallSettings {
   avatar?: Avatar;
   model?: Model;
+  provider_id?: ProviderId;
   voice?: Voice;
 }
 export interface Hello {
@@ -123,6 +148,35 @@ export interface Hello {
 export interface Offer {
   sdp: Sdp;
   type: Type1;
+}
+export interface ProviderWrite {
+  api_key?: ApiKey;
+  configuration: ProviderConfiguration;
+  remove_key?: RemoveKey;
+}
+export interface ProviderConfiguration {
+  endpoint: Endpoint;
+  id: Id;
+  kind?: Kind5;
+  max_output_tokens?: MaxOutputTokens;
+  model: Model1;
+  model_identity?: ModelIdentity;
+  name: Name;
+  requires_key?: RequiresKey;
+  teaching?: Teaching;
+  terms_url?: TermsUrl;
+  timeout_seconds?: TimeoutSeconds;
+}
+export interface ProviderList {
+  providers: Providers;
+  schema_version?: SchemaVersion1;
+}
+export interface ProviderView {
+  configuration: ProviderConfiguration;
+  credential_configured: CredentialConfigured;
+  evidence?: Evidence;
+  ready: Ready;
+  reason: Reason;
 }
 export interface Question1 {
   teach?: Teach;

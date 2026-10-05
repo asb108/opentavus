@@ -22,6 +22,7 @@ export function useConversation(
   avatar: RefObject<AvatarRenderer | null>,
 ) {
   const [state, setState] = useState<CallState>("idle");
+  const [teachingAvailable, setTeachingAvailable] = useState(true);
   const [messages, setMessages] = useState<Transcript[]>([]);
   const [error, setError] = useState("");
   const [micEnabled, setMicEnabled] = useState(false);
@@ -181,6 +182,7 @@ export function useConversation(
         await playout.current.prepare();
         const created = await startCall(settings, cancellation.signal);
         call.current = created;
+        setTeachingAvailable(created.teaching_available ?? true);
         generation.current = 0;
         clientSequence.current = 0;
         playout.current.reset(0);
@@ -277,8 +279,9 @@ export function useConversation(
         avatar.current?.setListening(false);
         avatar.current?.setDelivery?.("thoughtful");
         working.current = true;
-        send({ type: "teach_mode", enabled: teach });
-        send({ type: "ask", text: text.trim(), teach });
+        const enabled = teach && (call.current.teaching_available ?? true);
+        send({ type: "teach_mode", enabled });
+        send({ type: "ask", text: text.trim(), teach: enabled });
       }
     },
     [avatar, send, start],
@@ -343,10 +346,12 @@ export function useConversation(
     }
   }, [micEnabled]);
   const setTeaching = useCallback(
-    (enabled: boolean) => send({ type: "teach_mode", enabled }),
+    (enabled: boolean) =>
+      send({ type: "teach_mode", enabled: enabled && (call.current?.teaching_available ?? true) }),
     [send],
   );
   return {
+    teachingAvailable,
     state,
     messages,
     error,

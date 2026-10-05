@@ -161,3 +161,6 @@ The [product plan](product-plan.md), [design](design.md), [provider boundary](pr
 and [computer-use boundary](computer-use.md) record the current scope. This is a
 planning change; no hosted provider, full naturalness or computer executor is
 implemented or proved by these documents.
+
+
+| D31 | Experimental provider implementation | Reuse the existing conversation, speech and playback owners for a small HTTPX compatible adapter. Provider IDs select saved server routes; teaching availability is separate. Keep the reviewed local profile independent of hosted identity/terms. Use transient key forms and an ignored atomic POSIX-private plaintext store, rather than claiming an encrypted vault. No application retries or external fallback. | T28 fixtures and a Mac Ollama-compatible browser trial cover ordinary speech, corrections, Stop, recovery and individually validated formula/diagram/quiz output. Combined lesson failures are retained. The optional package is absent from base checks; hosted live, spending estimates and naturalness remain unverified. See provider-contract.md and provider-local-evidence.json. |

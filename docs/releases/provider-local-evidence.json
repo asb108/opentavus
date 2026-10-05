@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "task": "T28",
+  "date": "2026-10-05",
+  "status": "experimental local route verified; hosted live acceptance open",
+  "scope": "Configured Ollama-compatible endpoint through the existing call/speech/board runtime",
+  "environment": {
+    "hardware": "Apple M3 Pro, Mac15,6, 18 GiB memory",
+    "os": "macOS 14.5",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "endpoint": "http://127.0.0.1:11434/v1",
+    "model": "qwen2.5:1.5b",
+    "model_identity": "provider_declared; reference tag digest independently checked in local catalog",
+    "speech": "Kokoro ONNX / Michael first call, Heart second call",
+    "recognition": "Whisper installed; these cases are typed, no microphone captured",
+    "face": "Einstein first call, Orbit second call verifies independent next-call choices",
+    "network": "loopback",
+    "warmth": "Existing install and previously used model. Preparation probes model metadata and warms speech, but compatible reasoning has no explicit inference warm-up. No controlled cold/warm benchmark.",
+    "limits": {
+      "profile_timeout_seconds": 60,
+      "connect_timeout_seconds": 3,
+      "ordinary_max_tokens": 350,
+      "board_max_tokens": 700,
+      "application_retries": 0,
+      "hosted_calls": 0,
+      "paid_keys_used": 0
+    },
+    "model_digest": "sha256:65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b"
+  },
+  "command": "npm run test:browser -- --provider",
+  "local_artifacts": [
+    "output/playwright/provider-local-events.json",
+    "output/playwright/provider-local.png"
+  ],
+  "observed": [
+    "Actual settings form saves a profile and clears the transient credential form; browser preferences exclude its synthetic key",
+    "Conversation-only model handles ordinary speech, correction and follow-up",
+    "Unsupported teaching shows capability_missing and continues speech; no board is applied",
+    "Stop is acknowledged by the browser Worklet; new request recovers",
+    "Active key editing is disabled; independent next-call voice and character selections are preserved",
+    "Individually requested formula, labeled photosynthesis process diagram and quiz render with positive browser ACKs before the first caption",
+    "Temporary browser profile and key are removed by cleanup",
+    "Playback repeat verifies 13\u201315 ms Stop-to-Worklet acknowledgement and no old caption/nonzero audio for a 100 ms post-ACK observation window; generation fixture tests cover delayed callbacks"
+  ],
+  "failed_attempts": [
+    {
+      "scope": "Combined formula/quiz request after formula and diagram history",
+      "attempts": 2,
+      "result": "tool_rejected; no complete lesson success claimed; ordinary fallback remains available",
+      "difference_from_passing_case": "Passing trial requests a quiz about Newtons second law without simultaneously triggering the formula keyword route. Combined/mixed lesson quality remains open."
+    },
+    {
+      "scope": "Initial browser test harness",
+      "result": "Harness referenced window outside the page execution context; fixed by explicit page.evaluate. No live acceptance claimed for that attempt."
+    }
+  ],
+  "source_checks": {
+    "make_check": "passed: 142 Python tests, 3 contract tests, 19 web behavior tests, types/styles/generated schemas/build/plan",
+    "make_demo": "passed: installed fixture discovery",
+    "make_base_check": "passed: 37 core tests, 5 fixture cases deselected; discover_installed empty",
+    "native_browser_regression": "npm run test:browser -- --live passed through the reviewed native Ollama/Kokoro route"
+  },
+  "unverified": [
+    "Hosted/OpenRouter real stream, key validity, paid usage and remote cancellation/billing",
+    "Correctness and quality across representative ordinary/teaching cases, especially mixed lesson requests",
+    "Aggregate latency percentiles, physical speaker/audio echo, 20-minute reliability",
+    "Perceptual phoneme alignment, full emotional naturalness or Tavus-equivalent realism",
+    "Weak-PC/Windows/GPU/concurrent/Internet deployment"
+  ],
+  "initial_passing_cases": [
+    {
+      "label": "ordinary",
+      "first_caption_ms": 2220,
+      "first_nonzero_worklet_ms": 2226,
+      "applied_board_count": 0,
+      "board_before_caption": null
+    },
+    {
+      "label": "correction",
+      "first_caption_ms": 1137,
+      "first_nonzero_worklet_ms": 1164,
+      "applied_board_count": 0,
+      "board_before_caption": null
+    },
+    {
+      "label": "followup",
+      "first_caption_ms": 1517,
+      "first_nonzero_worklet_ms": 1543,
+      "applied_board_count": 0,
+      "board_before_caption": null
+    },
+    {
+      "label": "unsupported-board",
+      "first_caption_ms": 1892,
+      "first_nonzero_worklet_ms": 1919,
+      "applied_board_count": 0,
+      "board_before_caption": null
+    },
+    {
+      "label": "recovery",
+      "first_caption_ms": 835,
+      "first_nonzero_worklet_ms": 841,
+      "applied_board_count": 0,
+      "board_before_caption": null
+    },
+    {
+      "label": "formula",
+      "first_caption_ms": 5242,
+      "applied_board_count": 1,
+      "board_before_caption": true
+    },
+    {
+      "label": "diagram",
+      "first_caption_ms": 4565,
+      "applied_board_count": 1,
+      "board_before_caption": true
+    },
+    {
+      "label": "quiz",
+      "first_caption_ms": 6304,
+      "applied_board_count": 1,
+      "board_before_caption": true
+    }
+  ],
+  "cases": [
+    {
+      "label": "ordinary",
+      "first_caption_ms": 6114,
+      "first_nonzero_worklet_ms": 6147,
+      "applied_board_count": 0,
+      "board_before_caption": null,
+      "stop_ack_ms": 14,
+      "stale_media_after_stop": 0
+    },
+    {
+      "label": "correction",
+      "first_caption_ms": 875,
+      "first_nonzero_worklet_ms": 876,
+      "applied_board_count": 0,
+      "board_before_caption": null,
+      "stop_ack_ms": 14,
+      "stale_media_after_stop": 0
+    },
+    {
+      "label": "followup",
+      "first_caption_ms": 1507,
+      "first_nonzero_worklet_ms": 1512,
+      "applied_board_count": 0,
+      "board_before_caption": null,
+      "stop_ack_ms": 15,
+      "stale_media_after_stop": 0
+    },
+    {
+      "label": "unsupported-board",
+      "first_caption_ms": 2045,
+      "first_nonzero_worklet_ms": 2061,
+      "applied_board_count": 0,
+      "board_before_caption": null,
+      "stop_ack_ms": 15,
+      "stale_media_after_stop": 0
+    },
+    {
+      "label": "recovery",
+      "first_caption_ms": 741,
+      "first_nonzero_worklet_ms": 774,
+      "applied_board_count": 0,
+      "board_before_caption": null,
+      "stop_ack_ms": 13,
+      "stale_media_after_stop": 0
+    },
+    {
+      "label": "formula",
+      "first_caption_ms": 6709,
+      "applied_board_count": 1,
+      "board_before_caption": true
+    },
+    {
+      "label": "diagram",
+      "first_caption_ms": 4269,
+      "applied_board_count": 1,
+      "board_before_caption": true
+    },
+    {
+      "label": "quiz",
+      "first_caption_ms": 6935,
+      "applied_board_count": 1,
+      "board_before_caption": true
+    }
+  ],
+  "latency_boundary": "Two small runs, not percentiles. First ordinary browser Worklet output varied from 2.226 to 6.147 seconds; subsequent conversation cases roughly 0.774\u20132.061 seconds in the repeat. Teaching caption arrival was 4.269\u20136.935 seconds in the repeat. Full targets remain unmet/unverified."
+}

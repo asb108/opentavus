@@ -5,6 +5,10 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+if (process.argv.includes("--provider")) {
+  await import("./browser-provider.mjs");
+  process.exit(0);
+}
 if (process.argv.includes("--photo") || process.argv.includes("--scientist")) {
   await import("./browser-photo.mjs");
   process.exit(0);
@@ -229,7 +233,7 @@ try {
       await page.getByRole('radio', {name:/Lumen/}).check();
       await page.getByRole('button', {name:'Close settings'}).click();
       if (!(await page.locator('.model-caption').innerText()).includes('1.5b') ||
-          !(await page.locator('.model-caption').innerText()).includes('Heart'))
+          !(await page.locator('.model-caption').innerText()).includes('Michael'))
         throw new Error('Settings replaced the active call profile.');
       const conversation = page.getByRole('region', {name:'AI conversation'});
       await conversation.getByRole('button', {name:'Teach on board'}).click();

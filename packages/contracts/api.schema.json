@@ -64,6 +64,11 @@
         "settings": {
           "$ref": "#/$defs/CallSettings"
         },
+        "teaching_available": {
+          "default": true,
+          "title": "Teaching Available",
+          "type": "boolean"
+        },
         "token": {
           "maxLength": 128,
           "minLength": 32,
@@ -98,12 +103,18 @@
         },
         "model": {
           "default": "qwen2.5:1.5b",
-          "enum": [
-            "qwen2.5:0.5b",
-            "qwen2.5:1.5b",
-            "qwen2.5:7b"
-          ],
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.:/-]+$",
           "title": "Model",
+          "type": "string"
+        },
+        "provider_id": {
+          "default": "local",
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Provider Id",
           "type": "string"
         },
         "voice": {
@@ -282,6 +293,186 @@
       "title": "Offer",
       "type": "object"
     },
+    "ProviderConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "endpoint": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Endpoint",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "default": "compatible",
+          "enum": [
+            "compatible",
+            "openrouter"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "max_output_tokens": {
+          "default": 700,
+          "maximum": 1024,
+          "minimum": 64,
+          "title": "Max Output Tokens",
+          "type": "integer"
+        },
+        "model": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.:/-]+$",
+          "title": "Model",
+          "type": "string"
+        },
+        "model_identity": {
+          "const": "provider_declared",
+          "default": "provider_declared",
+          "title": "Model Identity",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "requires_key": {
+          "default": false,
+          "title": "Requires Key",
+          "type": "boolean"
+        },
+        "teaching": {
+          "default": false,
+          "title": "Teaching",
+          "type": "boolean"
+        },
+        "terms_url": {
+          "anyOf": [
+            {
+              "maxLength": 300,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Terms Url"
+        },
+        "timeout_seconds": {
+          "default": 60,
+          "maximum": 90,
+          "minimum": 5,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "endpoint",
+        "model"
+      ],
+      "title": "ProviderConfiguration",
+      "type": "object"
+    },
+    "ProviderList": {
+      "additionalProperties": false,
+      "properties": {
+        "providers": {
+          "items": {
+            "$ref": "#/$defs/ProviderView"
+          },
+          "title": "Providers",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "providers"
+      ],
+      "title": "ProviderList",
+      "type": "object"
+    },
+    "ProviderView": {
+      "additionalProperties": false,
+      "properties": {
+        "configuration": {
+          "$ref": "#/$defs/ProviderConfiguration"
+        },
+        "credential_configured": {
+          "title": "Credential Configured",
+          "type": "boolean"
+        },
+        "evidence": {
+          "const": "experimental",
+          "default": "experimental",
+          "title": "Evidence",
+          "type": "string"
+        },
+        "ready": {
+          "title": "Ready",
+          "type": "boolean"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "configuration",
+        "credential_configured",
+        "ready",
+        "reason"
+      ],
+      "title": "ProviderView",
+      "type": "object"
+    },
+    "ProviderWrite": {
+      "additionalProperties": false,
+      "properties": {
+        "api_key": {
+          "anyOf": [
+            {
+              "format": "password",
+              "type": "string",
+              "writeOnly": true
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Api Key"
+        },
+        "configuration": {
+          "$ref": "#/$defs/ProviderConfiguration"
+        },
+        "remove_key": {
+          "default": false,
+          "title": "Remove Key",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "configuration"
+      ],
+      "title": "ProviderWrite",
+      "type": "object"
+    },
     "Question": {
       "additionalProperties": false,
       "properties": {
@@ -395,6 +586,12 @@
     "offer": {
       "$ref": "#/$defs/Offer"
     },
+    "provider_write": {
+      "$ref": "#/$defs/ProviderWrite"
+    },
+    "providers": {
+      "$ref": "#/$defs/ProviderList"
+    },
     "question": {
       "$ref": "#/$defs/Question"
     },
@@ -412,7 +609,9 @@
     "offer",
     "question",
     "teach_mode",
-    "board"
+    "board",
+    "providers",
+    "provider_write"
   ],
   "title": "ControlContract",
   "type": "object"

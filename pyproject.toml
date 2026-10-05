@@ -9,7 +9,7 @@ dependencies = ["opentavus-core"]
 package = false
 
 [tool.uv.workspace]
-members = ["packages/core", "packages/runtime", "apps/api", "plugins/fixtures/demo", "plugins/local"]
+members = ["packages/core", "packages/runtime", "apps/api", "plugins/fixtures/demo", "plugins/local", "plugins/llm/compatible"]
 
 [tool.uv.sources]
 opentavus-core = { workspace = true }
@@ -17,12 +17,13 @@ opentavus-fixture-demo = { workspace = true }
 opentavus-api = { workspace = true }
 opentavus-runtime = { workspace = true }
 opentavus-local = { workspace = true }
+opentavus-compatible = { workspace = true }
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2", "ruff>=0.11,<1", "mypy>=1.15,<2", "types-jsonschema>=4,<5"]
 fixtures = ["opentavus-fixture-demo"]
 app = ["opentavus-api"]
-models = ["pipecat-ai[webrtc]==1.12.0", "opentavus-local[stt,tts]"]
+models = ["pipecat-ai[webrtc]==1.12.0", "opentavus-local[stt,tts]", "opentavus-compatible"]
 
 [tool.ruff]
 target-version = "py311"
@@ -38,7 +39,7 @@ select = ["E", "F", "I", "UP", "B", "ASYNC"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["packages/core/src", "plugins/fixtures/demo/src", "packages/runtime/src", "apps/api/src", "plugins/local/src"]
+files = ["packages/core/src", "plugins/fixtures/demo/src", "packages/runtime/src", "apps/api/src", "plugins/local/src", "plugins/llm/compatible/src"]
 
 [[tool.mypy.overrides]]
 # These packages belong to the optional model installation, including its logger.
@@ -47,7 +48,7 @@ ignore_missing_imports = true
 follow_imports = "skip"
 
 [tool.pytest.ini_options]
-testpaths = ["packages/core/tests", "packages/runtime/tests", "apps/api/tests"]
+testpaths = ["packages/core/tests", "packages/runtime/tests", "apps/api/tests", "plugins/llm/compatible/tests"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 markers = ["installed_fixture: requires the optional synthetic demo package"]

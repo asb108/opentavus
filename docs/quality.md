@@ -70,6 +70,12 @@ voice disclosure are independent acceptance requirements. A famous face does not
 establish historical accuracy, authentic voice, emotional behavior or full live
 video realism; the larger quality gates below still apply.
 
+T28's compatible local browser trial is recorded in
+[provider evidence](releases/provider-local-evidence.json). It checks ordinary
+conversation, separate teaching support, Stop/recovery and rendered board ACKs
+through the same speech/portrait clock. The small sample does not establish
+percentile latency, naturalness or hosted-provider support.
+
 ## Reference profiles and timing
 
 The first product is natural human–AI interaction in [the product plan](product-plan.md).

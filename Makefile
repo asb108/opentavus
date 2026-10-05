@@ -1,6 +1,6 @@
 .PHONY: plan-check plan-status plan-render setup check format demo base-check models doctor run dev
 
-PYTHON_PATHS = packages/core packages/runtime plugins/fixtures/demo plugins/local apps/api scripts
+PYTHON_PATHS = packages/core packages/runtime plugins/fixtures/demo plugins/local plugins/llm/compatible apps/api scripts
 
 setup:
 	uv sync --locked --group app --group fixtures

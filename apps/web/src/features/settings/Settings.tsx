@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Check, Cpu, Heart, Smile, X } from "lucide-react";
-import type { Catalog, Settings as CallSettings } from "../../api";
+import type { Catalog, ProviderView, Settings as CallSettings } from "../../api";
 import { avatarInfo } from "../avatar/catalog";
+import { Providers } from "./Providers";
 
 export function Settings({
   open,
@@ -10,6 +11,8 @@ export function Settings({
   onChange,
   catalog,
   active,
+  providers,
+  onProvidersChange,
 }: {
   open: boolean;
   close: () => void;
@@ -17,6 +20,8 @@ export function Settings({
   onChange: (settings: CallSettings) => void;
   catalog: Catalog | null;
   active: boolean;
+  providers: ProviderView[];
+  onProvidersChange: (providers: ProviderView[]) => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -31,7 +36,7 @@ export function Settings({
           <p>
             {active
               ? "Changes apply to your next conversation."
-              : "Choose independently. Keep everything local."}
+              : "Choose your model, voice and character independently."}
           </p>
         </div>
         <button onClick={close} aria-label="Close settings">
@@ -45,16 +50,16 @@ export function Settings({
         <p>Installed local models, with reviewed Apache-2.0 weights.</p>
         {catalog?.models.map((model) => (
           <label
-            className={`choice ${value.model === model.name ? "selected" : ""}`}
+            className={`choice ${value.provider_id === "local" && value.model === model.name ? "selected" : ""}`}
             key={model.name}
           >
             <input
               type="radio"
               name="model"
               value={model.name}
-              checked={value.model === model.name}
+              checked={value.provider_id === "local" && value.model === model.name}
               disabled={!model.ready}
-              onChange={() => onChange({ ...value, model: model.name })}
+              onChange={() => onChange({ ...value, provider_id: "local", model: model.name })}
             />
             <span>
               <strong>{model.name.replace("qwen2.5:", "Qwen 2.5 ")}</strong>
@@ -62,9 +67,18 @@ export function Settings({
                 {model.ready ? `${Math.round(model.size / 1000000)} MB · Installed` : model.reason}
               </small>
             </span>
-            {value.model === model.name && <Check size={18} />}
+            {value.provider_id === "local" && value.model === model.name && <Check size={18} />}
           </label>
         ))}
+        {open && (
+          <Providers
+            providers={providers}
+            value={value}
+            onChange={onChange}
+            active={active}
+            onRefresh={onProvidersChange}
+          />
+        )}
       </fieldset>
       <fieldset>
         <legend>

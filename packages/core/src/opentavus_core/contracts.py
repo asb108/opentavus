@@ -179,6 +179,15 @@ class LanguageModel(Lifecycle, Protocol):
     ) -> AsyncIterator[TextDelta | ToolCall]: ...
 
 
+class BoardPlanner(Protocol):
+    @property
+    def teaching_available(self) -> bool: ...
+
+    async def board(
+        self, prompt: str, schema: dict[str, object], context: AdapterContext
+    ) -> str: ...
+
+
 class TextToSpeech(Lifecycle, Protocol):
     def speak(
         self, text: AsyncIterator[str], context: AdapterContext
