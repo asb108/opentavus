@@ -72,6 +72,45 @@ video realism; the larger quality gates below still apply.
 
 ## Reference profiles and timing
 
+The first product is natural human–AI interaction in [the product plan](product-plan.md).
+Teaching is the first optional functional capability and has separate correctness
+and availability checks. Core conversation must work with teaching unselected or
+unsupported; do not score all naturalness cases through a tutor role.
+T29 pre-registers a human-review rubric and numerical pass criteria before running
+the current baseline: appearance/artifacts, articulation, attentive behavior,
+speech/prosody, turn-taking and conversational coherence. Record reviewers/method, cases,
+sample counts and failures. Use actual normal-speed audio/video and do not infer
+naturalness from FPS, still images or model self-ratings. AI disclosure remains
+visible; indistinguishability is an ambition rather than an unsupported release claim.
+
+Evaluate lesson correctness and labeled diagram connections against reviewed
+expected content separately from schema validity and facial naturalness. The
+local and hosted profiles use comparable questions/cases. T28 requires actual
+hosted conversational streaming, Stop and failure recovery before that route is
+advertised. Teaching requires separate applied board results and correctness
+evidence; fixture/HTTP compatibility proof alone is insufficient.
+T13 requires the applicable timing, naturalness and teaching gates, while failed
+baseline results remain visible. Optional LAM/custom imports do not gate interaction.
+
+The proposed first-product human-review gate uses at least **five independent
+reviewers** and **twelve representative normal-speed clips**. Use five anchored
+ratings: 1 = broken/strongly unnatural, 2 = distracting issues, 3 = usable but
+robotic, 4 = natural with minor issues, 5 = very convincing human-like presence.
+Require a median >=4/5 in each category and no severe identity corruption,
+duplicated/stale media or persistent lip artifacts. Reviewers know it is an AI
+portrayal and are blinded to implementation/provider variants. T29 fixes the
+case/category mapping and aggregation protocol before running the baseline;
+publish individual ratings and failures. This is an engineering acceptance
+proposal, not evidence of achieved human equivalence. Preserve these criteria
+through evaluation; document a justified requirement change before a new run.
+
+The core review includes everyday dialogue, explanation, brainstorming, changing
+the topic, clarifying an ambiguous request, remembered follow-up within the call,
+internal pauses, backchannels, interruption and recovery. Capture natural listening
+and appropriately timed companion expressions as well as speaking. Keep teaching
+clips/results in a separate capability set; declare the distribution before running.
+The core twelve-clip set cannot consist solely of scripted lessons.
+
 Measure one named native Apple Silicon configuration first. Add a CPU fallback and GPU profile only after complete-stack measurements. Capture OS, CPU/GPU model, RAM/VRAM, runtime/package versions, exact model revisions/quantization, language, prompt/context length, transport path, network conditions, and warm-up state.
 
 | Metric | Definition | Launch target on the advertised reference profile |
@@ -117,7 +156,8 @@ The base contract/replay suite uses fake engines and redistributable synthetic f
 - Avatar/plugin absent, unavailable worker, preparation failure, and close after partial initialization.
 - Full bounded queue and a slow consumer; no monotonic growth of buffered media.
 - Call end and reconnect; stale session token and disconnected microphone.
-- Model/voice selection applied to the next call; invalid capability/language/configuration rejected before ready.
+- Model/voice selection applied to the next call; invalid core language/configuration rejected before ready, with optional teaching availability reported separately.
+- Ordinary conversation with teaching absent, unselected or unsupported; a failed teaching request preserves unrelated call/presentation state.
 - Duplicate canvas operation, old generation, attempted removal of user-owned elements, and unsafe formula/diagram input.
 - Asset provenance/consent record retention when an optional plugin is removed.
 
@@ -139,7 +179,17 @@ Store large local outputs under `artifacts/`; commit small synthetic fixtures an
 
 ## Release gates
 
-The public v0.1 demonstration includes all three required experiences: interruptible avatar conversation, installed-model/voice selection, and tutor canvas. The permissive base completes its local demo after downloads with no external inference dependency. LAM is removable and has capability-specific eligibility. Optional GPU/LAM paths have separate support status. A validated local profile is sufficient for this first release; advertised GPU or cross-network support additionally requires T10/T11 evidence. Keep unsupported paths visible rather than delaying the local release for unused infrastructure.
+The public v0.1 demonstration includes realistic interruptible interaction,
+independent provider/model/voice/character selection and teaching as the first
+optional capability. Ordinary calls work without a board/tutor role, including
+with a conversation-only model; teaching failure has its own recovery. The
+reviewed open-model profile completes its demo offline after downloads. The
+explicitly configured hosted LLM profile has separate live evidence, terms/data
+routing and usage limits. Hosted model HTTP calls are distinct from advertising
+Internet browser calls or remote GPU workers. GPU/cross-network media paths need
+T10/T11 evidence. LAM and custom imports are later optional capabilities; test
+their absence in the interaction product and their removal matrix when integrated. Keep
+unsupported paths visible rather than making unused infrastructure a launch gate.
 
 Core/base CI runs formatting, types, behavior/replay, and frontend build checks without GPU/model downloads. Separate jobs verify selected lightweight adapters and browser integration. GPU workers get image-build/contract checks in CI plus a scheduled or manual real-GPU evidence run before a GPU claim ships. Packaging-only checks do not establish GPU FPS/latency.
 

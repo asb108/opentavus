@@ -2,7 +2,7 @@
 
 Generated from [tasks.json](tasks.json) by `make plan-render`. Edit the task source, not this file.
 
-A free self-hosted release with an interruptible avatar call, independent model/voice selection, and a shared tutor canvas; optional portrait plugins have separate eligibility and quality evidence.
+An open-source first product centered on natural human–AI interaction: realistic presence, responsive conversation and independent local/hosted model, voice and character choices. Teaching with a shared board is the first optional capability; permission-controlled computer assistance extends the same interaction later.
 
 Only T00 is the planning foundation. Application paths below are proposed until their tasks create them. Task status and recorded evidence do not automatically establish real-model performance or publication.
 
@@ -23,15 +23,15 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T02](#t02) | G0 | done | T00 | Codex in this chat |
 | [T03](#t03) | G1 | in_progress | T01, T02 | Codex / Atul |
 | [T04](#t04) | G1 | in_progress | T03, T09 | Codex / Atul |
-| [T05](#t05) | G1 | in_progress | T02, T03 | Codex / Atul |
-| [T06](#t06) | G2 | todo | T02, T05 | Unassigned |
-| [T07](#t07) | G2 | in_progress | T01, T02, T03 | Codex / Atul |
+| [T05](#t05) | G1 | in_progress | T02, T03, T29 | Codex / Atul |
+| [T06](#t06) | G4 | todo | T02, T05, T13 | Unassigned |
+| [T07](#t07) | G2 | in_progress | T01, T02, T03, T28 | Codex / Atul |
 | [T08](#t08) | G2 | in_progress | T02, T03 | Codex / Atul |
 | [T09](#t09) | G1 | in_progress | T02 | Codex / Atul |
 | [T10](#t10) | G2 | todo | T01, T02, T04 | Unassigned |
 | [T11](#t11) | G2 | todo | T02, T04, T09 | Unassigned |
-| [T12](#t12) | G3 | todo | T01, T04, T05, T06, T07, T08, T09 | Unassigned |
-| [T13](#t13) | G3 | todo | T04, T05, T06, T07, T08, T09, T12 | Unassigned |
+| [T12](#t12) | G3 | todo | T01, T04, T05, T07, T08, T09 | Unassigned |
+| [T13](#t13) | G3 | todo | T04, T05, T07, T08, T09, T12, T28, T29 | Unassigned |
 | [T14](#t14) | G4 | todo | T13 | Unassigned |
 | [T15](#t15) | G4 | todo | T13 | Unassigned |
 | [T16](#t16) | G4 | todo | T13, T14 | Unassigned |
@@ -45,8 +45,13 @@ Keep spikes bounded: choose the named candidate, measure a complete slice, and c
 | [T24](#t24) | G2 | done | T23 | Codex / Atul |
 | [T25](#t25) | G0 | done | T02, T18 | Codex / Atul |
 | [T26](#t26) | G1 | todo | T02, T18, T25 | Unassigned |
+| [T27](#t27) | G0 | done | T02, T18, T25 | Codex / Atul |
+| [T28](#t28) | G1 | todo | T02, T18, T27 | Unassigned |
+| [T29](#t29) | G0 | todo | T02, T18, T23, T27 | Unassigned |
+| [T30](#t30) | G4 | todo | T02, T13, T27 | Unassigned |
+| [T31](#t31) | G4 | todo | T05, T13 | Unassigned |
 
-**Ready to claim now:** T26. Run `make plan-status` after changing task status.
+**Ready to claim now:** T26, T28, T29. Run `make plan-status` after changing task status.
 
 ## Task details
 
@@ -189,7 +194,78 @@ Evidence:
 - 2026-10-05: User suggested LiveKit to simplify the architecture and invited alternatives. Inspected clean a1f5e34 main, current API admission/signaling, Microphone peer/heartbeat, Pipecat input, Conversation orchestration and PCM/Worklet output. Installed pipecat-ai 1.12.0 exposes a LiveKit adapter; livekit, livekit-api and livekit-agents are absent.
 - Primary-source review in docs/transport-review.md selects Pipecat plus self-hosted LiveKit as the deployed-call candidate, retains current local simplicity, and specifies T26 before T17 scaling. Source AudioSource clearing and best-effort data delivery cannot substitute for browser playback/tool ACKs. No transport installation or live run occurred. Initial make plan-render, make plan-check and make plan-status passed: 27 tasks, acyclic graph, completion consistency, generated roadmap and 146 local links; git diff --check passed. All four bounded review criteria have positive source/document evidence; live transport work stays in unexecuted T26.
 
-### G1 - A responsive working conversation
+<a id="t27"></a>
+
+#### T27: Align the product and architecture around natural human–AI interaction
+
+Status: **done**. Owner: Codex / Atul. Dependencies: T02, T18, T25.
+
+A readable, consistent plan makes natural human–AI interaction the core product, teaching its first optional capability, local/hosted LLMs interchangeable through validated adapters, and permission-controlled computer work a later capability with explicit contributor boundaries.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `README.md`
+- `AGENTS.md`
+- `CONTRIBUTING.md`
+- `docs/product-plan.md`
+- `docs/design.md`
+- `docs/provider-contract.md`
+- `docs/computer-use.md`
+- `docs/plugin-contract.md`
+- `docs/models.md`
+- `docs/quality.md`
+- `docs/style-guide.md`
+- `docs/contribution-guide.md`
+- `docs/transport-review.md`
+- `docs/decisions.md`
+- `docs/tasks.json`
+- `docs/roadmap.md`
+
+Acceptance:
+
+- Record the clarified product scope: natural human–AI interaction is central, teaching is the first optional capability and computer assistance comes later. Keep ordinary calls independent of a tutor role/board, retain AI disclosure, distinguish realism ambition from proven naturalness and separate current alpha behavior from planned support.
+- Specify local/open and optional configured hosted/compatible LLM profiles, independent speech/character/board behavior, credentials/capabilities/failure boundaries and the distinction between OpenRouter and an OpenCode agent bridge using current primary sources.
+- Keep one conversation owner and framework-free contracts; define future action/task permissions independently of speech generations and model credentials, using optional reviewed open-source executors without enabling them now.
+- Re-sequence tasks so natural conversation, realistic presentation and provider selection gate the core release, with teaching as the first separately validated capability. Retain custom GLB/VRM, LAM and original extensions in later tasks. Preserve historical evidence and full timing targets.
+- Update canonical documents, contribution reading paths and source tasks; regenerate/check the roadmap, dependency graph and links. Record planning proof separately from live hosted/realism/computer-use implementation.
+
+Evidence:
+
+- 2026-10-05: User clarified that the first scope is realistic human-like conversation and teaching/drawing on a board with local or configured hosted LLMs; permission-controlled personal computer work is later. Clean e4fbea0 checkout inspected. Planning alignment and checks are in progress; no new runtime/provider/computer behavior is implemented.
+- 2026-10-05: User corrected the scope during planning: this is not just a tutor; teaching is one function of the best achievable human–AI interaction. Product structure, role-independent calls, separate capability availability/failures and ordinary-conversation evaluation are aligned across canonical documents and tasks. Implementation remains unexecuted.
+- 2026-10-05: Completed canonical product/design/provider/computer-use/quality and contributor updates. Reviewed current LanguageModel/BoardPlanner/Conversation and composition boundaries; primary OpenRouter/OpenCode documentation supports the distinct provider and optional agent-bridge plans. Ordinary conversation, separate teaching capability failures, server-held secrets, independent future task permissions and optional extension sequencing are recorded. No runtime, dependency, profile or live model behavior changed.
+- 2026-10-05: make plan-render and make plan-check passed: 32 tasks, acyclic dependencies, completion consistency, generated roadmap and 182 local links. git diff --check passed. Compared source against e4fbea0: all existing task states/historical evidence and the complete timing-target table were preserved. Manual canonical/task review corrected superseded local-only/GLB/import wording and kept current-alpha evidence separate from planned features.
+- 2026-10-05: Used the Playwright skill in an isolated Chrome session to parse and render both architecture diagrams with Mermaid strict security in a real browser DOM; both returned parsed=true/rendered=true and the full-page capture was visually reviewed. Local output/playwright/architecture-review.png is ignored. Closed the browser session and temporary loopback diagram server. This proves document diagrams only, not the application UI, hosted models, naturalness or computer execution.
+- Planning acceptance is complete. T28 provider implementation, T29 real human-review baseline and T30 later computer assistance remain todo; full naturalness, teaching correctness and first-product release evidence remain open in their tasks. Source CI/publication are tracked separately from planning completion.
+
+<a id="t29"></a>
+
+#### T29: Define and measure human-interaction and teaching quality
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T18, T23, T27.
+
+A pre-registered naturalness and correctness evaluation exposes the current gap and gives T05/T04/T08/T13 fixed acceptance criteria and comparable evidence.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `benchmarks/interaction/`
+- `docs/quality.md`
+- `docs/releases/`
+- `tests/fixtures/teaching/`
+
+Acceptance:
+
+- Commit the human-review method, script, reviewer instructions and numerical pass criteria before running the baseline. Preserve visible AI identity and use normal-speed real audio/video; reviewers are independent of implementation and ratings are not model-generated.
+- Use at least five independent reviewers and twelve representative clips with the proposed quality.md anchors. Require median >=4/5 in each naturalness category and no severe identity/media artifacts for an advertised profile; retain individual ratings, failures and sample boundaries.
+- Cover appearance/articulation/attentive behavior, speech/prosody, everyday dialogue, explanation, brainstorming, changing topic, clarifications, in-call follow-up, pauses/backchannels/corrections, interruptions and recovery. The core twelve-clip set cannot consist solely of lessons. Keep acoustic/perceptual lip-sync, scheduling, usefulness and conversational naturalness distinct; evaluate teaching coherence separately.
+- Use reviewed factual/formula/diagram/quiz expectations including process and branching cases, ambiguous requests and edited-board follow-ups. Compare the same cases across local/hosted configurations with limits and failed cases visible.
+- Publish the baseline, reproducible public captures and prioritized observed gaps. A baseline task may report failing quality while T04/T05/T08/T13 remain open; never relabel baseline execution as achieved human equivalence or lower gates after measurement.
+
+Evidence:
+
+- 2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted.
+
+### G1 - Human interaction and backend foundation
 
 <a id="t03"></a>
 
@@ -218,11 +294,13 @@ Acceptance:
 - Stream partial/final transcription and useful spoken phrases; preserve partial/interrupted transcript semantics and disclose the AI character.
 - A real browser/model call completes after local downloads without a required external inference service; record versions and the first full-call timing baseline.
 - Preparation failure and call end release microphone, transport, and inference tasks. This voice slice remains an intermediate result toward the avatar launch.
+- Demonstrate ordinary conversation with teaching unselected, without requiring a board or tutor role. Keep the interaction lifecycle and selected reasoning/speech independent of teaching availability; capability failures remain recoverable without ending unrelated conversation.
 
 Evidence:
 
 - 2026-10-02: local alpha API/runtime/browser implement preparation, local scoped call admission, streamed PCM, on-page transcript, typed input, Pipecat SmallWebRTC/Silero/segmented Whisper microphone input and end cleanup. Opt-in Chrome synthetic MediaStream check reached real Whisper/Qwen/Kokoro playout and released its input track.
 - Open acceptance: physical microphone/speaker echo, partial STT, natural-turn behavior, broader preparation/lifecycle cases, and full sustained quality targets. See alpha evidence for exact boundary.
+- 2026-10-05 / D30: User clarified that natural human–AI interaction is the central product and teaching is one function. Role-independent calls and capability failure behavior gain explicit acceptance; this planning change establishes no new live behavior.
 
 <a id="t04"></a>
 
@@ -255,30 +333,32 @@ Evidence:
 
 <a id="t05"></a>
 
-#### T05: Ship a synchronized stock avatar and compatible GLB import
+#### T05: Deliver realistic photographic presentation and synchronized behavior
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T03.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T03, T29.
 
-The base call has a lively, synchronized character and works without LAM or a server GPU avatar model.
+The interaction core presents a coherent photographic human with synchronized speech, attentive behavior and measured naturalness during ordinary calls on its advertised profile; disclosed alternate modes recover when rendering fails.
 
 Owned paths (proposed responsibilities, not an existence check):
 
-- `plugins/avatar/talkinghead/`
 - `apps/web/src/features/avatar/`
+- `apps/web/tests/`
 - `assets/stock/`
+- `benchmarks/portrait/`
 
 Acceptance:
 
-- Use a reviewed redistributable stock rig and TalkingHead through the common renderer interface; document code and asset attribution separately.
-- Animate mouth/idle behavior through the common playout contract, flush a generation, and dispose resources; the renderer never creates a competing speech queue.
-- Validate the supported GLB rig/shapes on import and show actionable incompatibility errors; do not advertise arbitrary VRM support.
-- Capture a real speaking/idle/interrupted character at normal speed and record browser frame cadence and lip-sync observations.
-- The base browser bundle and Python dependency set contain no mandatory LAM implementation or reconstruction weights.
+- Use reviewed photographic sources/preparation and the common renderer. Preserve face identity and accurate AI/synthetic-voice disclosure; keep static/3D/cartoon alternatives explicitly labeled. Custom GLB/VRM imports remain later T31 work.
+- Drive articulation, gaze/blinking, listening/thinking and own-expression behavior through one playout/generation contract. Avoid a competing audio queue; flush obsolete output and release partial/failed preparation and renderer resources.
+- Meet the applicable T29 photographic naturalness criteria with actual normal-speed speech/idle/interruption captures and independent review. Record anatomical/phoneme/perceptual failures separately from cadence and scheduling proof.
+- Meet named-profile cadence/sync/recovery requirements with sustained calls and reduced-motion behavior. Keep a no-NVIDIA prepared candidate; isolate higher-fidelity inference when required, with its own T10 evidence before advertising.
+- The base bundle/dependencies work with LAM and unselected optional avatar packages absent. An optional renderer failure preserves the conversation, selected reasoning/voice and user drawings.
 
 Evidence:
 
 - 2026-10-02: original Orbit/Lumen browser canvas characters animate from actual played-audio energy through a small renderer interface. Alpha builds with no LAM, portrait weights or GPU avatar packages.
 - Open acceptance: reviewed stock GLB/TalkingHead implementation, supported import/rig validation, real phoneme sync and sustained frame-cadence evidence. Original alpha characters do not satisfy those GLB requirements.
+- 2026-10-05 / D30: User prioritizes natural human–AI interaction, with teaching as one function. Former stock-GLB/import acceptance is superseded by photographic naturalness and retained under T31. T21-T24 provide bounded stock/prepared/timed evidence, not full naturalness. T29 review and sustained visual/perceptual gates remain open; T05 stays in_progress.
 
 <a id="t09"></a>
 
@@ -302,6 +382,8 @@ Acceptance:
 - Include natural pause/backchannel/interruption cases and extend consumers' integration checks when T03-T08 implement them; keep mocked timing distinct from real latency.
 - CI runs installed base formatting, typing, fixture tests, contract consistency, and frontend build with optional avatar packages absent and no model/service downloads.
 - Give adapter authors one reproducible command and actionable failures; do not impose a coverage percentage or duplicate implementation logic as tests.
+- Keep hosted fixtures model-free and verify provider failures/credential redaction, board capability restrictions, late output and the absence of any computer execution permission in a teaching tool/model response. Port these cases to the real selected implementation.
+- Verify core calls with teaching absent/unselected/unsupported, a conversation-only provider and a failed board operation. Keep core preparation failure distinct from an optional capability failure and preserve unrelated interaction.
 
 Evidence:
 
@@ -346,41 +428,54 @@ Acceptance:
 Evidence:
 
 - 2026-10-05: T25 specified the comparison and moved transport evaluation ahead of late room scaling. This task is unexecuted: no LiveKit server/SDK installation, room, browser/model route, latency or network evidence.
+- 2026-10-05 / D30: Transport remains an optional comparison before room scaling; it does not displace natural human interaction, provider choice or the first teaching capability. Use the same selected reasoning profile for comparable media trials.
 
-### G2 - Three launch experiences and optional portraits
+<a id="t28"></a>
 
-<a id="t06"></a>
+#### T28: Add compatible and hosted LLM providers for interaction and teaching
 
-#### T06: Add LAM through a reversible plugin boundary
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T18, T27.
 
-Status: **todo**. Owner: Unassigned. Dependencies: T02, T05.
-
-LAM can be installed, disabled, and removed while the call, picker, canvas, and saved user data remain usable.
+A configured compatible/self-hosted endpoint and an explicit hosted/OpenRouter route produce streamed answers and validated teaching through the existing conversation, alongside the reviewed open local profile.
 
 Owned paths (proposed responsibilities, not an existence check):
 
-- `plugins/avatar/lam/`
-- `tests/integration/plugin_removal/`
+- `plugins/llm/compatible/`
+- `packages/core/src/opentavus_core/`
+- `packages/runtime/src/opentavus_runtime/bootstrap.py`
+- `packages/runtime/src/opentavus_runtime/conversation.py`
+- `packages/runtime/src/opentavus_runtime/installation.py`
+- `packages/runtime/tests/`
+- `apps/api/src/opentavus_api/`
+- `apps/api/tests/`
+- `apps/web/src/features/settings/`
+- `packages/contracts/`
+- `docs/provider-contract.md`
+- `docs/models.md`
 
 Acceptance:
 
-- Separate animate_existing, render_prepared, and create_from_photo with independent manifests, required artifacts, optional dependencies, and renderer registration.
-- Implement the prepared-asset animation integration with fixtures; report live model/asset evidence separately and enable only reviewed eligible capabilities.
-- Keep unresolved reconstruction terms visible and blocked in the permissive default; no base install/download pulls Blender, LAM weights, or its renderer.
-- Run absent/install/disable/remove/restart cases from the plugin contract; saved LAM references become a recoverable state without deleting assets, consent, persona, voice, or history.
-- Use the common cancellation/media contract and simulate worker/renderer failure. T13 repeats removal with the final picker and canvas; this task does not claim unmeasured LAM performance.
+- Implement the smallest typed provider/profile boundary and a compatible chat-completions adapter. Reuse LanguageModel and extract the shared BoardPlanner protocol when needed; keep provider SDK/events out of core and the existing board dispatcher authoritative.
+- Separate reviewed adapter artifacts/local-model eligibility from explicit external-service selection and provider-declared identity. Validate configured destinations, required capabilities, routing/fallbacks, context/output/deadline/usage limits and readiness before preparing.
+- Keep keys in server-held configuration/secret storage. Transient credential form input is not persisted/echoed; catalog/settings/logs expose no key values. Verify replace/delete and sanitized credential, timeout, rate-limit and unsupported-schema failures.
+- Normalize streamed answers and schema/tool teaching proposals with bounded parsing and validation. Preserve generation cancellation, heard history, applied board ACKs, user drawings and independent voice/character choices; avoid duplicate effects/retries and unrequested external fallback.
+- Run model-free fixture tests for fragmented/malformed/oversized streams, partial tool arguments, unsupported capability, late output, wrong scope and preparation/cleanup. The base/local route works with the optional provider absent.
+- Using explicit configured credentials, demonstrate real local and hosted browser conversation, corrections, follow-up, Stop and recovery with teaching unselected, including a conversation-only route. Separately verify capable teaching routes with a formula, labeled diagram, quiz and applied-result acknowledgements. Publish model/endpoint/network/capability/usage context and failures separately from mocks. Keep OpenCode execution outside this first provider adapter.
+- Keep core conversation availability separate from teaching capability support. Unsupported/failed teaching requests produce an actionable capability error without breaking ordinary calls, changing provider implicitly or granting computer authority.
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted.
+
+### G2 - Human presence, independent settings and the first teaching capability
 
 <a id="t07"></a>
 
-#### T07: Build independent model, voice, and character settings
+#### T07: Build independent provider, model, voice and character settings
 
-Status: **in_progress**. Owner: Codex / Atul. Dependencies: T01, T02, T03.
+Status: **in_progress**. Owner: Codex / Atul. Dependencies: T01, T02, T03, T28.
 
-Users switch configured models and voices without editing unrelated components, and understand whether a selected profile can run.
+Users select a configured local/hosted reasoning backend independently of voice/character and understand capabilities, credential state, data routing and readiness.
 
 Owned paths (proposed responsibilities, not an existence check):
 
@@ -391,20 +486,22 @@ Owned paths (proposed responsibilities, not an existence check):
 
 Acceptance:
 
-- Show installed/configured choices, capability/language information, artifact eligibility, memory requirement, and specific unavailable reasons with recovery actions.
-- Demonstrate at least two reviewed local LLM configurations and multiple reviewed preset voices; STT, LLM, voice, and avatar settings remain independent.
-- Validate the complete next-call profile before preparing; persist personas/assets/board metadata with schema versions, provenance, scoped authorization, and retention/deletion settings.
+- Show installed/configured provider/model choices, tested teaching/streaming capabilities, languages, local artifact eligibility or selected service/model terms, resource/connectivity requirements and specific unavailable reasons.
+- Demonstrate reviewed local LLM choices and one configured compatible/hosted route with multiple preset voices. STT, LLM/provider, voice and character remain independent; switching the backend preserves face and drawings.
+- Validate the complete next-call profile before preparing. Persist versioned public preferences and server-held provider configuration/secret references with explicit reset/delete behavior; never store keys in browser local storage. Extended persona/asset database work follows T14.
 - Keep endpoint secrets on the server and generate the browser API client from the stable schema; invalid settings produce no half-started session.
 - Test next-call application, missing optional plugin references, and schema validation with fixtures, then demonstrate real selection changes in browser calls.
+- Permit ordinary calls on a validated conversation-only model without a tutor role or teaching tools. Show teaching availability separately and recover from unsupported/failed capability requests without changing unrelated voice, face or provider choices.
 
 Evidence:
 
 - 2026-10-02: closed settings/profile validation, installed/digest-reviewed catalog, four English voices, two characters and independent next-call settings are implemented. Real browser selection checks use 1.5B/Heart/Orbit and 0.5B/Michael/Lumen. Per-conversation transcript IDs/names prevent merging earlier calls.
 - Open acceptance: persona/asset metadata database, retention/deletion controls beyond local browser site data, more engine-family options and full missing-plugin UI matrix.
+- 2026-10-05 / D30: Provider choices and hosted capability/credential/routing UI become first-product scope. Extended persona/asset persistence moves to T14. Existing next-call local choices remain implemented; T28 and broader hosted/settings failure checks remain unexecuted.
 
 <a id="t08"></a>
 
-#### T08: Build the shared tutor canvas as a launch feature
+#### T08: Build shared-board teaching as the first optional capability
 
 Status: **in_progress**. Owner: Codex / Atul. Dependencies: T02, T03.
 
@@ -424,11 +521,15 @@ Acceptance:
 - Make operations session/generation scoped and idempotent; cancellation rejects pending operations while preserving already displayed partial explanations and all user strokes.
 - Integrate the selected media cues so corresponding visuals appear before claims that they are shown; tool success reaches model context only after the result is applied.
 - Demonstrate spoken teaching, user edits, export, a duplicate call, and interruption in a real browser. Measure canvas timing and preserve state through reconnect.
+- Use tested local and hosted planning routes for notes/formulas/diagrams/quizzes. Extend current process-only diagrams to reviewed labeled relationships and branching cases on capable models; validate actual labels/connections and lesson correctness, not just JSON or SVG validity.
+- Supply bounded current structured board revisions and applied results to follow-up context; reconcile user edits/removals without claiming old content is still visible. Handwriting/image interpretation requires separately selected perception capability.
+- Open/use the board when teaching is selected or requested. Ordinary conversation works without it; a teaching failure returns a capability-specific error and preserves the call, selected model/presentation and user work. Keep role-specific behavior outside the core conversation lifecycle.
 
 Evidence:
 
 - 2026-10-02: safe note/formula/diagram/quiz/clear rendering, operation IDs, browser acknowledgements, edited-note promotion, user drawing retention, PNG and Markdown exports are implemented. Real small-model trials exposed ambiguous quiz indexing, omitted quiz tools and stale question context; schemas/context and regression checks were revised rather than accepting those outputs as success.
 - Open acceptance: complete real duplicate-operation/reconnect/persistent-card matrix and canvas timing percentiles. Safe schema validation does not establish scientific correctness. Final bounded alpha browser evidence is recorded separately.
+- 2026-10-05 / D30: Initial teaching includes richer model-supported diagrams and coherent follow-ups with current structured board state. T19 proves only bounded process diagrams/history; broader graph/correctness, edited-state context and hosted-model behavior remain open.
 
 <a id="t10"></a>
 
@@ -854,13 +955,13 @@ Evidence:
 - Full historical factual grounding, perceptual phoneme accuracy, natural emotions/live video, Windows/weak-PC and long-call quality remain unverified. Source push and exact-source CI pending; task remains in_progress.
 - 2026-10-04 completion: implementation c347cc96cd11fe7214f7a91276e46528aeb6ab4b pushed to public asb108/opentavus main. Exact source CI https://github.com/asb108/opentavus/actions/runs/37159070585 succeeded on Linux/Python 3.12/Node 22 for setup/check/demo/base-check without inference models. All bounded T24 acceptance is evidenced in docs/releases/einstein-portrait-evidence.json, the source/asset records and native public capture. Einstein is selected/ready in the user preview with existing model/voice preserved. No full natural behavior, Tavus equivalence, weak-PC/Windows or larger T05/T10/T13 completion claim.
 
-### G3 - Reproducible setup and demonstrated v0.1
+### G3 - Verified first-product release
 
 <a id="t12"></a>
 
 #### T12: Package the working profiles and write reproducible quickstarts
 
-Status: **todo**. Owner: Unassigned. Dependencies: T01, T04, T05, T06, T07, T08, T09.
+Status: **todo**. Owner: Unassigned. Dependencies: T01, T04, T05, T07, T08, T09.
 
 A new user can install a measured profile, diagnose missing dependencies, and reach all three launch experiences from a clean checkout.
 
@@ -878,20 +979,20 @@ Acceptance:
 - Provide setup/start/doctor commands and safe configuration generation based on actual hardware/artifact checks; recommendation and validation remain separate.
 - Verify clean native Apple Silicon installation plus the named CPU fallback; GPU and split guides are clearly conditional on T10/T11 live evidence.
 - Pin and test selected dependencies/checkpoints, publish required RAM/VRAM/storage/context limits, and retain attribution for downloaded artifacts.
-- Run the demo after downloads with external inference disabled; install/remove LAM separately; document recovery, supported GLB assets, and current browser/language support.
+- Run the reviewed open-model demo offline after downloads and a separately configured hosted-profile demo. Test optional-component absence, document provider credentials/routing/errors and the actual browser/language support. LAM removal and custom import guides follow their selected later capabilities.
 - Provide bug/adapter contribution templates and commands matching the actual packages; check project/repository naming and independent branding before public launch.
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-05 / D30: Packaging prioritizes local/open and configured hosted interaction profiles with teaching as the first optional capability. LAM/custom imports are removed from mandatory release dependencies; their later task requirements remain retained.
 
 <a id="t13"></a>
 
 #### T13: Prove the complete v0.1 experience and prepare public release
 
-Status: **todo**. Owner: Unassigned. Dependencies: T04, T05, T06, T07, T08, T09, T12.
+Status: **todo**. Owner: Unassigned. Dependencies: T04, T05, T07, T08, T09, T12, T28, T29.
 
-Release claims are backed by reproducible calls, visual evidence, installation proof, and an honest support matrix.
+Natural human–AI interaction and independent model/provider choices pass published timing, naturalness, installation and lifecycle gates; the first teaching capability separately passes correctness and board integration gates with reproducible local/hosted evidence.
 
 Owned paths (proposed responsibilities, not an existence check):
 
@@ -902,17 +1003,42 @@ Owned paths (proposed responsibilities, not an existence check):
 
 Acceptance:
 
-- Demonstrate avatar conversation, independent model/voice selection, and shared teaching canvas as one complete free product; none can be replaced by a voice-only spike.
-- Meet the named reference profile's quality gates over at least 100 representative warm turns; publish raw event summaries, failures, versions, uncertainty, and real normal-speed captures.
-- Pass the 20-minute conversation and 20 lifecycle/reconnect cycles, speaker echo/permission cases, stale-output checks, and final LAM removal scenario with picker/canvas present.
-- Verify clean local/offline-after-download setup, final T04/T05/T08 media integration, asset/model license matrix, AI disclosure, data deletion/retention, scoped access, and package/build checks. Any advertised GPU or cross-network path also requires T10/T11 evidence; otherwise label it unavailable or experimental.
+- Demonstrate natural human–AI interaction as the core open-source product, with independent provider/model/voice/character selection on a reviewed local route and an explicitly configured hosted/compatible route. Ordinary calls work without a tutor role/board, including a conversation-only model. Separately demonstrate coherent teaching as the first optional capability and recover from its failure. Publish external service terms/costs separately.
+- Meet named-profile timing gates over at least 100 representative warm turns and the pre-registered T29 human-review/correctness gates; publish failures, versions, measurement uncertainty and actual normal-speed media. Do not infer indistinguishability from a prepared bank, FPS or model self-rating.
+- Pass the 20-minute call and 20 lifecycle/reconnect cycles, speaker echo/permission cases, stale-generation rejection, provider failure/cancellation and optional-component absence with settings/board present. Selected later LAM integration has its own removal task.
+- Verify clean open/local offline-after-download setup, hosted configuration and secret deletion, final media/board integration, source/model/service provenance, AI disclosure and retention/access behavior. GPU or Internet browser/media profiles additionally require T10/T11 evidence; hosted LLM HTTP calls are a distinct capability.
 - Prepare the demo, release notes, supported/experimental/unavailable feature matrix, and tagged source artifact. Record publication separately; publish only with explicit user authorization.
 
 Evidence:
 
-- Not recorded; acceptance is unverified.
+- 2026-10-05 / D30: User clarified first-product priorities. Added T28 hosted-provider and T29 evaluation dependencies; removed optional LAM/custom import integration from mandatory launch scope. No release quality or new provider support is established by this planning change.
 
-### G4 - Extensions after the first release
+### G4 - Personal assistant and later extensions
+
+<a id="t06"></a>
+
+#### T06: Add LAM through a reversible plugin boundary
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T05, T13.
+
+LAM can be installed, disabled, and removed while the call, picker, canvas, and saved user data remain usable.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `plugins/avatar/lam/`
+- `tests/integration/plugin_removal/`
+
+Acceptance:
+
+- Separate animate_existing, render_prepared, and create_from_photo with independent manifests, required artifacts, optional dependencies, and renderer registration.
+- Implement the prepared-asset animation integration with fixtures; report live model/asset evidence separately and enable only reviewed eligible capabilities.
+- Keep unresolved reconstruction terms visible and blocked in the permissive default; no base install/download pulls Blender, LAM weights, or its renderer.
+- Run absent/install/disable/remove/restart cases from the plugin contract; saved LAM references become a recoverable state without deleting assets, consent, persona, voice, or history.
+- Use the common cancellation/media contract and simulate worker/renderer failure. Repeat removal with the released picker and teaching capability under T06; this task does not claim unmeasured LAM performance.
+
+Evidence:
+
+- 2026-10-05 / D30: LAM remains removable and separately eligible; integration moves after the first interaction release. First-product checks cover plugin absence; full installation/removal acceptance runs when LAM is integrated.
 
 <a id="t14"></a>
 
@@ -936,6 +1062,7 @@ Acceptance:
 - Test prepared stock/compatible VRM/portrait paths; photo creation through LAM remains unavailable while its exact weight terms are unresolved.
 - Evaluate streaming/cancellation and advertised languages for any new voice model on actual hardware; a consent phrase is an attestation, not identity proof or comprehensive compliance.
 - Demonstrate editing/creation outside the live conversation path so preparation never causes call lag.
+- Add extended versioned persona/asset metadata persistence, provenance, scoped retention/deletion and migrations only for the creation/studio features that need them; preserve first-product public settings and credential separation.
 
 Evidence:
 
@@ -963,6 +1090,7 @@ Acceptance:
 - Vision requests explicit camera/screen consent, has a visible indicator, validates model licenses, and keeps perception inference off the media event loop.
 - Do not infer sensitive emotions or enable prohibited workplace/education emotion use through a generic perception switch; document the use-case boundary and evidence.
 - Measure long-tool/vision behavior, prompt-injection resistance at tool boundaries, interrupted actions, and grounded spoken/canvas responses separately from the base benchmark.
+- Keep tutor tools, general context/tools and computer execution as distinct capabilities. Computer actions require the later T30 permission/executor boundary; document content, screen text or provider output cannot grant that authority.
 
 Evidence:
 
@@ -1020,3 +1148,61 @@ Acceptance:
 Evidence:
 
 - Not recorded; acceptance is unverified.
+
+<a id="t30"></a>
+
+#### T30: Add opt-in permission-controlled personal computer assistance
+
+Status: **todo**. Owner: Unassigned. Dependencies: T02, T13, T27.
+
+After the first interaction release, a user can grant a bounded computer task to a local executor, observe verified progress/results and pause or revoke access while the same companion conversation remains responsive. Teaching is an independent capability.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `packages/core/src/opentavus_core/actions/`
+- `packages/runtime/src/opentavus_runtime/tasks/`
+- `plugins/computer/`
+- `apps/api/src/opentavus_api/permissions/`
+- `apps/web/src/features/tasks/`
+- `tests/integration/computer/`
+- `docs/computer-use.md`
+
+Acceptance:
+
+- Start on one named OS with one reversible browser/file workflow and pinned reviewed open-source libraries. Evaluate DOM/accessibility-first automation and desktop fallback; computer packages/permissions remain absent from the initial interaction install.
+- Validate action proposals and grants scoped to task, app/window/site/folder, action types and duration. Recheck scope/target at execution; deny ungranted changes and verify allow/deny/revoke/expiry, changed destination and prompt-injection cases.
+- Authorize useful task scope without a dialog per click; obtain explicit authorization for the relevant send/publish/purchase/destructive operation. Provider credentials, documents/screens and generated proposals cannot expand user authority.
+- Own task/action IDs and executor queues separately from speech generations, outside the live media loop. Provide distinct stop-speaking and pause/cancel-work controls; reject unstarted actions after revocation and report already completed effects.
+- Verify action outcomes and bounded receipts, idempotency where supported, cleanup and explicit unknown outcomes after uncertain failures. Never blindly retry consequential work or describe cancellation as rollback. Keep private screens/documents/transcripts out of default diagnostics.
+- Optionally adapt OpenCode server/SDK sessions, events, abort and permission requests to this boundary; preserve one permission/task owner. Demonstrate real OS workflow and a separately approved final action before advertising support, and verify ordinary conversation/media and teaching regression independently.
+
+Evidence:
+
+- 2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted.
+
+<a id="t31"></a>
+
+#### T31: Add validated custom GLB and VRM avatar imports later
+
+Status: **todo**. Owner: Unassigned. Dependencies: T05, T13.
+
+Users can later bring a compatible independently licensed avatar with actionable rig/shape validation and the same media/cleanup contract.
+
+Owned paths (proposed responsibilities, not an existence check):
+
+- `apps/web/src/features/avatar/import/`
+- `plugins/avatar/talkinghead/`
+- `packages/core/src/opentavus_core/assets/`
+- `tests/integration/avatar-import/`
+- `docs/plugin-contract.md`
+
+Acceptance:
+
+- Retain former T05 custom-GLB requirements as explicit later work: validate a bounded supported rig/morph/asset contract, dimensions, external references, terms/provenance and incompatibility errors before activating.
+- Normalize through the common renderer/playout contract without a second speech queue; support interruption, reduced motion, failed preparation and idempotent disposal.
+- Treat arbitrary VRM conversion as a separate measured compatibility slice. Publish supported/unsupported assets and real browser speech/perceptual evidence; a sample stock GLB does not prove imports.
+- Preserve provider/voice choices and user data when import fails or a plugin is absent. Coordinate later studio metadata/storage rather than forcing it into the first interaction release.
+
+Evidence:
+
+- 2026-10-05: Added by T27/D30 scope alignment. Implementation and live acceptance remain unexecuted.

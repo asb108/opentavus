@@ -86,6 +86,24 @@ Treat plugins as trusted installed code. Discovery is not a sandbox for arbitrar
 
 ## Typed adapter behavior
 
+### Planned hosted LLM selection
+
+T28 adds the [provider contract](provider-contract.md). Keep the default local
+artifact eligibility rules and separate the adapter's reviewed code/artifacts
+from the user's explicit external-service choice. Provider-declared model identity
+and service terms do not become a verified weight license. Do not fabricate a
+weight artifact to fit a hosted route into a local manifest. The required typed
+profile/selection change and its validation tests belong to T28; hosted activation
+does not work in the current alpha.
+
+Reuse the core language-model and schema-directed teaching boundaries. Keep
+provider events/SDKs and server secret resolution in the adapter/composition
+layer. Only the runtime dispatches validated teaching proposals, using browser
+applied-result acknowledgements. Computer permissions stay in the future T30
+boundary; installing a model adapter grants none.
+
+### Engine lifecycle and output
+
 Construct adapters using a validated descriptor/profile and injected artifact store, telemetry, and cancellation context. Keep interfaces appropriate to their kind:
 
 - STT emits partial/final transcripts with audio time ranges and provides finalization behavior.

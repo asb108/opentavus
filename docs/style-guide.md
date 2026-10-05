@@ -27,6 +27,14 @@ bound queues, close partial initialization, and reject generation results after
 cancellation. Use a structured, actionable public error. Default diagnostics exclude
 raw exceptions containing request data, credentials, transcripts and media.
 
+Keep provider HTTP/SDK formats behind the model/planning adapter and construct
+selected resources at the composition root. The runtime owns validated teaching
+dispatch and applied-result acknowledgements. Future computer action authorization
+belongs to its permission/executor boundary, not a prompt or provider credential.
+Keep the conversation lifecycle independent of roles such as tutor. A capability
+error must not break unrelated interaction; advertise each function from its own
+validated inputs, permissions and observed results.
+
 ## TypeScript and React
 
 Use strict TypeScript, named types at the network/media boundary, `camelCase`

@@ -9,7 +9,7 @@ The default product makes no proprietary inference request. Installation downloa
 | Speech | [Kokoro 82M](https://huggingface.co/hexgrad/Kokoro-82M), [ONNX model files](https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.1) | Apache-2.0 weights, exact ONNX/voice-file digests. Bounded phrase synthesis followed by 80 ms PCM packets; this is chunk-adapted synthesis, not native token streaming. |
 | Voices | [Kokoro voice notes](https://huggingface.co/hexgrad/Kokoro-82M/blob/f3ff3571791e39611d31c381e3a41a3af07b4987/VOICES.md): `af_heart`, `af_bella`, `am_michael`, `bf_emma` | Curated English presets under the reviewed model terms. Other bundled voice/language provenance can carry additional restrictions/attribution and is not enabled. No voice cloning in this alpha. |
 | Voice activity | [Silero VAD](https://github.com/snakers4/silero-vad), supplied by Pipecat's pinned runtime | MIT ONNX VAD. Speech end currently uses silence/segmentation. Smart Turn is not integrated yet. |
-| Character | Original OpenTavus Orbit/Lumen renderer | Apache-2.0 repository code; no downloaded face/rig. Mouth energy follows played audio. No photo cloning, GLB import, or validated phoneme lip-sync claim. |
+| Character | Curated photographic Einstein/Mira; original Orbit/Lumen and optional stock 3D alternatives | Source/preparation rights are separate from model terms; see [Einstein](../assets/stock/einstein/README.md) and [Mira](../assets/stock/photographic/README.md). Photographic mouth cues use Kokoro durations on the played-audio clock. Perceptual precision/full naturalness, custom import and live neural-video claims remain open. |
 
 ## Exact language manifests
 
@@ -32,3 +32,15 @@ The lightweight core/development install and tests exclude the model group. All 
 Only curated installed models are selectable. The API rejects arbitrary model names, unreviewed digest changes, remote endpoints, and unsupported voices before preparing a call. Manifests separate code and weight artifacts from capabilities and validate execution/configuration. Runtime failures produce sanitized messages; raw provider output is not a default diagnostic.
 
 New STT/LLM/TTS/voice/avatar models can be contributed through [the plugin contract](plugin-contract.md). Include exact terms and artifact digests, deterministic behavior, and real hardware results before advertising speed or language support. LAM and GPU portrait paths remain separately reviewed future plugins.
+
+## Planned compatible and hosted LLM choices
+
+The [first-product plan](product-plan.md) adds user-selected compatible/self-hosted
+endpoints and hosted gateways such as OpenRouter under T28. Conversation-only
+routes remain useful; teaching needs its own tested capability. The table above is the
+current local artifact set, not a claim that those routes already work. Preserve
+the reviewed open-model reference profile; optional external models/services keep
+their own terms, routing, charges and provider-declared identity. Their credentials
+stay on the server. See [the provider contract](provider-contract.md) for capabilities,
+configuration, failure behavior and separate live evidence. OpenCode is a later
+agent/server bridge, not another weight artifact in this matrix.

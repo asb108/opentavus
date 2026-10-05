@@ -2,7 +2,16 @@
 
 ## Start here
 
-Read `README.md`, `docs/design.md`, and your assigned task in `docs/tasks.json`. Read `docs/plugin-contract.md` for engine/asset work and `docs/quality.md` for runtime/media work. `docs/plan-review.md` is historical research; the current design governs implementation scope.
+Read `README.md`, `docs/product-plan.md`, `docs/design.md`, and your assigned task in `docs/tasks.json`. Read `docs/plugin-contract.md` for engine/asset work, `docs/provider-contract.md` for provider work, and `docs/quality.md` for runtime/media work. Later computer work reads `docs/computer-use.md`. `docs/plan-review.md` is historical research; the current product plan/design govern implementation scope.
+
+The first product is natural human–AI interaction, with local/open and explicitly
+configured hosted LLM choices. Teaching on a shared board is its first optional
+capability, while ordinary conversation works independently of that role. Hosted
+providers are planned T28 work; human interaction review is T29. Personal computer
+control and an optional OpenCode agent bridge are later T30 work. LAM integration
+and custom 3D imports are later extensions, while optional-component absence and
+the chosen renderer's quality remain first-product checks. Visible AI disclosure
+stays part of the experience. Do not claim these planned routes are implemented.
 
 This repository contains a local alpha: typed core, runtime, FastAPI control server, React/Vite call/settings/teaching UI, optional Whisper/Kokoro/Ollama adapters, a synthetic fixture, and prepared photographic Einstein and Mira with static, 3D and cartoon alternatives. Photographic motion is finite; Kokoro supplies validated packet-relative phoneme cues on the played-audio clock, with an explicit energy fallback for untimed engines. Perceptual phoneme accuracy and full natural emotional behavior remain open. Einstein is an explicitly labeled historical AI portrayal using a reviewed public-domain photo and an independent synthetic preset voice. Mira's selected source image is an explicitly authorized one-time OpenAI creation; an open-model source/recipe is also retained. Live inference and animation use local/open components. LAM, custom GLB/VRM import, remote workers, and full v0.1 quality proof remain open. Inspect the checkout and task evidence before claiming support.
 
@@ -11,6 +20,8 @@ This repository contains a local alpha: typed core, runtime, FastAPI control ser
 - State the task ID, owned paths, required behavior, and verification before editing. Check dependencies and existing work. Preserve changes from other contributors.
 - Use the smallest working change that meets the task's acceptance criteria. Implement typed boundaries and straightforward functions. Create an abstraction when a required second implementation needs it.
 - Keep domain contracts independent of FastAPI, Pipecat, model packages, and UI libraries. Adapt existing Pipecat facilities rather than duplicating its pipeline.
+- Keep provider SDK/events inside adapters and credentials in server-held configuration. The runtime validates and dispatches teaching proposals; provider output grants no computer permissions. Keep future task/action lifecycles separate from speech generations.
+- Keep the interaction lifecycle independent of functional roles. Teaching and later computer assistance have explicit capabilities and their own failure/permission behavior; conversation-only models remain usable for the core experience.
 - Load engines lazily. The permissive base installation and its tests must work with every optional avatar plugin absent. LAM imports, dependencies, renderer code, and weights belong to its plugin.
 - Keep task/model output, uploaded assets, and profile configuration validated at their boundaries. Use structured errors and exclude credentials, transcripts, and media from default diagnostics.
 - Cancel every generated output path using generation IDs and browser playback acknowledgement. Preserve the user's drawings when a canvas tool changes agent-authored content.

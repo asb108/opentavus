@@ -7,14 +7,14 @@ This record distinguishes the user's requirements from engineering choices. Evid
 | D01 | User requirement | LAM remains pluggable and can be removed if circumstances require it | Plugin-absent/removal cases in T06 and T09 |
 | D02 | User requirement | Launch with several attractive free features; installation polish alone is insufficient | Demonstrate conversation, model/voice picker, and tutor canvas in T13 |
 | D03 | User requirement | Move quickly while keeping the experience responsive and contributions easy | Ordered vertical slices, independent ownership, and browser-perceived latency evidence |
-| D04 | User requirement | Use reviewed open/self-hostable models with accurate licenses; build a distinct project | Artifact manifests and launch proof in T01/T13 |
+| D04 | User requirement, extended by D30 | Retain reviewed open/self-hostable models with accurate licenses; additionally allow explicit hosted/compatible LLM choices with separate service/model terms | Local artifacts remain T01; hosted selection/provenance is T28 and full proof is T13 |
 | D05 | Engineering baseline | A modular monolith for the first app: Python runtime/API, React browser, external local LLM server; GPU engines isolated when necessary | T03/T10 show whether a process boundary is necessary; expand only for measured conflicts |
-| D06 | Engineering baseline | Three required launch experiences: responsive stock-avatar conversation, configured model/voice selection, shared tutor canvas | All three are release gates; a voice-only spike is an intermediate result |
-| D07 | Engineering baseline | One reviewed stock GLB supports the base; LAM animation/photo creation and a GPU portrait adapter are separately eligible plugins | T05/T06/T10 provide compatibility and quality evidence |
+| D06 | Baseline revised by D30 | Natural human–AI interaction is the core; independent local/hosted model/voice/character choice and teaching as the first optional capability are demonstrated at launch | T04/T05/T07/T08/T28/T29/T13 provide separate behavior and quality evidence |
+| D07 | Former implementation baseline, revised by D30 | First-product realism uses measured photographic candidates; custom GLB/VRM and LAM integration remain later optional extensions | T05/T29 evaluate current presentation; T31 retains import work and T06 remains reversible |
 | D08 | Engineering baseline | Select output audio route by a bounded spike; preserve one playout clock and generation cancellation for all renderers | T04 chooses and records track-based vs scheduled PCM playback with browser evidence |
 | D09 | Engineering baseline | Start with a measured native Apple Silicon profile, an explicitly tested CPU fallback, and a separate GPU profile | T01 selects exact checkpoints/versions; T12 publishes only measured targets |
 | D10 | Engineering baseline | Tools for the launch canvas are a fixed, schema-validated allowlist; general MCP/file/network actions follow later | T08 cancellation, scope, and rendering checks |
-| D11 | Engineering baseline | The three local launch experiences form the critical path; portrait and remote/network infrastructure require separate evidence only when advertised | T13 cannot advertise T10/T11 paths without their live checks; their absence does not block the local release |
+| D11 | Baseline revised by D30 | Natural human interaction and configured local/hosted LLM choice form the core first-product path; teaching has its own capability gate and GPU/network media, LAM and imports have conditional evidence | T13 verifies ordinary conversation and the first teaching capability separately; advertised T10/T11 paths need their own evidence |
 | D12 | Implemented core prototype | Metadata and factory entry points are separate; metadata names a top-level package so discovery reads its manifest without importing model code | Fresh-process fixture discovery and base-absent checks in T02 |
 | D13 | Implemented core prototype | Pydantic boundary schemas generate JSON Schema and TypeScript contracts; Python protocols/dataclasses remain separate domain interfaces | Generated-contract consistency, strict typing, and PCM/event behavior checks in T02 |
 | D14 | Verified development baseline | Python 3.12 and Node.js 22+ with committed uv/npm lockfiles; CI installs the tested uv 0.7.1 | Local core checks on Python 3.12.11/Node.js 26.8.2 and successful GitHub Ubuntu/Python 3.12/Node 22 [CI run](https://github.com/asb108/opentavus/actions/runs/37003812605); this establishes core tooling support, not live conversation support |
@@ -112,3 +112,52 @@ Pipecat and `Conversation` retain their present responsibilities during this tri
 A future Agents migration would transfer orchestration to one owner with ported
 behavior cases. No LiveKit implementation or latency gain is claimed by T25;
 T26 and the broader quality/network tasks retain their unexecuted acceptance.
+
+## D30: Human interaction first, teaching as a capability, computer assistance later
+
+2026-10-05 / T27. The user clarified the first scope: natural human-like appearance,
+speech and behavior, teaching with notes/diagrams on the board, and interchangeable
+LLM backends including self-hosted endpoints and user-key hosted services such as
+OpenRouter. Later the same interaction should carry out computer tasks through
+permissions and open-source computer-use libraries.
+
+The user then clarified that this is broader than a tutor: the product centers on
+the best achievable natural human–AI interaction, and teaching is one function.
+Ordinary conversation and the interaction lifecycle therefore work independently
+of teaching. The first release still demonstrates board teaching, with separate
+capability availability, failure and correctness checks. Later computer assistance
+extends the same interaction through its own permissions and task lifecycle.
+
+Keep the open-source application and complete reviewed open-model profile. Add
+explicit external-service selection with provider-declared identity, service/model
+terms, data routing and cost limits. This extends the earlier open-model-only
+requirement rather than relabeling hosted services as open models. OpenRouter
+fits a model adapter; current OpenCode documentation describes an agent server
+with sessions/tools/permissions, so its optional bridge belongs to the later
+assistant boundary. Primary sources are recorded in [the provider contract](provider-contract.md).
+
+Treat human-to-human feel as an ambitious quality target while retaining visible
+AI/synthetic-voice identity. Add a pre-registered human-review and teaching-correctness
+baseline (T29), and retain existing latency/stop/sync/reliability gates. The first
+release requires realistic presentation and local/hosted conversational evidence,
+with separate evidence for the teaching capability; current
+prepared motion is bounded evidence, not full naturalness proof.
+
+Revise T05 from stock-GLB/import implementation to realistic photographic behavior.
+Retain custom GLB/VRM acceptance in later T31, move reversible LAM integration to
+later T06, and remove those optional implementations from T12/T13 prerequisites.
+Keep extended persona/asset persistence with later T14 rather than requiring a
+database for live interaction. T28 and T29 become release dependencies. LiveKit remains
+an optional measured transport choice, before scaling and outside the interaction product's
+mandatory critical path.
+
+Keep one conversation owner and framework-free model/planning contracts. Future
+computer tasks have independent task/action IDs, bounded executors, scoped user
+grants and verified receipts. Speech interruption cannot undo executed effects,
+and provider credentials or untrusted content cannot grant computer permission.
+T30 begins after T13; its packages/actions remain absent from the initial interaction product.
+
+The [product plan](product-plan.md), [design](design.md), [provider boundary](provider-contract.md)
+and [computer-use boundary](computer-use.md) record the current scope. This is a
+planning change; no hosted provider, full naturalness or computer executor is
+implemented or proved by these documents.

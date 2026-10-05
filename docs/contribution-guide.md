@@ -2,6 +2,10 @@
 
 You can improve this product without owning a GPU or replacing the whole pipeline. Start with [CONTRIBUTING.md](../CONTRIBUTING.md), run `make setup` and `make check`, then choose one observable improvement. Open an issue describing the behavior and intended paths before larger changes.
 
+Read [the product plan](product-plan.md) first: natural human–AI interaction and
+selectable reasoning backends are the core. Teaching is the first optional
+capability; computer control is later optional work.
+
 ## Good small starting points
 
 | Work | Start in | What a useful contribution proves |
@@ -17,6 +21,9 @@ You can improve this product without owning a GPU or replacing the whole pipelin
 | Add a safe teaching example | `packages/runtime/tests/test_tools.py`, `apps/web/tests/board.test.ts` | A real valid or invalid model-output case checks the producer and browser boundary without copying implementation. |
 | Report Linux live behavior | [local quickstart](quickstarts/local.md), [quality guide](quality.md) | Exact hardware, versions, model digests, warm/cold state, failures, and public synthetic questions; a build alone is not performance proof. |
 | Compare a call transport | [T26 transport trial](transport-review.md), existing microphone and playout boundaries | Claim one slice of T26: pinned optional setup, scoped joins, or a comparable receiver timing/cleanup case. Reuse Pipecat and local models; distinguish a room connection from actual synchronized speech. |
+| Improve provider failure behavior | [T28 provider contract](provider-contract.md), API/runtime fixtures | One missing-key, malformed-stream, unsupported-schema or cancellation case with actionable errors and no leaked secrets; mocks are separate from a real hosted call. |
+| Improve a teaching diagram | T08, `packages/runtime/src/opentavus_runtime/tools.py`, board checks | Reviewed labels/connections and a current-state follow-up; preserve user edits and applied-result ACKs. A rendered graph alone is not lesson correctness. |
+| Prepare interaction evaluation cases | [T29 quality guide](quality.md), `benchmarks/interaction/` | A representative redistributable script/capture with fixed review criteria, observation boundaries and failed cases retained. |
 | Add a reviewed local model | `downloads.json`, `scripts/plugin_manifests.py`, API enum, generated schemas | Exact component terms and digest, eligibility behavior, truthful memory guidance, and live quality/timing evidence. Coordinate this contract change first. |
 
 These are contribution ideas, not assigned issues. Check current issues and task ownership before starting. A fix inside a roadmap task can cite that task without marking every acceptance criterion complete.

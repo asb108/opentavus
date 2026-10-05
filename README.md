@@ -2,7 +2,16 @@
 
 [![Checks](https://github.com/asb108/opentavus/actions/workflows/core.yml/badge.svg)](https://github.com/asb108/opentavus/actions/workflows/core.yml)
 
-An open-source AI companion you can talk to, learn with, and build on. It runs local speech and language models, animates a character as it speaks, and shares a drawing board with you. No API key or subscription is required.
+An open-source human-like AI companion you can talk to, learn with, and build on.
+The first product centers on natural conversation with a realistic AI human.
+Teaching on a shared board is its first useful capability; later capabilities
+extend the same interaction. The current local alpha runs speech and language
+models on your computer and requires no API key or subscription.
+
+The [product plan](docs/product-plan.md) adds configurable hosted/compatible LLMs
+alongside the reviewed open-model profile, and places permission-controlled
+computer assistance in a later phase. Those capabilities are planned work; the
+current alpha and its measured limits are described below.
 
 **Current product: local alpha on `main`.** You can try the conversation, independent model/voice/character settings, a photographic Einstein AI portrayal, Mira, and the teaching board now. The earlier `v0.1.0-alpha.1` tag preserves its original preview. This is an early single-user application. Response speed and generated lesson quality still vary; the full v0.1 [quality targets](docs/quality.md) remain open.
 
@@ -110,7 +119,9 @@ or precise lip-sync claim.
 
 ## Project map
 
-- [Current design](docs/design.md) and [decisions](docs/decisions.md): implemented boundaries and future direction.
+- [Product plan](docs/product-plan.md): human-interaction core, independent capabilities, delivery order and later computer assistance.
+- [Current design](docs/design.md) and [decisions](docs/decisions.md): architecture, implemented boundaries and reasons.
+- [Provider contract](docs/provider-contract.md) and [future computer use](docs/computer-use.md): planned model and action boundaries.
 - [Roadmap](docs/roadmap.md): work, dependencies, ownership, acceptance criteria, and evidence.
 - [Plugin contract](docs/plugin-contract.md): add an engine without coupling the core to its packages.
 - [Quality gates](docs/quality.md) and [alpha release notes](docs/releases/0.1.0-alpha.1.md): measured behavior and remaining targets.

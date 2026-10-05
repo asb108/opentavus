@@ -21,7 +21,14 @@ To run real models, follow [the local quickstart](docs/quickstarts/local.md). `m
 
 Check [issues](https://github.com/asb108/opentavus/issues), [contribution ideas](docs/contribution-guide.md), and `make plan-status`. The [task source](docs/tasks.json) records outcomes, dependencies, paths, owners, and acceptance checks. Roadmap tasks can be large: propose a bounded issue or subtask rather than claiming an entire milestone. Ask in the issue whether another contributor is touching the same boundary.
 
-Read [the design](docs/design.md), the relevant task, and [the style guide](docs/style-guide.md). Engine or asset work also reads [the plugin contract](docs/plugin-contract.md); runtime/media work reads [quality requirements](docs/quality.md). Agents start with [AGENTS.md](AGENTS.md). Historical research is context, not an instruction to implement everything it mentions.
+Read [the product plan](docs/product-plan.md), [the design](docs/design.md), the
+relevant task and [the style guide](docs/style-guide.md). Engine/asset work reads
+[the plugin contract](docs/plugin-contract.md); provider work reads
+[the provider contract](docs/provider-contract.md); runtime/media work reads
+[quality requirements](docs/quality.md). Later computer work reads
+[its execution/permission boundary](docs/computer-use.md). Agents start with
+[AGENTS.md](AGENTS.md). Historical research is context, not an instruction to
+implement everything it mentions.
 
 Before editing, state the task/issue, owned paths, intended user behavior, and verification. Preserve others' changes. Coordinate public contract changes before downstream implementation depends on them.
 

@@ -3,6 +3,11 @@
 Reviewed 2026-10-05 / T25. This is an architecture decision and a specification
 for T26's trial. LiveKit is not installed or integrated in the current app.
 
+T27's [product clarification](product-plan.md) prioritizes natural human–AI
+interaction and local/hosted LLM choice, with teaching as the first optional
+capability. The transport comparison is optional
+and does not gate those first-product features; room scaling remains later work.
+
 ## Recommendation
 
 Keep Pipecat as the current conversation integration and evaluate **self-hosted
@@ -11,10 +16,11 @@ SmallWebRTC local profile while the comparison runs. LiveKit is the preferred
 networked candidate; adopting it depends on measured experience and maintenance
 cost, not popularity or a room-join demonstration.
 
-The user's requirements remain local/open inference, a removable avatar stack,
-good interaction without NVIDIA, fast progress, and easy contributions. A media
-server transports generated speech/video; avatar realism and model inference
-speed still have their own requirements.
+Retain a reviewed local/open profile and a removable avatar stack, good interaction
+without NVIDIA, fast progress and easy contributions. T27 additionally permits
+explicit configured hosted reasoning. Compare media routes using the same selected
+reasoning profile. A media server transports generated speech/video; avatar realism
+and model inference speed still have their own requirements.
 
 ## What the current code actually does
 
