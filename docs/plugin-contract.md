@@ -130,6 +130,25 @@ A model-artifact cleanup is a separate explicit action from removing the plugin.
 
 ## Contributing an adapter
 
+### Optional call transports
+
+T26 evaluates an optional LiveKit deployment adapter through Pipecat's existing
+`LiveKitTransport`; see [the transport review](transport-review.md). A call
+transport is a composition/deployment choice, not an STT/TTS/avatar engine kind.
+It does not register in the current model manifest/catalog as a fabricated engine.
+Keep its Python/browser dependencies and imports optional, with base checks and
+the local profile usable when they are absent. Add a small shared transport seam
+only when the second working implementation demonstrates its needed operations.
+
+Changing the carrier preserves validated generation/sample/operation fields,
+sender scope, deadlines and browser acknowledgements. Reliable room delivery
+does not replace a playback or canvas ACK. The chosen output still owns one
+clock; renderers cannot add a second audio queue. Port observable cancellation,
+late-output, heard-history, board ownership and cleanup checks before adoption.
+Record pinned server/SDK/transitive terms separately from selected model terms.
+
+### Engine submissions
+
 An adapter contribution supplies the manifest, implementation, configuration/asset examples, exact license sources, contract fixtures, and real timing evidence for any advertised hardware claim. Reuse one common contract suite for ready/stream/interrupt/late-output/close/failure behavior; add backend-specific cases only where they reveal actual behavior. Most contract checks must run without downloading large models or contacting a paid API.
 
 Run the plugin-absent base checks and the plugin-selected tests. Record fixture proof separately from real model/browser proof. Missing exact licenses or hardware evidence restricts advertisement/eligibility, not the ability to contribute a clearly labeled adapter draft.

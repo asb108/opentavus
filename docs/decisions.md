@@ -89,3 +89,26 @@ New settings prefer Einstein; valid existing voice/model/character preferences
 remain unchanged. Historical identity is explicitly an educational AI portrayal
 with preset synthetic voice, no invented memories/quotations or endorsement.
 Full natural behavior/perceptual alignment/live-video quality remains separate.
+
+## D29: Evaluate LiveKit transport early while keeping one conversation owner
+
+2026-10-05 / T25. The user suggested LiveKit to simplify the architecture and
+invited a better alternative. The current app uses Pipecat SmallWebRTC for input
+and a separate acknowledged PCM/Worklet output path. Pipecat 1.12.0 already
+provides a LiveKit adapter; the optional LiveKit packages are absent. Primary
+documentation confirms self-hosting and distinguishes the Server from Agents.
+The [transport review](transport-review.md) compares SmallWebRTC, Pipecat/LiveKit,
+LiveKit Agents and mediasoup against this checkout.
+
+Select self-hosted LiveKit with the existing Pipecat adapter as the preferred
+deployed-call candidate. Keep the local profile simple and run T26 before room
+scaling. Move the transport trial out of T17; keep worker/capacity work separate.
+Adoption must simplify actual maintained connection code and setup while passing
+the same played-audio, interruption, lip-sync, board ACK and cleanup checks.
+Clearing a server audio source and reliable room delivery do not establish
+browser playout or applied-state recovery. Preserve D08/T04's media comparison.
+
+Pipecat and `Conversation` retain their present responsibilities during this trial.
+A future Agents migration would transfer orchestration to one owner with ported
+behavior cases. No LiveKit implementation or latency gain is claimed by T25;
+T26 and the broader quality/network tasks retain their unexecuted acceptance.

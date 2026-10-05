@@ -182,7 +182,7 @@
       ],
       "outcome": "One media clock governs audible speech, avatar timing, and canvas cues; an interruption stops every obsolete output path.",
       "acceptance": [
-        "Run a bounded comparison of track-based WebRTC playout and scheduled PCM/AudioWorklet against echo, jitter, sync, interruption, and browser-observed latency; choose one and record D08 evidence.",
+        "Run a bounded comparison of track-based SmallWebRTC/LiveKit playout and scheduled PCM/AudioWorklet against echo, jitter, sync, interruption, and browser-observed latency; use T26 evidence when available, choose one output implementation and record D08. The optional network trial does not block choosing a validated local route.",
         "Generation IDs cancel LLM/TTS/avatar/tool production, purge queues, reject late output, and receive browser stop acknowledgement under deadlines.",
         "Handle pauses, backchannels, corrections, bounded queue overflow, sample-rate conversion, and reconnect with the replay corpus.",
         "Measure useful reply latency, interruption recognition, playback stop, underruns, and timing uncertainty on a real browser/model profile using the quality definitions.",
@@ -384,7 +384,7 @@
       ],
       "outcome": "Selected engines can run in an isolated worker, and any published network path has measured authentication, traversal, and cancellation behavior.",
       "acceptance": [
-        "Use real adapter message shapes to finalize the minimal versioned worker transport; compare WebSocket/protobuf complexity with actual needs before adding another protocol.",
+        "Use real adapter message shapes to finalize the minimal versioned worker transport; compare WebSocket/protobuf complexity with actual needs before adding another protocol. Reuse a T26-selected LiveKit media/data carrier where appropriate, keeping room transport distinct from engine job/capability/cancellation semantics.",
         "Implement authenticated capability/ready/control/media messages, bounded queues, deadlines, reconnect, remote clock/sample rules, and generation cancellation.",
         "Demonstrate local-worker and remote-worker behavior with fixtures; run real selected hardware before advertising a GPU remote profile.",
         "Verify HTTPS/signaling, scoped expiring session authorization, and STUN/TURN traversal on the cross-network browser profile, including jitter/slow-client cases.",
@@ -546,17 +546,17 @@
       "owner": null,
       "depends_on": [
         "T11",
-        "T13"
+        "T13",
+        "T26"
       ],
       "owns": [
         "workers/pool/",
-        "plugins/transport/livekit/",
         "deploy/rooms/",
         "benchmarks/capacity/"
       ],
       "outcome": "Support larger self-hosted deployments only after per-session capacity and failure behavior are understood.",
       "acceptance": [
-        "Add rooms/LiveKit only when the deployment needs them; separately audit code, infrastructure, and turn-detector model terms.",
+        "Scale the transport selected by the early T26 comparison only when the deployment needs concurrent rooms; separately audit code, infrastructure, and any turn-detector model terms. Transport adoption does not establish worker-pool or full-pipeline capacity.",
         "Measure concurrent full-pipeline sessions, resource quotas, admission/backpressure, queue delay, and recovery; do not derive call capacity from avatar-only FPS.",
         "Keep session authorization, tenant/resource isolation, generation cancellation, and transcript/media retention correct during worker loss and reconnect.",
         "Run reproducible capacity and cross-network tests on named hardware, publish realistic costs/limits, and preserve the simpler local profile.",
@@ -948,6 +948,82 @@
         "Native 512-pixel VP8/Opus capture published under docs/releases/einstein-portrait-preview.webm: 7.158 seconds, 213 actual video frames (timestamp average 29.65 FPS) and 118 audio packets. Container-only -c copy remux preserves media timing; drawing cadence and encoded timestamps are recorded separately. In-app browser now selects Einstein with ready=true, portrayal disclosure, and existing Qwen/Heart voice retained.",
         "Full historical factual grounding, perceptual phoneme accuracy, natural emotions/live video, Windows/weak-PC and long-call quality remain unverified. Source push and exact-source CI pending; task remains in_progress.",
         "2026-10-04 completion: implementation c347cc96cd11fe7214f7a91276e46528aeb6ab4b pushed to public asb108/opentavus main. Exact source CI https://github.com/asb108/opentavus/actions/runs/37159070585 succeeded on Linux/Python 3.12/Node 22 for setup/check/demo/base-check without inference models. All bounded T24 acceptance is evidenced in docs/releases/einstein-portrait-evidence.json, the source/asset records and native public capture. Einstein is selected/ready in the user preview with existing model/voice preserved. No full natural behavior, Tavus equivalence, weak-PC/Windows or larger T05/T10/T13 completion claim."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "T25",
+      "title": "Review LiveKit and alternatives against the actual call architecture",
+      "milestone": "G0",
+      "status": "done",
+      "owner": "Codex / Atul",
+      "depends_on": [
+        "T02",
+        "T18"
+      ],
+      "owns": [
+        "README.md",
+        "docs/transport-review.md",
+        "docs/design.md",
+        "docs/decisions.md",
+        "docs/plugin-contract.md",
+        "docs/quality.md",
+        "docs/contribution-guide.md",
+        "docs/tasks.json",
+        "docs/roadmap.md"
+      ],
+      "outcome": "Choose a supported transport candidate from current code and primary-source evidence, and give contributors an early measured trial without claiming an unimplemented migration.",
+      "acceptance": [
+        "Inspect actual API, microphone, Pipecat, generation, board acknowledgement and browser output-clock ownership; verify installed/pinned dependency metadata before recommending a framework change.",
+        "Compare current SmallWebRTC, Pipecat with self-hosted LiveKit, LiveKit Agents and a lower-level SFU alternative using primary sources. Distinguish server, agent framework, hosted inference, model and avatar responsibilities.",
+        "Specify an optional early trial with one conversation owner, open/local model reuse, validated sender/session/data boundaries, base independence and receiver-observed cancellation/synchronization evidence.",
+        "Update canonical design/contract/quality/decision documents and task dependencies; regenerate/check the roadmap and local links. Keep source review separate from live transport, latency, room and Internet proof."
+      ],
+      "evidence": [
+        "2026-10-05: User suggested LiveKit to simplify the architecture and invited alternatives. Inspected clean a1f5e34 main, current API admission/signaling, Microphone peer/heartbeat, Pipecat input, Conversation orchestration and PCM/Worklet output. Installed pipecat-ai 1.12.0 exposes a LiveKit adapter; livekit, livekit-api and livekit-agents are absent.",
+        "Primary-source review in docs/transport-review.md selects Pipecat plus self-hosted LiveKit as the deployed-call candidate, retains current local simplicity, and specifies T26 before T17 scaling. Source AudioSource clearing and best-effort data delivery cannot substitute for browser playback/tool ACKs. No transport installation or live run occurred. Initial make plan-render, make plan-check and make plan-status passed: 27 tasks, acyclic graph, completion consistency, generated roadmap and 146 local links; git diff --check passed. All four bounded review criteria have positive source/document evidence; live transport work stays in unexecuted T26."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "T26",
+      "title": "Measure an optional LiveKit transport against the local media routes",
+      "milestone": "G1",
+      "status": "todo",
+      "owner": null,
+      "depends_on": [
+        "T02",
+        "T18",
+        "T25"
+      ],
+      "owns": [
+        "plugins/transport/livekit/",
+        "deploy/livekit/",
+        "benchmarks/transport/",
+        "packages/runtime/src/opentavus_runtime/webrtc.py",
+        "packages/runtime/src/opentavus_runtime/conversation.py",
+        "apps/api/src/opentavus_api/",
+        "apps/api/tests/",
+        "apps/web/src/media/",
+        "apps/web/src/features/call/useConversation.ts",
+        "apps/web/tests/",
+        "packages/contracts/",
+        "scripts/browser-smoke.mjs",
+        "docs/transport-review.md",
+        "docs/decisions.md",
+        "docs/quality.md"
+      ],
+      "outcome": "A reproducible local/open-model comparison establishes whether LiveKit simplifies deployed calls while preserving observed playback, interruptions, avatar timing and teaching behavior; publish adoption or rejection evidence.",
+      "acceptance": [
+        "Pin and review the self-hosted server, Python/browser SDKs and transitive terms in an explicit isolated optional profile. Use the existing Pipecat LiveKitTransport and local models; model-free/base checks and the normal local profile work with the transport absent.",
+        "Replace custom microphone offer/answer/peer handling in a bounded input trial, reuse existing VAD/STT/Conversation behavior, and retain current output initially. Record the temporary hybrid as an intermediate result rather than simplified full architecture. Extract shared microphone processors only as needed so the selected LiveKit path does not import SmallWebRTC/aiortc for STT reuse.",
+        "Compare SmallWebRTC track output, LiveKit audio/data and current PCM/AudioWorklet with identical inputs/models/browser/warm-up. Establish receiver audio/sample timing and uncertainty, phoneme/caption synchronization, bounded buffering, Stop/late-output rejection and acknowledged heard-history; do not infer playback from source clearing.",
+        "Validate short-lived scoped grants, authorized identities and data directions, encoded sizes, missing-server/partial-preparation cleanup, end-call admission and still-valid-token rejoin rejection. Retain applied board ACKs, idempotency and user drawings across dropped data/reconnect; prove released tracks/tasks/owned rooms.",
+        "Publish sample counts, failures, receiver timing/capture, memory/media-server overhead, setup steps/processes/dependencies and custom code removed/retained. Record an adoption or rejection decision; any unpassed timing or lifecycle case remains visible under T04/T11/T13 rather than being counted as success.",
+        "Adopt one shared output implementation only after its relevant behavior gates pass; update D08/D29 and coordinated contracts. Any Internet or concurrency claim needs separate T11/T17 evidence. A bounded local room/model call does not complete full v0.1 quality."
+      ],
+      "evidence": [
+        "2026-10-05: T25 specified the comparison and moved transport evaluation ahead of late room scaling. This task is unexecuted: no LiveKit server/SDK installation, room, browser/model route, latency or network evidence."
       ],
       "blocker": null
     }

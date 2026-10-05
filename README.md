@@ -69,6 +69,12 @@ These checks cover the API/runtime with fake engines, cancellation and playback 
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md), the [style guide](docs/style-guide.md), and [small contribution ideas](docs/contribution-guide.md). A focused bug fix or better failure message is useful; you do not need to implement an entire roadmap task. Humans and coding agents follow [AGENTS.md](AGENTS.md) and the same review rules. Issues and pull requests have templates.
 
+For call architecture work, read the [LiveKit and transport comparison](docs/transport-review.md).
+Self-hosted LiveKit through Pipecat is the preferred candidate for deployed calls;
+T26 will compare it against the current local transport and playback before
+adoption. This is planned work: the current app uses SmallWebRTC input and
+AudioWorklet output and requires no LiveKit server.
+
 ## Models, privacy, and scope
 
 The curated Qwen weights and Kokoro model use Apache-2.0 terms; Whisper uses MIT. Exact revisions, voice restrictions, and runtime notices are recorded in the [model matrix](docs/models.md) and [third-party notices](THIRD_PARTY_NOTICES.md). Optional dependencies retain their own licenses, including the eSpeak NG runtime used for phonemization. The application code is [Apache-2.0](LICENSE).

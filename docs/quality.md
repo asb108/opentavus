@@ -92,6 +92,15 @@ Only measure cross-device timing after establishing the audio/sample timebase or
 
 ## Implementation strategy for responsiveness
 
+T26's [transport comparison](transport-review.md) uses these same definitions for
+SmallWebRTC tracks, LiveKit tracks/data and the existing PCM/AudioWorklet route.
+Record source buffering separately from receiver playback, generation stop,
+caption/phoneme scheduling and board acknowledgements. Include server/process
+overhead and setup/custom-code complexity in the adoption decision. A working
+room connection does not complete T04, establish Internet support or measure a
+full call. T26 remains an optional experiment; T11 owns advertised network proof,
+and T17 owns concurrent-room capacity.
+
 Warm selected models and prepared avatars before `ready`. During user speech, incrementally process audio, maintain bounded STT context, and finalize reliably. Stream short, usable LLM phrases to TTS; use non-thinking generation and avoid reading internal reasoning aloud. Tune phrase aggregation from measured audio naturalness and first-chunk delay.
 
 A confirmed interruption increments the generation, cancels LLM/TTS/avatar/tool production, purges old queues, and asks client playout to stop. Reject late callbacks/chunks. Keep independent stage/task deadlines and close resources even when initialization failed. Never run heavy blocking inference on the I/O event loop.

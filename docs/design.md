@@ -1,6 +1,6 @@
 # OpenTavus design
 
-Updated 3 October 2026. This is the implementation baseline for the full first release, with an earlier local alpha now implemented. [Tasks](tasks.json) record work and evidence. The user's requirements and preview choices are recorded in [decisions](decisions.md). The alpha does not complete the full v0.1 quality gates.
+Updated 5 October 2026. This is the implementation baseline for the full first release, with an earlier local alpha now implemented. [Tasks](tasks.json) record work and evidence. The user's requirements and preview choices are recorded in [decisions](decisions.md). The alpha does not complete the full v0.1 quality gates.
 
 ## Historical scientist portrayal (T24)
 
@@ -198,7 +198,24 @@ T04 runs a bounded media-route comparison: WebRTC audio with animation aligned t
 
 Measure actual useful output, not canned acknowledgements or silence. A subtle listening/working indicator communicates state, but is not counted as a faster answer. Warm models and prebuilt avatar assets before marking the call ready. Surface long cold starts and missing downloads before connection.
 
-SmallWebRTC handles the initial single-user transport. Any advertised cross-network profile includes signaling, HTTPS, and tested STUN/TURN, regardless of whether LiveKit is installed. Sources: [SmallWebRTC](https://docs.pipecat.ai/api-reference/server/services/transport/small-webrtc). Model clocks on different machines are not directly compared; use sample-index timebases and measured transport timing. Detailed targets: [quality gates](quality.md).
+SmallWebRTC handles the current single-user microphone transport. T25's
+[transport review](transport-review.md) selects self-hosted LiveKit through the
+existing Pipecat adapter as the preferred deployed-call candidate. T26 runs an
+early optional comparison of SmallWebRTC output, LiveKit tracks/data and the
+current PCM/AudioWorklet route before T17 room scaling. It reuses the local models,
+teaching tools and one conversation owner. An initial input-only hybrid preserves
+the output clock while isolating failures; adoption requires receiver playback,
+generation/board acknowledgements, cleanup and a recorded simplicity comparison.
+LiveKit Server and the Agents framework are separate choices; the transport trial
+adds no second agent pipeline. The normal local profile keeps its current setup
+while this experiment is unexecuted.
+
+Any advertised cross-network profile includes signaling, HTTPS, and tested
+STUN/TURN under T11, regardless of whether LiveKit is installed. Sources:
+[SmallWebRTC](https://docs.pipecat.ai/api-reference/server/services/transport/small-webrtc),
+[Pipecat LiveKit](https://docs.pipecat.ai/api-reference/server/services/transport/livekit).
+Model clocks on different machines are not directly compared; use sample-index
+timebases and measured receiver timing. Detailed targets: [quality gates](quality.md).
 
 ## API, persistence, and tools
 
@@ -214,4 +231,4 @@ Move quickly through working vertical slices: voice proof, reliable playback/can
 
 The launch release requires all three primary experiences and their [quality gates](quality.md). A validated local profile is sufficient; remote-worker infrastructure does not block that release. Optional GPU/LAM capabilities and cross-network deployments are advertised according to their actual eligibility and results. Broad OS/model claims follow measured profiles; a build alone does not establish live support. Publish raw benchmark context and explicit hardware requirements.
 
-Further milestones add consented voice/appearance creation, document-grounded tutoring, vision/screen input, general MCP tools, recordings/offline avatar-video jobs, and larger worker/LiveKit deployments. Keep the architecture open to them without implementing their scheduling, storage, and authentication infrastructure before those tasks need it.
+Further milestones add consented voice/appearance creation, document-grounded tutoring, vision/screen input, general MCP tools, recordings/offline avatar-video jobs, and larger worker/room deployments. The early LiveKit transport comparison is T26; scaling remains T17. Keep the architecture open to these extensions without implementing their scheduling, storage, and authentication infrastructure before those tasks need it.
